@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "prisma-panorama-diffsync"
+version = "0.1.0"
+description = "Django project that utilizes the diffsync library to manage configuration between Prisma SASE and Panorama"
+authors = ["Calvin Remsburg <cremsburg.dev@gmail.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+packages = [{include = "prisma_panorama_diffsync"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "4.1.5"
+psycopg2-binary = "2.9.5"
+environs = "9.5.0"
+asgiref = "3.6.0"
+crispy-bootstrap5 = "0.6"
+dj-database-url = "1.2.0"
+dj-email-url = "1.0.6"
+django-crispy-forms = "1.14.0"
+sqlparse = "0.4.3"
+django-allauth = "0.50.0"
+celery = {extras = ["redis"], version = "^5.2.7"}
+djangorestframework = "3.14.0"
+django-cors-headers = ">=3.10.0,<3.11.0"
+dj-rest-auth = "2.1.11"
+drf-spectacular = ">=0.25.0,<0.26.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+flake8 = "^6.0.0"
+ipython = "^8.11.0"
+ipdb = "^0.13.13"
+invoke = "^2.0.0"
+djlint = "^1.19.10"
+environs = "^9.5.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
