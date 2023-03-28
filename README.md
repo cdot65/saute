@@ -4,17 +4,24 @@
 
 Prisma Panorama Diffsync is a Django-based web application that allows users to manage their devices and configurations. This application utilizes Django Allauth for authentication and includes features like user login, logout, and signup.
 
-## 📦 Dependencies
+This application is designed to be run as Docker containers using the `docker-compose.yml` file.
+
+## 📦 Project Dependencies
+
+- Docker
+- Docker-Compose
+
+## 🛠️ Installation
+
+### Backend
+
+#### Dependencies
 
 - Django 4.1.5
 - PostgreSQL
 - django-allauth
 - django-crispy-forms
 - django-crispy-bootstrap5
-
-## 🛠️ Installation
-
-### Backend
 
 1. Clone the repository:
 
@@ -47,12 +54,18 @@ Prisma Panorama Diffsync is a Django-based web application that allows users to 
 
 5. Apply migrations and run the development server:
 
-  ```bash
-  python manage.py migrate
-  python manage.py runserver
-  ```
+    ```bash
+    python manage.py migrate
+    python manage.py runserver
+    ```
 
 Now visit http://127.0.0.1:8000 in your web browser to access the application.
+
+### Frontend
+
+- TBD
+
+A separate frontend has yet to be developed. For now, use the backend user interface to interact with the application.
 
 ## 🚧 Development
 
