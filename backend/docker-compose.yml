@@ -11,6 +11,8 @@ services:
     depends_on:
       - db
     environment:
+      - SENDGRID_API_KEY
+      - "SENDGRID_FROM_EMAIL=calvin@redtail.consulting"
       - "DJANGO_SECRET_KEY=c%kkzpz0r9w58q^26cjnkd^a1+i84-u7u%ei39u6hc0&u^i0j3"
       - "DJANGO_DEBUG=True"
       - "DJANGO_ALLOWED_HOSTS=['localhost', '127.0.0.1', '*']"
