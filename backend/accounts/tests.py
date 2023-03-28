@@ -1,5 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+from django.urls import reverse, resolve
+
+from .forms import CustomUserCreationForm
+from .views import SignupPageView
 
 
 class CustomUserTests(TestCase):
@@ -38,3 +42,21 @@ class CustomUserTests(TestCase):
             self.assertNotEqual(user.password, "testpassword")
         except AttributeError:
             self.fail("Password is not hashed.")
+
+
+class SignUpPageTests(TestCase):
+    def setUp(self):
+        url = reverse("signup")
+        self.response = self.client.get(url)
+
+    def test_signup_template(self):
+        self.assertTemplateUsed(self.response, "registration/signup.html")
+
+    def test_signup_form(self):
+        form = self.response.context.get("form")
+        self.assertIsInstance(form, CustomUserCreationForm)
+        self.assertContains(self.response, "csrfmiddlewaretoken")
+
+    def test_signup_view(self):
+        view = resolve("/accounts/signup/")
+        self.assertEqual(view.func.view_class, SignupPageView)
