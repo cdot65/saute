@@ -31,7 +31,7 @@ djangorestframework==3.14.0
 djlint==1.19.16
 drf-spectacular==0.25.1
 EditorConfig==0.12.3
-environs==9.5.0
+environs[django]==9.5.0
 executing==1.2.0
 flake8==6.0.0
 html-tag-names==0.1.2
