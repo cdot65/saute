@@ -22,5 +22,6 @@ urlpatterns = [
     # user management
     path("accounts/", include("allauth.urls")),
     # local apps
+    path("panosync/", include("panosync.urls")),
     path("", include("pages.urls")),
 ]
