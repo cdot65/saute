@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+{% block title %}
+    {{ panorama.hostname }}
+{% endblock title %}
+{% block content %}
+    <div class="panorama-detail">
+        <h2>
+            <a href="{{ panorama.get_absolute_url }}">{{ panorama.hostname }}</a>
+        </h2>
+        <ul>
+            <li>API Token: {{ panorama.api_token }}</li>
+            <li>IPv4: {{ panorama.ipv4_address }}</a></li>
+            <li>IPv6: {{ panorama.ipv6_address }}</a></li>
+        </ul>
+    </div>
+{% endblock content %}

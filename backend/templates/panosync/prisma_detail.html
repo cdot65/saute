@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+{% block title %}
+    {{ prisma.name }}
+{% endblock title %}
+{% block content %}
+    <div class="prisma-detail">
+        <h2>
+            <a href="{{ prisma.get_absolute_url }}">{{ prisma.name }}</a>
+        </h2>
+        <ul>
+            <li>Client ID: {{ prisma.client_id }}</li>
+            <li>Client Secret: {{ prisma.client_secret }}</li>
+            <li>TSG: {{ prisma.tsg }}</li>
+        </ul>
+    </div>
+{% endblock content %}

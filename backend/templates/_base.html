@@ -35,6 +35,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'about' %}">About</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'panorama_list' %}">Panorama</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'prisma_list' %}">Prisma</a>
+                        </li>
                         {% if user.is_authenticated %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
