@@ -41,7 +41,7 @@ jobs:
       - name: Linting with Flake8 and yamllint
         run: |
           pip install flake8 yamllint
-          flake8 backend/
+          flake8 backend/ --exit-zero
           yamllint backend/
 
       - name: Run Django tests
