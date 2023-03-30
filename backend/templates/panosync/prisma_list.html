@@ -6,7 +6,7 @@
     {% for each in prisma_list %}
         <div>
             <h2>
-                <a href="">{{ each.name }}</a>
+                <a href="{{ each.get_absolute_url }}">{{ each.name }}</a>
             </h2>
         </div>
     {% endfor %}
