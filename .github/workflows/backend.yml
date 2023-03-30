@@ -63,6 +63,8 @@ jobs:
           yamllint backend/
 
       - name: Build Docker images
+        env:
+          CPU_ARCHITECTURE: x86_64
         run: |
           docker-compose -f backend/docker-compose.yml build
 
