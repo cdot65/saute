@@ -35,6 +35,17 @@ jobs:
         with:
           python-version: 3.9
 
+      - name: Create .env file for GitHub Actions
+        run: |
+            cd backend
+            touch .env
+            echo "SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}" >> .env
+            echo "SENDGRID_FROM_EMAIL=${{ secrets.SENDGRID_FROM_EMAIL }}" >> .env
+            echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+            echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env
+            echo "DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }}" >> .env
+            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
