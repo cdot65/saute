@@ -72,9 +72,12 @@ jobs:
         run: |
           docker-compose -f backend/docker-compose.yml up -d
 
-      - name: Wait for web application to start and check logs
+      - name: Wait for web application to start
         run: |
           echo "Waiting for web application to start..."
           sleep 10
-          echo "Checking web container logs:"
-          docker-compose logs web
+
+      - name: Check if web application is running
+        run: |
+          cd backend
+          docker-compose exec -T web python manage.py test
