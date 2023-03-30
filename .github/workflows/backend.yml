@@ -18,7 +18,14 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-
+    env:
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
+        DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+        DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+        DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
