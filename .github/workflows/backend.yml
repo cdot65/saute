@@ -51,11 +51,6 @@ jobs:
           flake8 backend/ --exit-zero
           yamllint backend/
 
-      - name: Run Django tests
-        run: |
-          cd backend
-          python manage.py test
-
       - name: Build Docker images
         run: |
           docker-compose -f backend/docker-compose.yml build
@@ -66,4 +61,4 @@ jobs:
 
       - name: Check if web application is running
         run: |
-          curl -s http://localhost:8000/ | grep "Django"
+          docker-compose exec -T web python manage.py test
