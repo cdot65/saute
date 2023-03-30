@@ -23,5 +23,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # local apps
     path("panosync/", include("panosync.urls")),
+    path("api/v1/", include("api.urls")),
+    path("api-auth/", include("rest_framework.urls")),
     path("", include("pages.urls")),
 ]
