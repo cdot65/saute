@@ -1,8 +1,11 @@
+---
 version: "3.9"
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.${CPU_ARCHITECTURE}
     command: python /code/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
@@ -12,13 +15,7 @@ services:
       - db
     env_file:
       - .env
-    environment:
-      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
-      SENDGRID_FROM_EMAIL: ${SENDGRID_FROM_EMAIL}
-      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-      DJANGO_DEBUG: ${DJANGO_DEBUG}
-      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
-      DATABASE_URL: ${DATABASE_URL}
+
   db:
     image: postgres:14
     volumes:

@@ -1,6 +1,6 @@
-from django.contrib.auth import get_user_model
-from django.test import TestCase, Client
-from django.urls import reverse, resolve
+from django.contrib.auth import get_user_model, authenticate
+from django.test import TestCase
+from django.urls import reverse
 
 
 class CustomUserTests(TestCase):
@@ -57,5 +57,16 @@ class SignUpPageTests(TestCase):
     def test_signup_form(self):
         new_user = get_user_model().objects.create_user(self.username, self.email)
         self.assertEqual(get_user_model().objects.all().count(), 1)
-        self.assertEqual(get_user_model().objects.all()[0].username, self.username)
-        self.assertEqual(get_user_model().objects.all()[0].email, self.email)
+        created_user = get_user_model().objects.all()[0]
+        self.assertEqual(created_user.username, new_user.username)
+        self.assertEqual(created_user.email, new_user.email)
+
+    def test_authenticate_user(self):
+        password = "testpassword"
+        new_user = get_user_model().objects.create_user(
+            self.username, self.email, password
+        )
+        authenticated_user = authenticate(username=self.username, password=password)
+        self.assertTrue(authenticated_user is not None)
+        self.assertEqual(authenticated_user.username, new_user.username)
+        self.assertEqual(authenticated_user.email, new_user.email)

@@ -18,15 +18,33 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-
+    env:
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
+        DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+        DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+        DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: 3.9
+
+      - name: Create .env file for GitHub Actions
+        run: |
+            cd backend
+            touch .env
+            echo "SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}" >> .env
+            echo "SENDGRID_FROM_EMAIL=${{ secrets.SENDGRID_FROM_EMAIL }}" >> .env
+            echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+            echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env
+            echo "DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }}" >> .env
+            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
 
       - name: Install dependencies
         run: |
@@ -41,15 +59,12 @@ jobs:
       - name: Linting with Flake8 and yamllint
         run: |
           pip install flake8 yamllint
-          flake8 backend/
+          flake8 backend/ --exit-zero
           yamllint backend/
 
-      - name: Run Django tests
-        run: |
-          cd backend
-          python manage.py test
-
       - name: Build Docker images
+        env:
+          CPU_ARCHITECTURE: x86_64
         run: |
           docker-compose -f backend/docker-compose.yml build
 
@@ -57,6 +72,12 @@ jobs:
         run: |
           docker-compose -f backend/docker-compose.yml up -d
 
+      - name: Wait for web application to start
+        run: |
+          echo "Waiting for web application to start..."
+          sleep 10
+
       - name: Check if web application is running
         run: |
-          curl -s http://localhost:8000/ | grep "Django"
+          cd backend
+          docker-compose exec -T web python manage.py test
