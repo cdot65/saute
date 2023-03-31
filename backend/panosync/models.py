@@ -13,6 +13,9 @@ class Panorama(models.Model):
     api_token = models.CharField(max_length=255)
     image = models.ImageField(upload_to="panorama_images", blank=True, null=True)
 
+    class Meta:
+        permissions = [("panorama_full", "Can read all Panorama instance details")]
+
     def __str__(self):
         return self.hostname
 
@@ -29,6 +32,9 @@ class Prisma(models.Model):
     name = models.CharField(max_length=255, unique=True)
     tsg = models.CharField(max_length=255)
     image = models.ImageField(upload_to="prisma_images", blank=True, null=True)
+
+    class Meta:
+        permissions = [("prisma_full", "Can read all Prisma tenant details")]
 
     def __str__(self):
         return self.name
