@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase, APIClient
 
 from panosync.models import Panorama, Prisma
 
@@ -12,6 +13,7 @@ class APITests(APITestCase):
         cls.user = get_user_model().objects.create_user(
             username="testuser@me.com", password="testpassword"
         )
+        cls.token = Token.objects.create(user=cls.user)
         cls.panorama = Panorama.objects.create(
             hostname="fake-panorama.example.com",
             ipv4_address="192.168.1.1",
@@ -26,8 +28,8 @@ class APITests(APITestCase):
         )
 
     def setUp(self):
-        # Log the user in before each test
-        self.client.login(username="testuser@me.com", password="testpassword")
+        self.client = APIClient()
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
 
     def test_panorama_model_content(self):
         self.assertEqual(self.panorama.hostname, "fake-panorama.example.com")

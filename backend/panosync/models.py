@@ -11,6 +11,7 @@ class Panorama(models.Model):
     ipv4_address = models.GenericIPAddressField(protocol="IPv4", blank=True, null=True)
     ipv6_address = models.GenericIPAddressField(protocol="IPv6", blank=True, null=True)
     api_token = models.CharField(max_length=255)
+    image = models.ImageField(upload_to="panorama_images", blank=True, null=True)
 
     def __str__(self):
         return self.hostname
@@ -27,6 +28,7 @@ class Prisma(models.Model):
     client_secret = models.CharField(max_length=255)
     name = models.CharField(max_length=255, unique=True)
     tsg = models.CharField(max_length=255)
+    image = models.ImageField(upload_to="prisma_images", blank=True, null=True)
 
     def __str__(self):
         return self.name
