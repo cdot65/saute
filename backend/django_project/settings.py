@@ -45,11 +45,12 @@ INSTALLED_APPS = [
     # third party
     "crispy_forms",
     "crispy_bootstrap5",
-    "allauth",
-    "allauth.account",
     "rest_framework",
     "corsheaders",
     "rest_framework.authtoken",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     "dj_rest_auth",
     "dj_rest_auth.registration",
     "drf_spectacular",
@@ -73,6 +74,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = (
     "http://localhost:3000",
+    "http://localhost:4200",
     "http://localhost:8000",
 )
 
@@ -103,6 +105,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
             ],
         },
     },

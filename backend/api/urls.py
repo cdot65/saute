@@ -6,7 +6,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
-from .views import UserViewSet, PanoramaViewSet, PrismaViewSet
+from .views import UserViewSet, PanoramaViewSet, PrismaViewSet, CustomConfirmEmailView
 
 router = SimpleRouter()
 router.register("users", UserViewSet, basename="users")
@@ -16,6 +16,11 @@ router.register("prisma", PrismaViewSet, basename="prisma")
 urlpatterns = [
     # admin panel
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
+    path(
+        "dj-rest-auth/registration/account-confirm-email/<str:key>/",
+        CustomConfirmEmailView.as_view(),
+        name="account_confirm_email",
+    ),
     path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
