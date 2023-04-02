@@ -20,11 +20,8 @@ services:
     image: postgres:14
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - "POSTGRES_USER=django_user"
-      - "POSTGRES_PASSWORD=django_password"
-      - "POSTGRES_DB=postgres"
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    env_file:
+      - .env
 
 volumes:
   postgres_data:
