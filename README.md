@@ -1,72 +1,107 @@
-# 🚀 Prisma Panorama Diffsync
+# prisma-panorama-diffsync 🚀
 
-**Warning:** This application is still in development! ⚠️
+## Table of Contents
 
-Prisma Panorama Diffsync is a Django-based web application that allows users to manage their devices and configurations. This application utilizes Django Allauth for authentication and includes features like user login, logout, and signup.
+- [prisma-panorama-diffsync 🚀](#prisma-panorama-diffsync-)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Project Dependencies](#project-dependencies)
+  - [Backend Overview](#backend-overview)
+  - [Frontend Overview](#frontend-overview)
+  - [Backend Build and Deploy](#backend-build-and-deploy)
+  - [Frontend Build and Deploy](#frontend-build-and-deploy)
 
-This application is designed to be run as Docker containers using the `docker-compose.yml` file.
+## Overview
 
-## 📦 Project Dependencies
+This project is a web application consisting of a separate backend and frontend. The backend is built using Django and PostgreSQL, while the frontend is developed using Angular. The backend provides a robust REST API, and the frontend consumes this API to provide a seamless user experience.
+
+## Project Dependencies
+
+To work with this project, you'll need to have the following software installed on your system:
 
 - Docker
-- Docker-Compose
+- Docker Compose
+- Python 3.9
+- Node.js (for the frontend)
 
-## 🛠️ Installation
+## Backend Overview
 
-### Backend
+The backend of this project is built using Django and Django Rest Framework (DRF). It features a modular architecture with well-structured applications, providing a strong foundation for future development.
 
-#### Dependencies
+Key features of the backend include:
 
-- Django 4.1.5
-- PostgreSQL
-- django-allauth
-- django-crispy-forms
-- django-crispy-bootstrap5
+- Django Rest Framework (DRF) for creating a RESTful API
+- Django Allauth for user authentication and registration
+- PostgreSQL as the database
+- A `docker-compose.yml` file to simplify deployment and management of the backend services
+- Docker containers for an easy and reproducible deployment process
 
-1. Clone the repository:
+## Frontend Overview
 
-    ```bash
-    git clone https://github.com/cdot65/prisma-panorama-diffsync.git
+The frontend of this project is being developed using Angular. Currently, the frontend is still under active development, and as such, you may not find any files within the `frontend/` directory. Once the frontend development is complete, it will provide a seamless user experience while interacting with the backend REST API.
+
+## Backend Build and Deploy
+
+To build and deploy the backend using Docker and Docker Compose, follow these steps:
+
+1. Ensure Docker and Docker Compose are installed on your system.
+
+2. Navigate to the `backend` directory:
+
+    ```sh
+    cd backend
     ```
 
-2. Navigate to the project directory:
+3. Create an .env file and update it accordingly.
 
-    ```bash
-    cd prisma-panorama-diffsync/backend
+    ```sh
+    cp .env_example .env
+    vim .env
     ```
 
-3. Rename the .env_example file to .env and update it with the required environment variables:
-
-    ```bash
-    SENDGRID_API_KEY="yourapikey"
-    SENDGRID_FROM_EMAIL="user@yourdomain.com"
-    DJANGO_SECRET_KEY="yoursecretkey"
-    DJANGO_DEBUG=True
+    ```conf
     DJANGO_ALLOWED_HOSTS=['localhost', '127.0.0.1', '*']
-    DATABASE_URL="postgres://postgres@db/postgres"
+    DJANGO_DEBUG=True
+    DJANGO_SECRET_KEY=qKJ9h-ph4VY7zJIQnnRuvR-MARWs-b2tOdRtJZpeXfc
+    POSTGRES_USER=django_user
+    POSTGRES_PASSWORD=django_password
+    POSTGRES_DB=postgres
+    POSTGRES_HOST=db
+    POSTGRES_PORT=5432
     ```
 
-4. Install the required dependencies:
+4. Build the Docker images:
 
-    ```bash
-    pip install -r requirements.txt
+    ```sh
+    docker-compose build
     ```
 
-5. Apply migrations and run the development server:
+5. Start the services using Docker Compose:
 
-    ```bash
-    python manage.py migrate
-    python manage.py runserver
+    ```sh
+    docker-compose up -d
     ```
 
-Now visit http://127.0.0.1:8000 in your web browser to access the application.
+6. Wait for the web application to start (you can check the logs to make sure everything is running smoothly):
 
-### Frontend
+    ```sh
+    docker-compose logs -f
+    ```
 
-- TBD
+7. Make database migrations:
 
-A separate frontend has yet to be developed. For now, use the backend user interface to interact with the application.
+    ```sh
+    docker-compose exec -T web python manage.py makemigrations
+    ```
 
-## 🚧 Development
+8. Apply the migrations:
 
-The application is still in development, and more features will be added in the future. Contributions are welcome! 🙌
+    ```sh
+    docker-compose exec -T web python manage.py migrate
+    ```
+
+Your backend should now be up and running. 🎉
+
+## Frontend Build and Deploy
+
+The frontend build and deploy steps are still to be determined, as the frontend is under active development. Once the development is complete, this section will be updated with the necessary steps to build and deploy the frontend using the Angular framework. 🛠️
