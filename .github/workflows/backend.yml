@@ -39,8 +39,6 @@ jobs:
         run: |
           cd backend
           touch .env
-          echo "SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}" >> .env
-          echo "SENDGRID_FROM_EMAIL=${{ secrets.SENDGRID_FROM_EMAIL }}" >> .env
           echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
           echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env
           echo "DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }}" >> .env
@@ -84,8 +82,9 @@ jobs:
 
       - name: Make database migrations files
         run: |
+          set -x
           cd backend
-          docker-compose exec -T web python manage.py makemigrations
+          docker-compose exec -T web python manage.py makemigrations --verbose
 
       - name: Migrate database
         run: |
