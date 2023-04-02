@@ -19,12 +19,14 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     env:
-      SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-      SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
-      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-      DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
       DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
 
     steps:
       - name: Checkout repository
@@ -38,9 +40,9 @@ jobs:
       - name: Create .env file for GitHub Actions
         run: |
           touch backend/.env
-          echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> backend/.env
-          echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> backend/.env
           echo "DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }}" >> backend/.env
+          echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> backend/.env
+          echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> backend/.env
           echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> backend/.env
           echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> backend/.env
           echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> backend/.env
