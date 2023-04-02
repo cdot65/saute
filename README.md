@@ -12,6 +12,10 @@
   - [Frontend Overview](#frontend-overview)
   - [Backend Build and Deploy](#backend-build-and-deploy)
   - [Frontend Build and Deploy](#frontend-build-and-deploy)
+  - [API Specification Documentation](#api-specification-documentation)
+    - [Redoc](#redoc)
+    - [Swagger](#swagger)
+    - [Usage](#usage)
 
 ## Overview
 
@@ -107,3 +111,31 @@ Your backend should now be up and running. 🎉
 ## Frontend Build and Deploy
 
 The frontend build and deploy steps are still to be determined, as the frontend is under active development. Once the development is complete, this section will be updated with the necessary steps to build and deploy the frontend using the Angular framework. 🛠️
+
+## API Specification Documentation
+
+This Django project provides API documentation using two popular tools: Redoc and Swagger. The `urls.py` file in the project contains the necessary endpoints to access the API documentation in either format.
+
+### Redoc
+
+To view the API specification using Redoc, visit the following endpoint:
+
+```sh
+/api/schema/redoc
+```
+
+This will display an interactive API documentation page with detailed information about your API endpoints, request/response examples, and more.
+
+### Swagger
+
+To view the API specification using Swagger, visit the following endpoint:
+
+```sh
+/api/schema/swagger
+```
+
+This will display an interactive API documentation page that allows you to explore your API endpoints, test them out, and view request/response examples.
+
+### Usage
+
+To access either of these endpoints, simply append the appropriate URL path to your API root URL. For example, if your API root URL is `http://localhost:8000/api/v1/`, you can access the Redoc documentation by visiting `http://localhost:8000/api/schema/redoc` and the Swagger documentation by visiting `http://localhost:8000/api/schema/swagger`.

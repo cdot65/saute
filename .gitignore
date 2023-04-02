@@ -4,6 +4,6 @@ db.sqlite3
 .DS_Store
 .vscode/settings.json
 backend/.env
-.chatgpt/chats/github_actions.md
+.chatgpt/
 backend/accounts/migrations/00**.py
 backend/pansync/migrations/00**.py
