@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Pansync API
+  title: pansync
   version: 1.0.0
   description: Sync configuration data between Panorama and Prisma Access
 paths:
@@ -13,123 +13,123 @@ paths:
         - YAML: application/vnd.oai.openapi
         - JSON: application/vnd.oai.openapi+json
       parameters:
-      - in: query
-        name: format
-        schema:
-          type: string
-          enum:
-          - json
-          - yaml
-      - in: query
-        name: lang
-        schema:
-          type: string
-          enum:
-          - af
-          - ar
-          - ar-dz
-          - ast
-          - az
-          - be
-          - bg
-          - bn
-          - br
-          - bs
-          - ca
-          - cs
-          - cy
-          - da
-          - de
-          - dsb
-          - el
-          - en
-          - en-au
-          - en-gb
-          - eo
-          - es
-          - es-ar
-          - es-co
-          - es-mx
-          - es-ni
-          - es-ve
-          - et
-          - eu
-          - fa
-          - fi
-          - fr
-          - fy
-          - ga
-          - gd
-          - gl
-          - he
-          - hi
-          - hr
-          - hsb
-          - hu
-          - hy
-          - ia
-          - id
-          - ig
-          - io
-          - is
-          - it
-          - ja
-          - ka
-          - kab
-          - kk
-          - km
-          - kn
-          - ko
-          - ky
-          - lb
-          - lt
-          - lv
-          - mk
-          - ml
-          - mn
-          - mr
-          - ms
-          - my
-          - nb
-          - ne
-          - nl
-          - nn
-          - os
-          - pa
-          - pl
-          - pt
-          - pt-br
-          - ro
-          - ru
-          - sk
-          - sl
-          - sq
-          - sr
-          - sr-latn
-          - sv
-          - sw
-          - ta
-          - te
-          - tg
-          - th
-          - tk
-          - tr
-          - tt
-          - udm
-          - uk
-          - ur
-          - uz
-          - vi
-          - zh-hans
-          - zh-hant
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - json
+              - yaml
+        - in: query
+          name: lang
+          schema:
+            type: string
+            enum:
+              - af
+              - ar
+              - ar-dz
+              - ast
+              - az
+              - be
+              - bg
+              - bn
+              - br
+              - bs
+              - ca
+              - cs
+              - cy
+              - da
+              - de
+              - dsb
+              - el
+              - en
+              - en-au
+              - en-gb
+              - eo
+              - es
+              - es-ar
+              - es-co
+              - es-mx
+              - es-ni
+              - es-ve
+              - et
+              - eu
+              - fa
+              - fi
+              - fr
+              - fy
+              - ga
+              - gd
+              - gl
+              - he
+              - hi
+              - hr
+              - hsb
+              - hu
+              - hy
+              - ia
+              - id
+              - ig
+              - io
+              - is
+              - it
+              - ja
+              - ka
+              - kab
+              - kk
+              - km
+              - kn
+              - ko
+              - ky
+              - lb
+              - lt
+              - lv
+              - mk
+              - ml
+              - mn
+              - mr
+              - ms
+              - my
+              - nb
+              - ne
+              - nl
+              - nn
+              - os
+              - pa
+              - pl
+              - pt
+              - pt-br
+              - ro
+              - ru
+              - sk
+              - sl
+              - sq
+              - sr
+              - sr-latn
+              - sv
+              - sw
+              - ta
+              - te
+              - tg
+              - th
+              - tk
+              - tr
+              - tt
+              - udm
+              - uk
+              - ur
+              - uz
+              - vi
+              - zh-hans
+              - zh-hant
       tags:
-      - schema
+        - schema
       security:
-      - cookieAuth: []
-      - tokenAuth: []
-      - {}
+        - cookieAuth: []
+        - tokenAuth: []
+        - {}
       responses:
-        '200':
+        "200":
           content:
             application/vnd.oai.openapi:
               schema:
@@ -147,154 +147,7 @@ paths:
               schema:
                 type: object
                 additionalProperties: {}
-          description: ''
-  /api/v1/:
-    get:
-      operationId: v1_list
-      tags:
-      - v1
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Jobs'
-          description: ''
-    post:
-      operationId: v1_create
-      tags:
-      - v1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Jobs'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Jobs'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Jobs'
-        required: true
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Jobs'
-          description: ''
-  /api/v1/{id}/:
-    get:
-      operationId: v1_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this jobs.
-        required: true
-      tags:
-      - v1
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Jobs'
-          description: ''
-    put:
-      operationId: v1_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this jobs.
-        required: true
-      tags:
-      - v1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Jobs'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Jobs'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Jobs'
-        required: true
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Jobs'
-          description: ''
-    patch:
-      operationId: v1_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this jobs.
-        required: true
-      tags:
-      - v1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedJobs'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedJobs'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedJobs'
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Jobs'
-          description: ''
-    delete:
-      operationId: v1_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this jobs.
-        required: true
-      tags:
-      - v1
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      responses:
-        '204':
-          description: No response body
+          description: ""
   /api/v1/dj-rest-auth/login/:
     post:
       operationId: v1_dj_rest_auth_login_create
@@ -307,30 +160,30 @@ paths:
         Accept the following POST parameters: username, password
         Return the REST Framework Token Object's key.
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Login'
+              $ref: "#/components/schemas/Login"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Login'
+              $ref: "#/components/schemas/Login"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Login'
+              $ref: "#/components/schemas/Login"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
-      - {}
+        - cookieAuth: []
+        - tokenAuth: []
+        - {}
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Token'
-          description: ''
+                $ref: "#/components/schemas/Token"
+          description: ""
   /api/v1/dj-rest-auth/logout/:
     post:
       operationId: v1_dj_rest_auth_logout_create
@@ -340,18 +193,18 @@ paths:
 
         Accepts/Returns nothing.
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
-      - {}
+        - cookieAuth: []
+        - tokenAuth: []
+        - {}
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestAuthDetail'
-          description: ''
+                $ref: "#/components/schemas/RestAuthDetail"
+          description: ""
   /api/v1/dj-rest-auth/password/change/:
     post:
       operationId: v1_dj_rest_auth_password_change_create
@@ -361,29 +214,29 @@ paths:
         Accepts the following POST parameters: new_password1, new_password2
         Returns the success/fail message.
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PasswordChange'
+              $ref: "#/components/schemas/PasswordChange"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PasswordChange'
+              $ref: "#/components/schemas/PasswordChange"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PasswordChange'
+              $ref: "#/components/schemas/PasswordChange"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestAuthDetail'
-          description: ''
+                $ref: "#/components/schemas/RestAuthDetail"
+          description: ""
   /api/v1/dj-rest-auth/password/reset/:
     post:
       operationId: v1_dj_rest_auth_password_reset_create
@@ -393,30 +246,30 @@ paths:
         Accepts the following POST parameters: email
         Returns the success/fail message.
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PasswordReset'
+              $ref: "#/components/schemas/PasswordReset"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PasswordReset'
+              $ref: "#/components/schemas/PasswordReset"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PasswordReset'
+              $ref: "#/components/schemas/PasswordReset"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
-      - {}
+        - cookieAuth: []
+        - tokenAuth: []
+        - {}
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestAuthDetail'
-          description: ''
+                $ref: "#/components/schemas/RestAuthDetail"
+          description: ""
   /api/v1/dj-rest-auth/password/reset/confirm/:
     post:
       operationId: v1_dj_rest_auth_password_reset_confirm_create
@@ -428,113 +281,113 @@ paths:
             new_password1, new_password2
         Returns the success/fail message.
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PasswordResetConfirm'
+              $ref: "#/components/schemas/PasswordResetConfirm"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PasswordResetConfirm'
+              $ref: "#/components/schemas/PasswordResetConfirm"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PasswordResetConfirm'
+              $ref: "#/components/schemas/PasswordResetConfirm"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
-      - {}
+        - cookieAuth: []
+        - tokenAuth: []
+        - {}
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestAuthDetail'
-          description: ''
+                $ref: "#/components/schemas/RestAuthDetail"
+          description: ""
   /api/v1/dj-rest-auth/registration/:
     post:
       operationId: v1_dj_rest_auth_registration_create
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Register'
+              $ref: "#/components/schemas/Register"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Register'
+              $ref: "#/components/schemas/Register"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Register'
+              $ref: "#/components/schemas/Register"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
-      - {}
+        - cookieAuth: []
+        - tokenAuth: []
+        - {}
       responses:
-        '201':
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Token'
-          description: ''
+                $ref: "#/components/schemas/Token"
+          description: ""
   /api/v1/dj-rest-auth/registration/resend-email/:
     post:
       operationId: v1_dj_rest_auth_registration_resend_email_create
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ResendEmailVerification'
+              $ref: "#/components/schemas/ResendEmailVerification"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/ResendEmailVerification'
+              $ref: "#/components/schemas/ResendEmailVerification"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ResendEmailVerification'
+              $ref: "#/components/schemas/ResendEmailVerification"
       security:
-      - cookieAuth: []
-      - tokenAuth: []
-      - {}
+        - cookieAuth: []
+        - tokenAuth: []
+        - {}
       responses:
-        '201':
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestAuthDetail'
-          description: ''
+                $ref: "#/components/schemas/RestAuthDetail"
+          description: ""
   /api/v1/dj-rest-auth/registration/verify-email/:
     post:
       operationId: v1_dj_rest_auth_registration_verify_email_create
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VerifyEmail'
+              $ref: "#/components/schemas/VerifyEmail"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/VerifyEmail'
+              $ref: "#/components/schemas/VerifyEmail"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/VerifyEmail'
+              $ref: "#/components/schemas/VerifyEmail"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
-      - {}
+        - cookieAuth: []
+        - tokenAuth: []
+        - {}
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestAuthDetail'
-          description: ''
+                $ref: "#/components/schemas/RestAuthDetail"
+          description: ""
   /api/v1/dj-rest-auth/user/:
     get:
       operationId: v1_dj_rest_auth_user_retrieve
@@ -548,17 +401,17 @@ paths:
 
         Returns UserModel fields.
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetails'
-          description: ''
+                $ref: "#/components/schemas/UserDetails"
+          description: ""
     put:
       operationId: v1_dj_rest_auth_user_update
       description: |-
@@ -571,29 +424,29 @@ paths:
 
         Returns UserModel fields.
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserDetails'
+              $ref: "#/components/schemas/UserDetails"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/UserDetails'
+              $ref: "#/components/schemas/UserDetails"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/UserDetails'
+              $ref: "#/components/schemas/UserDetails"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetails'
-          description: ''
+                $ref: "#/components/schemas/UserDetails"
+          description: ""
     patch:
       operationId: v1_dj_rest_auth_user_partial_update
       description: |-
@@ -606,615 +459,615 @@ paths:
 
         Returns UserModel fields.
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedUserDetails'
+              $ref: "#/components/schemas/PatchedUserDetails"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedUserDetails'
+              $ref: "#/components/schemas/PatchedUserDetails"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedUserDetails'
+              $ref: "#/components/schemas/PatchedUserDetails"
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetails'
-          description: ''
+                $ref: "#/components/schemas/UserDetails"
+          description: ""
   /api/v1/jobs/:
     get:
       operationId: v1_jobs_list
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Jobs'
-          description: ''
+                  $ref: "#/components/schemas/Jobs"
+          description: ""
     post:
       operationId: v1_jobs_create
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Jobs'
+              $ref: "#/components/schemas/Jobs"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Jobs'
+              $ref: "#/components/schemas/Jobs"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Jobs'
+              $ref: "#/components/schemas/Jobs"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '201':
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Jobs'
-          description: ''
+                $ref: "#/components/schemas/Jobs"
+          description: ""
   /api/v1/jobs/{id}/:
     get:
       operationId: v1_jobs_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this jobs.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this jobs.
+          required: true
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Jobs'
-          description: ''
+                $ref: "#/components/schemas/Jobs"
+          description: ""
     put:
       operationId: v1_jobs_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this jobs.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this jobs.
+          required: true
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Jobs'
+              $ref: "#/components/schemas/Jobs"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Jobs'
+              $ref: "#/components/schemas/Jobs"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Jobs'
+              $ref: "#/components/schemas/Jobs"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Jobs'
-          description: ''
+                $ref: "#/components/schemas/Jobs"
+          description: ""
     patch:
       operationId: v1_jobs_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this jobs.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this jobs.
+          required: true
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedJobs'
+              $ref: "#/components/schemas/PatchedJobs"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedJobs'
+              $ref: "#/components/schemas/PatchedJobs"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedJobs'
+              $ref: "#/components/schemas/PatchedJobs"
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Jobs'
-          description: ''
+                $ref: "#/components/schemas/Jobs"
+          description: ""
     delete:
       operationId: v1_jobs_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this jobs.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this jobs.
+          required: true
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '204':
+        "204":
           description: No response body
   /api/v1/panorama/:
     get:
       operationId: v1_panorama_list
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Panorama'
-          description: ''
+                  $ref: "#/components/schemas/Panorama"
+          description: ""
     post:
       operationId: v1_panorama_create
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Panorama'
+              $ref: "#/components/schemas/Panorama"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Panorama'
+              $ref: "#/components/schemas/Panorama"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Panorama'
+              $ref: "#/components/schemas/Panorama"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '201':
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Panorama'
-          description: ''
+                $ref: "#/components/schemas/Panorama"
+          description: ""
   /api/v1/panorama/{id}/:
     get:
       operationId: v1_panorama_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this panorama.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this panorama.
+          required: true
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Panorama'
-          description: ''
+                $ref: "#/components/schemas/Panorama"
+          description: ""
     put:
       operationId: v1_panorama_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this panorama.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this panorama.
+          required: true
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Panorama'
+              $ref: "#/components/schemas/Panorama"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Panorama'
+              $ref: "#/components/schemas/Panorama"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Panorama'
+              $ref: "#/components/schemas/Panorama"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Panorama'
-          description: ''
+                $ref: "#/components/schemas/Panorama"
+          description: ""
     patch:
       operationId: v1_panorama_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this panorama.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this panorama.
+          required: true
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedPanorama'
+              $ref: "#/components/schemas/PatchedPanorama"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedPanorama'
+              $ref: "#/components/schemas/PatchedPanorama"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedPanorama'
+              $ref: "#/components/schemas/PatchedPanorama"
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Panorama'
-          description: ''
+                $ref: "#/components/schemas/Panorama"
+          description: ""
     delete:
       operationId: v1_panorama_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this panorama.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this panorama.
+          required: true
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '204':
+        "204":
           description: No response body
   /api/v1/prisma/:
     get:
       operationId: v1_prisma_list
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Prisma'
-          description: ''
+                  $ref: "#/components/schemas/Prisma"
+          description: ""
     post:
       operationId: v1_prisma_create
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Prisma'
+              $ref: "#/components/schemas/Prisma"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Prisma'
+              $ref: "#/components/schemas/Prisma"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Prisma'
+              $ref: "#/components/schemas/Prisma"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '201':
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Prisma'
-          description: ''
+                $ref: "#/components/schemas/Prisma"
+          description: ""
   /api/v1/prisma/{id}/:
     get:
       operationId: v1_prisma_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this prisma.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this prisma.
+          required: true
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Prisma'
-          description: ''
+                $ref: "#/components/schemas/Prisma"
+          description: ""
     put:
       operationId: v1_prisma_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this prisma.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this prisma.
+          required: true
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Prisma'
+              $ref: "#/components/schemas/Prisma"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Prisma'
+              $ref: "#/components/schemas/Prisma"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Prisma'
+              $ref: "#/components/schemas/Prisma"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Prisma'
-          description: ''
+                $ref: "#/components/schemas/Prisma"
+          description: ""
     patch:
       operationId: v1_prisma_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this prisma.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this prisma.
+          required: true
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedPrisma'
+              $ref: "#/components/schemas/PatchedPrisma"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedPrisma'
+              $ref: "#/components/schemas/PatchedPrisma"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedPrisma'
+              $ref: "#/components/schemas/PatchedPrisma"
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Prisma'
-          description: ''
+                $ref: "#/components/schemas/Prisma"
+          description: ""
     delete:
       operationId: v1_prisma_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this prisma.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this prisma.
+          required: true
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '204':
+        "204":
           description: No response body
   /api/v1/users/:
     get:
       operationId: v1_users_list
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
-          description: ''
+                  $ref: "#/components/schemas/User"
+          description: ""
     post:
       operationId: v1_users_create
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '201':
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-          description: ''
+                $ref: "#/components/schemas/User"
+          description: ""
   /api/v1/users/{id}/:
     get:
       operationId: v1_users_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this user.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this user.
+          required: true
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-          description: ''
+                $ref: "#/components/schemas/User"
+          description: ""
     put:
       operationId: v1_users_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this user.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this user.
+          required: true
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
         required: true
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-          description: ''
+                $ref: "#/components/schemas/User"
+          description: ""
     patch:
       operationId: v1_users_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this user.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this user.
+          required: true
       tags:
-      - v1
+        - v1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedUser'
+              $ref: "#/components/schemas/PatchedUser"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedUser'
+              $ref: "#/components/schemas/PatchedUser"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedUser'
+              $ref: "#/components/schemas/PatchedUser"
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-          description: ''
+                $ref: "#/components/schemas/User"
+          description: ""
     delete:
       operationId: v1_users_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this user.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this user.
+          required: true
       tags:
-      - v1
+        - v1
       security:
-      - cookieAuth: []
-      - tokenAuth: []
+        - cookieAuth: []
+        - tokenAuth: []
       responses:
-        '204':
+        "204":
           description: No response body
 components:
   schemas:
@@ -1228,13 +1081,16 @@ components:
           type: string
         result:
           type: string
+        author:
+          type: integer
         created_at:
           type: string
           format: date-time
           readOnly: true
       required:
-      - created_at
-      - name
+        - author
+        - created_at
+        - name
     Login:
       type: object
       properties:
@@ -1246,7 +1102,7 @@ components:
         password:
           type: string
       required:
-      - password
+        - password
     Panorama:
       type: object
       properties:
@@ -1267,12 +1123,12 @@ components:
           format: date-time
           readOnly: true
       required:
-      - api_token
-      - author
-      - created_at
-      - hostname
-      - ipv4_address
-      - ipv6_address
+        - api_token
+        - author
+        - created_at
+        - hostname
+        - ipv4_address
+        - ipv6_address
     PasswordChange:
       type: object
       properties:
@@ -1283,8 +1139,8 @@ components:
           type: string
           maxLength: 128
       required:
-      - new_password1
-      - new_password2
+        - new_password1
+        - new_password2
     PasswordReset:
       type: object
       description: Serializer for requesting a password reset e-mail.
@@ -1293,7 +1149,7 @@ components:
           type: string
           format: email
       required:
-      - email
+        - email
     PasswordResetConfirm:
       type: object
       description: Serializer for confirming a password reset attempt.
@@ -1309,10 +1165,10 @@ components:
         token:
           type: string
       required:
-      - new_password1
-      - new_password2
-      - token
-      - uid
+        - new_password1
+        - new_password2
+        - token
+        - uid
     PatchedJobs:
       type: object
       properties:
@@ -1323,6 +1179,8 @@ components:
           type: string
         result:
           type: string
+        author:
+          type: integer
         created_at:
           type: string
           format: date-time
@@ -1375,7 +1233,8 @@ components:
           readOnly: true
         username:
           type: string
-          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
             only.
           pattern: ^[\w.@+-]+$
           maxLength: 150
@@ -1393,7 +1252,8 @@ components:
           type: boolean
           readOnly: true
           title: Superuser status
-          description: Designates that this user has all permissions without explicitly
+          description:
+            Designates that this user has all permissions without explicitly
             assigning them.
     PatchedUserDetails:
       type: object
@@ -1405,7 +1265,8 @@ components:
           title: ID
         username:
           type: string
-          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
             only.
           pattern: ^[\w.@+-]+$
           maxLength: 150
@@ -1442,12 +1303,12 @@ components:
           format: date-time
           readOnly: true
       required:
-      - author
-      - client_id
-      - client_secret
-      - created_at
-      - tenant_name
-      - tsg_id
+        - author
+        - client_id
+        - client_secret
+        - created_at
+        - tenant_name
+        - tsg_id
     Register:
       type: object
       properties:
@@ -1465,9 +1326,9 @@ components:
           type: string
           writeOnly: true
       required:
-      - password1
-      - password2
-      - username
+        - password1
+        - password2
+        - username
     ResendEmailVerification:
       type: object
       properties:
@@ -1481,7 +1342,7 @@ components:
           type: string
           readOnly: true
       required:
-      - detail
+        - detail
     Token:
       type: object
       description: Serializer for Token model.
@@ -1490,7 +1351,7 @@ components:
           type: string
           maxLength: 40
       required:
-      - key
+        - key
     User:
       type: object
       properties:
@@ -1499,7 +1360,8 @@ components:
           readOnly: true
         username:
           type: string
-          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
             only.
           pattern: ^[\w.@+-]+$
           maxLength: 150
@@ -1517,13 +1379,14 @@ components:
           type: boolean
           readOnly: true
           title: Superuser status
-          description: Designates that this user has all permissions without explicitly
+          description:
+            Designates that this user has all permissions without explicitly
             assigning them.
       required:
-      - id
-      - is_staff
-      - is_superuser
-      - username
+        - id
+        - is_staff
+        - is_superuser
+        - username
     UserDetails:
       type: object
       description: User model w/o password
@@ -1534,7 +1397,8 @@ components:
           title: ID
         username:
           type: string
-          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
             only.
           pattern: ^[\w.@+-]+$
           maxLength: 150
@@ -1550,16 +1414,16 @@ components:
           type: string
           maxLength: 150
       required:
-      - email
-      - pk
-      - username
+        - email
+        - pk
+        - username
     VerifyEmail:
       type: object
       properties:
         key:
           type: string
       required:
-      - key
+        - key
   securitySchemes:
     cookieAuth:
       type: apiKey
