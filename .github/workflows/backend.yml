@@ -80,9 +80,11 @@ jobs:
       - name: Wait for web application to start
         run: |
           echo "Waiting for web application to start..."
-          sleep 10
+          sleep 2
 
       - name: Check if web application is running
         run: |
           cd backend
+          docker-compose exec -T web python manage.py makemigrations
+          docker-compose exec -T web python manage.py migrate
           docker-compose exec -T web python manage.py test
