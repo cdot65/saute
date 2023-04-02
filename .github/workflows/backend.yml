@@ -85,14 +85,14 @@ jobs:
           echo "Waiting for web application to start..."
           sleep 10
 
-
       - name: Make database migrations files
         run: |
           cd backend
-          docker-compose exec web python manage.py makemigrations
+          docker-compose exec -T web python manage.py makemigrations
           docker-compose exec -T web python manage.py migrate
-
+  
       - name: Run tests
         run: |
           cd backend
           docker-compose exec -T web python manage.py test
+  
