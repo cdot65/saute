@@ -22,6 +22,8 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+    env_file:
+      - .env
 
 volumes:
   postgres_data:
