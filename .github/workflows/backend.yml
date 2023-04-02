@@ -90,7 +90,7 @@ jobs:
         run: |
           cd backend
           docker-compose exec web python manage.py makemigrations
-          docker-compose exec web python manage.py migrate
+          docker-compose exec -T web python manage.py migrate
 
       - name: Run tests
         run: |
