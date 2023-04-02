@@ -1,5 +1,7 @@
 # prisma-panorama-diffsync 🚀
 
+[![Backend CI](https://github.com/cdot65/prisma-panorama-diffsync/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/prisma-panorama-diffsync/actions/workflows/backend.yml)
+
 ## Table of Contents
 
 - [prisma-panorama-diffsync 🚀](#prisma-panorama-diffsync-)
