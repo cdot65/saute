@@ -37,12 +37,11 @@ jobs:
 
       - name: Create .env file for GitHub Actions
         run: |
-          cd backend
-          touch .env
-          echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
-          echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env
-          echo "DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }}" >> .env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          touch backend/.env
+          echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> backend/.env
+          echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> backend/.env
+          echo "DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }}" >> backend/.env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> backend/.env
 
       - name: Install dependencies
         run: |
@@ -80,10 +79,13 @@ jobs:
           echo "Waiting for web application to start..."
           sleep 10
 
-      - name: Make database migrations files
+      - name: Change into backend directory
         run: |
           cd backend
-          docker-compose exec web python manage.py makemigrations
+
+      - name: Make database migrations files
+        run: |
+            docker-compose exec web python manage.py makemigrations
 
       - name: Migrate database
         run: |
