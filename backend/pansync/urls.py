@@ -1,19 +1,15 @@
-from django.urls import path
-
+from rest_framework.routers import SimpleRouter
 from .views import (
-    PanoramaList,
-    PanoramaDetail,
-    PrismaList,
-    PrismaDetail,
-    JobsList,
-    JobsDetail,
+    PanoramaViewSet,
+    PrismaViewSet,
+    JobsViewSet,
+    UserViewSet,
 )
 
-urlpatterns = [
-    path("panorama/", PanoramaList.as_view(), name="panorama_list"),
-    path("panorama/<int:pk>/", PanoramaDetail.as_view(), name="panorama_detail"),
-    path("prisma/", PrismaList.as_view(), name="prisma_list"),
-    path("prisma/<int:pk>/", PrismaDetail.as_view(), name="prisma_detail"),
-    path("jobs/", JobsList.as_view(), name="jobs_list"),
-    path("jobs/<int:pk>/", JobsDetail.as_view(), name="jobs_detail"),
-]
+router = SimpleRouter()
+router.register("panorama", PanoramaViewSet, basename="panorama")
+router.register("prisma", PrismaViewSet, basename="prisma")
+router.register("jobs", JobsViewSet, basename="jobs")
+router.register("users", UserViewSet, basename="users")
+
+urlpatterns = router.urls

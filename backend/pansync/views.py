@@ -1,34 +1,36 @@
-from rest_framework import generics
+from django.contrib.auth import get_user_model
+from rest_framework import viewsets
+from rest_framework.permissions import IsAdminUser
 
 from .models import Panorama, Prisma, Jobs
-from .serializers import PanoramaSerializer, PrismaSerializer, JobsSerializer
+from .permissions import IsAuthorOrReadOnly
+from .serializers import (
+    PanoramaSerializer,
+    PrismaSerializer,
+    JobsSerializer,
+    UserSerializer,
+)
 
 
-class PanoramaList(generics.ListCreateAPIView):
+class PanoramaViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Panorama.objects.all()
     serializer_class = PanoramaSerializer
 
 
-class PanoramaDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Panorama.objects.all()
-    serializer_class = PanoramaSerializer
-
-
-class PrismaList(generics.ListCreateAPIView):
+class PrismaViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Prisma.objects.all()
     serializer_class = PrismaSerializer
 
 
-class PrismaDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Prisma.objects.all()
-    serializer_class = PrismaSerializer
-
-
-class JobsList(generics.ListCreateAPIView):
+class JobsViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Jobs.objects.all()
     serializer_class = JobsSerializer
 
 
-class JobsDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Jobs.objects.all()
-    serializer_class = JobsSerializer
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminUser]
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer

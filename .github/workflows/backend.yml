@@ -13,19 +13,19 @@ on:
     paths:
       - "backend/**"
   schedule:
-    - cron: '0 8 * * *' # Run every day at 2am CST (which is 8am UTC)
+    - cron: "0 8 * * *" # Run every day at 2am CST (which is 8am UTC)
 
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
     env:
-        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-        SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
-        DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-        DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
-        DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  
+      SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+      SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+      DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -37,14 +37,14 @@ jobs:
 
       - name: Create .env file for GitHub Actions
         run: |
-            cd backend
-            touch .env
-            echo "SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}" >> .env
-            echo "SENDGRID_FROM_EMAIL=${{ secrets.SENDGRID_FROM_EMAIL }}" >> .env
-            echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
-            echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env
-            echo "DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }}" >> .env
-            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          cd backend
+          touch .env
+          echo "SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}" >> .env
+          echo "SENDGRID_FROM_EMAIL=${{ secrets.SENDGRID_FROM_EMAIL }}" >> .env
+          echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+          echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env
+          echo "DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }}" >> .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
 
       - name: Install dependencies
         run: |
@@ -61,6 +61,11 @@ jobs:
           pip install flake8 yamllint
           flake8 backend/ --exit-zero
           yamllint backend/
+
+      - name: Install Redis
+        run: |
+          sudo apt-get update
+          sudo apt-get install redis-server
 
       - name: Build Docker images
         env:
