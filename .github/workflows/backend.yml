@@ -82,9 +82,8 @@ jobs:
 
       - name: Make database migrations files
         run: |
-          set -x
           cd backend
-          docker-compose exec web python manage.py makemigrations --verbose
+          docker-compose exec web python manage.py makemigrations
 
       - name: Migrate database
         run: |
