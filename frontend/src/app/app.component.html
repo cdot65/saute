@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Angular App</title>
-</head>
-<body>
-    <mat-toolbar color="primary">
-        <span>Prisma Panorama Diffsync</span>
-        <span class="spacer"></span>
-        <button mat-button routerLink="/">Home</button>
-        <button mat-button routerLink="/panorama">Panorama</button>
-        <button mat-button routerLink="/prisma">Prisma</button>
-        <button mat-button routerLink="/login">Login</button>
-    </mat-toolbar>
+<mat-toolbar color="primary">
+    <span>Prisma Panorama Diffsync</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/">Home</button>
+    <button mat-button routerLink="/panorama">Panorama</button>
+    <button mat-button routerLink="/prisma">Prisma</button>
+    <button mat-button routerLink="/login" *ngIf="!cookieService.check('auth_token')">Login</button>
+    <button mat-button (click)="logout()" *ngIf="cookieService.check('auth_token')">Logout</button>
+</mat-toolbar>
+<div style="margin: 16px;">
     <router-outlet></router-outlet>
-
-    <div style="margin: 16px;">
-        <router-outlet></router-outlet>
-    </div>
-</body>
-</html>
+</div>
