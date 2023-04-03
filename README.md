@@ -1,68 +1,59 @@
-# prisma-panorama-diffsync 🚀
+# Prisma Panorama DiffSync 🚀🌐
 
-[![Backend CI](https://github.com/cdot65/prisma-panorama-diffsync/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/prisma-panorama-diffsync/actions/workflows/backend.yml)
+[![Build and Deploy](https://github.com/cdot65/prisma-panorama-diffsync/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/prisma-panorama-diffsync/actions/workflows/backend.yml)
 
 ## Table of Contents
 
-- [prisma-panorama-diffsync 🚀](#prisma-panorama-diffsync-)
+- [Prisma Panorama DiffSync 🚀🌐](#prisma-panorama-diffsync-)
   - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Project Dependencies](#project-dependencies)
+  - [Introduction](#introduction)
   - [Backend Overview](#backend-overview)
   - [Frontend Overview](#frontend-overview)
-  - [Backend Build and Deploy](#backend-build-and-deploy)
-  - [Frontend Build and Deploy](#frontend-build-and-deploy)
-  - [API Specification Documentation](#api-specification-documentation)
-    - [Redoc](#redoc)
-    - [Swagger](#swagger)
-    - [Usage](#usage)
+  - [Project Dependencies](#project-dependencies)
+  - [Deployment Steps](#deployment-steps)
+  - [Technical Features](#technical-features)
+    - [Backend Features](#backend-features)
+    - [Frontend Features](#frontend-features)
+  - [Working with the Backend Application](#working-with-the-backend-application)
+    - [Django Admin Panel](#django-admin-panel)
+    - [Important API Endpoints](#important-api-endpoints)
+  - [Working with the Frontend Application](#working-with-the-frontend-application)
+    - [Angular Basics](#angular-basics)
+    - [Important Components and Routes](#important-components-and-routes)
+    - [Interacting with the Backend API](#interacting-with-the-backend-api)
 
-## Overview
+## Introduction
 
-This project is a web application consisting of a separate backend and frontend. The backend is built using Django and PostgreSQL, while the frontend is developed using Angular. The backend provides a robust REST API, and the frontend consumes this API to provide a seamless user experience.
+Prisma Panorama DiffSync is a web application consisting of separate backend and frontend components. The backend is built using Django and PostgreSQL, while the frontend is developed with Angular. The backend provides a robust REST API, and the frontend consumes this API to offer a seamless user experience.
+
+## Backend Overview
+
+The backend is designed using Django and Django Rest Framework (DRF), featuring a modular architecture with well-structured applications. This setup lays a strong foundation for future development.
+
+## Frontend Overview
+
+The frontend is developed using Angular, providing a seamless user experience while interacting with the backend REST API.
 
 ## Project Dependencies
 
-To work with this project, you'll need to have the following software installed on your system:
+To work with this project, you'll need the following software installed on your system:
 
 - Docker
 - Docker Compose
 - Python 3.9
 - Node.js (for the frontend)
 
-## Backend Overview
+## Deployment Steps
 
-The backend of this project is built using Django and Django Rest Framework (DRF). It features a modular architecture with well-structured applications, providing a strong foundation for future development.
-
-Key features of the backend include:
-
-- Django Rest Framework (DRF) for creating a RESTful API
-- Django Allauth for user authentication and registration
-- PostgreSQL as the database
-- A `docker-compose.yml` file to simplify deployment and management of the backend services
-- Docker containers for an easy and reproducible deployment process
-
-## Frontend Overview
-
-The frontend of this project is being developed using Angular. Currently, the frontend is still under active development, and as such, you may not find any files within the `frontend/` directory. Once the frontend development is complete, it will provide a seamless user experience while interacting with the backend REST API.
-
-## Backend Build and Deploy
-
-To build and deploy the backend using Docker and Docker Compose, follow these steps:
+To deploy both backend and frontend using Docker and Docker Compose, follow these steps:
 
 1. Ensure Docker and Docker Compose are installed on your system.
 
-2. Navigate to the `backend` directory:
+2. Create an `.env` file in the backend directory and update it accordingly.
 
-    ```sh
-    cd backend
-    ```
-
-3. Create an .env file and update it accordingly.
-
-    ```sh
-    cp .env_example .env
-    vim .env
+    ```bash
+    cp backend/.env.example backend/.env
+    vim .backend/.env
     ```
 
     ```conf
@@ -76,66 +67,153 @@ To build and deploy the backend using Docker and Docker Compose, follow these st
     POSTGRES_PORT=5432
     ```
 
-4. Build the Docker images:
+3. Build the Docker images and start the containers.
 
-    ```sh
-    docker-compose build
+    ```bash
+    docker-compose up --build
     ```
 
-5. Start the services using Docker Compose:
+4. Wait for the web application to start (you can check the logs to ensure everything is running smoothly):
 
-    ```sh
-    docker-compose up -d
-    ```
-
-6. Wait for the web application to start (you can check the logs to make sure everything is running smoothly):
-
-    ```sh
+    ```bash
     docker-compose logs -f
     ```
 
-7. Make database migrations:
+5. Perform database migrations.
 
-    ```sh
-    docker-compose exec -T web python manage.py makemigrations
+    ```bash
+    docker-compose exec backend python manage.py makemigrations
+    docker-compose exec backend python manage.py migrate
     ```
 
-8. Apply the migrations:
+6. Create a superuser.
 
-    ```sh
-    docker-compose exec -T web python manage.py migrate
+    ```bash
+    docker-compose exec backend python manage.py createsuperuser
     ```
 
-Your backend should now be up and running. 🎉
+Your application should now be up and running! 🎉
 
-## Frontend Build and Deploy
+## Technical Features
 
-The frontend build and deploy steps are still to be determined, as the frontend is under active development. Once the development is complete, this section will be updated with the necessary steps to build and deploy the frontend using the Angular framework. 🛠️
+### Backend Features
 
-## API Specification Documentation
+- Django Rest Framework (DRF) for creating a RESTful API
+- Django Allauth for user authentication and registration
+- PostgreSQL as the database
+- Docker and Docker Compose for easy and reproducible deployment
+- API documentation using Redoc and Swagger
 
-This Django project provides API documentation using two popular tools: Redoc and Swagger. The `urls.py` file in the project contains the necessary endpoints to access the API documentation in either format.
+### Frontend Features
 
-### Redoc
+- Angular framework for building a dynamic and responsive UI
+- Angular Material for a modern, sleek design
+- Integration with the backend REST API
+- Routing and route guards for secure navigation
 
-To view the API specification using Redoc, visit the following endpoint:
+## Working with the Backend Application
 
-```sh
-/api/schema/redoc
-```
+### Django Admin Panel
 
-This will display an interactive API documentation page with detailed information about your API endpoints, request/response examples, and more.
+The Django admin panel is a powerful built-in tool for managing your application's data. With the admin panel, you can easily manage users, groups, and other models in your application. To access the admin panel:
 
-### Swagger
+1. Create a superuser (if you haven't already):
 
-To view the API specification using Swagger, visit the following endpoint:
+    ```bash
+    docker-compose exec backend python manage.py createsuperuser
+    ```
 
-```sh
-/api/schema/swagger
-```
+    Follow the prompts to create a superuser with a username, email, and password.
 
-This will display an interactive API documentation page that allows you to explore your API endpoints, test them out, and view request/response examples.
+2. Access the admin panel by visiting `http://localhost:8000/admin` in your browser.
 
-### Usage
+3. Log in with the superuser credentials you created earlier.
 
-To access either of these endpoints, simply append the appropriate URL path to your API root URL. For example, if your API root URL is `http://localhost:8000/api/v1/`, you can access the Redoc documentation by visiting `http://localhost:8000/api/schema/redoc` and the Swagger documentation by visiting `http://localhost:8000/api/schema/swagger`.
+4. You can now manage users, groups, and other models through the admin panel. Click on the model you want to manage and add, edit, or delete entries as needed.
+
+### Important API Endpoints
+
+The backend application provides several important API endpoints that you can use to interact with the data. Some of the key endpoints are:
+
+1. User Registration: `/api/v1/accounts/register/`
+
+    ```yaml
+    - Method: POST
+    - Description: Register a new user with a username, email, and password.
+    ```
+
+2. User Login: `/api/v1/accounts/login/`
+
+    ```yaml
+    - Method: POST
+    - Description: Log in an existing user with their username and password. Returns an authentication token.
+    ```
+
+3. User Logout: `/api/v1/accounts/logout/`
+
+    ```yaml
+    - Method: POST
+    - Description: Log out the currently logged-in user.
+    ```
+
+4. User Details: `/api/v1/accounts/user/`
+
+    ```yaml
+    - Method: GET
+    - Description: Retrieve the details of the currently logged-in user.
+    ```
+
+5. List Panoramas: `/api/v1/panoramas/`
+
+    ```yaml
+    - Method: GET
+    - Description: Retrieve a list of all panoramas.
+    ```
+
+6. Create Panorama: `/api/v1/panoramas/`
+
+    ```yaml
+    - Method: POST
+    - Description: Create a new panorama.
+    ```
+
+7. Retrieve, Update, or Delete a Panorama: `/api/v1/panoramas/:id/`
+
+    ```yaml
+    - Method: GET, PUT, DELETE
+    - Description: Retrieve, update, or delete a specific panorama based on its ID.
+    ```
+
+Replace `:id` with the actual ID of the panorama you want to retrieve, update, or delete. These endpoints can be used with tools like Postman, Insomnia, or even with JavaScript fetch or Axios in the frontend to interact with the backend application.
+
+## Working with the Frontend Application
+
+### Angular Basics
+
+The frontend of this project is built using Angular, a popular web application framework. To work with the frontend, you should be familiar with Angular's key concepts, such as components, services, and routing. You can learn more about Angular from the [official documentation](https://angular.io/docs).
+
+### Important Components and Routes
+
+The frontend application consists of several components that work together to provide a seamless user experience. Some of the key components and their associated routes are:
+
+1. LoginComponent (`/login`)
+   - Description: This component handles user authentication, allowing users to log in with their username and password. Upon successful login, the user is redirected to the Homepage component.
+
+2. HomepageComponent (`/`)
+   - Description: This component serves as the home page of the application. Users can navigate to different parts of the application from here.
+
+3. PanoramaComponent (`/panorama`)
+   - Description: This component displays a list of panoramas and allows users to interact with them. It fetches data from the backend API and requires the user to be logged in.
+
+4. PrismaComponent (`/prisma`)
+   - Description: This component is dedicated to Prisma-specific features and requires the user to be logged in. It fetches data from the backend API and provides various functionalities related to Prisma.
+
+To navigate between these components, use the Angular Router. The router enables navigation from one component to the next as users perform tasks in the application. The RouterModule and Routes are imported in the `app.module.ts` file, and the routes are defined in the `app-routing.module.ts` file.
+
+### Interacting with the Backend API
+
+The frontend interacts with the backend API using Angular's HttpClient. The AuthService and other services are responsible for making API calls to the backend. These services are injected into components using Angular's dependency injection system.
+
+For example, in the LoginComponent, the AuthService is used to log in a user by making a POST request to the `/api/v1/accounts/login/` endpoint. Upon successful login, the authentication token is stored in a cookie, and the user is redirected to the Homepage component.
+
+To add more functionality or interact with additional API endpoints, create new services or modify existing ones. Then, inject those services into the components that require the new functionality.
