@@ -65,20 +65,15 @@ jobs:
           flake8 backend/ --exit-zero
           yamllint backend/
 
-      - name: Install Redis
-        run: |
-          sudo apt-get update
-          sudo apt-get install redis-server
-
       - name: Build Docker images
         env:
           CPU_ARCHITECTURE: x86_64
         run: |
-          docker-compose -f backend/docker-compose.yml build
+          docker-compose build
 
       - name: Deploy with Docker Compose
         run: |
-          docker-compose -f backend/docker-compose.yml up -d
+          docker-compose up -d
 
       - name: Wait for web application to start
         run: |
@@ -88,11 +83,10 @@ jobs:
       - name: Make database migrations files
         run: |
           cd backend
-          docker-compose exec -T web python manage.py makemigrations
-          docker-compose exec -T web python manage.py migrate
-  
+          docker-compose exec -T backend python manage.py makemigrations
+          docker-compose exec -T backend python manage.py migrate
+
       - name: Run tests
         run: |
           cd backend
-          docker-compose exec -T web python manage.py test
-  
+          docker-compose exec -T backend python manage.py test
