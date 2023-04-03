@@ -7,6 +7,8 @@ on:
       - development
     paths:
       - "backend/**"
+      - "frontend/**"
+      - ".github/workflows/**"
   pull_request:
     branches:
       - main
@@ -82,11 +84,9 @@ jobs:
 
       - name: Make database migrations files
         run: |
-          cd backend
           docker-compose exec -T backend python manage.py makemigrations
           docker-compose exec -T backend python manage.py migrate
 
       - name: Run tests
         run: |
-          cd backend
           docker-compose exec -T backend python manage.py test
