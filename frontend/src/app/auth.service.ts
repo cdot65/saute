@@ -12,10 +12,9 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string) {
-    const body = new FormData();
-    body.append('username', username);
-    body.append('password', password);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const body = JSON.stringify({username, password});
 
-    return this.http.post<any>(`${this.apiUrl}${this.tokenUrl}`, body);
+    return this.http.post<any>(`${this.apiUrl}${this.tokenUrl}`, body, { headers });
   }
 }
