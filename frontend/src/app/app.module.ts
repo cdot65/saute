@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 import { PanoramaComponent } from './panorama/panorama.component';
@@ -41,6 +42,7 @@ import { CookieService } from 'ngx-cookie-service';
     MatInputModule,
     MatCardModule,
     MatTableModule,
+    MatSnackBarModule,
     HttpClientModule
   ],
   providers: [

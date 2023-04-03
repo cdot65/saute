@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -17,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const authToken = this.cookieService.get('auth_token');
-    if (authToken) {
+    if (authToken && request.url !== `${environment.apiUrl}${environment.tokenUrl}`) {
       request = request.clone({
         setHeaders: {
           Authorization: `Token ${authToken}`,
