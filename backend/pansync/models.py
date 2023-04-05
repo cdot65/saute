@@ -5,8 +5,8 @@ from django.db import models
 class Panorama(models.Model):
     hostname = models.CharField(max_length=100)
     ipv4_address = models.GenericIPAddressField()
-    ipv6_address = models.GenericIPAddressField()
-    api_token = models.CharField(max_length=100)
+    ipv6_address = models.GenericIPAddressField(default=None, null=True)
+    api_token = models.CharField(max_length=255)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
