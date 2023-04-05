@@ -17,6 +17,7 @@
     <button mat-menu-item>Create New</button>
     <!-- Add the appropriate routerLink when the create new route is implemented -->
   </mat-menu>
+  <button mat-button routerLink="/jobs">Jobs</button>
   <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Login</button>
   <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
 </mat-toolbar>

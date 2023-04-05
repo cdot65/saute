@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { HttpClientModule } from '@angular/common/http';
 import { PanoramaComponent } from './panorama/panorama.component';
@@ -22,6 +23,7 @@ import { PrismaComponent } from './prisma/prisma.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { CookieService } from 'ngx-cookie-service';
+import { JobsComponent } from './jobs/jobs.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { CookieService } from 'ngx-cookie-service';
     PanoramaComponent,
     PrismaComponent,
     HomepageComponent,
-    LoginComponent
+    LoginComponent,
+    JobsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,8 @@ import { CookieService } from 'ngx-cookie-service';
     MatCardModule,
     MatTableModule,
     MatSnackBarModule,
+    MatMenuModule,
+    MatButtonModule,
     HttpClientModule
   ],
   providers: [

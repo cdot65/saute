@@ -4,6 +4,7 @@ import { PanoramaComponent } from './panorama/panorama.component';
 import { PrismaComponent } from './prisma/prisma.component';
 import { LoginComponent } from './login/login.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { JobsComponent } from './jobs/jobs.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'panorama', component: PanoramaComponent, canActivate: [AuthGuard] },
   { path: 'prisma', component: PrismaComponent, canActivate: [AuthGuard] },
+  { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] }, // Add this line
 ];
 
 @NgModule({
