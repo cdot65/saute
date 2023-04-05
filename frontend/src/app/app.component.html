@@ -2,8 +2,21 @@
   <span>Prisma Panorama Diffsync</span>
   <span class="spacer"></span>
   <button mat-button routerLink="/">Home</button>
-  <button mat-button routerLink="/panorama">Panorama</button>
-  <button mat-button routerLink="/prisma">Prisma</button>
+  <button mat-button [matMenuTriggerFor]="systems">Systems</button>
+  <mat-menu #systems="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="panorama">Panorama</button>
+    <button mat-menu-item [matMenuTriggerFor]="prisma">Prisma</button>
+  </mat-menu>
+  <mat-menu #panorama="matMenu">
+    <button mat-menu-item routerLink="/panorama">List</button>
+    <button mat-menu-item>Create New</button>
+    <!-- Add the appropriate routerLink when the create new route is implemented -->
+  </mat-menu>
+  <mat-menu #prisma="matMenu">
+    <button mat-menu-item routerLink="/prisma">List</button>
+    <button mat-menu-item>Create New</button>
+    <!-- Add the appropriate routerLink when the create new route is implemented -->
+  </mat-menu>
   <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Login</button>
   <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
 </mat-toolbar>
