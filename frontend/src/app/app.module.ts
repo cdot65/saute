@@ -24,6 +24,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { JobsComponent } from './jobs/jobs.component';
+import { PanoramaCreateComponent } from './panorama-create/panorama-create.component';
+import { PrismaCreateComponent } from './prisma-create/prisma-create.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { JobsComponent } from './jobs/jobs.component';
     PrismaComponent,
     HomepageComponent,
     LoginComponent,
-    JobsComponent
+    JobsComponent,
+    PanoramaCreateComponent,
+    PrismaCreateComponent
   ],
   imports: [
     BrowserModule,

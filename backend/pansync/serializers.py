@@ -5,6 +5,10 @@ from .models import Panorama, Prisma, Jobs
 
 
 class PanoramaSerializer(serializers.ModelSerializer):
+    ipv6_address = serializers.IPAddressField(
+        protocol="IPv6", allow_blank=True, required=False
+    )
+
     class Meta:
         model = Panorama
         fields = (

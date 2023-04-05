@@ -9,13 +9,11 @@
   </mat-menu>
   <mat-menu #panorama="matMenu">
     <button mat-menu-item routerLink="/panorama">List</button>
-    <button mat-menu-item>Create New</button>
-    <!-- Add the appropriate routerLink when the create new route is implemented -->
+    <button mat-menu-item routerLink="/panorama/create">Create New</button>
   </mat-menu>
   <mat-menu #prisma="matMenu">
     <button mat-menu-item routerLink="/prisma">List</button>
-    <button mat-menu-item>Create New</button>
-    <!-- Add the appropriate routerLink when the create new route is implemented -->
+    <button mat-menu-item routerLink="/prisma/create">Create New</button>
   </mat-menu>
   <button mat-button routerLink="/jobs">Jobs</button>
   <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Login</button>

@@ -1,0 +1,15 @@
+<form (ngSubmit)="onSubmit(panoramaForm)" #panoramaForm="ngForm">
+  <mat-form-field>
+    <input matInput placeholder="Hostname" [(ngModel)]="panorama.hostname" name="hostname" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="IPv4 Address" [(ngModel)]="panorama.ipv4_address" name="ipv4_address" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="IPv6 Address" [(ngModel)]="panorama.ipv6_address" name="ipv6_address">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="API Token" [(ngModel)]="panorama.api_token" name="api_token" required>
+  </mat-form-field>
+  <button mat-raised-button type="submit">Submit</button>
+</form>
