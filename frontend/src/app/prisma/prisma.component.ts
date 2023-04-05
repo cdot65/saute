@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-prisma',
@@ -18,13 +20,23 @@ export class PrismaComponent implements OnInit {
   }
 
   fetchPrismaData() {
-    this.http.get('http://localhost:8000/api/v1/prisma').subscribe(
-      (data: any) => {
+    this.http.get<any[]>('http://localhost:8000/api/v1/prisma')
+      .pipe(
+        map((data: any[]) => data.map(item => {
+          item.client_secret = this.maskValue(item.client_secret);
+          return item;
+        })),
+        catchError((error) => {
+          console.error('Error fetching Prisma data:', error);
+          return of([]);
+        })
+      )
+      .subscribe((data: any[]) => {
         this.prismaData = data;
-      },
-      (error) => {
-        console.error('Error fetching Prisma data:', error);
-      }
-    );
+      });
+  }
+
+  maskValue(value: string): string {
+    return 'xxxxxxxxxx-' + value.slice(-4);
   }
 }
