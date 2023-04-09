@@ -13,7 +13,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'inventory', component: InventoryComponent },
+  { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
   { path: 'panorama', component: PanoramaComponent, canActivate: [AuthGuard] },
   { path: 'prisma', component: PrismaComponent, canActivate: [AuthGuard] },
   { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
