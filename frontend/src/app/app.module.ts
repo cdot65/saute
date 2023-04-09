@@ -4,9 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './auth.interceptor';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -28,8 +28,6 @@ import { HomepageComponent } from './homepage/homepage.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { JobsComponent } from './jobs/jobs.component';
-import { PanoramaCreateComponent } from './panorama-create/panorama-create.component';
-import { PrismaCreateComponent } from './prisma-create/prisma-create.component';
 import { InventoryComponent } from './inventory/inventory.component';
 
 @NgModule({
@@ -40,8 +38,6 @@ import { InventoryComponent } from './inventory/inventory.component';
     HomepageComponent,
     LoginComponent,
     JobsComponent,
-    PanoramaCreateComponent,
-    PrismaCreateComponent,
     InventoryComponent
   ],
   imports: [

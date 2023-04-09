@@ -1,25 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { InventoryComponent } from './inventory/inventory.component';
 import { PanoramaComponent } from './inventory/panorama/panorama.component';
 import { PrismaComponent } from './inventory/prisma/prisma.component';
 import { LoginComponent } from './login/login.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { AuthGuard } from './auth.guard';
-import { PanoramaCreateComponent } from './panorama-create/panorama-create.component';
-import { PrismaCreateComponent } from './prisma-create/prisma-create.component';
-import { InventoryComponent } from './inventory/inventory.component';
 
 const routes: Routes = [
-  { path: '', component: HomepageComponent },
+  { path: '', redirectTo: '/homepage', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
-  { path: 'panorama', component: PanoramaComponent, canActivate: [AuthGuard] },
-  { path: 'prisma', component: PrismaComponent, canActivate: [AuthGuard] },
+  { path: 'homepage', component: HomepageComponent, canActivate: [AuthGuard] },
   { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
-  { path: 'panorama/create', component: PanoramaCreateComponent, canActivate: [AuthGuard] },
-  { path: 'prisma/create', component: PrismaCreateComponent, canActivate: [AuthGuard] },
+  { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
+  { path: 'inventory/panorama', component: PanoramaComponent, canActivate: [AuthGuard] },
+  { path: 'inventory/prisma', component: PrismaComponent, canActivate: [AuthGuard] }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
