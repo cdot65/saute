@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth.service';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { NgForm } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-prisma',
@@ -13,10 +15,20 @@ export class PrismaComponent implements OnInit {
   prismaData: any;
   displayedColumns: string[] = ['tenant_name', 'client_id', 'client_secret', 'tsg_id', 'author', 'created_at'];
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private authService: AuthService) { }
+
+  showCreateForm = false;
+  prisma = {
+    tenant_name: '',
+    client_id: '',
+    client_secret: '',
+    tsg_id: '',
+    author: ''
+  };
 
   ngOnInit(): void {
     this.fetchPrismaData();
+    this.getCurrentUserId();
   }
 
   fetchPrismaData() {
@@ -34,6 +46,39 @@ export class PrismaComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.prismaData = data;
       });
+  }
+
+  getCurrentUserId() {
+    const authToken = this.cookieService.get('auth_token');
+    const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
+
+    this.http.get<any[]>('http://localhost:8000/api/v1/users/', { headers })
+      .subscribe(response => {
+        const user = response[0];
+        this.prisma.author = user['id'];
+      });
+  }
+
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      const authToken = this.cookieService.get('auth_token');
+      const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
+
+      this.http.post('http://localhost:8000/api/v1/prisma/', this.prisma, { headers })
+        .subscribe(response => {
+          console.log(response);
+        });
+    }
+  }
+
+  resetForm() {
+    this.prisma = {
+      tenant_name: '',
+      client_id: '',
+      client_secret: '',
+      tsg_id: '',
+      author: this.prisma.author
+    };
   }
 
   maskValue(value: string): string {

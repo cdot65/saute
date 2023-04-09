@@ -40,3 +40,26 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+
+<button mat-raised-button (click)="showCreateForm = !showCreateForm">
+  {{ showCreateForm ? 'Hide' : 'Show' }} Create prisma Form
+</button>
+
+<div *ngIf="showCreateForm">
+  <!-- Add the prisma-create form code here -->
+  <form (ngSubmit)="onSubmit(prismaForm)" #prismaForm="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Tenant Name" [(ngModel)]="prisma.tenant_name" name="tenant_name" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Client ID" [(ngModel)]="prisma.client_id" name="client_id" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Client Secret" [(ngModel)]="prisma.client_secret" name="client_secret">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="TSG ID" [(ngModel)]="prisma.tsg_id" name="tsg_id" required>
+    </mat-form-field>
+    <button mat-raised-button type="submit">Submit</button>
+  </form>
+</div>
