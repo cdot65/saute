@@ -11,21 +11,14 @@
   <mat-sidenav #sidenav class="pan-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
     (mouseleave)="mouseleave()">
     <mat-nav-list>
-      <mat-list-item routerLink="/homepage" routerLinkActive="active">
+      <mat-list-item routerLink="/" routerLinkActive="active">
         <mat-icon mat-list-icon class="icon">dashboard</mat-icon>
         <span class="text" *ngIf="isExpanded || isShowing">Dashboard</span>
       </mat-list-item>
-      <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+      <mat-list-item routerLink="/inventory" routerLinkActive="active">
         <mat-icon mat-list-icon class="icon">apps</mat-icon>
         <span class="text" *ngIf="isExpanded || isShowing">Inventory</span>
-        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more
-        </mat-icon>
       </mat-list-item>
-      <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-        <a mat-list-item routerLink="/firewalls">Firewalls</a>
-        <a mat-list-item routerLink="/panorama">Panorama Instances</a>
-        <a mat-list-item routerLink="/prisma">Prisma Tenants</a>
-      </div>
     </mat-nav-list>
   </mat-sidenav>
 
