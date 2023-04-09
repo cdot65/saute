@@ -16,6 +16,7 @@ export class PrismaComponent implements OnInit {
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
+  // Add prisma-create related variables
   showCreateForm = false;
   prisma = {
     tenant_name: '',
@@ -30,6 +31,7 @@ export class PrismaComponent implements OnInit {
     this.getCurrentUserId();
   }
 
+  // Fetch data from the API and apply a mask to the API token
   fetchPrismaData() {
     this.http.get<any[]>('http://localhost:8000/api/v1/prisma')
       .pipe(
@@ -47,6 +49,7 @@ export class PrismaComponent implements OnInit {
       });
   }
 
+  // Get the current user's ID from the API
   getCurrentUserId() {
     const authToken = this.cookieService.get('auth_token');
     const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
@@ -58,6 +61,7 @@ export class PrismaComponent implements OnInit {
       });
   }
 
+  // Handle form submission
   onSubmit(form: NgForm) {
     if (form.valid) {
       const authToken = this.cookieService.get('auth_token');
@@ -77,6 +81,7 @@ export class PrismaComponent implements OnInit {
     }
   }
 
+  // Reset the form
   resetForm() {
     this.prisma = {
       tenant_name: '',
@@ -87,6 +92,7 @@ export class PrismaComponent implements OnInit {
     };
   }
 
+  // Mask the API token value for display
   maskValue(value: string): string {
     return 'xxxxxxxxxx-' + value.slice(-4);
   }

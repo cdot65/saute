@@ -31,6 +31,7 @@ export class PanoramaComponent implements OnInit {
     this.getCurrentUserId();
   }
 
+  // Fetch data from the API and apply a mask to the API token
   fetchPanoramaData() {
     this.http.get<any[]>('http://localhost:8000/api/v1/panorama')
       .pipe(
@@ -48,6 +49,7 @@ export class PanoramaComponent implements OnInit {
       });
   }
 
+  // Get the current user's ID from the API
   getCurrentUserId() {
     const authToken = this.cookieService.get('auth_token');
     const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
@@ -64,6 +66,7 @@ export class PanoramaComponent implements OnInit {
       });
   }
 
+  // Handle form submission
   onSubmit(form: NgForm) {
     if (form.valid) {
       const authToken = this.cookieService.get('auth_token');
@@ -83,6 +86,7 @@ export class PanoramaComponent implements OnInit {
     }
   }
 
+  // Reset the form
   resetForm() {
     this.panorama = {
       hostname: '',
@@ -93,6 +97,7 @@ export class PanoramaComponent implements OnInit {
     };
   }
 
+  // Mask the API token value for display
   maskValue(value: string): string {
     return 'xxxxxxxxxx-' + value.slice(-4);
   }
