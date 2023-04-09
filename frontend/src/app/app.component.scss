@@ -3,7 +3,6 @@
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 .pan-sidenav-content {
-  display: flex;
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -13,13 +12,6 @@
 }
 .full-width {
   width: 100%;
-}
-.menu-button {
-  transition: 300ms ease-in-out;
-  transform: rotate(0deg);
-}
-.menu-button.rotated {
-  transform: rotate(180deg);
 }
 .spacer {
   flex: 1 1 auto;
@@ -49,14 +41,17 @@
   justify-content: space-between;
   width: 100%;
 }
-.menu-button {
-  margin-right: 15px;
-  transition: 300ms ease-in-out;
-  transform: rotate(0deg);
-}
 .parent {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+.menu-button {
+  margin-right: 15px;
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.menu-button.rotated {
+  transform: rotate(180deg);
 }
