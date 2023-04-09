@@ -1,6 +1,24 @@
-.panorama-container,
-.prisma-container {
+.panorama-table,
+.prisma-table {
   padding: 5%;
+  padding-top: 40px; /* Add padding to make space for the button */
+}
+
+.panorama-table-title,
+.prisma-table-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+button[mat-mini-fab] {
+  width: 40px;
+  height: 40px;
+}
+
+.table-name {
+  padding: 0.5%;
 }
 
 .panorama-container {
