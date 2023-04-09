@@ -1,24 +1,42 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="example-toolbar">
+  <button mat-icon-button (click)="isExpanded = !isExpanded">
+    <mat-icon>menu</mat-icon>
+  </button>
   <span>Prisma Panorama Diffsync</span>
   <span class="spacer"></span>
-  <button mat-button routerLink="/">Home</button>
-  <button mat-button [matMenuTriggerFor]="systems">Systems</button>
-  <mat-menu #systems="matMenu">
-    <button mat-menu-item [matMenuTriggerFor]="panorama">Panorama</button>
-    <button mat-menu-item [matMenuTriggerFor]="prisma">Prisma</button>
-  </mat-menu>
-  <mat-menu #panorama="matMenu">
-    <button mat-menu-item routerLink="/panorama">List</button>
-    <button mat-menu-item routerLink="/panorama/create">Create New</button>
-  </mat-menu>
-  <mat-menu #prisma="matMenu">
-    <button mat-menu-item routerLink="/prisma">List</button>
-    <button mat-menu-item routerLink="/prisma/create">Create New</button>
-  </mat-menu>
-  <button mat-button routerLink="/jobs">Jobs</button>
   <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Login</button>
   <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
 </mat-toolbar>
-<div style="margin: 16px;">
-  <router-outlet></router-outlet>
-</div>
+<mat-sidenav-container class="pan-container" autosize>
+  <mat-sidenav #sidenav class="pan-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
+    (mouseleave)="mouseleave()">
+    <mat-nav-list>
+      <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Parent Menu</span>
+        <mat-icon mat-list-icon>home</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+        <a mat-list-item href="...">Submenu Item 1</a>
+        <a mat-list-item href="...">Submenu Item 2</a>
+        <mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
+          <span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
+          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}" *ngIf="isExpanded || isShowing">
+            expand_more</mat-icon>
+        </mat-list-item>
+        <div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
+          <mat-list-item>SubSubmenu Item 1</mat-list-item>
+          <mat-list-item>SubSubmenu Item 2</mat-list-item>
+        </div>
+      </div>
+    </mat-nav-list>
+    <mat-nav-list>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <div class="pan-sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-sidenav-container>
