@@ -11,13 +11,17 @@
   <mat-sidenav #sidenav class="pan-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
     (mouseleave)="mouseleave()">
     <mat-nav-list>
-      <mat-list-item routerLink="/" routerLinkActive="active">
+      <mat-list-item routerLink="/homepage" routerLinkActive="active">
         <mat-icon mat-list-icon class="icon">dashboard</mat-icon>
         <span class="text" *ngIf="isExpanded || isShowing">Dashboard</span>
       </mat-list-item>
       <mat-list-item routerLink="/inventory" routerLinkActive="active">
         <mat-icon mat-list-icon class="icon">apps</mat-icon>
         <span class="text" *ngIf="isExpanded || isShowing">Inventory</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/jobs" routerLinkActive="active">
+        <mat-icon mat-list-icon class="icon">history</mat-icon>
+        <span class="text" *ngIf="isExpanded || isShowing">Past Jobs</span>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
