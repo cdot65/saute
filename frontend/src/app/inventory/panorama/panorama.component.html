@@ -41,12 +41,11 @@
   </table>
 </div>
 
-<button mat-raised-button (click)="showCreateForm = !showCreateForm">
+<button mat-raised-button color="primary" (click)="showCreateForm = !showCreateForm" class="create-form-button">
   {{ showCreateForm ? 'Hide' : 'Show' }} Create Panorama Form
 </button>
 
-<div *ngIf="showCreateForm">
-  <!-- Add the panorama-create form code here -->
+<div class="create-form-container" *ngIf="showCreateForm">
   <form (ngSubmit)="onSubmit(panoramaForm)" #panoramaForm="ngForm">
     <mat-form-field>
       <input matInput placeholder="Hostname" [(ngModel)]="panorama.hostname" name="hostname" required>

@@ -65,9 +65,16 @@ export class PrismaComponent implements OnInit {
       const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
 
       this.http.post('http://localhost:8000/api/v1/prisma/', this.prisma, { headers })
-        .subscribe(response => {
-          console.log(response);
-        });
+        .subscribe(
+          response => {
+            console.log('New prisma tenant created:', response);
+            this.fetchPrismaData(); // Fetch Prisma data again after successful submission
+            this.resetForm();
+          },
+          error => {
+            console.error('Error creating prisma tenant:', error);
+          }
+        );
     }
   }
 

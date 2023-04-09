@@ -41,12 +41,11 @@
   </table>
 </div>
 
-<button mat-raised-button (click)="showCreateForm = !showCreateForm">
-  {{ showCreateForm ? 'Hide' : 'Show' }} Create prisma Form
+<button mat-raised-button color="primary" (click)="showCreateForm = !showCreateForm" class="create-form-button">
+  {{ showCreateForm ? 'Hide' : 'Show' }} Create Prisma Tenant Form
 </button>
 
-<div *ngIf="showCreateForm">
-  <!-- Add the prisma-create form code here -->
+<div class="create-form-container" *ngIf="showCreateForm">
   <form (ngSubmit)="onSubmit(prismaForm)" #prismaForm="ngForm">
     <mat-form-field>
       <input matInput placeholder="Tenant Name" [(ngModel)]="prisma.tenant_name" name="tenant_name" required>
