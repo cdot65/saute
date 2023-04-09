@@ -49,7 +49,6 @@ export class PanoramaComponent implements OnInit {
       });
   }
 
-  // Add panorama-create related methods
   getCurrentUserId() {
     const authToken = this.cookieService.get('auth_token');
     const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
