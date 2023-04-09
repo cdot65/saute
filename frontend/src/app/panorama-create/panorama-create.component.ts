@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-panorama-create',
@@ -18,7 +19,7 @@ export class PanoramaCreateComponent implements OnInit {
     author: ''
   };
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(public dialogRef: MatDialogRef<PanoramaCreateComponent>, private http: HttpClient, private cookieService: CookieService) {}
 
   ngOnInit(): void {
     this.getCurrentUserId();

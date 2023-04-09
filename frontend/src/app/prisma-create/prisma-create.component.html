@@ -11,5 +11,5 @@
   <mat-form-field>
     <input matInput placeholder="TSG ID" [(ngModel)]="prisma.tsg_id" name="tsg_id" required />
   </mat-form-field>
-  <button mat-raised-button color="primary" type="submit" [disabled]="!prismaForm.valid">Submit</button>
+  <button mat-raised-button type="submit" (click)="dialogRef.close()">Submit</button>
 </form>

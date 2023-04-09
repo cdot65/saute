@@ -11,5 +11,5 @@
   <mat-form-field>
     <input matInput placeholder="API Token" [(ngModel)]="panorama.api_token" name="api_token" required>
   </mat-form-field>
-  <button mat-raised-button type="submit">Submit</button>
+  <button mat-raised-button type="submit" (click)="dialogRef.close()">Submit</button>
 </form>

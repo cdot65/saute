@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-prisma-create',
@@ -17,7 +18,7 @@ export class PrismaCreateComponent implements OnInit {
     author: ''
   };
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(public dialogRef: MatDialogRef<PrismaCreateComponent>, private http: HttpClient, private cookieService: CookieService) {}
 
   ngOnInit(): void {
     this.getCurrentUserId();
