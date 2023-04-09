@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../../auth.service';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { NgForm } from '@angular/forms';
@@ -15,7 +14,7 @@ export class PrismaComponent implements OnInit {
   prismaData: any;
   displayedColumns: string[] = ['tenant_name', 'client_id', 'client_secret', 'tsg_id', 'author', 'created_at'];
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private authService: AuthService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   showCreateForm = false;
   prisma = {
@@ -65,16 +64,16 @@ export class PrismaComponent implements OnInit {
       const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
 
       this.http.post('http://localhost:8000/api/v1/prisma/', this.prisma, { headers })
-        .subscribe(
-          response => {
+        .subscribe({
+          next: response => {
             console.log('New prisma tenant created:', response);
-            this.fetchPrismaData(); // Fetch Prisma data again after successful submission
+            this.fetchPrismaData();
             this.resetForm();
           },
-          error => {
+          error: error => {
             console.error('Error creating prisma tenant:', error);
           }
-        );
+        });
     }
   }
 
