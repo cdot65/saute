@@ -34,3 +34,29 @@
 .submenu.expanded {
   transform: scaleY(1);
 }
+.icon {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.text {
+  flex-grow: 1;
+}
+
+.mat-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.menu-button {
+  margin-right: 15px;
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.parent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="isExpanded = !isExpanded">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Prisma Panorama Diffsync</span>
+  <span>PAN Dashboard</span>
   <span class="spacer"></span>
   <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Login</button>
   <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
@@ -11,27 +11,21 @@
   <mat-sidenav #sidenav class="pan-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
     (mouseleave)="mouseleave()">
     <mat-nav-list>
+      <mat-list-item routerLink="/homepage" routerLinkActive="active">
+        <mat-icon mat-list-icon class="icon">dashboard</mat-icon>
+        <span class="text" *ngIf="isExpanded || isShowing">Dashboard</span>
+      </mat-list-item>
       <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-        <span class="full-width" *ngIf="isExpanded || isShowing">Parent Menu</span>
-        <mat-icon mat-list-icon>home</mat-icon>
+        <mat-icon mat-list-icon class="icon">apps</mat-icon>
+        <span class="text" *ngIf="isExpanded || isShowing">Inventory</span>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-        <a mat-list-item href="...">Submenu Item 1</a>
-        <a mat-list-item href="...">Submenu Item 2</a>
-        <mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
-          <span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
-          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}" *ngIf="isExpanded || isShowing">
-            expand_more</mat-icon>
-        </mat-list-item>
-        <div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
-          <mat-list-item>SubSubmenu Item 1</mat-list-item>
-          <mat-list-item>SubSubmenu Item 2</mat-list-item>
-        </div>
+        <a mat-list-item routerLink="/firewalls">Firewalls</a>
+        <a mat-list-item routerLink="/panorama">Panorama Instances</a>
+        <a mat-list-item routerLink="/prisma">Prisma Tenants</a>
       </div>
-    </mat-nav-list>
-    <mat-nav-list>
     </mat-nav-list>
   </mat-sidenav>
 
