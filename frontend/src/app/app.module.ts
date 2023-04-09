@@ -29,6 +29,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { JobsComponent } from './jobs/jobs.component';
 import { PanoramaCreateComponent } from './panorama-create/panorama-create.component';
 import { PrismaCreateComponent } from './prisma-create/prisma-create.component';
+import { InventoryComponent } from './inventory/inventory.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PrismaCreateComponent } from './prisma-create/prisma-create.component';
     LoginComponent,
     JobsComponent,
     PanoramaCreateComponent,
-    PrismaCreateComponent
+    PrismaCreateComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,

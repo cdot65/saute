@@ -8,10 +8,12 @@ import { JobsComponent } from './jobs/jobs.component';
 import { AuthGuard } from './auth.guard';
 import { PanoramaCreateComponent } from './panorama-create/panorama-create.component';
 import { PrismaCreateComponent } from './prisma-create/prisma-create.component';
+import { InventoryComponent } from './inventory/inventory.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'inventory', component: InventoryComponent },
   { path: 'panorama', component: PanoramaComponent, canActivate: [AuthGuard] },
   { path: 'prisma', component: PrismaComponent, canActivate: [AuthGuard] },
   { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
