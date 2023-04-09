@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PanoramaComponent } from './panorama/panorama.component';
-import { PrismaComponent } from './prisma/prisma.component';
+import { PanoramaComponent } from './inventory/panorama/panorama.component';
+import { PrismaComponent } from './inventory/prisma/prisma.component';
 import { LoginComponent } from './login/login.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { JobsComponent } from './jobs/jobs.component';

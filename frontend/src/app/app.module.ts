@@ -22,8 +22,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { HttpClientModule } from '@angular/common/http';
-import { PanoramaComponent } from './panorama/panorama.component';
-import { PrismaComponent } from './prisma/prisma.component';
+import { PanoramaComponent } from './inventory/panorama/panorama.component';
+import { PrismaComponent } from './inventory/prisma/prisma.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { CookieService } from 'ngx-cookie-service';
