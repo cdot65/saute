@@ -29,7 +29,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { CookieService } from 'ngx-cookie-service';
 import { JobsComponent } from './jobs/jobs.component';
 import { InventoryComponent } from './inventory/inventory.component';
-import { EntryDetailComponent } from './inventory/shared/entry-detail/entry-detail.component';
+import { EditEntryComponent } from './inventory/shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from './inventory/shared/create-entry/create-entry.component';
 
 @NgModule({
@@ -41,7 +41,7 @@ import { CreateEntryComponent } from './inventory/shared/create-entry/create-ent
     LoginComponent,
     JobsComponent,
     InventoryComponent,
-    EntryDetailComponent,
+    EditEntryComponent,
     CreateEntryComponent
   ],
   imports: [

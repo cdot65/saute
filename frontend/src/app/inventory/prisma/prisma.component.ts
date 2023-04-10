@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
-import { EntryDetailComponent } from '../shared/entry-detail/entry-detail.component';
+import { EditEntryComponent } from '../shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
 
 @Component({
@@ -98,7 +98,7 @@ export class PrismaComponent implements OnInit {
   }
 
   openEntryDetailDialog(row: any): void {
-    const dialogRef = this.dialog.open(EntryDetailComponent, {
+    const dialogRef = this.dialog.open(EditEntryComponent, {
       width: '80%',
       data: {
         title: 'Entry Details',

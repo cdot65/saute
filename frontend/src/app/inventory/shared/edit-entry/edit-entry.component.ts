@@ -5,16 +5,16 @@ import { CookieService } from 'ngx-cookie-service';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-entry-detail',
-  templateUrl: './entry-detail.component.html',
-  styleUrls: ['./entry-detail.component.scss']
+  selector: 'app-edit-entry',
+  templateUrl: './edit-entry.component.html',
+  styleUrls: ['./edit-entry.component.scss']
 })
-export class EntryDetailComponent implements OnInit {
+export class EditEntryComponent implements OnInit {
   @Output() entryUpdated = new EventEmitter<any>();
   entryForm!: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<EntryDetailComponent>,
+    public dialogRef: MatDialogRef<EditEntryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
     private cookieService: CookieService
