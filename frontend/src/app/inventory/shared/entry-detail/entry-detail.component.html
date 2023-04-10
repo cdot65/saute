@@ -1,22 +1,17 @@
 <h2 mat-dialog-title>{{ data.title }}</h2>
 <mat-dialog-content class="mat-typography">
-  <table mat-table [dataSource]="data.content" class="mat-elevation-z8">
-    <!-- Key Column -->
-    <ng-container matColumnDef="key">
-      <th mat-header-cell *matHeaderCellDef>Key</th>
-      <td mat-cell *matCellDef="let element">{{ element.key }}</td>
-    </ng-container>
-
-    <!-- Value Column -->
-    <ng-container matColumnDef="value">
-      <th mat-header-cell *matHeaderCellDef>Value</th>
-      <td mat-cell *matCellDef="let element">{{ element.value }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="['key', 'value']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['key', 'value']"></tr>
-  </table>
+  <form [formGroup]="entryForm" class="form-group">
+    <div class="form-row" *ngFor="let field of data.content">
+      <ng-container *ngIf="field.key !== 'author' && field.key !== 'created_at' && field.key !== 'id'">
+        <mat-form-field class="form-field">
+          <mat-label>{{ field.key }}</mat-label>
+          <input matInput [formControlName]="field.key" [value]="field.value" />
+        </mat-form-field>
+      </ng-container>
+    </div>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onClose()">Close</button>
+  <button mat-raised-button color="primary" (click)="updateEntry(entryForm.value)">Update</button>
 </mat-dialog-actions>

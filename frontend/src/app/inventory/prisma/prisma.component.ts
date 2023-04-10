@@ -98,13 +98,23 @@ export class PrismaComponent implements OnInit {
   }
 
   openEntryDetailDialog(row: any): void {
-    this.dialog.open(EntryDetailComponent, {
-      width: '80%', // <-- Add this line
+    const dialogRef = this.dialog.open(EntryDetailComponent, {
+      width: '80%',
       data: {
         title: 'Entry Details',
-        content: Object.entries(row).map(([key, value]) => ({ key, value }))
+        type: 'prisma',
+        id: row.id,
+        content: Object.entries(row).map(([key, value]) => ({ key, value })),
+      },
+    });
+
+
+    dialogRef.componentInstance.entryUpdated.subscribe((updatedEntry: any) => {
+      if (updatedEntry.type === 'prisma') {
+        this.fetchPrismaData();
       }
     });
+
   }
 
   openCreateEntryDialog(): void {
