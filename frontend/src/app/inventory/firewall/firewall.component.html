@@ -42,7 +42,8 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tbody>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEntryDetailDialog(row)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEditEntryDialog(row)"></tr>
     </tbody>
   </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -7,6 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditEntryComponent } from '../shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-firewall',
@@ -14,10 +16,14 @@ import { CreateEntryComponent } from '../shared/create-entry/create-entry.compon
   styleUrls: ['./firewall.component.scss']
 })
 export class FirewallComponent implements OnInit {
-  firewallData: any;
+  firewallData: MatTableDataSource<any>;
   displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token'];
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
+    this.firewallData = new MatTableDataSource();
+  }
 
   // Add firewall-create related variables
   showCreateForm = false;
@@ -34,6 +40,10 @@ export class FirewallComponent implements OnInit {
     this.getCurrentUserId();
   }
 
+  ngAfterViewInit(): void {
+    this.firewallData.paginator = this.paginator;
+  }
+
   // Fetch data from the API and apply a mask to the API token
   fetchFirewallData() {
     this.http.get<any[]>('http://localhost:8000/api/v1/firewall')
@@ -48,7 +58,7 @@ export class FirewallComponent implements OnInit {
         })
       )
       .subscribe((data: any[]) => {
-        this.firewallData = data;
+        this.firewallData.data = data;
       });
   }
 
@@ -102,7 +112,7 @@ export class FirewallComponent implements OnInit {
     };
   }
 
-  openEntryDetailDialog(row: any): void {
+  openEditEntryDialog(row: any): void {
     const dialogRef = this.dialog.open(EditEntryComponent, {
       width: '80%',
       data: {
