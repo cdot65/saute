@@ -1,10 +1,10 @@
-# Prisma Panorama DiffSync 🚀🌐
+# PAN Dashboard 🚀🌐
 
 [![Build and Deploy](https://github.com/cdot65/pan-dashboard/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/pan-dashboard/actions/workflows/backend.yml)
 
 ## Table of Contents
 
-- [Prisma Panorama DiffSync 🚀🌐](#prisma-panorama-diffsync-)
+- [PAN Dashboard 🚀🌐](#pan-dashboard-)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Backend Overview](#backend-overview)
