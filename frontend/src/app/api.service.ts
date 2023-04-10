@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,11 @@ import { AuthService } from './auth.service';
 export class DataService {
   private apiUrl = 'http://localhost:8000/api/v1';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
+
 
   getHeaders(): HttpHeaders {
-    const token = this.authService.getToken();
+    const token = this.cookieService.get('auth_token');
     return new HttpHeaders().set('Authorization', `Token ${token}`);
   }
 
