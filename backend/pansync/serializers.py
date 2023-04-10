@@ -6,12 +6,16 @@ from .models import Panorama, Prisma, Jobs
 
 class PanoramaSerializer(serializers.ModelSerializer):
     ipv6_address = serializers.IPAddressField(
-        protocol="IPv6", allow_blank=True, required=False
+        protocol="IPv6",
+        allow_blank=True,
+        required=False,
+        allow_null=True,
     )
 
     class Meta:
         model = Panorama
         fields = (
+            "id",
             "hostname",
             "ipv4_address",
             "ipv6_address",
@@ -25,6 +29,7 @@ class PrismaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prisma
         fields = (
+            "id",
             "tenant_name",
             "client_id",
             "client_secret",
@@ -38,6 +43,7 @@ class JobsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jobs
         fields = (
+            "id",
             "name",
             "description",
             "result",
