@@ -2,13 +2,8 @@
     flex: 1 1 auto;
 }
 
-.create-form-button {
-    margin-top: 10px;
-}
-
-.create-form-container {
-  margin-top: 10px;
-  padding: 1rem;
-  background-color: #f5f5f5;
-  border-radius: 4px;
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }

@@ -8,24 +8,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: -3rem;
 }
 
 button[mat-mini-fab] {
   padding-top: 30px;
   width: 30px;
   height: 30px;
-}
-
-.table-name {
-  padding: 0.5%;
-}
-
-.panorama-container,
-.prisma-container {
-  margin-bottom: 2rem;
-}
-
-.create-form {
-  margin-top: 2rem;
 }
