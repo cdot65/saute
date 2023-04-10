@@ -1,3 +1,59 @@
+.pan-container {
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.pan-sidenav-content {
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 5%;
+  padding-top: 40px; /* Add padding to make space for the button */
+}
+.pan-sidenav {
+   user-select: none;
+}
+.full-width {
+  width: 100%;
+}
 .spacer {
-    flex: 1 1 auto;
-  }
+  flex: 1 1 auto;
+}
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+.submenu.expanded {
+  transform: scaleY(1);
+}
+.icon {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.text {
+  flex-grow: 1;
+}
+
+.mat-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.parent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.menu-button {
+  margin-right: 15px;
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.menu-button.rotated {
+  transform: rotate(180deg);
+}

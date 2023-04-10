@@ -4,24 +4,31 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './auth.interceptor';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { HttpClientModule } from '@angular/common/http';
-import { PanoramaComponent } from './panorama/panorama.component';
-import { PrismaComponent } from './prisma/prisma.component';
+import { PanoramaComponent } from './inventory/panorama/panorama.component';
+import { PrismaComponent } from './inventory/prisma/prisma.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { CookieService } from 'ngx-cookie-service';
+import { JobsComponent } from './jobs/jobs.component';
+import { InventoryComponent } from './inventory/inventory.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +36,9 @@ import { CookieService } from 'ngx-cookie-service';
     PanoramaComponent,
     PrismaComponent,
     HomepageComponent,
-    LoginComponent
+    LoginComponent,
+    JobsComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,
@@ -37,12 +46,18 @@ import { CookieService } from 'ngx-cookie-service';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatSnackBarModule,
+    MatTableModule,
     MatToolbarModule,
     MatButtonModule,
-    MatInputModule,
-    MatCardModule,
-    MatTableModule,
-    MatSnackBarModule,
     HttpClientModule
   ],
   providers: [

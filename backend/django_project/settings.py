@@ -62,13 +62,16 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://frontend:4200",
+    "http://frontend:8080",
     "http://localhost:4200",
+    "http://localhost:8080",
     "http://localhost:8000",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:4200",
+    "http://localhost:8080",
     "http://localhost:8000",
 ]
 

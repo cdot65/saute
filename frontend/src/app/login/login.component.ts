@@ -23,6 +23,9 @@ export class LoginComponent {
   ) {}
 
   onSubmit(form: NgForm) {
+    // reset the error message
+    this.errorMessage = '';
+
     const { username, password } = form.value;
     this.authService.login(username, password).subscribe({
       next: (response) => {
