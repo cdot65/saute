@@ -4,6 +4,8 @@ import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialog } from '@angular/material/dialog';
+import { EntryDetailComponent } from '../shared/entry-detail/entry-detail.component';
 
 @Component({
   selector: 'app-panorama',
@@ -14,7 +16,7 @@ export class PanoramaComponent implements OnInit {
   panoramaData: any;
   displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token', 'author', 'created_at'];
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) { }
 
   // Add panorama-create related variables
   showCreateForm = false;
@@ -97,6 +99,16 @@ export class PanoramaComponent implements OnInit {
       api_token: '',
       author: this.panorama.author
     };
+  }
+
+  openEntryDetailDialog(row: any): void {
+    this.dialog.open(EntryDetailComponent, {
+      width: '80%', // <-- Add this line
+      data: {
+        title: 'Entry Details',
+        content: Object.entries(row).map(([key, value]) => ({ key, value }))
+      }
+    });
   }
 
   // Mask the API token value for display

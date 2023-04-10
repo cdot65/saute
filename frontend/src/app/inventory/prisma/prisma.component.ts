@@ -4,6 +4,8 @@ import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialog } from '@angular/material/dialog';
+import { EntryDetailComponent } from '../shared/entry-detail/entry-detail.component';
 
 @Component({
   selector: 'app-prisma',
@@ -14,7 +16,7 @@ export class PrismaComponent implements OnInit {
   prismaData: any;
   displayedColumns: string[] = ['tenant_name', 'client_id', 'client_secret', 'tsg_id', 'author', 'created_at'];
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) { }
 
   // Add prisma-create related variables
   showCreateForm = false;
@@ -92,6 +94,16 @@ export class PrismaComponent implements OnInit {
       tsg_id: '',
       author: this.prisma.author
     };
+  }
+
+  openEntryDetailDialog(row: any): void {
+    this.dialog.open(EntryDetailComponent, {
+      width: '80%', // <-- Add this line
+      data: {
+        title: 'Entry Details',
+        content: Object.entries(row).map(([key, value]) => ({ key, value }))
+      }
+    });
   }
 
   // Mask the API token value for display

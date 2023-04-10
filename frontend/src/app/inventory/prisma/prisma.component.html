@@ -37,7 +37,9 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tbody>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEntryDetailDialog(row)"></tr>
+    </tbody>
   </table>
 </div>
 

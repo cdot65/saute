@@ -29,6 +29,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { CookieService } from 'ngx-cookie-service';
 import { JobsComponent } from './jobs/jobs.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { EntryDetailComponent } from './inventory/shared/entry-detail/entry-detail.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { InventoryComponent } from './inventory/inventory.component';
     HomepageComponent,
     LoginComponent,
     JobsComponent,
-    InventoryComponent
+    InventoryComponent,
+    EntryDetailComponent
   ],
   imports: [
     BrowserModule,
