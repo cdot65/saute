@@ -28,18 +28,6 @@
       <td mat-cell *matCellDef="let element">{{element.tsg_id}}</td>
     </ng-container>
 
-    <!-- Author Column -->
-    <ng-container matColumnDef="author">
-      <th mat-header-cell *matHeaderCellDef>Author</th>
-      <td mat-cell *matCellDef="let element">{{element.author}}</td>
-    </ng-container>
-
-    <!-- Created At Column -->
-    <ng-container matColumnDef="created_at">
-      <th mat-header-cell *matHeaderCellDef>Created At</th>
-      <td mat-cell *matCellDef="let element">{{element.created_at}}</td>
-    </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tbody>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEditEntryDialog(row)"></tr>
