@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from .models import Panorama, Prisma, Jobs
+from .models import Panorama, Prisma, Firewall, Jobs
 
 
 class PanoramaSerializer(serializers.ModelSerializer):
@@ -34,6 +34,27 @@ class PrismaSerializer(serializers.ModelSerializer):
             "client_id",
             "client_secret",
             "tsg_id",
+            "author",
+            "created_at",
+        )
+
+
+class FirewallSerializer(serializers.ModelSerializer):
+    ipv6_address = serializers.IPAddressField(
+        protocol="IPv6",
+        allow_blank=True,
+        required=False,
+        allow_null=True,
+    )
+
+    class Meta:
+        model = Firewall
+        fields = (
+            "id",
+            "hostname",
+            "ipv4_address",
+            "ipv6_address",
+            "api_token",
             "author",
             "created_at",
         )
