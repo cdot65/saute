@@ -78,6 +78,8 @@ export class PrismaComponent implements OnInit {
             console.error('Error creating prisma tenant:', error);
           }
         });
+    } else {
+      console.error('Form is invalid');
     }
   }
 

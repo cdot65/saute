@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "prisma-panorama-diffsync"
+name = "pan-dashboard"
 version = "0.1.0"
 description = "Backend Django web server"
 authors = ["Calvin Remsburg <cremsburg.dev@gmail.com>"]

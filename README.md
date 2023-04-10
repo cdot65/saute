@@ -1,6 +1,6 @@
 # Prisma Panorama DiffSync 🚀🌐
 
-[![Build and Deploy](https://github.com/cdot65/prisma-panorama-diffsync/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/prisma-panorama-diffsync/actions/workflows/backend.yml)
+[![Build and Deploy](https://github.com/cdot65/pan-dashboard/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/pan-dashboard/actions/workflows/backend.yml)
 
 ## Table of Contents
 
@@ -24,7 +24,9 @@
 
 ## Introduction
 
-Prisma Panorama DiffSync is a web application consisting of separate backend and frontend components. The backend is built using Django and PostgreSQL, while the frontend is developed with Angular. The backend provides a robust REST API, and the frontend consumes this API to offer a seamless user experience.
+PAN Dashboard is a web application consisting of separate backend and frontend components. Its goal is to provide a simple and intuitive interface for managing products from Palo Alto Networks.
+
+The backend is built using Django and PostgreSQL, while the frontend is developed with Angular. The backend provides a robust REST API, and the frontend consumes this API to offer a seamless user experience.
 
 ## Backend Overview
 
@@ -196,17 +198,26 @@ The frontend of this project is built using Angular, a popular web application f
 
 The frontend application consists of several components that work together to provide a seamless user experience. Some of the key components and their associated routes are:
 
-1. LoginComponent (`/login`)
-   - Description: This component handles user authentication, allowing users to log in with their username and password. Upon successful login, the user is redirected to the Homepage component.
-
-2. HomepageComponent (`/`)
+1. HomepageComponent (`/`)
    - Description: This component serves as the home page of the application. Users can navigate to different parts of the application from here.
 
-3. PanoramaComponent (`/panorama`)
-   - Description: This component displays a list of panoramas and allows users to interact with them. It fetches data from the backend API and requires the user to be logged in.
+2. LoginComponent (`/login`)
+   - Description: This component handles user authentication, allowing users to log in with their username and password. Upon successful login, the user is redirected to the Homepage component.
 
-4. PrismaComponent (`/prisma`)
-   - Description: This component is dedicated to Prisma-specific features and requires the user to be logged in. It fetches data from the backend API and provides various functionalities related to Prisma.
+3. InventoryComponent (`/inventory`)
+   - Description: This component is the main entry point for the inventory features, but also provides the tables of subsequent inventory components. Will contain navigation options for the Panorama and Prisma components.
+
+4. PanoramaComponent (`/inventory/panorama`)
+   - Description: This component displays a list of panoramas and allows users to create new ones. It fetches data from the backend API and requires the user to be logged in. It also provides a detail view for each panorama entry, accessible via the URL pattern `/inventory/panorama/:id`, where `:id` is the ID of the panorama.
+
+5. PrismaComponent (`/inventory/prisma`)
+   - Description: This component is dedicated to Prisma-specific features, displaying a list of Prisma tenants and allowing users to create new ones. It fetches data from the backend API and requires the user to be logged in. It also provides a detail view for each Prisma tenant entry, accessible via the URL pattern `/inventory/prisma/:id`, where `:id` is the ID of the Prisma tenant.
+
+6. PanoramaDetailComponent (`/inventory/panorama/:id`)
+   - Description: This component displays the details of a specific panorama entry, with the ID provided in the URL. It fetches data from the backend API and requires the user to be logged in.
+
+7. PrismaDetailComponent (`/inventory/prisma/:id`)
+   - Description: This component displays the details of a specific Prisma tenant entry, with the ID provided in the URL. It fetches data from the backend API and requires the user to be logged in.
 
 To navigate between these components, use the Angular Router. The router enables navigation from one component to the next as users perform tasks in the application. The RouterModule and Routes are imported in the `app.module.ts` file, and the routes are defined in the `app-routing.module.ts` file.
 

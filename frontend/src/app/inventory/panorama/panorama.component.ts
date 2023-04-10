@@ -83,6 +83,8 @@ export class PanoramaComponent implements OnInit {
             console.error('Error creating panorama:', error);
           }
         });
+    } else {
+      console.error('Form is invalid');
     }
   }
 
