@@ -1,0 +1,48 @@
+<div class="button-container">
+  <button mat-raised-button color="primary" (click)="openCreateEntryDialog()">Create Firewall Instance</button>
+</div>
+
+<div *ngIf="firewallData">
+  <table mat-table [dataSource]="firewallData" class="mat-elevation-z8">
+    <!-- Hostname Column -->
+    <ng-container matColumnDef="hostname">
+      <th mat-header-cell *matHeaderCellDef>Hostname</th>
+      <td mat-cell *matCellDef="let element">{{element.hostname}}</td>
+    </ng-container>
+
+    <!-- IPv4 Address Column -->
+    <ng-container matColumnDef="ipv4_address">
+      <th mat-header-cell *matHeaderCellDef>IPv4 Address</th>
+      <td mat-cell *matCellDef="let element">{{element.ipv4_address}}</td>
+    </ng-container>
+
+    <!-- IPv6 Address Column -->
+    <ng-container matColumnDef="ipv6_address">
+      <th mat-header-cell *matHeaderCellDef>IPv6 Address</th>
+      <td mat-cell *matCellDef="let element">{{element.ipv6_address}}</td>
+    </ng-container>
+
+    <!-- API Token Column -->
+    <ng-container matColumnDef="api_token">
+      <th mat-header-cell *matHeaderCellDef>API Token</th>
+      <td mat-cell *matCellDef="let element">{{element.api_token}}</td>
+    </ng-container>
+
+    <!-- Author Column -->
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef>Author</th>
+      <td mat-cell *matCellDef="let element">{{element.author}}</td>
+    </ng-container>
+
+    <!-- Created At Column -->
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef>Created At</th>
+      <td mat-cell *matCellDef="let element">{{element.created_at}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tbody>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEntryDetailDialog(row)"></tr>
+    </tbody>
+  </table>
+</div>

@@ -31,6 +31,7 @@ import { JobsComponent } from './jobs/jobs.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { EditEntryComponent } from './inventory/shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from './inventory/shared/create-entry/create-entry.component';
+import { FirewallComponent } from './inventory/firewall/firewall.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CreateEntryComponent } from './inventory/shared/create-entry/create-ent
     JobsComponent,
     InventoryComponent,
     EditEntryComponent,
-    CreateEntryComponent
+    CreateEntryComponent,
+    FirewallComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ from .views import (
 router = SimpleRouter()
 router.register("panorama", PanoramaViewSet, basename="panorama")
 router.register("prisma", PrismaViewSet, basename="prisma")
-router.register("firewalls", FirewallViewSet, basename="firewalls")
+router.register("firewall", FirewallViewSet, basename="firewall")
 router.register("jobs", JobsViewSet, basename="jobs")
 router.register("users", UserViewSet, basename="users")
 
