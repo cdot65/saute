@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { EntryDetailComponent } from '../shared/entry-detail/entry-detail.component';
+import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
 
 @Component({
   selector: 'app-prisma',
@@ -102,6 +103,53 @@ export class PrismaComponent implements OnInit {
       data: {
         title: 'Entry Details',
         content: Object.entries(row).map(([key, value]) => ({ key, value }))
+      }
+    });
+  }
+
+  openCreateEntryDialog(): void {
+    const dialogRef = this.dialog.open(CreateEntryComponent, {
+      width: '80%',
+      data: {
+        title: 'Create Prisma Tenant',
+        fields: [
+          { name: 'tenant_name', placeholder: 'Tenant Name', model: '', required: true },
+          { name: 'client_id', placeholder: 'Client ID', model: '', required: true },
+          { name: 'client_secret', placeholder: 'Client Secret', model: '', required: false },
+          { name: 'tsg_id', placeholder: 'TSG ID', model: '', required: true }
+        ]
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Extract the form values from the result object
+        const { tenant_name, client_id, client_secret, tsg_id } = result;
+
+        // Create a new Prisma tenant with the form values
+        const newPrismaTenant = {
+          tenant_name,
+          client_id,
+          client_secret,
+          tsg_id,
+          author: this.prisma.author
+        };
+
+        // Submit the new Prisma tenant using HttpClient
+        const authToken = this.cookieService.get('auth_token');
+        const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
+
+        this.http.post('http://localhost:8000/api/v1/prisma/', newPrismaTenant, { headers }).subscribe(
+          response => {
+            // Handle the successful creation of a new Prisma tenant, e.g. update the table data
+            console.log('Prisma tenant created:', response);
+            this.fetchPrismaData(); // Refresh the table data
+          },
+          error => {
+            // Handle errors in creating a new Prisma tenant
+            console.error('Error creating Prisma tenant:', error);
+          }
+        );
       }
     });
   }

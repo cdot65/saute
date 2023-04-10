@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content class="mat-typography">
+  <form (ngSubmit)="onSubmit(createEntryForm)" #createEntryForm="ngForm">
+    <ng-container *ngFor="let field of data.fields">
+      <mat-form-field>
+        <input matInput [placeholder]="field.placeholder" [(ngModel)]="field.model" [name]="field.name"
+          [required]="field.required">
+      </mat-form-field>
+    </ng-container>
+    <button mat-raised-button type="submit">Submit</button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onClose()">Close</button>
+</mat-dialog-actions>

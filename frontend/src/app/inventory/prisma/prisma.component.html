@@ -43,24 +43,4 @@
   </table>
 </div>
 
-<button mat-raised-button color="primary" (click)="showCreateForm = !showCreateForm" class="create-form-button">
-  {{ showCreateForm ? 'Hide' : 'Show' }} Create Prisma Tenant Form
-</button>
-
-<div class="create-form-container" *ngIf="showCreateForm">
-  <form (ngSubmit)="onSubmit(prismaForm)" #prismaForm="ngForm">
-    <mat-form-field>
-      <input matInput placeholder="Tenant Name" [(ngModel)]="prisma.tenant_name" name="tenant_name" required>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Client ID" [(ngModel)]="prisma.client_id" name="client_id" required>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Client Secret" [(ngModel)]="prisma.client_secret" name="client_secret">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="TSG ID" [(ngModel)]="prisma.tsg_id" name="tsg_id" required>
-    </mat-form-field>
-    <button mat-raised-button type="submit">Submit</button>
-  </form>
-</div>
+<button mat-raised-button color="primary" (click)="openCreateEntryDialog()">Create Prisma Tenant</button>

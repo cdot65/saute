@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { EntryDetailComponent } from '../shared/entry-detail/entry-detail.component';
+import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
 
 @Component({
   selector: 'app-panorama',
@@ -107,6 +108,53 @@ export class PanoramaComponent implements OnInit {
       data: {
         title: 'Entry Details',
         content: Object.entries(row).map(([key, value]) => ({ key, value }))
+      }
+    });
+  }
+
+  openCreateEntryDialog(): void {
+    const dialogRef = this.dialog.open(CreateEntryComponent, {
+      width: '80%',
+      data: {
+        title: 'Create Panorama Instance',
+        fields: [
+          { name: 'hostname', placeholder: 'Hostname', model: '', required: true },
+          { name: 'ipv4_address', placeholder: 'IPv4 Address', model: '', required: true },
+          { name: 'ipv6_address', placeholder: 'IPv6 Address', model: '', required: false },
+          { name: 'api_token', placeholder: 'API Token', model: '', required: true }
+        ]
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Extract the form values from the result object
+        const { hostname, ipv4_address, ipv6_address, api_token } = result;
+
+        // Create a new Panorama instance with the form values
+        const newPanorama = {
+          hostname,
+          ipv4_address,
+          ipv6_address,
+          api_token,
+          author: this.panorama.author
+        };
+
+        // Submit the new Panorama instance using HttpClient
+        const authToken = this.cookieService.get('auth_token');
+        const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
+
+        this.http.post('http://localhost:8000/api/v1/panorama/', newPanorama, { headers }).subscribe(
+          response => {
+            // Handle the successful creation of a new Panorama instance, e.g. update the table data
+            console.log('Panorama instance created:', response);
+            this.fetchPanoramaData(); // Refresh the table data
+          },
+          error => {
+            // Handle errors in creating a new Panorama instance
+            console.error('Error creating Panorama instance:', error);
+          }
+        );
       }
     });
   }

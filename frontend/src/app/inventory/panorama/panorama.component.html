@@ -43,24 +43,4 @@
   </table>
 </div>
 
-<button mat-raised-button color="primary" (click)="showCreateForm = !showCreateForm" class="create-form-button">
-  {{ showCreateForm ? 'Hide' : 'Show' }} Create Panorama Form
-</button>
-
-<div class="create-form-container" *ngIf="showCreateForm">
-  <form (ngSubmit)="onSubmit(panoramaForm)" #panoramaForm="ngForm">
-    <mat-form-field>
-      <input matInput placeholder="Hostname" [(ngModel)]="panorama.hostname" name="hostname" required>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="IPv4 Address" [(ngModel)]="panorama.ipv4_address" name="ipv4_address" required>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="IPv6 Address" [(ngModel)]="panorama.ipv6_address" name="ipv6_address">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="API Token" [(ngModel)]="panorama.api_token" name="api_token" required>
-    </mat-form-field>
-    <button mat-raised-button type="submit">Submit</button>
-  </form>
-</div>
+<button mat-raised-button color="primary" (click)="openCreateEntryDialog()">Create Panorama Instance</button>

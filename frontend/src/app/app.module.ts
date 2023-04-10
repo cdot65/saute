@@ -30,6 +30,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { JobsComponent } from './jobs/jobs.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { EntryDetailComponent } from './inventory/shared/entry-detail/entry-detail.component';
+import { CreateEntryComponent } from './inventory/shared/create-entry/create-entry.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { EntryDetailComponent } from './inventory/shared/entry-detail/entry-deta
     LoginComponent,
     JobsComponent,
     InventoryComponent,
-    EntryDetailComponent
+    EntryDetailComponent,
+    CreateEntryComponent
   ],
   imports: [
     BrowserModule,
