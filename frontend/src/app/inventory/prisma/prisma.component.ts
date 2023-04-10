@@ -130,6 +130,13 @@ export class PrismaComponent implements OnInit, AfterViewInit {
       }
     });
 
+    dialogRef.componentInstance.entryDeleted.subscribe((deletedEntry: any) => {
+      if (deletedEntry.type === 'prisma') {
+        this.deleteEntry(deletedEntry.id);
+      }
+    });
+
+
   }
 
   openCreateEntryDialog(): void {
@@ -183,4 +190,20 @@ export class PrismaComponent implements OnInit, AfterViewInit {
   maskValue(value: string): string {
     return 'xxxxxxxxxx-' + value.slice(-4);
   }
+
+  // Delete an entry
+  deleteEntry(entryId: number): void {
+    const authToken = this.cookieService.get('auth_token');
+    const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
+    this.http.delete(`http://localhost:8000/api/v1/prisma/${entryId}/`, { headers }).subscribe(
+      response => {
+        console.log('Prisma instance deleted:', response);
+        this.fetchPrismaData();
+      },
+      error => {
+        console.error('Error deleting Prisma instance:', error);
+      }
+    );
+  }
+
 }

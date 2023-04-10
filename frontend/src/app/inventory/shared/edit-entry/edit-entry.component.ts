@@ -11,6 +11,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class EditEntryComponent implements OnInit {
   @Output() entryUpdated = new EventEmitter<any>();
+  @Output() entryDeleted = new EventEmitter<{ type: string; id: number }>();
   entryForm!: FormGroup;
 
   constructor(
@@ -57,6 +58,13 @@ export class EditEntryComponent implements OnInit {
       });
     } else {
       console.error('Form is invalid');
+    }
+  }
+
+  onDelete() {
+    if (confirm('Are you sure you want to delete this entry?')) {
+      this.entryDeleted.emit({ type: this.data.type, id: this.data.id });
+      this.dialogRef.close();
     }
   }
 

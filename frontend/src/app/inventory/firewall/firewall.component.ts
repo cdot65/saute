@@ -128,6 +128,13 @@ export class FirewallComponent implements OnInit {
         this.fetchFirewallData();
       }
     });
+
+    dialogRef.componentInstance.entryDeleted.subscribe((deletedEntry: any) => {
+      if (deletedEntry.type === 'firewall') {
+        this.deleteEntry(deletedEntry.id);
+      }
+    });
+
   }
 
   openCreateEntryDialog(): void {
@@ -181,4 +188,20 @@ export class FirewallComponent implements OnInit {
   maskValue(value: string): string {
     return 'xxxxxxxxxx-' + value.slice(-4);
   }
+
+  // Delete an entry
+  deleteEntry(entryId: number): void {
+    const authToken = this.cookieService.get('auth_token');
+    const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
+    this.http.delete(`http://localhost:8000/api/v1/firewall/${entryId}/`, { headers }).subscribe(
+      response => {
+        console.log('Firewall instance deleted:', response);
+        this.fetchFirewallData();
+      },
+      error => {
+        console.error('Error deleting Firewall instance:', error);
+      }
+    );
+  }
+
 }

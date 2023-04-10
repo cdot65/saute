@@ -128,6 +128,13 @@ export class PanoramaComponent implements OnInit, AfterViewInit {
         this.fetchPanoramaData();
       }
     });
+
+    dialogRef.componentInstance.entryDeleted.subscribe((deletedEntry: any) => {
+      if (deletedEntry.type === 'panorama') {
+        this.deleteEntry(deletedEntry.id);
+      }
+    });
+
   }
 
   openCreateEntryDialog(): void {
@@ -180,5 +187,20 @@ export class PanoramaComponent implements OnInit, AfterViewInit {
   // Mask the API token value for display
   maskValue(value: string): string {
     return 'xxxxxxxxxx-' + value.slice(-4);
+  }
+
+  // Delete an entry
+  deleteEntry(entryId: number): void {
+    const authToken = this.cookieService.get('auth_token');
+    const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
+    this.http.delete(`http://localhost:8000/api/v1/panorama/${entryId}/`, { headers }).subscribe(
+      response => {
+        console.log('Panorama instance deleted:', response);
+        this.fetchPanoramaData();
+      },
+      error => {
+        console.error('Error deleting Panorama instance:', error);
+      }
+    );
   }
 }
