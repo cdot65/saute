@@ -3,16 +3,11 @@
   padding-bottom: 20px;
 }
 
+.firewall-table-title,
 .panorama-table-title,
 .prisma-table-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: -3rem;
-}
-
-button[mat-mini-fab] {
-  padding-top: 30px;
-  width: 30px;
-  height: 30px;
 }

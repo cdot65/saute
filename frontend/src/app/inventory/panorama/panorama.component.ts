@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -7,17 +7,23 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditEntryComponent } from '../shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-panorama',
   templateUrl: './panorama.component.html',
   styleUrls: ['./panorama.component.scss']
 })
-export class PanoramaComponent implements OnInit {
-  panoramaData: any;
+export class PanoramaComponent implements OnInit, AfterViewInit {
+  dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token'];
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
+    this.dataSource = new MatTableDataSource();
+  }
 
   // Add panorama-create related variables
   showCreateForm = false;
@@ -34,6 +40,10 @@ export class PanoramaComponent implements OnInit {
     this.getCurrentUserId();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+  }
+
   // Fetch data from the API and apply a mask to the API token
   fetchPanoramaData() {
     this.http.get<any[]>('http://localhost:8000/api/v1/panorama')
@@ -48,7 +58,7 @@ export class PanoramaComponent implements OnInit {
         })
       )
       .subscribe((data: any[]) => {
-        this.panoramaData = data;
+        this.dataSource.data = data;
       });
   }
 

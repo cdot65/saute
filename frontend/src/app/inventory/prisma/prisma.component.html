@@ -2,49 +2,48 @@
   <button mat-raised-button color="primary" (click)="openCreateEntryDialog()">Create Prisma Tenant</button>
 </div>
 
-<div class="prisma-container">
-  <div *ngIf="prismaData">
-    <table mat-table [dataSource]="prismaData" class="mat-elevation-z8">
-      <!-- Tenant Name Column -->
-      <ng-container matColumnDef="tenant_name">
-        <th mat-header-cell *matHeaderCellDef>Tenant Name</th>
-        <td mat-cell *matCellDef="let element">{{element.tenant_name}}</td>
-      </ng-container>
+<div *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Tenant Name Column -->
+    <ng-container matColumnDef="tenant_name">
+      <th mat-header-cell *matHeaderCellDef>Tenant Name</th>
+      <td mat-cell *matCellDef="let element">{{element.tenant_name}}</td>
+    </ng-container>
 
-      <!-- Client ID Column -->
-      <ng-container matColumnDef="client_id">
-        <th mat-header-cell *matHeaderCellDef>Client ID</th>
-        <td mat-cell *matCellDef="let element">{{element.client_id}}</td>
-      </ng-container>
+    <!-- Client ID Column -->
+    <ng-container matColumnDef="client_id">
+      <th mat-header-cell *matHeaderCellDef>Client ID</th>
+      <td mat-cell *matCellDef="let element">{{element.client_id}}</td>
+    </ng-container>
 
-      <!-- Client Secret Column -->
-      <ng-container matColumnDef="client_secret">
-        <th mat-header-cell *matHeaderCellDef>Client Secret</th>
-        <td mat-cell *matCellDef="let element">{{element.client_secret}}</td>
-      </ng-container>
+    <!-- Client Secret Column -->
+    <ng-container matColumnDef="client_secret">
+      <th mat-header-cell *matHeaderCellDef>Client Secret</th>
+      <td mat-cell *matCellDef="let element">{{element.client_secret}}</td>
+    </ng-container>
 
-      <!-- TSG ID Column -->
-      <ng-container matColumnDef="tsg_id">
-        <th mat-header-cell *matHeaderCellDef>TSG ID</th>
-        <td mat-cell *matCellDef="let element">{{element.tsg_id}}</td>
-      </ng-container>
+    <!-- TSG ID Column -->
+    <ng-container matColumnDef="tsg_id">
+      <th mat-header-cell *matHeaderCellDef>TSG ID</th>
+      <td mat-cell *matCellDef="let element">{{element.tsg_id}}</td>
+    </ng-container>
 
-      <!-- Author Column -->
-      <ng-container matColumnDef="author">
-        <th mat-header-cell *matHeaderCellDef>Author</th>
-        <td mat-cell *matCellDef="let element">{{element.author}}</td>
-      </ng-container>
+    <!-- Author Column -->
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef>Author</th>
+      <td mat-cell *matCellDef="let element">{{element.author}}</td>
+    </ng-container>
 
-      <!-- Created At Column -->
-      <ng-container matColumnDef="created_at">
-        <th mat-header-cell *matHeaderCellDef>Created At</th>
-        <td mat-cell *matCellDef="let element">{{element.created_at}}</td>
-      </ng-container>
+    <!-- Created At Column -->
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef>Created At</th>
+      <td mat-cell *matCellDef="let element">{{element.created_at}}</td>
+    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tbody>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEntryDetailDialog(row)"></tr>
-      </tbody>
-    </table>
-  </div>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tbody>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEntryDetailDialog(row)"></tr>
+    </tbody>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

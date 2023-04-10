@@ -2,8 +2,8 @@
   <button mat-raised-button color="primary" (click)="openCreateEntryDialog()">Create Panorama Instance</button>
 </div>
 
-<div *ngIf="panoramaData">
-  <table mat-table [dataSource]="panoramaData" class="mat-elevation-z8">
+<div *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Hostname Column -->
     <ng-container matColumnDef="hostname">
       <th mat-header-cell *matHeaderCellDef>Hostname</th>
@@ -45,4 +45,5 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEntryDetailDialog(row)"></tr>
     </tbody>
   </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

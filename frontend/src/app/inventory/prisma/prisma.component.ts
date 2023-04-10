@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -7,17 +7,23 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditEntryComponent } from '../shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-prisma',
   templateUrl: './prisma.component.html',
   styleUrls: ['./prisma.component.scss']
 })
-export class PrismaComponent implements OnInit {
-  prismaData: any;
+export class PrismaComponent implements OnInit, AfterViewInit {
+  dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['tenant_name', 'tsg_id', 'client_id', 'client_secret'];
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
+    this.dataSource = new MatTableDataSource();
+  }
 
   // Add prisma-create related variables
   showCreateForm = false;
@@ -34,6 +40,10 @@ export class PrismaComponent implements OnInit {
     this.getCurrentUserId();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+  }
+
   // Fetch data from the API and apply a mask to the API token
   fetchPrismaData() {
     this.http.get<any[]>('http://localhost:8000/api/v1/prisma')
@@ -48,7 +58,7 @@ export class PrismaComponent implements OnInit {
         })
       )
       .subscribe((data: any[]) => {
-        this.prismaData = data;
+        this.dataSource.data = data;
       });
   }
 
@@ -58,10 +68,15 @@ export class PrismaComponent implements OnInit {
     const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
 
     this.http.get<any[]>('http://localhost:8000/api/v1/users/', { headers })
-      .subscribe(response => {
+    .subscribe({
+      next: response => {
         const user = response[0];
         this.prisma.author = user['id'];
-      });
+      },
+      error: error => {
+        console.error('Error getting current user id:', error);
+      }
+    });
   }
 
   // Handle form submission
