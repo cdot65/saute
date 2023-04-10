@@ -16,13 +16,13 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./prisma.component.scss']
 })
 export class PrismaComponent implements OnInit, AfterViewInit {
-  dataSource: MatTableDataSource<any>;
+  prismaData: MatTableDataSource<any>;
   displayedColumns: string[] = ['tenant_name', 'tsg_id', 'client_id', 'client_secret'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource();
+    this.prismaData = new MatTableDataSource();
   }
 
   // Add prisma-create related variables
@@ -41,7 +41,7 @@ export class PrismaComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.prismaData.paginator = this.paginator;
   }
 
   // Fetch data from the API and apply a mask to the API token
@@ -58,7 +58,7 @@ export class PrismaComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe((data: any[]) => {
-        this.dataSource.data = data;
+        this.prismaData.data = data;
       });
   }
 

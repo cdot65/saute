@@ -16,13 +16,13 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./panorama.component.scss']
 })
 export class PanoramaComponent implements OnInit, AfterViewInit {
-  dataSource: MatTableDataSource<any>;
+  panoramaData: MatTableDataSource<any>;
   displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource();
+    this.panoramaData = new MatTableDataSource();
   }
 
   // Add panorama-create related variables
@@ -41,7 +41,7 @@ export class PanoramaComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.panoramaData.paginator = this.paginator;
   }
 
   // Fetch data from the API and apply a mask to the API token
@@ -58,7 +58,7 @@ export class PanoramaComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe((data: any[]) => {
-        this.dataSource.data = data;
+        this.panoramaData.data = data;
       });
   }
 

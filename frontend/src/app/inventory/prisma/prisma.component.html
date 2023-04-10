@@ -2,8 +2,8 @@
   <button mat-raised-button color="primary" (click)="openCreateEntryDialog()">Create Prisma Tenant</button>
 </div>
 
-<div *ngIf="dataSource">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div *ngIf="prismaData">
+  <table mat-table [dataSource]="prismaData" class="mat-elevation-z8">
     <!-- Tenant Name Column -->
     <ng-container matColumnDef="tenant_name">
       <th mat-header-cell *matHeaderCellDef>Tenant Name</th>
