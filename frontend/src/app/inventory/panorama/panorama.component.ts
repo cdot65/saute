@@ -15,7 +15,7 @@ import { CreateEntryComponent } from '../shared/create-entry/create-entry.compon
 })
 export class PanoramaComponent implements OnInit {
   panoramaData: any;
-  displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token', 'author', 'created_at'];
+  displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token'];
 
   constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) { }
 

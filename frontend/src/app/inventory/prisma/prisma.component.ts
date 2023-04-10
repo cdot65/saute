@@ -15,7 +15,7 @@ import { CreateEntryComponent } from '../shared/create-entry/create-entry.compon
 })
 export class PrismaComponent implements OnInit {
   prismaData: any;
-  displayedColumns: string[] = ['tenant_name', 'client_id', 'client_secret', 'tsg_id', 'author', 'created_at'];
+  displayedColumns: string[] = ['tenant_name', 'tsg_id', 'client_id', 'client_secret'];
 
   constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) { }
 

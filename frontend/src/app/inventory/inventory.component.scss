@@ -1,5 +1,6 @@
 .prisma-table {
-  padding-top: 40px; /* Add padding to make space for the button */
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .panorama-table-title,
@@ -20,7 +21,8 @@ button[mat-mini-fab] {
   padding: 0.5%;
 }
 
-.panorama-container {
+.panorama-container,
+.prisma-container {
   margin-bottom: 2rem;
 }
 
