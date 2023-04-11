@@ -10,7 +10,7 @@
   flex-direction: column;
   width: calc(33.33% - 1rem);
   aspect-ratio: 2 / 1;
-  background-color: #555555;
+  background-color: #2b2b2b;
   border: 1px solid #ccc;
   border-radius: 4px;
   text-decoration: none;
@@ -19,7 +19,17 @@
   overflow: hidden;
 
   &:hover {
-    background-color: #2b2b2b;
+    background-color: #555555;
+
+    img {
+      transform: scale(1.1);
+      transition: transform 0.3s;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      transition: font-size 0.3s;
+    }
   }
 }
 
@@ -35,10 +45,12 @@ img {
   max-width: 100%;
   max-height: 50%;
   object-fit: cover;
+  transition: transform 0.3s;
 }
 
 h3 {
   margin: 0.5rem;
+  transition: transform 0.3s;
 }
 
 @media screen and (max-width: 767px) {
@@ -51,29 +63,6 @@ h3 {
   .tile {
     width: 100%;
   }
-}
-
-.tabs {
-  display: flex;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 1rem;
-}
-
-.tab {
-  border: none;
-  background-color: transparent;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  outline: none;
-
-  &:hover {
-    background-color: #f0f0f0;
-  }
-}
-
-.active {
-  border-bottom: 2px solid #007bff;
 }
 
 .example-tab-icon {

@@ -27,7 +27,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 import { PanoramaComponent } from './inventory/panorama/panorama.component';
 import { PrismaComponent } from './inventory/prisma/prisma.component';
-import { HomepageComponent } from './homepage/homepage.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { JobsComponent } from './jobs/jobs.component';
@@ -42,7 +41,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppComponent,
     PanoramaComponent,
     PrismaComponent,
-    HomepageComponent,
     LoginComponent,
     JobsComponent,
     InventoryComponent,
