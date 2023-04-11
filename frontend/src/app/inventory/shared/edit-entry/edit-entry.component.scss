@@ -21,3 +21,14 @@ td.mat-cell {
 .form-field {
   width: 100%;
 }
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.spacer {
+  flex-grow: 1;
+}

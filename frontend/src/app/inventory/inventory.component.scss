@@ -11,3 +11,8 @@
   align-items: center;
   margin-bottom: -3rem;
 }
+
+.mat-row:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

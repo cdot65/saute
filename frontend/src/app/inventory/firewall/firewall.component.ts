@@ -116,7 +116,7 @@ export class FirewallComponent implements OnInit {
     const dialogRef = this.dialog.open(EditEntryComponent, {
       width: '80%',
       data: {
-        title: 'Entry Details',
+        title: 'Edit Entry',
         type: 'firewall',
         id: row.id,
         content: Object.entries(row).map(([key, value]) => ({ key, value })),

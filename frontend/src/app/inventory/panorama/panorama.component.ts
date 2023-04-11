@@ -116,7 +116,7 @@ export class PanoramaComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(EditEntryComponent, {
       width: '80%',
       data: {
-        title: 'Entry Details',
+        title: 'Edit Entry',
         type: 'panorama',
         id: row.id,
         content: Object.entries(row).map(([key, value]) => ({ key, value })),
