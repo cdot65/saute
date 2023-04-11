@@ -34,5 +34,23 @@ services:
     env_file:
       - ./backend/.env
 
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.${CPU_ARCHITECTURE}
+    command: celery -A django_project worker -l info
+    volumes:
+      - ./backend:/code
+    depends_on:
+      - backend
+      - redis
+    env_file:
+      - ./backend/.env
+
+  redis:
+    image: redis:7.0.5-alpine
+    expose:
+      - 6379
+
 volumes:
   postgres_data:

@@ -20,6 +20,7 @@ drf-spectacular = ">=0.24.0,<0.25.0"
 environs = {version = ">=9.5.0,<9.6.0", extras = ["django"]}
 psycopg2 = "2.9.3"
 psycopg2-binary = "^2.9.5"
+pan-os-python = "^1.8.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

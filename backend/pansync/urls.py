@@ -1,3 +1,4 @@
+from django.urls import path
 from rest_framework.routers import SimpleRouter
 from .views import (
     PanoramaViewSet,
@@ -5,6 +6,7 @@ from .views import (
     FirewallViewSet,
     JobsViewSet,
     UserViewSet,
+    execute_export_rules_to_csv,
 )
 
 router = SimpleRouter()
@@ -15,3 +17,9 @@ router.register("jobs", JobsViewSet, basename="jobs")
 router.register("users", UserViewSet, basename="users")
 
 urlpatterns = router.urls
+
+urlpatterns += [
+    path(
+        "report/rules", execute_export_rules_to_csv, name="execute_export_rules_to_csv"
+    )
+]
