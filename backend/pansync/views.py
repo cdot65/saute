@@ -105,8 +105,10 @@ def execute_export_rules_to_csv(request):
     pan_url = request.data.get("pan_url")
     pan_user = request.data.get("pan_user")
     pan_pass = request.data.get("pan_pass")
+    author_id = request.user.id
 
-    task = export_rules_to_csv_task.delay(pan_url, pan_user, pan_pass)
+    task = export_rules_to_csv_task.delay(pan_url, pan_user, pan_pass, author_id)
+
     job_id = task.id
 
     return Response(
