@@ -1,0 +1,91 @@
+<mat-tab-group (selectedTabChange)="selectTab($event.index)">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">build</mat-icon>
+      Configure
+    </ng-template>
+    <!-- Configure tab content -->
+    <div class="dashboard">
+      <a routerLink="/dashboard" class="tile">
+        <div class="tile-content">
+          <img src="assets/img/logo_pan.png" alt="Configure PAN-OS">
+          <h3>Configure PAN-OS</h3>
+        </div>
+      </a>
+
+      <a routerLink="/dashboard" class="tile">
+        <div class="tile-content">
+          <img src="assets/img/logo_pan.png" alt="Configure Panorama">
+          <h3>Configure Panorama</h3>
+        </div>
+      </a>
+
+      <a routerLink="/dashboard" class="tile">
+        <div class="tile-content">
+          <img src="assets/img/logo_prisma.png" alt="Configure Prisma">
+          <h3>Configure Prisma</h3>
+        </div>
+      </a>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">settings</mat-icon>
+      Operational
+    </ng-template>
+    <!-- Operational tab content -->
+    <div class="dashboard">
+      <a routerLink="/dashboard" class="tile">
+        <div class="tile-content">
+          <img src="assets/img/logo_pan.png" alt="Configure PAN-OS">
+          <h3>Run commands against PAN-OS</h3>
+        </div>
+      </a>
+
+      <a routerLink="/dashboard" class="tile">
+        <div class="tile-content">
+          <img src="assets/img/logo_pan.png" alt="Configure Panorama">
+          <h3>Retrieve reports from Panorama</h3>
+        </div>
+      </a>
+
+      <a routerLink="/dashboard" class="tile">
+        <div class="tile-content">
+          <img src="assets/img/logo_prisma.png" alt="Configure Prisma">
+          <h3>Validate status Prisma</h3>
+        </div>
+      </a>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">build</mat-icon>
+      Maintenance
+    </ng-template>
+    <!-- Maintenance tab content -->
+    <div class="dashboard">
+      <a routerLink="/dashboard" class="tile">
+        <div class="tile-content">
+          <img src="assets/img/logo_pan.png" alt="Configure PAN-OS">
+          <h3>Reboot PAN-OS</h3>
+        </div>
+      </a>
+
+      <a routerLink="/dashboard" class="tile">
+        <div class="tile-content">
+          <img src="assets/img/logo_pan.png" alt="Configure Panorama">
+          <h3>Reboot Panorama</h3>
+        </div>
+      </a>
+
+      <a routerLink="/dashboard" class="tile">
+        <div class="tile-content">
+          <img src="assets/img/logo_prisma.png" alt="Configure Prisma">
+          <h3>Remove Prisma Tenant</h3>
+        </div>
+      </a>
+    </div>
+  </mat-tab>
+</mat-tab-group>

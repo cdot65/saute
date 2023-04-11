@@ -20,7 +20,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { HttpClientModule } from '@angular/common/http';
 import { PanoramaComponent } from './inventory/panorama/panorama.component';
@@ -33,6 +35,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { EditEntryComponent } from './inventory/shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from './inventory/shared/create-entry/create-entry.component';
 import { FirewallComponent } from './inventory/firewall/firewall.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,8 @@ import { FirewallComponent } from './inventory/firewall/firewall.component';
     InventoryComponent,
     EditEntryComponent,
     CreateEntryComponent,
-    FirewallComponent
+    FirewallComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -64,8 +68,9 @@ import { FirewallComponent } from './inventory/firewall/firewall.component';
     MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,
+    MatTabsModule,
     MatToolbarModule,
-    MatButtonModule,
+    MatTooltipModule,
     HttpClientModule
   ],
   providers: [
