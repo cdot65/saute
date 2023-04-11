@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -16,6 +16,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./prisma.component.scss']
 })
 export class PrismaComponent implements OnInit, AfterViewInit {
+  @Input() userId: string | undefined;
   prismaData: MatTableDataSource<any>;
   displayedColumns: string[] = ['tenant_name', 'tsg_id', 'client_id', 'client_secret'];
 
@@ -37,7 +38,9 @@ export class PrismaComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.fetchPrismaData();
-    this.getCurrentUserId();
+    if (this.userId) {
+      this.prisma.author = this.userId;
+    }
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +49,7 @@ export class PrismaComponent implements OnInit, AfterViewInit {
 
   // Fetch data from the API and apply a mask to the API token
   fetchPrismaData() {
-    this.http.get<any[]>('http://localhost:8000/api/v1/prisma')
+    this.http.get<any[]>('http://localhost:8000/api/v1/prisma/')
       .pipe(
         map((data: any[]) => data.map(item => {
           item.client_secret = this.maskValue(item.client_secret);

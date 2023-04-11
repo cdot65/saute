@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -16,6 +16,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./firewall.component.scss']
 })
 export class FirewallComponent implements OnInit {
+  @Input() userId: string | undefined;
   firewallData: MatTableDataSource<any>;
   displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token'];
 
@@ -37,7 +38,9 @@ export class FirewallComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchFirewallData();
-    this.getCurrentUserId();
+    if (this.userId) {
+      this.firewall.author = this.userId;
+    }
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +49,7 @@ export class FirewallComponent implements OnInit {
 
   // Fetch data from the API and apply a mask to the API token
   fetchFirewallData() {
-    this.http.get<any[]>('http://localhost:8000/api/v1/firewall')
+    this.http.get<any[]>('http://localhost:8000/api/v1/firewall/')
       .pipe(
         map((data: any[]) => data.map(item => {
           item.api_token = this.maskValue(item.api_token);
