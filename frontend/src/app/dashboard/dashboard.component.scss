@@ -39,6 +39,12 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  gap: 0.5rem;
+}
+
+.tile-label {
+  display: flex;
+  align-items: center;
 }
 
 img {
@@ -67,4 +73,5 @@ h3 {
 
 .example-tab-icon {
   margin-right: 8px;
+  font-size: 1.2rem;
 }
