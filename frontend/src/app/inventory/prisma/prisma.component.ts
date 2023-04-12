@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -16,7 +16,7 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './prisma.component.html',
   styleUrls: ['./prisma.component.scss']
 })
-export class PrismaComponent implements OnInit, AfterViewInit {
+export class PrismaComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() userId: string | undefined;
   prismaData: MatTableDataSource<any>;
   displayedColumns: string[] = ['tenant_name', 'tsg_id', 'client_id', 'client_secret'];
@@ -45,6 +45,12 @@ export class PrismaComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('userId' in changes && this.userId) {
+      this.prisma.author = this.userId;
+    }
+  }
+
   ngAfterViewInit(): void {
     this.prismaData.paginator = this.paginator;
     this.prismaData.sort = this.sort;
@@ -55,7 +61,7 @@ export class PrismaComponent implements OnInit, AfterViewInit {
     this.http.get<any[]>('http://localhost:8000/api/v1/prisma/')
       .pipe(
         map((data: any[]) => data.map(item => {
-          item.client_secret = this.maskValue(item.client_secret);
+          item.clientSecretVisible = false;
           return item;
         })),
         catchError((error) => {
@@ -66,23 +72,6 @@ export class PrismaComponent implements OnInit, AfterViewInit {
       .subscribe((data: any[]) => {
         this.prismaData.data = data;
       });
-  }
-
-  // Get the current user's ID from the API
-  getCurrentUserId() {
-    const authToken = this.cookieService.get('auth_token');
-    const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
-
-    this.http.get<any[]>('http://localhost:8000/api/v1/users/', { headers })
-    .subscribe({
-      next: response => {
-        const user = response[0];
-        this.prisma.author = user['id'];
-      },
-      error: error => {
-        console.error('Error getting current user id:', error);
-      }
-    });
   }
 
   // Handle form submission
@@ -190,11 +179,6 @@ export class PrismaComponent implements OnInit, AfterViewInit {
         );
       }
     });
-  }
-
-  // Mask the API token value for display
-  maskValue(value: string): string {
-    return 'xxxxxxxxxx-' + value.slice(-4);
   }
 
   // Delete an entry

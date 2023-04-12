@@ -1,18 +1,12 @@
-<div class="container">
-  <form [formGroup]="exportForm" (ngSubmit)="onSubmit()">
-    <h1>Panorama Details</h1>
-    <div class="form-group">
-      <input matInput type="text" id="pan_url" required="required" formControlName="pan_url" />
-      <label for="input" class="control-label">Panorama URL</label><i class="bar"></i>
-    </div>
-    <div class="form-group">
-      <input matInput type="password" id="api_token" required="required" formControlName="api_token"
-        autocomplete="current-password" />
-      <label for="input" class="control-label">Panorama API Token</label><i class="bar"></i>
-    </div>
-    <div class="button-container">
-      <button mat-raised-button type="submit" class="button"
-        [disabled]="exportForm.invalid"><span>Submit</span></button>
-    </div>
-  </form>
-</div>
+<form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Select Panorama Instance</mat-label>
+    <mat-select formControlName="selectedPanorama">
+      <mat-option *ngFor="let panorama of panoramas" [value]="panorama">
+        {{ panorama.hostname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+</form>

@@ -2,7 +2,8 @@
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="entryForm" class="form-group">
     <div class="form-row" *ngFor="let field of data.content">
-      <ng-container *ngIf="field.key !== 'author' && field.key !== 'created_at' && field.key !== 'id'">
+      <ng-container
+        *ngIf="field.key !== 'author' && field.key !== 'created_at' && field.key !== 'id' && field.key !== 'apiTokenVisible' && field.key !== 'clientSecretVisible'">
         <mat-form-field class="form-field">
           <mat-label>{{ field.key }}</mat-label>
           <input matInput [formControlName]="field.key" [value]="field.value" />
