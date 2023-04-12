@@ -22,3 +22,9 @@ $my-theme: mat.define-dark-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-table .mat-mdc-row.mat-mdc-row:hover,
+.mat-mdc-table .mat-mdc-footer-row.mat-mdc-footer-row:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
