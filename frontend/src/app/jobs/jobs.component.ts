@@ -34,7 +34,7 @@ export class JobsComponent implements OnInit, AfterViewInit {
   }
 
   fetchJobsData() {
-    this.http.get<any[]>('http://localhost:8000/api/v1/jobs')
+    this.http.get<any[]>('http://localhost:8000/api/v1/jobs/')
       .pipe(
         map((data: any[]) => data.map(item => {
           return item;
