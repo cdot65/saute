@@ -14,7 +14,7 @@ User = get_user_model()
 
 
 @shared_task
-def execute_export_rules_to_csv(pan_url, pan_user, pan_pass, author_id):
+def execute_export_rules_to_csv(pan_url, api_token, author_id):
     # Retrieve the user object by id
     author = User.objects.get(id=author_id)
 
@@ -26,7 +26,7 @@ def execute_export_rules_to_csv(pan_url, pan_user, pan_pass, author_id):
     )
 
     try:
-        output_filepath = run_export_rules_to_csv(pan_url, pan_user, pan_pass)
+        output_filepath = run_export_rules_to_csv(pan_url, api_token)
         job.result = f"Job ID: {job.pk}\nExported to {output_filepath}"
         job.description = "Pass"
     except Exception as e:

@@ -18,8 +18,7 @@ from panos.policies import PreRulebase, PostRulebase, SecurityRule
 # ----------------------------------------------------------------------------
 load_dotenv(".env")
 PANURL = os.environ.get("PANURL", "panorama.lab.com")
-PANUSER = os.environ.get("PANUSER", "automation")
-PANPASS = os.environ.get("PANPASS", "mysecretpassword")
+PANTOKEN = os.environ.get("PANTOKEN", "mysecretpassword")
 
 # ----------------------------------------------------------------------------
 # Load environment variables from .env file
@@ -42,15 +41,9 @@ def parse_arguments():
         help="Panorama URL (default: %(default)s)",
     )
     parser.add_argument(
-        "--pan-user",
-        dest="pan_user",
-        default=PANUSER,
-        help="Panorama username (default: %(default)s)",
-    )
-    parser.add_argument(
         "--pan-pass",
-        dest="pan_pass",
-        default=PANPASS,
+        dest="api_token",
+        default=PANTOKEN,
         help="Panorama password (default: %(default)s)",
     )
     return parser.parse_args()
@@ -118,8 +111,8 @@ logging.basicConfig(
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_export_rules_to_csv(pan_url: str, pan_user: str, pan_pass: str) -> None:
-    pan = panorama.Panorama(pan_url, pan_user, pan_pass)
+def run_export_rules_to_csv(pan_url: str, api_token: str) -> None:
+    pan = panorama.Panorama(hostname=pan_url, api_key=api_token)
 
     try:
         # Get security rules and associated Security Profile Groups
@@ -147,4 +140,4 @@ def run_export_rules_to_csv(pan_url: str, pan_user: str, pan_pass: str) -> None:
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    run_export_rules_to_csv(args.pan_url, args.pan_user, args.pan_pass)
+    run_export_rules_to_csv(args.pan_url, args.api_token)
