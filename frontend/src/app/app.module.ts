@@ -37,6 +37,19 @@ import { CreateEntryComponent } from './inventory/shared/create-entry/create-ent
 import { FirewallComponent } from './inventory/firewall/firewall.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobDetailsComponent } from './jobs/job-details/job-details.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { ConfigPanosComponent } from './configuration/config-panos/config-panos.component';
+import { ConfigPanoramaComponent } from './configuration/config-panorama/config-panorama.component';
+import { ConfigPrismaComponent } from './configuration/config-prisma/config-prisma.component';
+import { DiffsyncPanoramaPrismaComponent } from './configuration/diffsync-panorama-prisma/diffsync-panorama-prisma.component';
+import { DiffsyncPanoramaPanoramaComponent } from './configuration/diffsync-panorama-panorama/diffsync-panorama-panorama.component';
+import { OperationalComponent } from './operational/operational.component';
+import { PanosCommandsComponent } from './operational/panos-commands/panos-commands.component';
+import { PanosReportsComponent } from './operational/panos-reports/panos-reports.component';
+import { PanoramaReportsComponent } from './operational/panorama-reports/panorama-reports.component';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
+import { PanosRebootComponent } from './maintenance/panos-reboot/panos-reboot.component';
+import { PanoramaRebootComponent } from './maintenance/panorama-reboot/panorama-reboot.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +63,20 @@ import { JobDetailsComponent } from './jobs/job-details/job-details.component';
     CreateEntryComponent,
     FirewallComponent,
     DashboardComponent,
-    JobDetailsComponent
+    JobDetailsComponent,
+    ConfigurationComponent,
+    OperationalComponent,
+    MaintenanceComponent,
+    ConfigPanosComponent,
+    ConfigPanoramaComponent,
+    ConfigPrismaComponent,
+    DiffsyncPanoramaPrismaComponent,
+    DiffsyncPanoramaPanoramaComponent,
+    PanosCommandsComponent,
+    PanosReportsComponent,
+    PanoramaReportsComponent,
+    PanosRebootComponent,
+    PanoramaRebootComponent
   ],
   imports: [
     BrowserModule,
