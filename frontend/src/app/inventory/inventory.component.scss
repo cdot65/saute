@@ -1,6 +1,16 @@
-.prisma-table {
-  padding-top: 20px;
-  padding-bottom: 20px;
+.search-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 .firewall-table-title,
@@ -9,10 +19,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: -3rem;
-}
-
-.mat-row:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+  margin-bottom: -5rem;
 }
