@@ -9,6 +9,7 @@ import { EditEntryComponent } from '../shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-prisma',
@@ -21,6 +22,7 @@ export class PrismaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['tenant_name', 'tsg_id', 'client_id', 'client_secret'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
     this.prismaData = new MatTableDataSource();
@@ -45,6 +47,7 @@ export class PrismaComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.prismaData.paginator = this.paginator;
+    this.prismaData.sort = this.sort;
   }
 
   // Fetch data from the API and apply a mask to the API token

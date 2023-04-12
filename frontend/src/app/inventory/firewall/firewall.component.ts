@@ -9,6 +9,7 @@ import { EditEntryComponent } from '../shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-firewall',
@@ -21,6 +22,7 @@ export class FirewallComponent implements OnInit {
   displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
     this.firewallData = new MatTableDataSource();
@@ -45,6 +47,7 @@ export class FirewallComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.firewallData.paginator = this.paginator;
+    this.firewallData.sort = this.sort;
   }
 
   // Fetch data from the API and apply a mask to the API token

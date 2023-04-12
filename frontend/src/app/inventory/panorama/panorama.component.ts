@@ -9,6 +9,7 @@ import { EditEntryComponent } from '../shared/edit-entry/edit-entry.component';
 import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-panorama',
@@ -21,6 +22,7 @@ export class PanoramaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
     this.panoramaData = new MatTableDataSource();
@@ -45,6 +47,7 @@ export class PanoramaComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.panoramaData.paginator = this.paginator;
+    this.panoramaData.sort = this.sort;
   }
 
   // Fetch data from the API and apply a mask to the API token

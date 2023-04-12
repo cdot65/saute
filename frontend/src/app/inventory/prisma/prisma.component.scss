@@ -7,3 +7,34 @@
   justify-content: flex-end;
   margin-bottom: 1rem;
 }
+
+.prisma-table {
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  table {
+    width: 100%;
+  }
+
+  th.mat-header-cell, td.mat-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mat-column-tenant_name {
+    width: var(--tenant_name-width, 25%);
+  }
+
+  .mat-column-client_id {
+    width: var(--client_id-width, 25%);
+  }
+
+  .mat-column-client_secret {
+    width: var(--client_secret-width, 25%);
+  }
+
+  .mat-column-tsg_id {
+    width: var(--tsg_id-width, 25%);
+  }
+}
