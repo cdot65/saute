@@ -29,13 +29,21 @@ h1 {
   margin: 0 0 2em;
 }
 
+.mat-mdc-form-field {
+  --mat-mdc-form-field-floating-label-scale: 0.75;
+  display: grid;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+}
+
 .container {
   position: relative;
   max-width: 40rem;
   margin: 5rem auto;
   background: #282828;
   width: 100%;
-  padding: 3rem 5rem 0;
+  padding: 3rem 5rem 3rem;
   border-radius: 1px;
 }
 .container::before {
