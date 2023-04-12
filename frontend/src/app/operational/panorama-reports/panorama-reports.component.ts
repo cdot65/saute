@@ -13,8 +13,7 @@ export class PanoramaReportsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {
     this.exportForm = this.formBuilder.group({
       pan_url: ['', Validators.required],
-      pan_user: ['', Validators.required],
-      pan_pass: ['', Validators.required],
+      api_token: ['', Validators.required],
     });
   }
 
