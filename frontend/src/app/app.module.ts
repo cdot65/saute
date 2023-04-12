@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -35,6 +36,7 @@ import { EditEntryComponent } from './inventory/shared/edit-entry/edit-entry.com
 import { CreateEntryComponent } from './inventory/shared/create-entry/create-entry.component';
 import { FirewallComponent } from './inventory/firewall/firewall.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { JobDetailsComponent } from './jobs/job-details/job-details.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     EditEntryComponent,
     CreateEntryComponent,
     FirewallComponent,
-    DashboardComponent
+    DashboardComponent,
+    JobDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatMenuModule,
     MatPaginatorModule,
     MatSidenavModule,
+    MatSortModule,
     MatSnackBarModule,
     MatTableModule,
     MatTabsModule,
