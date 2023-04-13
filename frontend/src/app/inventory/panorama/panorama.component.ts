@@ -1,20 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditEntryComponent } from '../shared/edit-entry/edit-entry.component';
+import { CreateEntryComponent } from '../shared/create-entry/create-entry.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-panorama',
   templateUrl: './panorama.component.html',
   styleUrls: ['./panorama.component.scss']
 })
-export class PanoramaComponent implements OnInit {
-  panoramaData: any;
-  displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token', 'author', 'created_at'];
+export class PanoramaComponent implements OnInit, AfterViewInit, OnChanges {
+  @Input() userId: string | undefined;
+  panoramaData: MatTableDataSource<any>;
+  displayedColumns: string[] = ['hostname', 'ipv4_address', 'ipv6_address', 'api_token'];
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
+    this.panoramaData = new MatTableDataSource();
+  }
 
   // Add panorama-create related variables
   showCreateForm = false;
@@ -28,15 +40,28 @@ export class PanoramaComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPanoramaData();
-    this.getCurrentUserId();
+    if (this.userId) {
+      this.panorama.author = this.userId;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('userId' in changes && this.userId) {
+      this.panorama.author = this.userId;
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.panoramaData.paginator = this.paginator;
+    this.panoramaData.sort = this.sort;
   }
 
   // Fetch data from the API and apply a mask to the API token
   fetchPanoramaData() {
-    this.http.get<any[]>('http://localhost:8000/api/v1/panorama')
+    this.http.get<any[]>('http://localhost:8000/api/v1/panorama/')
       .pipe(
         map((data: any[]) => data.map(item => {
-          item.api_token = this.maskValue(item.api_token);
+          item.apiTokenVisible = false;
           return item;
         })),
         catchError((error) => {
@@ -45,24 +70,7 @@ export class PanoramaComponent implements OnInit {
         })
       )
       .subscribe((data: any[]) => {
-        this.panoramaData = data;
-      });
-  }
-
-  // Get the current user's ID from the API
-  getCurrentUserId() {
-    const authToken = this.cookieService.get('auth_token');
-    const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
-
-    this.http.get<any[]>('http://localhost:8000/api/v1/users/', { headers })
-      .subscribe({
-        next: response => {
-          const user = response[0];
-          this.panorama.author = user['id'];
-        },
-        error: error => {
-          console.error('Error getting current user id:', error);
-        }
+        this.panoramaData.data = data;
       });
   }
 
@@ -99,8 +107,90 @@ export class PanoramaComponent implements OnInit {
     };
   }
 
-  // Mask the API token value for display
-  maskValue(value: string): string {
-    return 'xxxxxxxxxx-' + value.slice(-4);
+  openEditEntryDialog(row: any): void {
+    const dialogRef = this.dialog.open(EditEntryComponent, {
+      width: '80%',
+      data: {
+        title: 'Edit Entry',
+        type: 'panorama',
+        id: row.id,
+        content: Object.entries(row).map(([key, value]) => ({ key, value })),
+      },
+    });
+
+    dialogRef.componentInstance.entryUpdated.subscribe((updatedEntry: any) => {
+      if (updatedEntry.type === 'panorama') {
+        this.fetchPanoramaData();
+      }
+    });
+
+    dialogRef.componentInstance.entryDeleted.subscribe((deletedEntry: any) => {
+      if (deletedEntry.type === 'panorama') {
+        this.deleteEntry(deletedEntry.id);
+      }
+    });
+
+  }
+
+  openCreateEntryDialog(): void {
+    const dialogRef = this.dialog.open(CreateEntryComponent, {
+      width: '80%',
+      data: {
+        title: 'Create Panorama Instance',
+        fields: [
+          { name: 'hostname', placeholder: 'Hostname', model: '', required: true },
+          { name: 'ipv4_address', placeholder: 'IPv4 Address', model: '', required: true },
+          { name: 'ipv6_address', placeholder: 'IPv6 Address', model: '', required: false },
+          { name: 'api_token', placeholder: 'API Token', model: '', required: true }
+        ]
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Extract the form values from the result object
+        const { hostname, ipv4_address, ipv6_address, api_token } = result;
+
+        // Create a new Panorama instance with the form values
+        const newPanorama = {
+          hostname,
+          ipv4_address,
+          ipv6_address,
+          api_token,
+          author: this.panorama.author
+        };
+
+        // Submit the new Panorama instance using HttpClient
+        const authToken = this.cookieService.get('auth_token');
+        const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
+
+        this.http.post('http://localhost:8000/api/v1/panorama/', newPanorama, { headers }).subscribe(
+          response => {
+            // Handle the successful creation of a new Panorama instance, e.g. update the table data
+            console.log('Panorama instance created:', response);
+            this.fetchPanoramaData(); // Refresh the table data
+          },
+          error => {
+            // Handle errors in creating a new Panorama instance
+            console.error('Error creating Panorama instance:', error);
+          }
+        );
+      }
+    });
+  }
+
+  // Delete an entry
+  deleteEntry(entryId: number): void {
+    const authToken = this.cookieService.get('auth_token');
+    const headers = new HttpHeaders().set('Authorization', `Token ${authToken}`);
+    this.http.delete(`http://localhost:8000/api/v1/panorama/${entryId}/`, { headers }).subscribe(
+      response => {
+        console.log('Panorama instance deleted:', response);
+        this.fetchPanoramaData();
+      },
+      error => {
+        console.error('Error deleting Panorama instance:', error);
+      }
+    );
   }
 }

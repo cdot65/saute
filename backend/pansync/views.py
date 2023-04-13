@@ -1,13 +1,18 @@
 from django.contrib.auth import get_user_model
-from rest_framework import viewsets, status, permissions
-from rest_framework.permissions import IsAdminUser
-from rest_framework.response import Response
+from django.http import JsonResponse
 
-from .models import Panorama, Prisma, Jobs
+from rest_framework import viewsets, status, permissions
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from .tasks import execute_export_rules_to_csv as export_rules_to_csv_task
+
+from .models import Panorama, Prisma, Firewall, Jobs
 from .permissions import IsAuthorOrReadOnly
 from .serializers import (
     PanoramaSerializer,
     PrismaSerializer,
+    FirewallSerializer,
     JobsSerializer,
     UserSerializer,
 )
@@ -47,6 +52,23 @@ class PrismaViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class FirewallViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthorOrReadOnly,)
+    queryset = Firewall.objects.all()
+    serializer_class = FirewallSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                serializer.save(author=self.request.user)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class JobsViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Jobs.objects.all()
@@ -75,3 +97,20 @@ class UserViewSet(viewsets.ModelViewSet):
             return get_user_model().objects.all()
         else:
             return get_user_model().objects.filter(id=user.id)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_export_rules_to_csv(request):
+    pan_url = request.data.get("pan_url")
+    api_token = request.data.get("api_token")
+    author_id = request.user.id
+
+    task = export_rules_to_csv_task.delay(pan_url, api_token, author_id)
+
+    job_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "job_id": job_id},
+        status=status.HTTP_200_OK,
+    )

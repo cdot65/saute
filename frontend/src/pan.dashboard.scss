@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+// Include the common styles for Angular Material
+@include mat.core();
+
+// Define custom colors
+$my-primary: mat.define-palette(mat.$deep-orange-palette);
+$my-accent: mat.define-palette(mat.$deep-orange-palette, A200, A100, A400);
+$my-warning: mat.define-palette(mat.$red-palette);
+
+// Create custom theme using the dark theme
+$my-theme: mat.define-dark-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warning,
+  ),
+));
+
+// Include theme styles for core and each component used in your app
+@include mat.all-component-themes($my-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-table .mat-mdc-row.mat-mdc-row:hover,
+.mat-mdc-table .mat-mdc-footer-row.mat-mdc-footer-row:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

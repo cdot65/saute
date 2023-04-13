@@ -59,16 +59,20 @@ MIDDLEWARE = [
 ]
 
 
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "http://frontend:4200",
-    "http://frontend:8080",
-    "http://localhost:4200",
-    "http://localhost:8080",
-    "http://localhost:8000",
-]
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+# CORS_ORIGIN_WHITELIST = [
+#     "http://localhost:3000",
+#     "http://frontend:4200",
+#     "http://frontend:8080",
+#     "http://localhost:4200",
+#     "http://localhost:8080",
+#     "http://localhost:8000",
+# ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "http://*",
     "http://localhost:3000",
     "http://localhost:4200",
     "http://localhost:8080",
@@ -185,6 +189,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
