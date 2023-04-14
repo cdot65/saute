@@ -40,19 +40,17 @@ import { CreateEntryComponent } from './inventory/shared/create-entry/create-ent
 import { FirewallComponent } from './inventory/firewall/firewall.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobDetailsComponent } from './jobs/job-details/job-details.component';
-import { ConfigurationComponent } from './configuration/configuration.component';
-import { ConfigPanosComponent } from './configuration/config-panos/config-panos.component';
-import { ConfigPanoramaComponent } from './configuration/config-panorama/config-panorama.component';
-import { ConfigPrismaComponent } from './configuration/config-prisma/config-prisma.component';
-import { DiffsyncPanoramaPrismaComponent } from './configuration/diffsync-panorama-prisma/diffsync-panorama-prisma.component';
-import { DiffsyncPanoramaPanoramaComponent } from './configuration/diffsync-panorama-panorama/diffsync-panorama-panorama.component';
-import { OperationalComponent } from './operational/operational.component';
-import { PanosCommandsComponent } from './operational/panos-commands/panos-commands.component';
-import { PanosReportsComponent } from './operational/panos-reports/panos-reports.component';
-import { PanoramaReportsComponent } from './operational/panorama-reports/panorama-reports.component';
-import { MaintenanceComponent } from './maintenance/maintenance.component';
-import { PanosRebootComponent } from './maintenance/panos-reboot/panos-reboot.component';
-import { PanoramaRebootComponent } from './maintenance/panorama-reboot/panorama-reboot.component';
+import { ConfigPanosComponent } from './automation-catalog/configuration/config-panos/config-panos.component';
+import { ConfigPanoramaComponent } from './automation-catalog/configuration/config-panorama/config-panorama.component';
+import { ConfigPrismaComponent } from './automation-catalog/configuration/config-prisma/config-prisma.component';
+import { DiffsyncPanoramaPrismaComponent } from './automation-catalog/configuration/diffsync-panorama-prisma/diffsync-panorama-prisma.component';
+import { DiffsyncPanoramaPanoramaComponent } from './automation-catalog/configuration/diffsync-panorama-panorama/diffsync-panorama-panorama.component';
+import { PanosCommandsComponent } from './automation-catalog/operational/panos-commands/panos-commands.component';
+import { PanosReportsComponent } from './automation-catalog/operational/panos-reports/panos-reports.component';
+import { PanoramaReportsComponent } from './automation-catalog/operational/panorama-reports/panorama-reports.component';
+import { PanosRebootComponent } from './automation-catalog/maintenance/panos-reboot/panos-reboot.component';
+import { PanoramaRebootComponent } from './automation-catalog/maintenance/panorama-reboot/panorama-reboot.component';
+import { JobDialogComponent } from './shared/job-dialog/job-dialog.component';
 
 @NgModule({
   declarations: [
@@ -67,9 +65,6 @@ import { PanoramaRebootComponent } from './maintenance/panorama-reboot/panorama-
     FirewallComponent,
     DashboardComponent,
     JobDetailsComponent,
-    ConfigurationComponent,
-    OperationalComponent,
-    MaintenanceComponent,
     ConfigPanosComponent,
     ConfigPanoramaComponent,
     ConfigPrismaComponent,
@@ -79,7 +74,8 @@ import { PanoramaRebootComponent } from './maintenance/panorama-reboot/panorama-
     PanosReportsComponent,
     PanoramaReportsComponent,
     PanosRebootComponent,
-    PanoramaRebootComponent
+    PanoramaRebootComponent,
+    JobDialogComponent
   ],
   imports: [
     BrowserModule,

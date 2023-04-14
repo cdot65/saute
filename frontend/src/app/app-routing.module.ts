@@ -8,7 +8,7 @@ import { FirewallComponent } from './inventory/firewall/firewall.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobsComponent } from './jobs/jobs.component';
-import { PanoramaReportsComponent } from './operational/panorama-reports/panorama-reports.component';
+import { PanoramaReportsComponent } from './automation-catalog/operational/panorama-reports/panorama-reports.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

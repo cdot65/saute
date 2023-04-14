@@ -25,6 +25,11 @@
       <td mat-cell *matCellDef="let job">{{job.created_at}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="json_data">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-name">JSON Data</th>
+      <td mat-cell *matCellDef="let job">{{job.json_data}}</td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <!-- Add the (click) event to the table row -->
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="job-row" (click)="openJobDetails(row)"></tr>
