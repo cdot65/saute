@@ -54,3 +54,6 @@ Thumbs.db
 frontend/node_modules/
 frontend/.angular/
 backend/pansync/scripts/.env
+
+# exclude database migrations
+**00**.py

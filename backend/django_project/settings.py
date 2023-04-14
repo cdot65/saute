@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     # local
     "accounts.apps.AccountsConfig",
-    "pansync.apps.PansyncConfig",
+    "pandashboard.apps.PansyncConfig",
 ]
 
 MIDDLEWARE = [
@@ -195,7 +195,7 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "pansync",
+    "TITLE": "pandashboard",
     "DESCRIPTION": "Sync configuration data between Panorama and Prisma Access",
     "VERSION": "1.0.0",
 }
