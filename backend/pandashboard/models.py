@@ -36,6 +36,7 @@ class Jobs(models.Model):
     name = models.CharField(max_length=1024)
     description = models.TextField(blank=True)
     result = models.TextField(blank=True)
+    json_data = models.JSONField(null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -70,6 +70,7 @@ class JobsSerializer(serializers.ModelSerializer):
             "result",
             "author",
             "created_at",
+            "json_data",
         )
 
 

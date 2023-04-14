@@ -48,4 +48,5 @@ uritemplate==4.1.1
 urllib3==1.26.15
 whitenoise==5.3.0
 celery[redis]
-pan-os-python
+pan-os-python==1.8.1
+xmltodict==0.13.0

@@ -1,12 +1,17 @@
+# standard library imports
+import json
+
+# django imports
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 
+# django rest framework imports
 from rest_framework import viewsets, status, permissions
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .tasks import execute_export_rules_to_csv as export_rules_to_csv_task
 
+# directory object imports
 from .models import Panorama, Prisma, Firewall, Jobs
 from .permissions import IsAuthorOrReadOnly
 from .serializers import (
@@ -15,6 +20,12 @@ from .serializers import (
     FirewallSerializer,
     JobsSerializer,
     UserSerializer,
+)
+
+# Python scripts
+from .tasks import (
+    execute_export_rules_to_csv as export_rules_to_csv_task,
+    execute_get_system_info as get_system_info_task,
 )
 
 
@@ -85,6 +96,18 @@ class JobsViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def retrieve(self, request, format=None):
+        instance = self.get_object()
+        if instance.json_data is None:
+            return JsonResponse({}, status=200)
+
+        try:
+            json_data = json.loads(instance.json_data)
+        except TypeError as e:
+            return JsonResponse({"error": str(e)}, status=400)
+
+        return JsonResponse(json_data, status=200)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
@@ -107,6 +130,23 @@ def execute_export_rules_to_csv(request):
     author_id = request.user.id
 
     task = export_rules_to_csv_task.delay(pan_url, api_token, author_id)
+
+    job_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "job_id": job_id},
+        status=status.HTTP_200_OK,
+    )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_get_system_info(request):
+    pan_url = request.data.get("pan_url")
+    api_token = request.data.get("api_token")
+    author_id = request.user.id
+
+    task = get_system_info_task.delay(pan_url, api_token, author_id)
 
     job_id = task.id
 

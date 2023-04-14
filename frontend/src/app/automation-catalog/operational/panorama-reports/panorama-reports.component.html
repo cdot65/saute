@@ -8,6 +8,14 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <h1 class="report-type-header">Select Report Type</h1>
+    <mat-form-field appearance="fill">
+      <mat-select formControlName="reportType">
+        <mat-option *ngFor="let reportType of reportTypes" [value]="reportType.value">
+          {{ reportType.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <div class="button-container">
       <button mat-raised-button color="primary" type="submit">Submit</button>
     </div>
