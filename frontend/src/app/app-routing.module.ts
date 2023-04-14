@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { PanoramaReportsComponent } from './automation-catalog/operational/panorama-reports/panorama-reports.component';
+import { JobDetailsComponent } from './jobs/job-details/job-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'inventory/firewall', component: FirewallComponent, canActivate: [AuthGuard] },
   { path: 'inventory/panorama', component: PanoramaComponent, canActivate: [AuthGuard] },
   { path: 'inventory/prisma', component: PrismaComponent, canActivate: [AuthGuard] },
-  { path: 'operational/panorama-reports', component: PanoramaReportsComponent },
+  { path: 'operational/panorama-reports', component: PanoramaReportsComponent, canActivate: [AuthGuard] },
+  { path: 'job-details/:id', component: JobDetailsComponent, canActivate: [AuthGuard] },
 ];
 
 
