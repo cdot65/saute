@@ -21,7 +21,9 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path(
-        "report/rules", execute_export_rules_to_csv, name="execute_export_rules_to_csv"
+        "report/rules",
+        execute_export_rules_to_csv,
+        name="execute_export_rules_to_csv",
     ),
     path(
         "report/get-system-info",

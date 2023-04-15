@@ -1,11 +1,15 @@
 <h2 mat-dialog-title>Job Details</h2>
 <mat-dialog-content>
-  <p><strong>Name:</strong> {{data.name}}</p>
-  <p><strong>Description:</strong> {{data.description}}</p>
-  <p><strong>Result:</strong> {{data.result}}</p>
-  <p><strong>Created At:</strong> {{data.created_at}}</p>
-  <!-- Add other fields if needed -->
+  <p><strong>Job ID:</strong> {{data?.id}}</p>
+  <p><strong>Task ID:</strong> {{data?.task_id}}</p> <!-- Add this line -->
+  <p><strong>Type:</strong> {{data?.job_type}}</p>
+  <p><strong>Created At:</strong> {{data?.created_at}}</p>
+  <ng-container *ngIf="data?.json_data">
+    <div class="json-viewer-wrapper">
+      <ngx-json-viewer [json]="data.json_data" class="custom-ngx-json-viewer"></ngx-json-viewer>
+    </div>
+  </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button (click)="close()">Close</button>
 </mat-dialog-actions>

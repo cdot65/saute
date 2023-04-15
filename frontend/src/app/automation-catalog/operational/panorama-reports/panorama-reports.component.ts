@@ -69,7 +69,7 @@ export class PanoramaReportsComponent implements OnInit {
       this.http.post(apiUrl, payload).subscribe((response: any) => {
         console.log(response);
         this.dialog.open(JobDialogComponent, {
-          data: { jobId: response.job_id },
+          data: { taskId: response.task_id },
         });
       });
     } else {
@@ -79,6 +79,17 @@ export class PanoramaReportsComponent implements OnInit {
 
   getApiUrl(reportType: string): string {
     const baseUrl = 'http://localhost:8000/api/v1/report';
-    return `${baseUrl}/${reportType}`;
+    let endpoint = '';
+    switch (reportType) {
+      case 'rules':
+        endpoint = 'rules';
+        break;
+      case 'get-system-info':
+        endpoint = 'get-system-info';
+        break;
+      default:
+        break;
+    }
+    return `${baseUrl}/${endpoint}`;
   }
 }

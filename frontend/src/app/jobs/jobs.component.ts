@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { JobDetailsComponent } from './job-details/job-details.component';
 
 @Component({
   selector: 'app-jobs',
@@ -15,7 +14,7 @@ import { JobDetailsComponent } from './job-details/job-details.component';
 })
 export class JobsComponent implements OnInit, AfterViewInit {
   jobsData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name', 'description', 'result', 'json_data', 'created_at'];
+  displayedColumns: string[] = ['task_id', 'job_type', 'created_at'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -47,13 +46,6 @@ export class JobsComponent implements OnInit, AfterViewInit {
       .subscribe((data: any[]) => {
         this.jobsData.data = data;
       });
-  }
-
-  openJobDetails(job: any): void {
-    this.dialog.open(JobDetailsComponent, {
-      width: '80%',
-      data: job
-    });
   }
 
   applyFilter(event: Event) {

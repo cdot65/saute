@@ -31,6 +31,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 import { PanoramaComponent } from './inventory/panorama/panorama.component';
 import { PrismaComponent } from './inventory/prisma/prisma.component';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 import { CookieService } from 'ngx-cookie-service';
 import { JobsComponent } from './jobs/jobs.component';
@@ -101,7 +102,8 @@ import { JobDialogComponent } from './shared/job-dialog/job-dialog.component';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxJsonViewerModule
   ],
   providers: [
     CookieService,

@@ -96,17 +96,19 @@ class JobsViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def retrieve(self, request, format=None):
+    def retrieve(self, request, pk=None, format=None):
         instance = self.get_object()
         if instance.json_data is None:
             return JsonResponse({}, status=200)
 
-        try:
-            json_data = json.loads(instance.json_data)
-        except TypeError as e:
-            return JsonResponse({"error": str(e)}, status=400)
+        response_data = {
+            "task_id": instance.task_id,
+            "job_type": instance.job_type,
+            "created_at": instance.created_at.isoformat(),
+            "json_data": instance.json_data if instance.json_data is not None else {},
+        }
 
-        return JsonResponse(json_data, status=200)
+        return JsonResponse(response_data, status=200)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -148,9 +150,9 @@ def execute_get_system_info(request):
 
     task = get_system_info_task.delay(pan_url, api_token, author_id)
 
-    job_id = task.id
+    task_id = task.id
 
     return Response(
-        {"message": "Task has been executed", "job_id": job_id},
+        {"message": "Task has been executed", "task_id": task_id},
         status=status.HTTP_200_OK,
     )
