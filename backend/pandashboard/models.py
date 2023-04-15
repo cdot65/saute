@@ -29,13 +29,8 @@ class Prisma(models.Model):
 
 
 class Jobs(models.Model):
-    """
-    Database model representing an installed Job class.
-    """
-
-    name = models.CharField(max_length=1024)
-    description = models.TextField(blank=True)
-    result = models.TextField(blank=True)
+    task_id = models.CharField(max_length=255, unique=True, primary_key=True)
+    job_type = models.CharField(max_length=1024)
     json_data = models.JSONField(null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

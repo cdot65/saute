@@ -61,13 +61,13 @@ class FirewallSerializer(serializers.ModelSerializer):
 
 
 class JobsSerializer(serializers.ModelSerializer):
+    task_id = serializers.CharField(read_only=True)  # Add the task_id field
+
     class Meta:
         model = Jobs
         fields = (
-            "id",
-            "name",
-            "description",
-            "result",
+            "task_id",
+            "job_type",
             "author",
             "created_at",
             "json_data",

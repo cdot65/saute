@@ -18,13 +18,13 @@ export class JobDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      const jobId = params['id'];
-      this.getJobDetails(jobId);
+      const taskId = params['taskId'];
+      this.getJobDetails(taskId);
     });
   }
 
-  getJobDetails(jobId: string) {
-    this.http.get(`http://localhost:8000/api/v1/jobs/${jobId}/`)
+  getJobDetails(taskId: string) {
+    this.http.get(`http://localhost:8000/api/v1/jobs/${taskId}/`)
       .pipe(
         catchError((error) => {
           console.error('Error fetching job details:', error);

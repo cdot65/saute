@@ -102,9 +102,7 @@ class JobsViewSet(viewsets.ModelViewSet):
             return JsonResponse({}, status=200)
 
         response_data = {
-            "name": instance.name,
-            "description": instance.description,
-            "result": instance.result,
+            "job_type": instance.job_type,
             "created_at": instance.created_at.isoformat(),
             "json_data": instance.json_data if instance.json_data is not None else {},
         }
@@ -151,9 +149,9 @@ def execute_get_system_info(request):
 
     task = get_system_info_task.delay(pan_url, api_token, author_id)
 
-    job_id = task.id
+    task_id = task.id
 
     return Response(
-        {"message": "Task has been executed", "job_id": job_id},
+        {"message": "Task has been executed", "task_id": task_id},
         status=status.HTTP_200_OK,
     )

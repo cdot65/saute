@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'inventory/panorama', component: PanoramaComponent, canActivate: [AuthGuard] },
   { path: 'inventory/prisma', component: PrismaComponent, canActivate: [AuthGuard] },
   { path: 'operational/panorama-reports', component: PanoramaReportsComponent, canActivate: [AuthGuard] },
-  { path: 'job-details/:id', component: JobDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'job-details/:taskId', component: JobDetailsComponent, canActivate: [AuthGuard] },
 ];
 
 

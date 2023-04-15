@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class JobsComponent implements OnInit, AfterViewInit {
   jobsData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name', 'description', 'result', 'json_data', 'created_at'];
+  displayedColumns: string[] = ['task_id', 'job_type', 'created_at'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
