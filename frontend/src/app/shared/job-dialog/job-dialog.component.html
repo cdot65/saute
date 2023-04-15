@@ -1,8 +1,12 @@
 <h1 mat-dialog-title>Task Executed</h1>
 <div mat-dialog-content>
   <p>Task ID: {{ data.taskId }}</p>
+  <p>Click <a [routerLink]="['/job-details', data.taskId]">here</a> to view the Job's detail page.</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="copyToClipboard()">Copy to Clipboard</button>
-  <button mat-button mat-dialog-close>Close</button>
+  <div mat-dialog-actions class="button-container">
+    <button mat-button mat-dialog-close>Close</button>
+    <div class="spacer"></div>
+    <button mat-button (click)="copyToClipboard()">Copy to Clipboard</button>
+  </div>
 </div>
