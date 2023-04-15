@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
@@ -30,9 +31,8 @@ class PansyncModelTest(APITestCase):
             author=cls.user,
         )
         cls.job = Jobs.objects.create(
-            name="diffsync1",
-            description="job1",
-            result="pass",
+            task_id="1234567890",
+            job_type="test",
             json_data='{"test": "test"}',
             author=cls.user,
         )
@@ -56,10 +56,10 @@ class PansyncModelTest(APITestCase):
         self.assertEqual(self.prisma.tsg_id, "1234567890")
 
     def test_jobs(self):
-        self.assertEqual(self.job.__str__(), "diffsync1")
-        self.assertEqual(self.job.name, "diffsync1")
-        self.assertEqual(self.job.description, "job1")
-        self.assertEqual(self.job.result, "pass")
+        self.assertEqual(self.job.__str__(), self.job.task_id)
+        self.assertEqual(self.job.task_id, "1234567890")
+        self.assertEqual(self.job.job_type, "test")
+        self.assertEqual(self.job.json_data, '{"test": "test"}')
 
     def test_api_panorama_list_view(self):
         response = self.client.get(reverse("panorama-list"))
@@ -164,52 +164,55 @@ class PansyncModelTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Prisma.objects.count(), 0)
 
+    # Jobs API tests
     def test_api_jobs_list_view(self):
         response = self.client.get(reverse("jobs-list"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data[0]["name"], "diffsync1")
-        self.assertEqual(response.data[0]["description"], "job1")
-        self.assertEqual(response.data[0]["result"], "pass")
+        self.assertEqual(response.data[0]["task_id"], "1234567890")
+        self.assertEqual(response.data[0]["job_type"], "test")
+        self.assertEqual(response.data[0]["json_data"], '{"test": "test"}')
         self.assertEqual(Jobs.objects.count(), 1)
         self.assertContains(response, self.job)
 
-    # def test_api_jobs_detail_view(self):
-    #     response = self.client.get(
-    #         reverse("jobs-detail", kwargs={"pk": self.job.id}), format="json"
-    #     )
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(Jobs.objects.count(), 1)
-    #     self.assertContains(response, self.job)
+    def test_api_jobs_detail_view(self):
+        response = self.client.get(
+            reverse("jobs-detail", kwargs={"pk": self.job.task_id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Jobs.objects.count(), 1)
+        self.assertEqual(json.loads(response.content)["task_id"], self.job.task_id)
 
-    # Jobs API tests
     def test_api_jobs_create(self):
         data = {
-            "name": "diffsync2",
-            "description": "job2",
-            "result": "fail",
+            "task_id": "2345678901",
+            "job_type": "test2",
+            "json_data": '{"test2": "test2"}',
             "author": self.user.id,
         }
         response = self.client.post(reverse("jobs-list"), data, format="json")
-        job = Jobs.objects.get(name="diffsync2")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Jobs.objects.count(), 2)
-        self.assertEqual(job.name, "diffsync2")
 
     def test_api_jobs_update(self):
         data = {
-            "name": "updated_diffsync",
-            "result": "pass",
+            "job_type": "updated_test",
+            "json_data": '{"updated_test": "updated_test"}',
         }
         response = self.client.patch(
-            reverse("jobs-detail", kwargs={"pk": self.job.id}), data, format="json"
+            reverse("jobs-detail", kwargs={"pk": self.job.task_id}), data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Jobs.objects.get(id=self.job.id).name, "updated_diffsync")
-        self.assertEqual(Jobs.objects.get(id=self.job.id).result, "pass")
+        self.assertEqual(
+            Jobs.objects.get(task_id=self.job.task_id).job_type, "updated_test"
+        )
+        self.assertEqual(
+            Jobs.objects.get(task_id=self.job.task_id).json_data,
+            '{"updated_test": "updated_test"}',
+        )
 
     def test_api_jobs_delete(self):
         response = self.client.delete(
-            reverse("jobs-detail", kwargs={"pk": self.job.id})
+            reverse("jobs-detail", kwargs={"pk": self.job.task_id})
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Jobs.objects.count(), 0)

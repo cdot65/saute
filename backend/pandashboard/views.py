@@ -102,6 +102,7 @@ class JobsViewSet(viewsets.ModelViewSet):
             return JsonResponse({}, status=200)
 
         response_data = {
+            "task_id": instance.task_id,
             "job_type": instance.job_type,
             "created_at": instance.created_at.isoformat(),
             "json_data": instance.json_data if instance.json_data is not None else {},
