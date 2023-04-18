@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { PanoramaReportsComponent } from './automation-catalog/operational/panorama-reports/panorama-reports.component';
+import { GetCertificateChainComponent } from './automation-catalog/configuration/get-certificate-chain/get-certificate-chain.component';
 import { JobDetailsComponent } from './jobs/job-details/job-details.component';
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'inventory/firewall', component: FirewallComponent, canActivate: [AuthGuard] },
   { path: 'inventory/panorama', component: PanoramaComponent, canActivate: [AuthGuard] },
   { path: 'inventory/prisma', component: PrismaComponent, canActivate: [AuthGuard] },
+  { path: 'configuration/get-certificate-chain', component: GetCertificateChainComponent, canActivate: [AuthGuard] },
   { path: 'operational/panorama-reports', component: PanoramaReportsComponent, canActivate: [AuthGuard] },
   { path: 'job-details/:taskId', component: JobDetailsComponent, canActivate: [AuthGuard] },
 ];
