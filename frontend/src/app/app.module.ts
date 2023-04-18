@@ -52,6 +52,7 @@ import { PanoramaReportsComponent } from './automation-catalog/operational/panor
 import { PanosRebootComponent } from './automation-catalog/maintenance/panos-reboot/panos-reboot.component';
 import { PanoramaRebootComponent } from './automation-catalog/maintenance/panorama-reboot/panorama-reboot.component';
 import { JobDialogComponent } from './shared/job-dialog/job-dialog.component';
+import { GetCertificateChainComponent } from './automation-catalog/configuration/get-certificate-chain/get-certificate-chain.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { JobDialogComponent } from './shared/job-dialog/job-dialog.component';
     PanoramaReportsComponent,
     PanosRebootComponent,
     PanoramaRebootComponent,
-    JobDialogComponent
+    JobDialogComponent,
+    GetCertificateChainComponent
   ],
   imports: [
     BrowserModule,
