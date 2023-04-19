@@ -28,6 +28,7 @@ get-certificate-chain = "^0.1.2"
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
 flake8 = "^6.0.0"
+ipdb = "^0.13.13"
 
 [build-system]
 requires = ["poetry-core"]
