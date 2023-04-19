@@ -95,4 +95,4 @@ def run_get_system_info(pan_url: str, api_token: str) -> Dict[str, Any]:
 if __name__ == "__main__":
     args = parse_arguments()
     result = run_get_system_info(args.pan_url, args.api_token)
-    print(result)
+    logging.info(result)
