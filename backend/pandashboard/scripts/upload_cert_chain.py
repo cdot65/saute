@@ -1,18 +1,15 @@
 # standard library imports
 import os
-import json
 import logging
 import argparse
 from typing import Any, Dict
 
 # third party library imports
-import xmltodict
-from xml.etree.ElementTree import tostring
 from dotenv import load_dotenv
+from get_certificate_chain.download import SSLCertificateChainDownloader
 
 # Palo Alto Networks imports
 from panos import panorama
-
 
 # ----------------------------------------------------------------------------
 # Configure logging
@@ -35,7 +32,13 @@ PANTOKEN = os.environ.get("PANTOKEN", "mysecretpassword")
 # ----------------------------------------------------------------------------
 def parse_arguments():
     parser = argparse.ArgumentParser(
-        description="Export security rules and associated Security Profile Groups to a CSV file."
+        description="Retrieve certificate chain from host and upload to PAN-OS."
+    )
+    parser.add_argument(
+        "--api-token",
+        dest="api_token",
+        default=PANTOKEN,
+        help="Panorama API token (default: %(default)s)",
     )
     parser.add_argument(
         "--pan-url",
@@ -44,12 +47,24 @@ def parse_arguments():
         help="Panorama URL (default: %(default)s)",
     )
     parser.add_argument(
-        "--pan-pass",
-        dest="api_token",
-        default=PANTOKEN,
-        help="Panorama password (default: %(default)s)",
+        "--host",
+        dest="host",
+        default="www.google.com",
+        help="URL (default: %(default)s)",
     )
     return parser.parse_args()
+
+
+# ----------------------------------------------------------------------------
+# Retrieve certificate chain from host
+# ----------------------------------------------------------------------------
+def fetch_cert_chain(host: str) -> Dict[str, Any]:
+    downloader = SSLCertificateChainDownloader(output_directory=f"/var/tmp/{host}")
+    result = downloader.run({"host": host, "get_ca_cert_pem": True})
+    if result and "files" in result:
+        return result
+    else:
+        return {}
 
 
 # ----------------------------------------------------------------------------
@@ -60,33 +75,31 @@ def setup_panorama_client(pan_url: str, api_token: str) -> panorama.Panorama:
 
 
 # ----------------------------------------------------------------------------
-# Function to run our command
-# ----------------------------------------------------------------------------
-def fetch_system_information(pan: panorama.Panorama) -> Dict[str, Any]:
-    system_info = pan.op("show system info")
-    xml_string = tostring(system_info).decode(
-        "utf-8"
-    )  # Convert the Element object to a string
-    xml_dict = xmltodict.parse(
-        xml_string
-    )  # Parse the XML string to a Python dictionary
-    return json.loads(json.dumps(xml_dict))  # Convert the Python dictionary to JSON
-
-
-# ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_get_system_info(pan_url: str, api_token: str) -> Dict[str, Any]:
-    pan = setup_panorama_client(pan_url, api_token)
+def run_upload_cert_chain(pan_url: str, api_token: str, host: str) -> Dict[str, Any]:
+    # Fetch the certificate chain
+    cert_chain_files = fetch_cert_chain(host)
 
-    try:
-        system_info = fetch_system_information(pan)
-    except Exception as e:
-        logging.error(f"Error fetching system information: {e}")
-        return {"error": str(e)}
+    # # Setup Panorama client
+    # pan = setup_panorama_client(pan_url, api_token)
 
-    logging.info(f"Retrieved system information: {system_info}")
-    return system_info
+    # # Upload the certificates
+    # for cert_file in cert_chain_files:
+    #     with open(cert_file, "r") as f:
+    #         certificate_data = f.read()
+
+    #     # Extract certificate name from file
+    #     cert_name = os.path.splitext(os.path.basename(cert_file))[0]
+
+    #     print(f"cert_name: {cert_name}")
+    #     # Add the certificate to Panorama
+    #     pan.xapi.set(
+    #         xpath=f"/config/shared/certificate/entry[@name='{cert_name}']",
+    #         element=f"<certificate>\n{certificate_data}\n</certificate>",
+    #     )
+
+    return cert_chain_files
 
 
 # ----------------------------------------------------------------------------
@@ -94,5 +107,9 @@ def run_get_system_info(pan_url: str, api_token: str) -> Dict[str, Any]:
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    result = run_get_system_info(args.pan_url, args.api_token)
+    result = run_upload_cert_chain(
+        args.pan_url,
+        args.api_token,
+        args.host,
+    )
     logging.info(result)

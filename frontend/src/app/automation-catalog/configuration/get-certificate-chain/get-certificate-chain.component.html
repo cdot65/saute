@@ -1,0 +1,19 @@
+<div class="container">
+  <form [formGroup]="certificateChainForm" (ngSubmit)="onSubmit()">
+    <h1>Select Firewall Instance</h1>
+    <mat-form-field appearance="fill">
+      <mat-select formControlName="selectedFirewall">
+        <mat-option *ngFor="let firewall of firewalls" [value]="firewall">
+          {{ firewall.hostname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <h1 class="url-header">URL of certificate chain</h1>
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="url" placeholder="Enter certificate chain URL">
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>
+</div>

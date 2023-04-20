@@ -1,13 +1,10 @@
-# standard library imports
-import json
-
 # django imports
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 
 # django rest framework imports
 from rest_framework import viewsets, status, permissions
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 
@@ -26,6 +23,7 @@ from .serializers import (
 from .tasks import (
     execute_export_rules_to_csv as export_rules_to_csv_task,
     execute_get_system_info as get_system_info_task,
+    execute_upload_cert_chain as upload_cert_chain_task,
 )
 
 
@@ -149,6 +147,24 @@ def execute_get_system_info(request):
     author_id = request.user.id
 
     task = get_system_info_task.delay(pan_url, api_token, author_id)
+
+    task_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "task_id": task_id},
+        status=status.HTTP_200_OK,
+    )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_upload_cert_chain(request):
+    api_token = request.data.get("api_token")
+    author_id = request.user.id
+    pan_url = request.data.get("pan_url")
+    url = request.data.get("url")
+
+    task = upload_cert_chain_task.delay(api_token, author_id, pan_url, url)
 
     task_id = task.id
 

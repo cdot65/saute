@@ -8,6 +8,7 @@ from .views import (
     UserViewSet,
     execute_export_rules_to_csv,
     execute_get_system_info,
+    execute_upload_cert_chain,
 )
 
 router = SimpleRouter()
@@ -29,5 +30,10 @@ urlpatterns += [
         "report/get-system-info",
         execute_get_system_info,
         name="execute_get_system_info",
+    ),
+    path(
+        "configuration/upload-cert-chain",
+        execute_upload_cert_chain,
+        name="execute_upload_cert_chain",
     ),
 ]

@@ -57,3 +57,8 @@ backend/pansync/scripts/.env
 
 # exclude database migrations
 **00**.py
+
+# exclude certs
+**.crt
+**.key
+**.pem
