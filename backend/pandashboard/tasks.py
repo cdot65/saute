@@ -2,7 +2,6 @@ import sys
 import os
 import django
 import logging
-import json
 
 from celery import shared_task
 from django.contrib.auth import get_user_model
@@ -89,7 +88,6 @@ def execute_upload_cert_chain(self, api_token, author_id, pan_url, url):
 
     try:
         json_object = run_upload_cert_chain(pan_url, api_token, url)
-        print("json_object:", json_object)
         job.json_data = json_object
     except Exception as e:
         job.result = f"Job ID: {job.pk}\nError: {e}"
