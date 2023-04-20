@@ -2,17 +2,14 @@
 import os
 import logging
 import argparse
-from typing import Any, Dict, Union, List
+from typing import Any, Dict
 
 # third party library imports
-import xmltodict
-from xml.etree.ElementTree import tostring
 from dotenv import load_dotenv
 from get_certificate_chain.download import SSLCertificateChainDownloader
 
 # Palo Alto Networks imports
 from panos import panorama
-
 
 # ----------------------------------------------------------------------------
 # Configure logging
@@ -62,9 +59,8 @@ def parse_arguments():
 # Retrieve certificate chain from host
 # ----------------------------------------------------------------------------
 def fetch_cert_chain(host: str) -> Dict[str, Any]:
-    print(host)
-    downloader = SSLCertificateChainDownloader(output_directory="/var/tmp")
-    result = downloader.run({"host": host})
+    downloader = SSLCertificateChainDownloader(output_directory=f"/var/tmp/{host}")
+    result = downloader.run({"host": host, "get_ca_cert_pem": True})
     if result and "files" in result:
         return result
     else:
