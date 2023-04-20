@@ -50,4 +50,4 @@ whitenoise==5.3.0
 celery[redis]
 pan-os-python==1.8.1
 xmltodict==0.13.0
-get-certificate-chain==0.1.6
+get-certificate-chain==0.1.8

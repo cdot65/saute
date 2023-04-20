@@ -23,7 +23,7 @@ psycopg2-binary = "^2.9.5"
 pan-os-python = "^1.8.1"
 celery = {extras = ["redis"], version = "^5.2.7"}
 xmltodict = "^0.13.0"
-get-certificate-chain = "^0.1.2"
+get-certificate-chain = "^0.1.8"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
