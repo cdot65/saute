@@ -2,13 +2,13 @@
   <button mat-icon-button (click)="isExpanded = !isExpanded">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>PAN Dashboard</span>
+  <span>Saute</span>
   <span class="spacer"></span>
   <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Login</button>
   <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
 </mat-toolbar>
-<mat-sidenav-container class="pan-container" autosize>
-  <mat-sidenav #sidenav class="pan-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
+<mat-sidenav-container class="saute-container" autosize>
+  <mat-sidenav #sidenav class="saute-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
     (mouseleave)="mouseleave()">
     <mat-nav-list>
       <mat-list-item routerLink="/dashboard" routerLinkActive="active">
@@ -26,7 +26,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <div class="pan-sidenav-content">
+  <div class="saute-sidenav-content">
     <router-outlet></router-outlet>
   </div>
 

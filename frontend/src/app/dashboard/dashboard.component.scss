@@ -10,7 +10,7 @@
   flex-direction: column;
   width: calc(33.33% - 1rem);
   aspect-ratio: 2 / 1;
-  background-color: #2b2b2b;
+  background-color: #fafafa;
   border: 1px solid #ccc;
   border-radius: 4px;
   text-decoration: none;
@@ -19,16 +19,11 @@
   overflow: hidden;
 
   &:hover {
-    background-color: #555555;
-
-    img {
-      transform: scale(1.1);
-      transition: transform 0.3s;
-    }
+    background-color: #efefef;
 
     h3 {
       font-size: 1.2rem;
-      transition: font-size 0.3s;
+      transition: font-size 0.2s;
     }
   }
 }

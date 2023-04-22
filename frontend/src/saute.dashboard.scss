@@ -4,12 +4,12 @@
 @include mat.core();
 
 // Define custom colors
-$my-primary: mat.define-palette(mat.$deep-orange-palette);
-$my-accent: mat.define-palette(mat.$deep-orange-palette, A200, A100, A400);
+$my-primary: mat.define-palette(mat.$deep-purple-palette);
+$my-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
 $my-warning: mat.define-palette(mat.$red-palette);
 
 // Create custom theme using the dark theme
-$my-theme: mat.define-dark-theme((
+$dark-theme: mat.define-dark-theme((
   color: (
     primary: $my-primary,
     accent: $my-accent,
@@ -17,8 +17,18 @@ $my-theme: mat.define-dark-theme((
   ),
 ));
 
+$light-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+
 // Include theme styles for core and each component used in your app
-@include mat.all-component-themes($my-theme);
+@include mat.all-component-themes($light-theme);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

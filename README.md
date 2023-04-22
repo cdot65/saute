@@ -1,10 +1,10 @@
-# PAN Dashboard 🚀🌐
+# Saute 🚀🌐
 
-[![Build and Deploy](https://github.com/cdot65/pan-dashboard/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/pan-dashboard/actions/workflows/backend.yml)
+[![Build and Deploy](https://github.com/cdot65/saute/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/saute/actions/workflows/backend.yml)
 
 ## Table of Contents
 
-- [PAN Dashboard 🚀🌐](#pan-dashboard-)
+- [Saute 🚀🌐](#saute-)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
     - [Screenshot](#screenshot)
@@ -25,15 +25,15 @@
 
 ## Introduction
 
-PAN Dashboard is a web application consisting of separate backend and frontend components. Its goal is to provide a simple and intuitive interface for managing products from Palo Alto Networks.
+Saute is a web application consisting of separate backend and frontend components. Its goal is to provide a simple and intuitive interface for managing products from Palo Alto Networks.
 
 The backend is built using Django and PostgreSQL, while the frontend is developed with Angular. The backend provides a robust REST API, and the frontend consumes this API to offer a seamless user experience.
 
-The PAN Dashboard now also includes an Operational module, which allows users to generate reports for Panorama devices.
+The Saute now also includes an Operational module, which allows users to generate reports for Panorama devices.
 
 ### Screenshot
 
-![PAN Dashboard Screenshot](docs/images/pan-dashboard-screenshot.png)
+![Saute Screenshot](docs/images/saute-screenshot.png)
 
 ## Backend Overview
 

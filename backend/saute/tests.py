@@ -10,7 +10,7 @@ from .models import Panorama, Prisma, Jobs
 User = get_user_model()
 
 
-class PansyncModelTest(APITestCase):
+class SauteModelTest(APITestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user = User.objects.create_user(

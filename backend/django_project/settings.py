@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     # local
     "accounts.apps.AccountsConfig",
-    "pandashboard.apps.PansyncConfig",
+    "saute.apps.SauteConfig",
 ]
 
 MIDDLEWARE = [
@@ -195,7 +195,7 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "pandashboard",
+    "TITLE": "saute",
     "DESCRIPTION": "Sync configuration data between Panorama and Prisma Access",
     "VERSION": "1.0.0",
 }
@@ -209,11 +209,11 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
-            "format": "{levelname} {asctime} {module} {message}",
+            "format": "{module} {message}",
             "style": "{",
         },
         "simple": {
-            "format": "{levelname} {message}",
+            "format": "{message}",
             "style": "{",
         },
     },

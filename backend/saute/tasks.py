@@ -5,10 +5,10 @@ import logging
 
 from celery import shared_task
 from django.contrib.auth import get_user_model
-from pandashboard.models import Jobs
+from saute.models import Jobs
 
 # import our python scripts
-from pandashboard.scripts import (
+from saute.scripts import (
     run_export_rules_to_csv,
     run_get_system_info,
     run_upload_cert_chain,
