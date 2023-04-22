@@ -6,7 +6,7 @@ db.sqlite3
 backend/.env
 .chatgpt/
 backend/accounts/migrations/00**.py
-backend/pansync/migrations/00**.py
+backend/saute/migrations/00**.py
 **.env
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
@@ -53,7 +53,7 @@ testem.log
 Thumbs.db
 frontend/node_modules/
 frontend/.angular/
-backend/pansync/scripts/.env
+backend/saute/scripts/.env
 
 # exclude database migrations
 **00**.py
