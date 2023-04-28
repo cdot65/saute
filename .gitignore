@@ -62,3 +62,6 @@ backend/saute/scripts/.env
 **.crt
 **.key
 **.pem
+
+# exclude dist folder
+frontend/dist/**

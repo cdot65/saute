@@ -1,0 +1,50 @@
+<c-col xs="12">
+  <c-card class="mb-3">
+    <c-card-header ngPreserveWhitespaces>
+      <strong>Automation Catalog</strong>
+      <!-- <small>pills</small> -->
+    </c-card-header>
+    <c-card-body>
+      <c-nav variant="pills">
+        <c-nav-item>
+          <a [cTabContent]="tabContent3" [routerLink] [tabPaneIdx]="0" cNavLink>
+            <svg cIcon class="me-2" name="cibSkyliner"></svg>
+            Deploy
+          </a>
+        </c-nav-item>
+        <c-nav-item>
+          <a [cTabContent]="tabContent3" [routerLink] [tabPaneIdx]="1" cNavLink>
+            <svg cIcon class="me-2" name="cilCog"></svg>
+            Configuration
+          </a>
+        </c-nav-item>
+        <c-nav-item>
+          <a [cTabContent]="tabContent3" [routerLink] [tabPaneIdx]="2" cNavLink>
+            <svg cIcon class="me-2" name="cilCode"></svg>
+            Operations
+          </a>
+        </c-nav-item>
+        <c-nav-item>
+          <a [cTabContent]="tabContent3" [routerLink] [tabPaneIdx]="3" cNavLink>
+            <svg cIcon class="me-2" name="cilUser"></svg>
+            Assessments
+          </a>
+        </c-nav-item>
+      </c-nav>
+      <c-tab-content #tabContent3="cTabContent" cRounded="bottom" [activeTabPaneIdx]="0">
+        <c-tab-pane aria-labelledby="docs-code-preview" class="p-3 preview" role="tabpanel">
+          <app-widgets-brand [withCharts]="true"></app-widgets-brand>
+        </c-tab-pane>
+        <c-tab-pane aria-labelledby="docs-code-preview" class="p-3 preview" role="tabpanel">
+          <app-widgets-brand [withCharts]="true"></app-widgets-brand>
+        </c-tab-pane>
+        <c-tab-pane aria-labelledby="docs-code-preview" class="p-3 preview" role="tabpanel">
+          <app-widgets-brand [withCharts]="true"></app-widgets-brand>
+        </c-tab-pane>
+        <c-tab-pane aria-labelledby="docs-code-preview" class="p-3 preview" role="tabpanel">
+          <app-widgets-brand [withCharts]="true"></app-widgets-brand>
+        </c-tab-pane>
+      </c-tab-content>
+    </c-card-body>
+  </c-card>
+</c-col>
