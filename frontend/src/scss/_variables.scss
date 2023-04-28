@@ -6,18 +6,29 @@
 
 // Color system
 
-// $white:     #fff;
-// $gray-base: #3c4b64;
-// $gray-100:  #ebedef;
-// $gray-200:  #d8dbe0;
-// $gray-300:  #c4c9d0;
-// $gray-400:  #b1b7c1;
-// $gray-500:  #9da5b1;
-// $gray-600:  #8a93a2;
-// $gray-700:  #768192;
-// $gray-800:  #636f83;
-// $gray-900:  #4f5d73;
-// $black:     #000015;
+$white:     #fff;
+$gray-base: #3c4b64;
+$gray-100:  #ebedef;
+$gray-200:  #d8dbe0;
+$gray-300:  #c4c9d0;
+$gray-400:  #b1b7c1;
+$gray-500:  #9da5b1;
+$gray-600:  #8a93a2;
+$gray-700:  #768192;
+$gray-800:  #636f83;
+$gray-900:  #4f5d73;
+$black:     #000015;
+
+$purple-base: #533c64;
+$purple-100:  #edebef;
+$purple-200:  #ddd8e0;
+$purple-300:  #cbc4d0;
+$purple-400:  #bab1c1;
+$purple-500:  #a89db1;
+$purple-600:  #978aa2;
+$purple-700:  #867692;
+$purple-800:  #756383;
+$purple-900:  #624f73;
 
 // fusv-disable
 // $grays: (
@@ -1532,7 +1543,7 @@
 // $sidebar-padding-y:                        0;
 // $sidebar-padding-x:                        0;
 // $sidebar-color:                            $high-emphasis-light;
-// $sidebar-bg:                               $gray-base;
+$sidebar-bg:                               $purple-base;
 // $sidebar-border-width:                     0;
 // $sidebar-border-color:                     transparent;
 // $sidebar-transition:                       margin-left .15s, margin-right .15s, box-shadow .075s, transform .15s, width .15s, z-index 0s ease .15s;
