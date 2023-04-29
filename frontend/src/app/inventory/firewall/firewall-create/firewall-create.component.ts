@@ -18,6 +18,8 @@ export class FirewallCreateComponent implements OnInit {
     author: "",
   };
 
+  validated = false;
+
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
@@ -48,6 +50,7 @@ export class FirewallCreateComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    this.validated = true;
     if (form.valid) {
       const authToken = this.cookieService.get("auth_token");
       const headers = new HttpHeaders().set(
@@ -76,6 +79,7 @@ export class FirewallCreateComponent implements OnInit {
 
   resetForm(form: NgForm) {
     form.reset();
+    this.validated = false;
   }
 
   onCancel(): void {

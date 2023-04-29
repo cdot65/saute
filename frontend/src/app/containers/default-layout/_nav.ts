@@ -17,7 +17,7 @@ export const navItems: INavData[] = [
     children: [
       {
         name: "Firewalls",
-        url: "/inventory/firewalls",
+        url: "/inventory/firewall",
       },
       {
         name: "Panorama",
