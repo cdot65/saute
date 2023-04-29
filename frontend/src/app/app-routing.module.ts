@@ -87,6 +87,14 @@ const routes: Routes = [
           import("./views/pages/pages.module").then((m) => m.PagesModule),
         canActivate: [AuthGuard],
       },
+      {
+        path: "inventory/firewall",
+        loadChildren: () =>
+          import("./inventory/firewall/firewall.module").then(
+            (m) => m.FirewallModule
+          ),
+        canActivate: [AuthGuard],
+      },
     ],
   },
   {
