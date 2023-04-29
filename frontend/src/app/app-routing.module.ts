@@ -103,6 +103,14 @@ const routes: Routes = [
           ),
         canActivate: [AuthGuard],
       },
+      {
+        path: "inventory/prisma",
+        loadChildren: () =>
+          import("./inventory/prisma/prisma.module").then(
+            (m) => m.PrismaModule
+          ),
+        canActivate: [AuthGuard],
+      },
     ],
   },
   {
