@@ -111,6 +111,12 @@ const routes: Routes = [
           ),
         canActivate: [AuthGuard],
       },
+      {
+        path: "jobs",
+        loadChildren: () =>
+          import("./jobs/jobs.module").then((m) => m.JobsModule),
+        canActivate: [AuthGuard],
+      },
     ],
   },
   {
