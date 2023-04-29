@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   ButtonGroupModule,
@@ -13,17 +12,11 @@ import {
   SharedModule,
 } from "@coreui/angular";
 
-import { FirewallRoutingModule } from "./firewall-routing.module";
-import { FirewallCreateComponent } from "./firewall-create/firewall-create.component";
-import { FirewallListComponent } from "./firewall-list/firewall-list.component";
-import { FirewallDetailsComponent } from "./firewall-details/firewall-details.component"; // Import the new component
+import { PanoramaRoutingModule } from "./panorama-routing.module";
+import { PanoramaCreateComponent } from "./panorama-create/panorama-create.component";
 
 @NgModule({
-  declarations: [
-    FirewallCreateComponent,
-    FirewallListComponent,
-    FirewallDetailsComponent,
-  ],
+  declarations: [PanoramaCreateComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -36,7 +29,7 @@ import { FirewallDetailsComponent } from "./firewall-details/firewall-details.co
     ListGroupModule,
     SharedModule,
     FormModule,
-    FirewallRoutingModule,
+    PanoramaRoutingModule,
   ],
 })
-export class FirewallModule {}
+export class PanoramaModule {}

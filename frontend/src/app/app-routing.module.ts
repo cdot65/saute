@@ -95,6 +95,14 @@ const routes: Routes = [
           ),
         canActivate: [AuthGuard],
       },
+      {
+        path: "inventory/panorama",
+        loadChildren: () =>
+          import("./inventory/panorama/panorama.module").then(
+            (m) => m.PanoramaModule
+          ),
+        canActivate: [AuthGuard],
+      },
     ],
   },
   {
