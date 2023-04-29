@@ -65,3 +65,5 @@ backend/saute/scripts/.env
 
 # exclude dist folder
 frontend/dist/**
+
+**chatgpt**
