@@ -42,6 +42,7 @@
     "ngx-pagination": "^6.0.3",
     "ngx-perfect-scrollbar": "^10.1.1",
     "rxjs": "~7.8.1",
+    "sweetalert2": "^11.7.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },
