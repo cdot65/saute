@@ -67,3 +67,4 @@ backend/saute/scripts/.env
 frontend/dist/**
 
 **chatgpt**
+details.md
