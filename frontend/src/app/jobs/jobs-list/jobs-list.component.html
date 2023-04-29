@@ -21,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let job of jobsData" [ngClass]="{ 'd-none': !shouldDisplayJob(job) }"
+                            <tr *ngFor="let job of jobsData" [routerLink]="['/jobs/details', job.task_id]"
                                 class="job-row">
                                 <td>{{ job.task_id }}</td>
                                 <td>{{ job.job_type }}</td>
