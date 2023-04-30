@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Router, NavigationEnd } from "@angular/router";
 
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from './icons/icon-subset';
-import { Title } from '@angular/platform-browser';
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "./icons/icon-subset";
+import { Title } from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+  selector: "app-root",
+  template: "<router-outlet></router-outlet>",
 })
 export class AppComponent implements OnInit {
-  title = 'CoreUI Free Angular Admin Template';
+  title = "Saute: Cooking up PAN automation";
 
   constructor(
     private router: Router,

@@ -1,3 +1,106 @@
 .sidebar {
     --#{$prefix}sidebar-bg: #280B33;
 }
+
+.nav-pills-container {
+    display: flex;
+    padding-top: 2%;
+    justify-content: center; // Center the pills horizontally
+}
+
+.nav-pills {
+    .nav-item+.nav-item:not(:first-child) {
+        margin-left: 5px;
+    }
+
+    .nav-link {
+        line-height: 24px;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 500;
+        min-width: 100px;
+        text-align: center;
+        color: #555;
+        transition: all .3s;
+        border-radius: 30px;
+        padding: 10px 15px;
+        background: none;
+        border: 0;
+        height: 100%;
+
+        &:disabled {
+            color: var(--#{$prefix}nav-link-disabled-color);
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        &:hover {
+            background-color: #c8c8c833;
+        }
+    }
+
+    .nav-link.active,
+    .show>.nav-link {
+        color: #fff;
+        background-color: #9c27b0;
+        box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #9c27b066;
+    }
+}
+
+.nav-pills.nav-pills-info .nav-item .nav-link.active,
+.nav-pills.nav-pills-info .nav-item .nav-link.active:focus,
+.nav-pills.nav-pills-info .nav-item .nav-link.active:hover {
+    background-color: #00bcd4;
+    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #00bcd466;
+    color: #fff;
+}
+
+.nav-pills.nav-pills-rose .nav-item .nav-link.active,
+.nav-pills.nav-pills-rose .nav-item .nav-link.active:focus,
+.nav-pills.nav-pills-rose .nav-item .nav-link.active:hover {
+    background-color: #e91e63;
+    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #e91e6366;
+    color: #fff;
+}
+
+.nav-pills.nav-pills-success .nav-item .nav-link.active,
+.nav-pills.nav-pills-success .nav-item .nav-link.active:focus,
+.nav-pills.nav-pills-success .nav-item .nav-link.active:hover {
+    background-color: #4caf50;
+    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #4caf5066;
+    color: #fff;
+}
+
+.nav-pills.nav-pills-warning .nav-item .nav-link.active,
+.nav-pills.nav-pills-warning .nav-item .nav-link.active:focus,
+.nav-pills.nav-pills-warning .nav-item .nav-link.active:hover {
+    background-color: #9c27b0;
+    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #9c27b066;
+    color: #fff;
+}
+
+.nav-pills.nav-pills-danger .nav-item .nav-link.active,
+.nav-pills.nav-pills-danger .nav-item .nav-link.active:focus,
+.nav-pills.nav-pills-danger .nav-item .nav-link.active:hover {
+    background-color: #f44336;
+    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #f4433666;
+    color: #fff;
+}
+
+.nav-pills.nav-pills-icons .nav-item .nav-link {
+    border-radius: 4px;
+}
+
+// Tabbable tabs
+//
+// Hide tabbable panes to start, show them when .active
+
+.tab-content {
+    >.tab-pane {
+        display: none;
+    }
+
+    >.active {
+        display: block;
+    }
+}
