@@ -34,17 +34,28 @@
         </c-nav>
       </div>
       <c-tab-content #tabContent3="cTabContent" cRounded="bottom" [activeTabPaneIdx]="0">
+
         <c-tab-pane aria-labelledby="docs-code-preview" class="p-3 preview" role="tabpanel">
-          <app-widgets-brand [withCharts]="true"></app-widgets-brand>
+          <app-deploy-widget description="Deploy VM-Series and Panorama" color="primary" icon="cibSkyliner"
+            title="Deploy" buttonText="Go to Deploy" buttonLink="/deploy"></app-deploy-widget>
         </c-tab-pane>
+
         <c-tab-pane aria-labelledby="docs-code-preview" class="p-3 preview" role="tabpanel">
-          <app-widgets-brand [withCharts]="true"></app-widgets-brand>
+          <app-configuration-widget description="Configuration applications and services" color="primary"
+            icon="cibSkyliner" title="Configuration" buttonText="Go to Configuration" buttonLink="/configuration">
+          </app-configuration-widget>
         </c-tab-pane>
+
         <c-tab-pane aria-labelledby="docs-code-preview" class="p-3 preview" role="tabpanel">
-          <app-widgets-brand [withCharts]="true"></app-widgets-brand>
+          <app-operations-widget description="Configuration applications and services" color="primary"
+            icon="cibSkyliner" title="Configuration" buttonText="Go to Configuration" buttonLink="/operations">
+          </app-operations-widget>
         </c-tab-pane>
+
         <c-tab-pane aria-labelledby="docs-code-preview" class="p-3 preview" role="tabpanel">
-          <app-widgets-brand [withCharts]="true"></app-widgets-brand>
+          <app-assessment-widget description="Configuration applications and services" color="primary"
+            icon="cibSkyliner" title="Configuration" buttonText="Go to Configuration" buttonLink="/assessment">
+          </app-assessment-widget>
         </c-tab-pane>
       </c-tab-content>
     </c-card-body>

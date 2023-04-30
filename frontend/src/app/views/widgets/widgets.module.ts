@@ -24,6 +24,12 @@ import {
 } from "./widgets-dropdown/widgets-dropdown.component";
 import { WidgetsEComponent } from "./widgets-e/widgets-e.component";
 
+// local widgets
+import { DeployWidgetComponent } from "./widgets-deploy/widgets-deploy.component";
+import { ConfigurationWidgetComponent } from "./widgets-configuration/widgets-configuration.component";
+import { OperationsWidgetComponent } from "./widgets-operations/widgets-operations.component";
+import { AssessmentWidgetComponent } from "./widgets-assessment/widgets-assessment.component";
+
 @NgModule({
   declarations: [
     WidgetsComponent,
@@ -31,6 +37,10 @@ import { WidgetsEComponent } from "./widgets-e/widgets-e.component";
     WidgetsDropdownComponent,
     ChartSample,
     WidgetsEComponent,
+    DeployWidgetComponent,
+    ConfigurationWidgetComponent,
+    OperationsWidgetComponent,
+    AssessmentWidgetComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +56,13 @@ import { WidgetsEComponent } from "./widgets-e/widgets-e.component";
     ProgressModule,
     ChartjsModule,
   ],
-  exports: [WidgetsBrandComponent, WidgetsDropdownComponent],
+  exports: [
+    WidgetsBrandComponent,
+    WidgetsDropdownComponent,
+    DeployWidgetComponent,
+    ConfigurationWidgetComponent,
+    OperationsWidgetComponent,
+    AssessmentWidgetComponent,
+  ],
 })
 export class WidgetsModule {}
