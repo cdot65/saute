@@ -21,7 +21,7 @@ import { PanoramaDetailsComponent } from "./panorama-details/panorama-details.co
   declarations: [
     PanoramaCreateComponent,
     PanoramaListComponent,
-    PanoramaDetailsComponent, // Add the new component to declarations
+    PanoramaDetailsComponent,
   ],
   imports: [
     CommonModule,
