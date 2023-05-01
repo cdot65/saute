@@ -7,7 +7,7 @@
   "homepage": "https://github.com/cdot65/saute",
   "config": {
     "coreui_library_short_version": "4.3",
-    "coreui_library_docs_url": "https://github.com/cdot65/saute/docs/"
+    "coreui_library_docs_url": "https://github.com/cdot65/saute/"
   },
   "scripts": {
     "ng": "ng",
