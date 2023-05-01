@@ -1,40 +1,58 @@
 <c-row>
-    <c-col xs="12" md="8">
+    <c-col xs="8">
         <c-card class="mb-4">
-            <c-card-header>
+            <c-card-header ngPreserveWhitespaces>
                 <strong>Get Software Information</strong>
             </c-card-header>
             <c-card-body>
-                <form cForm>
-                    <c-row>
-                        <c-col md="12">
-                            <c-input-group>
-                                <h4>Select Panorama</h4>
-                                <select cSelect id="hostname" [(ngModel)]="selectedPanorama" name="selectedPanorama">
-                                    <option *ngFor="let panorama of panoramas" [value]="panorama">
-                                        {{ panorama.hostname }}
-                                    </option>
-                                </select>
-                            </c-input-group>
+                <p class="text-medium-emphasis small">
+                    This Python script fetches system information from a Panorama instance (Palo Alto Networks) and
+                    returns it in JSON format. It imports necessary libraries, sets up logging, and receives its
+                    parameters from our Panorama object.
+                    The script defines several functions: <code>parse_arguments()</code> for parsing
+                    command line arguments, <code>setup_panorama_client()</code> for creating a Panorama instance,
+                    <code>fetch_system_information()</code> for fetching system info, and
+                    <code>run_get_system_info()</code> for the main
+                    execution.
+                </p>
+                <p class="text-medium-emphasis small">
+                    The <code>fetch_system_information()</code> function converts the output to an XML
+                    string, parses it
+                    into a dictionary, and then converts it to JSON.
+                    The script accepts two optional command line
+                    arguments: <code>--pan-url</code> and <code>--pan-pass</code>, which are sourced from our Panorama
+                    instance object. The main function, <code>run_get_system_info()</code>, is executed by a Celery
+                    worker, fetching system information and logging the result into the Jobs table of our database.
+                </p>
+                <app-automation-example href="forms/validation">
+
+                    <form #customStylesForm="ngForm" (ngSubmit)="onSubmit1()" [validated]="customStylesValidated" cForm
+                        class="row g-3 needs-validation">
+                        <c-col md="8">
+                            <label cLabel for="validationServer04">Panorama Instance</label>
+                            <select [valid]="false" cSelect id="validationServer04" [(ngModel)]="selectedPanorama"
+                                name="selectedPanorama">
+                                <option *ngFor="let panorama of panoramas" [value]="panorama">
+                                    {{ panorama.hostname }}
+                                </option>
+                            </select>
+                            <c-form-feedback [valid]="true">Looks good!</c-form-feedback>
                         </c-col>
-                    </c-row>
-                    <button cButton color="primary" type="submit">Execute</button>
-                </form>
+                        <c-col xs="12">
+                            <button cButton class="me-1" color="primary" type="submit">
+                                Submit form
+                            </button>
+                            <button (click)="onReset1()" cButton color="secondary" type="reset">
+                                Reset
+                            </button>
+                        </c-col>
+                    </form>
+                </app-automation-example>
             </c-card-body>
         </c-card>
     </c-col>
-    <c-col xs="12" md="4">
-        <c-card class="mb-4">
-            <c-card-header>
-                <strong>Panorama</strong>
-            </c-card-header>
-            <c-card-body>
-                <p>
-                    This automation catalog item will enable you to execute Python
-                    scripts against your Panorama instances.
-                </p>
-                <button cButton color="primary">Follow</button>
-            </c-card-body>
-        </c-card>
+    <c-col xs="4">
+        <app-automation-callout href="blob/main/backend/saute/scripts/get_system_info.py" name="get_system_info.py">
+        </app-automation-callout>
     </c-col>
 </c-row>
