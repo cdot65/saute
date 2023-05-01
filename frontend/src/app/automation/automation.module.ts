@@ -12,6 +12,8 @@ import {
   SharedModule,
 } from "@coreui/angular";
 
+import { AutomationDocsModule } from "../shared/modules/automation-docs/automation-docs.module";
+
 // routing
 import { AutomationRoutingModule } from "./automation-routing.module";
 
@@ -56,6 +58,7 @@ import { VmseriesToOracleComponent } from "./deploy/vmseries-to-oracle/vmseries-
     SharedModule,
     FormModule,
     AutomationRoutingModule,
+    AutomationDocsModule,
   ],
 })
 export class AutomationModule {}
