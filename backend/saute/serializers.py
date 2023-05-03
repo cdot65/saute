@@ -1,6 +1,6 @@
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
+from django.contrib.auth import get_user_model
+from django.conf import settings
 from .models import Panorama, Prisma, Firewall, Jobs
 
 
@@ -75,7 +75,21 @@ class JobsSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    profile_image = serializers.SerializerMethodField()
+
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "email", "is_staff", "is_superuser")
+        fields = (
+            "id",
+            "username",
+            "email",
+            "is_staff",
+            "is_superuser",
+            "profile_image",
+        )
         read_only_fields = ("is_staff", "is_superuser")
+
+    def get_profile_image(self, obj):
+        if obj.profile_image:
+            return settings.MEDIA_URL + str(obj.profile_image)
+        return None

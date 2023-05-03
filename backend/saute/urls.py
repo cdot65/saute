@@ -6,6 +6,7 @@ from .views import (
     FirewallViewSet,
     JobsViewSet,
     UserViewSet,
+    UserProfileView,
     execute_export_rules_to_csv,
     execute_get_system_info,
     execute_upload_cert_chain,
@@ -21,6 +22,7 @@ router.register("users", UserViewSet, basename="users")
 urlpatterns = router.urls
 
 urlpatterns += [
+    path("user-profile/", UserProfileView.as_view(), name="user_profile"),
     path(
         "report/rules",
         execute_export_rules_to_csv,

@@ -51,7 +51,8 @@
 <ng-template #userDropdown>
   <c-dropdown alignment="end" variant="nav-item">
     <button cButton color="" [caret]="false" cDropdownToggle class="py-0">
-      <c-avatar cTextColor="primary" shape="rounded-1" size="md" src="./assets/img/avatars/8.jpg" status="success">
+      <c-avatar cTextColor="primary" shape="rounded-1" size="md" [src]="profileImageUrl || './assets/img/avatars/8.jpg'"
+        status="success">
       </c-avatar>
     </button>
     <ul cDropdownMenu class="pt-0 pr-5 w-auto">

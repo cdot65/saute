@@ -7,6 +7,8 @@ from rest_framework import viewsets, status, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.generics import RetrieveAPIView
+
 
 # directory object imports
 from .models import Panorama, Prisma, Firewall, Jobs
@@ -120,6 +122,19 @@ class UserViewSet(viewsets.ModelViewSet):
             return get_user_model().objects.all()
         else:
             return get_user_model().objects.filter(id=user.id)
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+
+class UserProfileView(RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
 
 
 @api_view(["POST"])

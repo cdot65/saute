@@ -4,6 +4,7 @@ import { AuthService } from "../../../auth.service";
 import { CookieService } from "ngx-cookie-service";
 import { NgForm } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { UserProfileService } from "../../../shared/services/user-profile.service";
 
 @Component({
   selector: "app-login",
@@ -19,7 +20,8 @@ export class LoginComponent {
     private router: Router,
     private authService: AuthService,
     private cookieService: CookieService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userProfileService: UserProfileService
   ) {}
 
   onSubmit(form: NgForm) {
@@ -32,6 +34,9 @@ export class LoginComponent {
         // Set the auth_token cookie and navigate to the home route
         this.cookieService.set("auth_token", response.key);
         this.router.navigate(["/"]);
+
+        // Update the user profile image URL
+        this.userProfileService.updateProfileImageUrl();
 
         // Display a success message
         this.snackBar.open("Logged in successfully", "Close", {

@@ -11,7 +11,8 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
   private tokenUrl = environment.tokenUrl;
   private registrationUrl =
-    environment.apiUrl + "/api/v1/dj-rest-auth/registration/"; // Add the registration API endpoint
+    environment.apiUrl + "/api/v1/dj-rest-auth/registration/";
+  private userProfileUrl = environment.apiUrl + "/api/v1/dj-rest-auth/user/";
 
   constructor(
     private http: HttpClient,
@@ -28,7 +29,6 @@ export class AuthService {
     });
   }
 
-  // Add the register method
   register(
     username: string,
     email: string,
@@ -37,10 +37,15 @@ export class AuthService {
   ) {
     const headers = new HttpHeaders().set("Content-Type", "application/json");
     const body = JSON.stringify({ username, email, password1, password2 });
-    console.log("Register request body:", body); // Log the request body
+    console.log("Register request body:", body);
     return this.http.post<any>(this.registrationUrl, body, {
       headers,
     });
+  }
+
+  // Add the getUserProfile method
+  getUserProfile() {
+    return this.http.get<any>(this.userProfileUrl);
   }
 
   logout(): void {
