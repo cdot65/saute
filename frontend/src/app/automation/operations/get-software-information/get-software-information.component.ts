@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { PanoramaService } from "../../../shared/services/panorama.service";
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: "app-get-software-information",
@@ -9,10 +10,6 @@ import { PanoramaService } from "../../../shared/services/panorama.service";
 export class GetSoftwareInformationComponent implements OnInit {
   panoramas: any[] = [];
   selectedPanorama: any = null;
-  selectedCommand: string = "";
-  customStylesValidated = false;
-  browserDefaultsValidated = false;
-  tooltipValidated = false;
 
   constructor(private panoramaService: PanoramaService) {}
 
@@ -22,33 +19,22 @@ export class GetSoftwareInformationComponent implements OnInit {
     });
   }
 
-  onSubmit1() {
-    this.customStylesValidated = true;
-    console.log("Submit... 1");
-  }
+  onSubmitForm(form: NgForm): void {
+    if (form.valid) {
+      const softwareInformation = {
+        pan_url: this.selectedPanorama.hostname,
+        api_token: this.selectedPanorama.api_token,
+      };
 
-  onReset1() {
-    this.customStylesValidated = false;
-    console.log("Reset... 1");
-  }
+      console.log("softwareInformation:", softwareInformation);
 
-  onSubmit2() {
-    this.browserDefaultsValidated = true;
-    console.log("Submit... 2");
-  }
-
-  onReset2() {
-    this.browserDefaultsValidated = false;
-    console.log("Reset... 3");
-  }
-
-  onSubmit3() {
-    this.tooltipValidated = true;
-    console.log("Submit... 3");
-  }
-
-  onReset3() {
-    this.tooltipValidated = false;
-    console.log("Reset... 3");
+      this.panoramaService
+        .postSoftwareInformation(softwareInformation)
+        .subscribe((response) => {
+          console.log(response);
+        });
+    } else {
+      console.error("Form is invalid");
+    }
   }
 }
