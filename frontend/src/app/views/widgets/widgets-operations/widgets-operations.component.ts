@@ -8,14 +8,14 @@ import { Component } from "@angular/core";
 export class OperationsWidgetComponent {
   operationsData = [
     {
-      icon: "cibTerraform",
-      title: "Operations to AWS",
-      description: "Terraform to operations VM-Series or Panorama",
-      customClass: "bg-aws",
-      capBg: { "--cui-card-cap-bg": "#FF9900" },
+      icon: "cibPython",
+      title: "Get software details",
+      description: "Python script to retrieve software information.",
+      customClass: "bg-panos",
+      capBg: { "--cui-card-cap-bg": "#FA582D" },
       values: [{ title: "Operations", value: "Now" }],
-      buttonLink: "/operations",
-      hashtags: ["#aws", "#terraform", "#vm-series"],
+      buttonLink: "/automation/operations/get-software-information",
+      hashtags: ["#panos", "#panorama", "#python"],
     },
     {
       icon: "cibTerraform",
