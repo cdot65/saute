@@ -1,43 +1,5 @@
-.bg-aws {
-    background-color: #FF9900;
-}
-
-.bg-gcp {
-    background-color: #0F9D58;
-}
-
-.bg-oracle {
-    background-color: #C74634;
-}
-
-.bg-proxmox {
-    background-color: #e57000;
-}
-
-.bg-vmware {
-    background-color: #007ab8;
-}
-
-.bg-purple {
-    background-color: purple;
-}
-
-.bg-pink {
-    background-color: pink;
-}
-
-
 .widget-link {
     text-decoration: none;
-}
-
-.card-header-height {
-    height: 150px;
-}
-
-.bg-primary {
-    --cui-bg-opacity: 1;
-    background-color: purple !important;
 }
 
 .hashtags {
@@ -48,12 +10,8 @@
     display: inline-block;
     padding: 2px 6px;
     margin-right: 5px;
-    background-color: #f0f0f0;
+    background-color: #33333375;
+    color: #fff;
     border-radius: 4px;
     font-size: 12px;
-}
-
-.fixed-height-card-body {
-    height: 200px; // Adjust this value according to your desired height
-    overflow: auto; // Add a scrollbar if the content overflows the fixed height
 }
