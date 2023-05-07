@@ -1,0 +1,26 @@
+<c-row>
+    <c-col *ngFor="let widget of configurationData; index as i" md="6" lg="6" xl="6">
+        <a [routerLink]="widget.buttonLink" class="widget-link">
+            <c-widget-stat-d class="mb-4">
+                <c-card-header [ngStyle]="widget.capBg">
+                    <ng-container *ngIf="widget.iconPath; else coreUIIcon">
+                        <img [src]="widget.iconPath" class="my-4 text-white" height="52" />
+                    </ng-container>
+                    <ng-template #coreUIIcon>
+                        <svg [name]="widget.icon" cIcon class="my-4 text-white" height="52"></svg>
+                    </ng-template>
+                </c-card-header>
+                <c-card-body>
+                    <div class="text-dark">
+                        <h4>{{ widget.title }}</h4>
+                        <p>{{ widget.description }}</p>
+                        <!-- Display hashtags -->
+                        <div class="hashtags">
+                            <span *ngFor="let hashtag of widget.hashtags" class="hashtag">{{ hashtag }}</span>
+                        </div>
+                    </div>
+                </c-card-body>
+            </c-widget-stat-d>
+        </a>
+    </c-col>
+</c-row>

@@ -26,9 +26,7 @@ const routes: Routes = [
       {
         path: "dashboard",
         loadChildren: () =>
-          import("./views/dashboard/dashboard.module").then(
-            (m) => m.DashboardModule
-          ),
+          import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
         canActivate: [AuthGuard],
       },
       {
@@ -62,12 +60,6 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: "icons",
-        loadChildren: () =>
-          import("./views/icons/icons.module").then((m) => m.IconsModule),
-        canActivate: [AuthGuard],
-      },
-      {
         path: "notifications",
         loadChildren: () =>
           import("./views/notifications/notifications.module").then(
@@ -78,7 +70,9 @@ const routes: Routes = [
       {
         path: "widgets",
         loadChildren: () =>
-          import("./views/widgets/widgets.module").then((m) => m.WidgetsModule),
+          import("./shared/modules/widgets/widgets.module").then(
+            (m) => m.WidgetsModule
+          ),
         canActivate: [AuthGuard],
       },
       {

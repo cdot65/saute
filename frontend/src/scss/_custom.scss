@@ -1,5 +1,5 @@
 .sidebar {
-    --#{$prefix}sidebar-bg: #280B33;
+    --#{$prefix}sidebar-bg: #333333;
 }
 
 .nav-pills-container {
@@ -44,7 +44,7 @@
     .nav-link.active,
     .show>.nav-link {
         color: #fff;
-        background-color: #9c27b0;
+        background-color: #333333;
         box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #9c27b066;
     }
 }
@@ -108,7 +108,7 @@
 }
 
 .login {
-    background-color: #280B33;
+    background-color: #333333;
 }
 
 .btn-execute {
