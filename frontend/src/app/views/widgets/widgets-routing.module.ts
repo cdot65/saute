@@ -1,21 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { WidgetsComponent } from './widgets/widgets.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 
-const routes: Routes = [
-  {
-    path: '',
-    component: WidgetsComponent,
-    data: {
-      title: 'Widgets'
-    }
-  }
-];
-
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class WidgetsRoutingModule {
-}
+export class WidgetsRoutingModule {}
