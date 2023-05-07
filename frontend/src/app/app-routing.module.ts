@@ -60,12 +60,6 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: "icons",
-        loadChildren: () =>
-          import("./views/icons/icons.module").then((m) => m.IconsModule),
-        canActivate: [AuthGuard],
-      },
-      {
         path: "notifications",
         loadChildren: () =>
           import("./views/notifications/notifications.module").then(
