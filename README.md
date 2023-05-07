@@ -33,7 +33,7 @@ The Saute now also includes an Operational module, which allows users to generat
 
 ### Screenshot
 
-![Saute Screenshot](docs/images/saute-screenshot.png)
+![Saute Screenshot](docs/images/pan-dashboard-screenshot.png)
 
 ## Backend Overview
 
