@@ -2,10 +2,6 @@
     background-color: #FF9900;
 }
 
-.bg-azure {
-    background-color: #008AD7;
-}
-
 .bg-gcp {
     background-color: #0F9D58;
 }
@@ -55,4 +51,9 @@
     background-color: #f0f0f0;
     border-radius: 4px;
     font-size: 12px;
+}
+
+.fixed-height-card-body {
+    height: 200px; // Adjust this value according to your desired height
+    overflow: auto; // Add a scrollbar if the content overflows the fixed height
 }
