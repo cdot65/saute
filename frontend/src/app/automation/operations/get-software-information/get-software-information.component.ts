@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ToastService, Toast } from "../../../shared/services/toast.service"; // Update the import path accordingly
 import { PanoramaService } from "../../../shared/services/panorama.service";
 import { NgForm } from "@angular/forms";
 
@@ -11,7 +12,10 @@ export class GetSoftwareInformationComponent implements OnInit {
   panoramas: any[] = [];
   selectedPanorama: any = null;
 
-  constructor(private panoramaService: PanoramaService) {}
+  constructor(
+    private panoramaService: PanoramaService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.panoramaService.fetchPanoramaData().subscribe((data: any[]) => {
@@ -32,6 +36,15 @@ export class GetSoftwareInformationComponent implements OnInit {
         .postSoftwareInformation(softwareInformation)
         .subscribe((response) => {
           console.log(response);
+          const toast: Toast = {
+            title: "Success",
+            message: "Software information submitted successfully.",
+            color: "success-25",
+            autohide: true,
+            delay: 5000,
+            closeButton: true,
+          };
+          this.toastService.show(toast);
         });
     } else {
       console.error("Form is invalid");

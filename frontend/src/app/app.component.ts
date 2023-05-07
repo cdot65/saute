@@ -7,10 +7,13 @@ import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-root",
-  template: "<router-outlet></router-outlet>",
+  template: `
+    <app-toast-simple></app-toast-simple>
+    <router-outlet></router-outlet>
+  `,
 })
 export class AppComponent implements OnInit {
-  title = "Saute: Cooking up PAN automation";
+  title = "CoreUI Free Angular Admin Template";
 
   constructor(
     private router: Router,

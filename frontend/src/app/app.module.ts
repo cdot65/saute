@@ -11,6 +11,8 @@ import { RouterModule } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgxPaginationModule } from "ngx-pagination";
 import { NgxJsonViewerModule } from "ngx-json-viewer";
+import { ToastService } from "./shared/services/toast.service";
+import { NotificationsModule } from "./views/notifications/notifications.module";
 
 import {
   PERFECT_SCROLLBAR_CONFIG,
@@ -106,6 +108,7 @@ const APP_CONTAINERS = [
     HttpClientModule,
     NgxPaginationModule,
     NgxJsonViewerModule,
+    NotificationsModule,
   ],
   providers: [
     AuthService,
@@ -122,6 +125,7 @@ const APP_CONTAINERS = [
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
+    ToastService,
   ],
   bootstrap: [AppComponent],
 })

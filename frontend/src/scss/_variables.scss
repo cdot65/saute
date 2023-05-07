@@ -6,18 +6,18 @@
 
 // Color system
 
-// $white:     #fff;
+$white: #fff;
 // $gray-base: #3c4b64;
 // $gray-100:  #ebedef;
 // $gray-200:  #d8dbe0;
 // $gray-300:  #c4c9d0;
 // $gray-400:  #b1b7c1;
 // $gray-500:  #9da5b1;
-// $gray-600:  #8a93a2;
+$gray-600: #8a93a2;
 // $gray-700:  #768192;
 // $gray-800:  #636f83;
 // $gray-900:  #4f5d73;
-// $black:     #000015;
+$black: #000015;
 
 // fusv-disable
 // $grays: (
@@ -376,14 +376,14 @@ $danger-25: #f9d4d4;
 // Set the number of columns and specify the width of the gutters.
 
 // $grid-columns:                12;
-// $grid-gutter-width:           1.5rem;
+$grid-gutter-width: 1.5rem;
 // $grid-row-columns:            6;
 
 // $gutters: $spacers;
 
 // Container padding
 
-// $container-padding-x: $grid-gutter-width / 2;
+$container-padding-x: $grid-gutter-width / 2;
 
 
 // Components
@@ -402,12 +402,12 @@ $danger-25: #f9d4d4;
 
 // $border-color:                $gray-200;
 
-// $border-radius:               .25rem;
+$border-radius: .25rem;
 // $border-radius-sm:            .2rem;
 // $border-radius-lg:            .3rem;
 // $border-radius-pill:          50rem;
 
-// $box-shadow:                  0 .5rem 1rem rgba($black, .15);
+$box-shadow: 0 .5rem 1rem rgba($black, .15);
 // $box-shadow-sm:               0 .125rem .25rem rgba($black, .075);
 // $box-shadow-lg:               0 1rem 3rem rgba($black, .175);
 // $box-shadow-inset:            inset 0 1px 2px rgba($black, .075);
@@ -1198,21 +1198,21 @@ $danger-25: #f9d4d4;
 
 // Toasts
 // scss-docs-start toast-variables
-// $toast-max-width:                   350px;
-// $toast-padding-x:                   .75rem;
-// $toast-padding-y:                   .5rem;
-// $toast-font-size:                   .875rem;
-// $toast-color:                       unset;
-// $toast-background-color:            rgba($white, .85);
-// $toast-border-width:                1px;
-// $toast-border-color:                rgba(0, 0, 0, .1);
-// $toast-border-radius:               $border-radius;
-// $toast-box-shadow:                  $box-shadow;
-// $toast-spacing:                     $container-padding-x;
+$toast-max-width: 350px;
+$toast-padding-x: .75rem;
+$toast-padding-y: .5rem;
+$toast-font-size: .875rem;
+$toast-color: rgba($white, .85);
+$toast-background-color: rgba($primary, .85);
+$toast-border-width: 1px;
+$toast-border-color: rgba(0, 0, 0, .1);
+$toast-border-radius: $border-radius;
+$toast-box-shadow: $box-shadow;
+$toast-spacing: $container-padding-x;
 
-// $toast-header-color:                $gray-600;
-// $toast-header-background-color:     rgba($white, .85);
-// $toast-header-border-color:         rgba(0, 0, 0, .05);
+$toast-header-color: $gray-600;
+$toast-header-background-color: rgba($white, .85);
+$toast-header-border-color: rgba(0, 0, 0, .05);
 // scss-docs-end toast-variables
 
 

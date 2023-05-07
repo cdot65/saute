@@ -1,24 +1,28 @@
-import { ChangeDetectorRef, Component, ElementRef, forwardRef, Input, Renderer2 } from '@angular/core';
-
-import { ToastComponent, ToasterService } from '@coreui/angular';
+import { Component } from "@angular/core";
+import { Toast, ToastService } from "../../../../shared/services/toast.service";
 
 @Component({
-  selector: 'app-toast-simple',
-  templateUrl: './toast.component.html',
-  styleUrls: ['./toast.component.scss'],
-  providers: [{ provide: ToastComponent, useExisting: forwardRef(() => AppToastComponent) }]
+  selector: "app-toast-simple",
+  template: `
+    <c-toaster>
+      <c-toast
+        *ngFor="let toast of toasts$ | async"
+        [color]="toast.color"
+        [autohide]="toast.autohide"
+        [delay]="toast.delay"
+        [visible]="true"
+        (hidden)="toastService.remove(toast)"
+      >
+        <c-toast-header [closeButton]="toast.closeButton">
+          {{ toast.title }}
+        </c-toast-header>
+        <c-toast-body>{{ toast.message }}</c-toast-body>
+      </c-toast>
+    </c-toaster>
+  `,
 })
-export class AppToastComponent extends ToastComponent {
+export class AppToastComponent {
+  toasts$ = this.toastService.toasts$;
 
-  @Input() closeButton = true;
-  @Input() title = '';
-
-  constructor(
-    public override hostElement: ElementRef,
-    public override renderer: Renderer2,
-    public override toasterService: ToasterService,
-    public override changeDetectorRef: ChangeDetectorRef
-  ) {
-    super(hostElement, renderer, toasterService, changeDetectorRef);
-  }
+  constructor(public toastService: ToastService) {}
 }

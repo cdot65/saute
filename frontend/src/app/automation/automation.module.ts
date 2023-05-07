@@ -13,6 +13,7 @@ import {
 } from "@coreui/angular";
 
 import { AutomationDocsModule } from "../shared/modules/automation-docs/automation-docs.module";
+import { NotificationsModule } from "../views/notifications/notifications.module";
 
 // routing
 import { AutomationRoutingModule } from "./automation-routing.module";
@@ -59,6 +60,7 @@ import { VmseriesToOracleComponent } from "./deploy/vmseries-to-oracle/vmseries-
     FormModule,
     AutomationRoutingModule,
     AutomationDocsModule,
+    NotificationsModule,
   ],
 })
 export class AutomationModule {}
