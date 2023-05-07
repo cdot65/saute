@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
 
 import {
   AvatarModule,
@@ -12,15 +12,15 @@ import {
   NavModule,
   ProgressModule,
   TableModule,
-  TabsModule
-} from '@coreui/angular';
-import { IconModule } from '@coreui/icons-angular';
-import { ChartjsModule } from '@coreui/angular-chartjs';
+  TabsModule,
+} from "@coreui/angular";
+import { IconModule } from "@coreui/icons-angular";
+import { ChartjsModule } from "@coreui/angular-chartjs";
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
+import { DashboardRoutingModule } from "./dashboard-routing.module";
+import { DashboardComponent } from "./dashboard.component";
 
-import { WidgetsModule } from '../widgets/widgets.module';
+import { WidgetsModule } from "../../shared/modules/widgets/widgets.module";
 
 @NgModule({
   imports: [
@@ -40,9 +40,8 @@ import { WidgetsModule } from '../widgets/widgets.module';
     ChartjsModule,
     AvatarModule,
     TableModule,
-    WidgetsModule
+    WidgetsModule,
   ],
-  declarations: [DashboardComponent]
+  declarations: [DashboardComponent],
 })
-export class DashboardModule {
-}
+export class DashboardModule {}

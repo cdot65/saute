@@ -78,7 +78,9 @@ const routes: Routes = [
       {
         path: "widgets",
         loadChildren: () =>
-          import("./views/widgets/widgets.module").then((m) => m.WidgetsModule),
+          import("./shared/modules/widgets/widgets.module").then(
+            (m) => m.WidgetsModule
+          ),
         canActivate: [AuthGuard],
       },
       {
