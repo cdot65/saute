@@ -59,6 +59,11 @@ MIDDLEWARE = [
 ]
 
 
+# Media settings
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 
@@ -89,6 +94,8 @@ CORS_ALLOW_HEADERS = [
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
+    "MEDIA_URL",
+    "MEDIA_ROOT",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -203,6 +210,8 @@ SPECTACULAR_SETTINGS = {
 # custom auth model
 AUTH_USER_MODEL = "accounts.CustomUser"
 
+# celery broker
+CELERY_BROKER_URL = "redis://redis:6379/0"
 
 LOGGING = {
     "version": 1,

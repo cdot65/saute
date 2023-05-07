@@ -62,3 +62,10 @@ backend/saute/scripts/.env
 **.crt
 **.key
 **.pem
+
+# exclude dist folder
+frontend/dist/**
+
+**chatgpt**
+backend/media/profile_images/**
+.vscode/settings.json

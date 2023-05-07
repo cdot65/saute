@@ -1,51 +1,35 @@
-import { Component, ViewChild } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
-import { MatSidenav } from '@angular/material/sidenav';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit } from "@angular/core";
+import { Router, NavigationEnd } from "@angular/router";
+
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "./icons/icon-subset";
+import { Title } from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  template: `
+    <app-toast-simple></app-toast-simple>
+    <router-outlet></router-outlet>
+  `,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  title = "CoreUI Free Angular Admin Template";
+
   constructor(
-    private cookieService: CookieService,
     private router: Router,
-    private snackBar: MatSnackBar
-  ) {}
-
-  @ViewChild('sidenav') sidenav!: MatSidenav;
-  isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
-
-  mouseenter() {
-    if (!this.isExpanded) {
-      this.isShowing = true;
-    }
+    private titleService: Title,
+    private iconSetService: IconSetService
+  ) {
+    titleService.setTitle(this.title);
+    // iconSet singleton
+    iconSetService.icons = { ...iconSubset };
   }
 
-  mouseleave() {
-    if (!this.isExpanded) {
-      this.isShowing = false;
-    }
-  }
-
-  isAuthenticated(): boolean {
-    return this.cookieService.check('auth_token');
-  }
-
-  logout() {
-    this.cookieService.delete('auth_token');
-    this.snackBar.open('You have been successfully logged out', 'Close', {
-      duration: 3000,
+  ngOnInit(): void {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
     });
-    setTimeout(() => {
-      this.router.navigate(['/']);
-    }, 3000);
   }
-  title = 'frontend';
 }

@@ -1,116 +1,132 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule } from "@angular/core";
+import {
+  HashLocationStrategy,
+  LocationStrategy,
+  PathLocationStrategy,
+} from "@angular/common";
+import { BrowserModule, Title } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { NgxPaginationModule } from "ngx-pagination";
+import { NgxJsonViewerModule } from "ngx-json-viewer";
+import { ToastService } from "./shared/services/toast.service";
+import { NotificationsModule } from "./views/notifications/notifications.module";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoginComponent } from './login/login.component';
-import { AuthInterceptor } from './auth.interceptor';
+import {
+  PERFECT_SCROLLBAR_CONFIG,
+  PerfectScrollbarConfigInterface,
+  PerfectScrollbarModule,
+} from "ngx-perfect-scrollbar";
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatOptionModule } from '@angular/material/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSortModule } from '@angular/material/sort';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableModule } from '@angular/material/table';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
+// Import routing module
+import { AppRoutingModule } from "./app-routing.module";
 
-import { HttpClientModule } from '@angular/common/http';
-import { PanoramaComponent } from './inventory/panorama/panorama.component';
-import { PrismaComponent } from './inventory/prisma/prisma.component';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
+// Import app component
+import { AppComponent } from "./app.component";
 
-import { CookieService } from 'ngx-cookie-service';
-import { JobsComponent } from './jobs/jobs.component';
-import { InventoryComponent } from './inventory/inventory.component';
-import { EditEntryComponent } from './inventory/shared/edit-entry/edit-entry.component';
-import { CreateEntryComponent } from './inventory/shared/create-entry/create-entry.component';
-import { FirewallComponent } from './inventory/firewall/firewall.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { JobDetailsComponent } from './jobs/job-details/job-details.component';
-import { ConfigPanosComponent } from './automation-catalog/configuration/config-panos/config-panos.component';
-import { ConfigPanoramaComponent } from './automation-catalog/configuration/config-panorama/config-panorama.component';
-import { ConfigPrismaComponent } from './automation-catalog/configuration/config-prisma/config-prisma.component';
-import { DiffsyncPanoramaPrismaComponent } from './automation-catalog/configuration/diffsync-panorama-prisma/diffsync-panorama-prisma.component';
-import { DiffsyncPanoramaPanoramaComponent } from './automation-catalog/configuration/diffsync-panorama-panorama/diffsync-panorama-panorama.component';
-import { PanosCommandsComponent } from './automation-catalog/operational/panos-commands/panos-commands.component';
-import { PanosReportsComponent } from './automation-catalog/operational/panos-reports/panos-reports.component';
-import { PanoramaReportsComponent } from './automation-catalog/operational/panorama-reports/panorama-reports.component';
-import { PanosRebootComponent } from './automation-catalog/maintenance/panos-reboot/panos-reboot.component';
-import { PanoramaRebootComponent } from './automation-catalog/maintenance/panorama-reboot/panorama-reboot.component';
-import { JobDialogComponent } from './shared/job-dialog/job-dialog.component';
-import { GetCertificateChainComponent } from './automation-catalog/configuration/get-certificate-chain/get-certificate-chain.component';
+// Import containers
+import {
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+} from "./containers";
+
+import {
+  AvatarModule,
+  BadgeModule,
+  BreadcrumbModule,
+  ButtonGroupModule,
+  ButtonModule,
+  CardModule,
+  DropdownModule,
+  FooterModule,
+  FormModule,
+  GridModule,
+  HeaderModule,
+  ListGroupModule,
+  NavModule,
+  ProgressModule,
+  SharedModule,
+  SidebarModule,
+  TabsModule,
+  UtilitiesModule,
+} from "@coreui/angular";
+
+import { IconModule, IconSetService } from "@coreui/icons-angular";
+
+// authentication
+import { AuthService } from "./auth.service";
+import { AuthInterceptor } from "./auth.interceptor";
+import { AuthGuard } from "./auth.guard";
+import { CookieService } from "ngx-cookie-service";
+
+// material
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+};
+
+const APP_CONTAINERS = [
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PanoramaComponent,
-    PrismaComponent,
-    LoginComponent,
-    JobsComponent,
-    InventoryComponent,
-    EditEntryComponent,
-    CreateEntryComponent,
-    FirewallComponent,
-    DashboardComponent,
-    JobDetailsComponent,
-    ConfigPanosComponent,
-    ConfigPanoramaComponent,
-    ConfigPrismaComponent,
-    DiffsyncPanoramaPrismaComponent,
-    DiffsyncPanoramaPanoramaComponent,
-    PanosCommandsComponent,
-    PanosReportsComponent,
-    PanoramaReportsComponent,
-    PanosRebootComponent,
-    PanoramaRebootComponent,
-    JobDialogComponent,
-    GetCertificateChainComponent
-  ],
+  declarations: [AppComponent, ...APP_CONTAINERS],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule,
+    AppRoutingModule,
+    AvatarModule,
+    BreadcrumbModule,
+    FooterModule,
+    DropdownModule,
+    GridModule,
+    HeaderModule,
+    SidebarModule,
+    IconModule,
+    PerfectScrollbarModule,
+    NavModule,
+    ButtonModule,
+    FormModule,
+    UtilitiesModule,
+    ButtonGroupModule,
     ReactiveFormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatOptionModule,
-    MatPaginatorModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSortModule,
+    SidebarModule,
+    SharedModule,
+    TabsModule,
+    ListGroupModule,
+    ProgressModule,
+    BadgeModule,
+    ListGroupModule,
+    CardModule,
     MatSnackBarModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
     HttpClientModule,
-    NgxJsonViewerModule
+    NgxPaginationModule,
+    NgxJsonViewerModule,
+    NotificationsModule,
   ],
   providers: [
+    AuthService,
+    AuthGuard,
     CookieService,
+    IconSetService,
+    Title,
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    },
+    ToastService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
