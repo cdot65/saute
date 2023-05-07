@@ -9,6 +9,7 @@ export class AssessmentWidgetComponent {
   assessmentData = [
     {
       icon: "cibTerraform",
+      iconPath: "../../../../assets/icons/panos_white.svg",
       title: "Assessment to AWS",
       description: "Terraform to assessment VM-Series or Panorama",
       customClass: "bg-aws",
@@ -19,6 +20,7 @@ export class AssessmentWidgetComponent {
     },
     {
       icon: "cibTerraform",
+      iconPath: "../../../../assets/icons/panos_white.svg",
       title: "Assessment to Azure",
       description: "Terraform to assessment VM-Series or Panorama",
       customClass: "bg-azure",
@@ -29,6 +31,7 @@ export class AssessmentWidgetComponent {
     },
     {
       icon: "cibTerraform",
+      iconPath: "../../../../assets/icons/panos_white.svg",
       title: "Assessment to GCP",
       description: "Terraform to assessment VM-Series or Panorama",
       customClass: "bg-gcp",
@@ -39,6 +42,7 @@ export class AssessmentWidgetComponent {
     },
     {
       icon: "cibTerraform",
+      iconPath: "../../../../assets/icons/panos_white.svg",
       title: "Assessment to Oracle",
       description: "Terraform to assessment VM-Series or Panorama",
       customClass: "bg-oracle",
@@ -49,6 +53,7 @@ export class AssessmentWidgetComponent {
     },
     {
       icon: "cibTerraform",
+      iconPath: "../../../../assets/icons/panos_white.svg",
       title: "Assessment to Proxmox",
       description: "Terraform to assessment VM-Series or Panorama",
       customClass: "bg-proxmox",
@@ -59,6 +64,7 @@ export class AssessmentWidgetComponent {
     },
     {
       icon: "cibTerraform",
+      iconPath: "../../../../assets/icons/panos_white.svg",
       title: "Assessment to vCenter",
       description: "Terraform to assessment VM-Series or Panorama",
       customClass: "bg-vmware",

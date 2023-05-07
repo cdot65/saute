@@ -21,7 +21,7 @@ export class ConfigurationWidgetComponent {
       iconPath: "../../../../assets/icons/sync_pan_prisma.svg",
       title: "Sync to Prisma",
       description: "Sync Panorama configuration to a Prisma Access tenant",
-      capBg: { "--cui-card-cap-bg": "#ffffff" },
+      capBg: { "--cui-card-cap-bg": "#333333" },
       buttonLink: "/upload",
       hashtags: ["#panorama", "#prisma", "#python", "#diffsync"],
     },
