@@ -16,7 +16,7 @@ import { Toast, ToastService } from "../../../../shared/services/toast.service";
         <c-toast-header [closeButton]="toast.closeButton">
           {{ toast.title }}
         </c-toast-header>
-        <c-toast-body>{{ toast.message }}</c-toast-body>
+        <c-toast-body [innerHTML]="toast.message | safeHtml"></c-toast-body>
       </c-toast>
     </c-toaster>
   `,

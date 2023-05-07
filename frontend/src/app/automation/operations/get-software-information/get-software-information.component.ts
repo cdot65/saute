@@ -36,9 +36,11 @@ export class GetSoftwareInformationComponent implements OnInit {
         .postSoftwareInformation(softwareInformation)
         .subscribe((response) => {
           console.log(response);
+          const taskUrl = `http://localhost:4200/#/jobs/details/${response.task_id}`;
+          const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
           const toast: Toast = {
             title: "Success",
-            message: "Software information submitted successfully.",
+            message: `${response.message}. ${anchor}`,
             color: "success-25",
             autohide: true,
             delay: 5000,

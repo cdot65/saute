@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { SafeHtmlPipe } from "../../shared/pipes/safe-html.pipe";
 
 import {
   AlertModule,
@@ -38,6 +39,7 @@ import { AppToastComponent } from "./toasters/toast-simple/toast.component";
     // ToastsComponent,
     ToastersComponent,
     AppToastComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     CommonModule,
