@@ -20,7 +20,7 @@ import { ChartjsModule } from "@coreui/angular-chartjs";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./dashboard.component";
 
-import { WidgetsModule } from "../../shared/modules/widgets/widgets.module";
+import { WidgetsModule } from "../shared/modules/widgets/widgets.module";
 
 @NgModule({
   imports: [
