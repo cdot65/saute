@@ -25,18 +25,20 @@
                     worker, fetching system information and logging the result into the Jobs table of our database.
                 </p>
                 <app-automation-example href="forms/validation">
-                    <form #customStylesForm="ngForm" (ngSubmit)="onSubmitForm(customStylesForm)" cForm
-                        class="row g-3 needs-validation">
+                    <form #customStylesForm="ngForm" (ngSubmit)="onSubmitForm(customStylesForm)"
+                        [ngClass]="{'was-validated': customStylesForm.valid}" cForm class="row g-3 needs-validation">
                         <c-col md="8">
                             <label cLabel for="validationServer04">Panorama Instance</label>
-                            <select [valid]="false" cSelect id="validationServer04" [(ngModel)]="selectedPanorama"
-                                name="selectedPanorama" required>
+                            <select cSelect id="validationServer04" [(ngModel)]="selectedPanorama"
+                                name="selectedPanorama" #selectedPanoramaControl="ngModel" required>
                                 <option [ngValue]="null" disabled selected>Select a Panorama</option>
                                 <option *ngFor="let panorama of panoramas" [ngValue]="panorama">
                                     {{ panorama.hostname }}
                                 </option>
                             </select>
-                            <c-form-feedback [valid]="true">Looks good!</c-form-feedback>
+                            <c-form-feedback
+                                [valid]="selectedPanoramaControl.valid && selectedPanoramaControl.touched ? true : undefined">
+                                Looks good!</c-form-feedback>
                         </c-col>
                         <c-col xs="12">
                             <button cButton class="me-1" color="primary" type="submit"
