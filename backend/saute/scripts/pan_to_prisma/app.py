@@ -19,7 +19,7 @@ from panapi.config.objects import Address as PrismaAddress
 # Configure logging
 # ----------------------------------------------------------------------------
 logging.basicConfig(
-    level=logging.DEBUG, format="%(asctime)s [%(levelname)s] %(message)s"
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
 
@@ -232,7 +232,8 @@ def get_address_objects_and_groups(
 # ----------------------------------------------------------------------------
 def create_prisma_address_objects(
     address_objects: List[AddressObjectData], session: PanApiSession
-) -> None:
+) -> List[Dict[str, str]]:
+    prisma_address_objects = []
     for address_object in address_objects:
         logging.debug(address_object)
         prisma_address = PrismaAddress(
@@ -242,6 +243,13 @@ def create_prisma_address_objects(
             description=address_object.type,
         )
         prisma_address.create(session)
+        prisma_address_objects.append({
+            "folder": prisma_address.folder,
+            "name": prisma_address.name,
+            "ip_netmask": prisma_address.ip_netmask,
+            "description": prisma_address.description,
+        })
+    return prisma_address_objects
 
 
 # ----------------------------------------------------------------------------
@@ -252,28 +260,31 @@ def run_get_system_info(
 ) -> Dict[str, Any]:
 
     # authenticate with Panorama
+    logging.info("Authenticating with Panorama...")
     pan = setup_panorama_client(pan_url, pan_token)
 
     try:
+        logging.info("Retrieving security rules...")
         rules = get_security_rules(pan)
     except Exception as e:
-        print(f"Error retrieving security rules: {e}")
+        logging.error("Error retrieving security rules: %s", e)
         return
 
     for rule_data in rules:
-        print(rule_data.json(indent=2))
+        logging.debug(rule_data.json(indent=2))
 
     try:
+        logging.info("Retrieving address objects and groups...")
         address_objects, address_groups = get_address_objects_and_groups(pan)
     except Exception as e:
-        print(f"Error retrieving address objects and groups: {e}")
+        logging.error("Error retrieving address objects and groups: %s", e)
         return
 
     for address_object in address_objects:
-        print(address_object.json(indent=2))
+        logging.debug(address_object.json(indent=2))
 
     for address_group in address_groups:
-        print(address_group.json(indent=2))
+        logging.debug(address_group.json(indent=2))
 
     # authenticate with Prisma
     try:
@@ -296,12 +307,17 @@ def run_get_system_info(
 
     # Create Prisma address objects
     try:
-        job_result = create_prisma_address_objects(address_objects, session)
+        logging.info("Creating Prisma address objects...")
+        prisma_address_objects = create_prisma_address_objects(address_objects, session)
     except Exception as e:
         logging.error(f"Error with Prisma API calls: {e}")
         return {"error": str(e)}
 
-    logging.info(f"Completed job: {job_result}")
+    logging.info("Completed job successfully!")
+    return {
+        "panorama_address_objects": [ao.dict() for ao in address_objects],
+        "prisma_address_objects": prisma_address_objects,
+    }
 
 
 # ----------------------------------------------------------------------------
@@ -317,4 +333,4 @@ if __name__ == "__main__":
         args.tsg_id,
         args.token_url,
     )
-    logging.info(result)
+    logging.debug(result)
