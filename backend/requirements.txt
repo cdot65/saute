@@ -51,4 +51,5 @@ pan-os-python==1.8.1
 xmltodict==0.13.0
 get-certificate-chain==0.1.8
 Pillow==9.5.0
+pydantic==1.10.7
 https://github.com/cdot65/panapi/releases/download/v0.1.2/panapi-0.1.2-py3-none-any.whl
