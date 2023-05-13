@@ -30,6 +30,7 @@ import { VmseriesToGcpComponent } from "./deploy/vmseries-to-gcp/vmseries-to-gcp
 import { VmseriesToVcenterComponent } from "./deploy/vmseries-to-vcenter/vmseries-to-vcenter.component";
 import { VmseriesToProxmoxComponent } from "./deploy/vmseries-to-proxmox/vmseries-to-proxmox.component";
 import { VmseriesToOracleComponent } from "./deploy/vmseries-to-oracle/vmseries-to-oracle.component";
+import { SyncToPrismaComponent } from './configuration/sync-to-prisma/sync-to-prisma.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { VmseriesToOracleComponent } from "./deploy/vmseries-to-oracle/vmseries-
     VmseriesToVcenterComponent,
     VmseriesToProxmoxComponent,
     VmseriesToOracleComponent,
+    SyncToPrismaComponent,
   ],
   imports: [
     CommonModule,
