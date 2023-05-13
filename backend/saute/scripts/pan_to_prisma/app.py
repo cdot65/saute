@@ -255,7 +255,7 @@ def create_prisma_address_objects(
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_get_system_info(
+def run_panorama_to_prisma(
     pan_url: str, pan_token: str, client_id: str, client_secret: str, tsg_id: str, token_url: str
 ) -> Dict[str, Any]:
 
@@ -325,7 +325,7 @@ def run_get_system_info(
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    result = run_get_system_info(
+    result = run_panorama_to_prisma(
         args.pan_url,
         args.pan_token,
         args.client_id,
