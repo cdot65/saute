@@ -7,19 +7,23 @@ from pydantic import BaseModel
 # third party library imports
 from environs import Env
 
-# Palo Alto Networks imports
+# Palo Alto Networks PAN-OS imports
 from panos.panorama import DeviceGroup, Panorama
 from panos.policies import PreRulebase, PostRulebase, SecurityRule
-from panos.objects import AddressObject, AddressGroup
+from panos.objects import AddressObject as PanoramaAddressObject
+from panos.objects import AddressGroup as PanoramaAddressGroup
+
+# Palo Alto Networks Prisma imports
 from panapi import PanApiSession
 from panapi.config.objects import Address as PrismaAddress
+from panapi.config.objects import AddressGroup as PrismaAddressGroup
 
 
 # ----------------------------------------------------------------------------
 # Configure logging
 # ----------------------------------------------------------------------------
 logging.basicConfig(
-    level=logging.DEBUG, format="%(asctime)s [%(levelname)s] %(message)s"
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
 
@@ -172,10 +176,10 @@ def get_security_rules(pan: Panorama) -> List[SecurityRuleData]:
 def get_address_objects_and_groups(
     pan: Panorama,
 ) -> Tuple[List[AddressObjectData], List[AddressGroupData]]:
-    pan_address_objects = AddressObject.refreshall(pan)
+    pan_address_objects = PanoramaAddressObject.refreshall(pan)
     logging.debug(pan_address_objects)
 
-    pan_address_groups = AddressGroup.refreshall(pan)
+    pan_address_groups = PanoramaAddressGroup.refreshall(pan)
     logging.debug(pan_address_groups)
 
     address_objects = []
@@ -204,7 +208,7 @@ def get_address_objects_and_groups(
     device_groups = DeviceGroup.refreshall(pan)
 
     for dg in device_groups:
-        dg_address_objects = AddressObject.refreshall(dg)
+        dg_address_objects = PanoramaAddressObject.refreshall(dg)
         for each in dg_address_objects:
             address_objects.append(
                 AddressObjectData(
@@ -212,7 +216,7 @@ def get_address_objects_and_groups(
                 )
             )
 
-        dg_address_groups = AddressGroup.refreshall(dg)
+        dg_address_groups = PanoramaAddressGroup.refreshall(dg)
         for each in dg_address_groups:
             if each.static_value:
                 if not each.description:
@@ -239,7 +243,7 @@ def create_prisma_address_objects(
     for address_object in address_objects:
         logging.debug(address_object)
         prisma_address = PrismaAddress(
-            folder="Shared",
+            folder="Prisma Access",
             name=f"{address_object.source}-{address_object.name}",
             ip_netmask=address_object.value,
             description=address_object.type,
@@ -252,6 +256,37 @@ def create_prisma_address_objects(
             "description": prisma_address.description,
         })
     return prisma_address_objects
+
+
+# ----------------------------------------------------------------------------
+# Function to create Prisma address groups
+# ----------------------------------------------------------------------------
+def create_prisma_address_groups(
+    address_groups: List[AddressGroupData], session: PanApiSession
+) -> List[Dict[str, str]]:
+    prisma_address_groups = []
+    for address_group in address_groups:
+        logging.debug("address_group: %s", address_group)
+        try:
+            # Create a new list of address object names for Prisma
+            prisma_static_value = [f"{address_group.source}-{name}" for name in address_group.static_value]
+            prisma_address_group = PrismaAddressGroup(
+                folder="Prisma Access",
+                name=f"{address_group.source}-{address_group.name}",
+                description=address_group.description,
+                static=prisma_static_value,
+            )
+            prisma_address_group.create(session)
+        except Exception as e:
+            logging.error("Error creating address group object: %s", e)
+            return
+        prisma_address_groups.append({
+            "folder": prisma_address_group.folder,
+            "name": prisma_address_group.name,
+            "description": prisma_address_group.description,
+            "static": prisma_address_group.static,
+        })
+    return prisma_address_groups
 
 
 # ----------------------------------------------------------------------------
@@ -317,10 +352,20 @@ def run_sync_to_prisma(
         logging.error(f"Error with Prisma API calls: {e}")
         return {"error": str(e)}
 
+    # Create Prisma address groups
+    try:
+        logging.info("Creating Prisma address groups...")
+        prisma_address_groups = create_prisma_address_groups(address_groups, session)
+    except Exception as e:
+        logging.error(f"Error with Prisma API calls: {e}")
+        return {"error": str(e)}
+
     logging.info("Completed job successfully!")
     return {
         "panorama_address_objects": [ao.dict() for ao in address_objects],
         "prisma_address_objects": prisma_address_objects,
+        "panorama_address_groups": [ag.dict() for ag in address_groups],
+        "prisma_address_groups": prisma_address_groups,
     }
 
 
