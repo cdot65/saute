@@ -8,22 +8,23 @@ from pydantic import BaseModel
 from environs import Env
 
 # Palo Alto Networks PAN-OS imports
+from panos.objects import AddressGroup as PanoramaAddressGroup
+from panos.objects import AddressObject as PanoramaAddressObject
 from panos.panorama import DeviceGroup, Panorama
 from panos.policies import PreRulebase, PostRulebase, SecurityRule
-from panos.objects import AddressObject as PanoramaAddressObject
-from panos.objects import AddressGroup as PanoramaAddressGroup
 
 # Palo Alto Networks Prisma imports
 from panapi import PanApiSession
 from panapi.config.objects import Address as PrismaAddress
 from panapi.config.objects import AddressGroup as PrismaAddressGroup
+from panapi.config.security import SecurityRule as PrismaSecurityRule
 
 
 # ----------------------------------------------------------------------------
 # Configure logging
 # ----------------------------------------------------------------------------
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+    level=logging.DEBUG, format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
 
@@ -242,19 +243,15 @@ def create_prisma_address_objects(
     prisma_address_objects = []
     for address_object in address_objects:
         logging.debug(address_object)
-        prisma_address = PrismaAddress(
-            folder="Prisma Access",
-            name=f"{address_object.source}-{address_object.name}",
-            ip_netmask=address_object.value,
-            description=address_object.type,
-        )
+        prisma_address_data = {
+            "folder": "Prisma Access",
+            "name": f"{address_object.source}-{address_object.name}",
+            "ip_netmask": address_object.value,
+            "description": address_object.type,
+        }
+        prisma_address = PrismaAddress(**prisma_address_data)
         prisma_address.create(session)
-        prisma_address_objects.append({
-            "folder": prisma_address.folder,
-            "name": prisma_address.name,
-            "ip_netmask": prisma_address.ip_netmask,
-            "description": prisma_address.description,
-        })
+        prisma_address_objects.append(prisma_address_data)
     return prisma_address_objects
 
 
@@ -269,38 +266,79 @@ def create_prisma_address_groups(
         logging.debug("address_group: %s", address_group)
         try:
             # Create a new list of address object names for Prisma
-            prisma_static_value = [f"{address_group.source}-{name}" for name in address_group.static_value]
-            prisma_address_group = PrismaAddressGroup(
-                folder="Prisma Access",
-                name=f"{address_group.source}-{address_group.name}",
-                description=address_group.description,
-                static=prisma_static_value,
-            )
+            prisma_static_value = [
+                f"{address_group.source}-{name}" for name in address_group.static_value
+            ]
+            prisma_address_group_data = {
+                "folder": "Prisma Access",
+                "name": f"{address_group.source}-{address_group.name}",
+                "description": address_group.description,
+                "static": prisma_static_value,
+            }
+            prisma_address_group = PrismaAddressGroup(**prisma_address_group_data)
             prisma_address_group.create(session)
         except Exception as e:
             logging.error("Error creating address group object: %s", e)
             return
-        prisma_address_groups.append({
-            "folder": prisma_address_group.folder,
-            "name": prisma_address_group.name,
-            "description": prisma_address_group.description,
-            "static": prisma_address_group.static,
-        })
+        prisma_address_groups.append(prisma_address_group_data)
     return prisma_address_groups
+
+
+# ----------------------------------------------------------------------------
+# Function to create Prisma security rules
+# ----------------------------------------------------------------------------
+def create_prisma_security_rules(
+    security_rules: List[SecurityRuleData], session: PanApiSession
+) -> List[Dict[str, str]]:
+    prisma_security_rules = []
+    for security_rule in security_rules:
+        logging.debug("security_rule: %s", security_rule)
+
+        try:
+            prisma_security_rule_data = {
+                "name": security_rule.rule_name,
+                "folder": "Prisma Access",
+                "position": "pre",
+                "action": security_rule.actions,
+                "from": ["any"],
+                "to": ["any"],
+                "source": security_rule.source_addresses,
+                "destination": security_rule.destination_addresses,
+                "source_user": ["any"],
+                "category": ["any"],
+                "application": security_rule.applications,
+                "service": security_rule.services,
+                "log_setting": "Cortex Data Lake",
+                "description": security_rule.description,
+            }
+            prisma_security_rule = PrismaSecurityRule(**prisma_security_rule_data)
+            logging.debug("prisma_security_rule: %s", prisma_security_rule)
+            prisma_security_rule.create(session)
+        except Exception as e:
+            logging.error("Error creating security rule: %s", e)
+            return
+
+        prisma_security_rules.append(prisma_security_rule_data)
+    return prisma_security_rules
 
 
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
 def run_sync_to_prisma(
-    pan_url: str, api_token: str, client_id: str, client_secret: str, tsg_id: str, token_url: str
+    pan_url: str,
+    api_token: str,
+    client_id: str,
+    client_secret: str,
+    tsg_id: str,
+    token_url: str,
 ) -> Dict[str, Any]:
-
     # authenticate with Panorama
     logging.info("Authenticating with Panorama...")
     pan = setup_panorama_client(pan_url, api_token)
     logging.debug(pan)
 
+    # fetch security rules
     try:
         logging.info("Retrieving security rules...")
         rules = get_security_rules(pan)
@@ -309,9 +347,11 @@ def run_sync_to_prisma(
         logging.error("Error retrieving security rules: %s", e)
         return
 
+    # console logging when debugging
     for rule_data in rules:
         logging.debug(rule_data.json(indent=2))
 
+    # fetch address objects and groups
     try:
         logging.info("Retrieving address objects and groups...")
         address_objects, address_groups = get_address_objects_and_groups(pan)
@@ -319,6 +359,7 @@ def run_sync_to_prisma(
         logging.error("Error retrieving address objects and groups: %s", e)
         return
 
+    # console logging when debugging
     for address_object in address_objects:
         logging.debug(address_object.json(indent=2))
 
@@ -360,12 +401,22 @@ def run_sync_to_prisma(
         logging.error(f"Error with Prisma API calls: {e}")
         return {"error": str(e)}
 
+    # Create Prisma security rules
+    try:
+        logging.info("Creating Prisma security rules...")
+        prisma_security_rules = create_prisma_security_rules(rules, session)
+    except Exception as e:
+        logging.error(f"Error with Prisma API calls: {e}")
+        return {"error": str(e)}
+
     logging.info("Completed job successfully!")
     return {
         "panorama_address_objects": [ao.dict() for ao in address_objects],
         "prisma_address_objects": prisma_address_objects,
         "panorama_address_groups": [ag.dict() for ag in address_groups],
         "prisma_address_groups": prisma_address_groups,
+        "panorama_security_rules": [sr.dict() for sr in rules],
+        "prisma_security_rules": prisma_security_rules,
     }
 
 
