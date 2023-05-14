@@ -11,7 +11,7 @@ from saute.models import Jobs
 from saute.scripts import (
     run_export_rules_to_csv,
     run_get_system_info,
-    run_panorama_to_prisma,
+    run_sync_to_prisma,
     run_upload_cert_chain,
 )
 
@@ -98,23 +98,30 @@ def execute_upload_cert_chain(self, api_token, author_id, pan_url, url):
 
 
 @shared_task(bind=True)  # Add bind=True to access task instance
-def execute_panorama_to_prisma(
-    self, pan_url, pan_token, client_id, client_secret, tsg_id, token_url, author_id
+def execute_sync_to_prisma(
+    self,
+    pan_url,
+    api_token,
+    client_id,
+    client_secret,
+    tsg_id,
+    token_url,
+    author_id,
 ):
     # Retrieve the user object by id
     author = User.objects.get(id=author_id)
 
     # Create a new Jobs entry
     job = Jobs.objects.create(
-        job_type="panorama_to_prisma",
+        job_type="sync_to_prisma",
         json_data=None,
         author=author,
-        task_id=self.request.id,  # Set the task_id field in the Jobs entry
+        task_id=self.request.id,
     )
 
     try:
-        json_report = run_panorama_to_prisma(
-            pan_url, pan_token, client_id, client_secret, tsg_id, token_url
+        json_report = run_sync_to_prisma(
+            pan_url, api_token, client_id, client_secret, tsg_id, token_url
         )
         job.json_data = json_report
     except Exception as e:
