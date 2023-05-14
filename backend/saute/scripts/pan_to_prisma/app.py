@@ -302,14 +302,14 @@ def create_prisma_security_rules(
                 "action": security_rule.actions,
                 "from": ["any"],
                 "to": ["any"],
-                "source": security_rule.source_addresses,
-                "destination": security_rule.destination_addresses,
+                "source": ["any"],
+                "destination": ["any"],
                 "source_user": ["any"],
                 "category": ["any"],
                 "application": security_rule.applications,
-                "service": security_rule.services,
+                "service": ["any"],
                 "log_setting": "Cortex Data Lake",
-                "description": security_rule.description,
+                "description": security_rule.description if security_rule.description else "n/a",
             }
             prisma_security_rule = PrismaSecurityRule(**prisma_security_rule_data)
             logging.debug("prisma_security_rule: %s", prisma_security_rule)
