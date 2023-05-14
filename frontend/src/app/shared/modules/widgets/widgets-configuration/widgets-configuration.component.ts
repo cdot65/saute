@@ -22,7 +22,7 @@ export class ConfigurationWidgetComponent {
       title: "Sync to Prisma",
       description: "Sync Panorama configuration to a Prisma Access tenant",
       capBg: { "--cui-card-cap-bg": "#333333" },
-      buttonLink: "/upload",
+      buttonLink: "/automation/configuration/sync-to-prisma",
       hashtags: ["#panorama", "#prisma", "#python", "#diffsync"],
     },
   ];

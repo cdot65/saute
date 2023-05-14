@@ -26,6 +26,7 @@ from .tasks import (
     execute_export_rules_to_csv as export_rules_to_csv_task,
     execute_get_system_info as get_system_info_task,
     execute_upload_cert_chain as upload_cert_chain_task,
+    execute_sync_to_prisma as sync_to_prisma_task,
 )
 
 
@@ -180,6 +181,35 @@ def execute_upload_cert_chain(request):
     url = request.data.get("url")
 
     task = upload_cert_chain_task.delay(api_token, author_id, pan_url, url)
+
+    task_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "task_id": task_id},
+        status=status.HTTP_200_OK,
+    )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_sync_to_prisma(request):
+    pan_url = request.data.get("pan_url")
+    api_token = request.data.get("api_token")
+    client_id = request.data.get("client_id")
+    client_secret = request.data.get("client_secret")
+    tsg_id = request.data.get("tsg_id")
+    token_url = request.data.get("token_url")
+    author_id = request.user.id
+
+    task = sync_to_prisma_task.delay(
+        pan_url,
+        api_token,
+        client_id,
+        client_secret,
+        tsg_id,
+        token_url,
+        author_id,
+    )
 
     task_id = task.id
 

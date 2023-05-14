@@ -19,7 +19,7 @@ from panapi.config.objects import Address as PrismaAddress
 # Configure logging
 # ----------------------------------------------------------------------------
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+    level=logging.DEBUG, format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
 
@@ -31,7 +31,7 @@ env.read_env()
 
 pan_config = {
     "pan_url": env("PANURL", "panorama.lab.com"),
-    "pan_token": env("PANTOKEN", "supersecret"),
+    "api_token": env("PANTOKEN", "supersecret"),
 }
 
 prisma_config = {
@@ -92,8 +92,8 @@ def parse_arguments():
     )
     parser.add_argument(
         "--pan-token",
-        dest="pan_token",
-        default=pan_config["pan_token"],
+        dest="api_token",
+        default=pan_config["api_token"],
         help="Panorama API token (default: %(default)s)",
     )
     parser.add_argument(
@@ -126,8 +126,10 @@ def parse_arguments():
 # ----------------------------------------------------------------------------
 # Function to create and return an instance of Panorama
 # ----------------------------------------------------------------------------
-def setup_panorama_client(pan_url: str, pan_token: str) -> Panorama:
-    return Panorama(hostname=pan_url, api_key=pan_token)
+def setup_panorama_client(pan_url: str, api_token: str) -> Panorama:
+    logging.debug(f"pan_url: {pan_url}")
+    logging.debug(f"api_token: {api_token}")
+    return Panorama(hostname=pan_url, api_key=api_token)
 
 
 # ----------------------------------------------------------------------------
@@ -255,17 +257,19 @@ def create_prisma_address_objects(
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_panorama_to_prisma(
-    pan_url: str, pan_token: str, client_id: str, client_secret: str, tsg_id: str, token_url: str
+def run_sync_to_prisma(
+    pan_url: str, api_token: str, client_id: str, client_secret: str, tsg_id: str, token_url: str
 ) -> Dict[str, Any]:
 
     # authenticate with Panorama
     logging.info("Authenticating with Panorama...")
-    pan = setup_panorama_client(pan_url, pan_token)
+    pan = setup_panorama_client(pan_url, api_token)
+    logging.debug(pan)
 
     try:
         logging.info("Retrieving security rules...")
         rules = get_security_rules(pan)
+        logging.debug(rules)
     except Exception as e:
         logging.error("Error retrieving security rules: %s", e)
         return
@@ -325,9 +329,9 @@ def run_panorama_to_prisma(
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    result = run_panorama_to_prisma(
+    result = run_sync_to_prisma(
         args.pan_url,
-        args.pan_token,
+        args.api_token,
         args.client_id,
         args.client_secret,
         args.tsg_id,
