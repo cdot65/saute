@@ -6,26 +6,26 @@
     display: flex;
     padding-top: 2%;
     padding-bottom: 2%;
-    justify-content: center; // Center the pills horizontally
+    justify-content: center;
 }
 
 .nav-pills {
     .nav-item {
-        margin-left: 10px; // Increase spacing between nav items
-        margin-right: 10px; // Increase spacing between nav items
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .nav-link {
         line-height: 24px;
         text-transform: uppercase;
-        font-size: 14px; // Increase font size
+        font-size: 14px;
         font-weight: 500;
-        min-width: 120px; // Increase minimum width
+        min-width: 120px;
         text-align: center;
         color: #333;
         transition: all .3s;
         border-radius: 30px;
-        padding: 12px 28px; // Increase padding
+        padding: 12px 28px;
         background: none;
         border: 0;
         height: 100%;

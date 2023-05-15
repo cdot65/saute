@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ToastService, Toast } from "../../../shared/services/toast.service"; // Update the import path accordingly
+import { ToastService, Toast } from "../../../shared/services/toast.service";
 import { PanoramaService } from "../../../shared/services/panorama.service";
 import { NgForm } from "@angular/forms";
 

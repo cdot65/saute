@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ToastService, Toast } from "../../../shared/services/toast.service"; // Update the import path accordingly
+import { ToastService, Toast } from "../../../shared/services/toast.service";
 import { PanoramaService } from "../../../shared/services/panorama.service";
 import { PrismaService } from "../../../shared/services/prisma.service";
 import { NgForm } from "@angular/forms";
@@ -39,7 +39,7 @@ export class SyncToPrismaComponent implements OnInit {
         client_secret: this.selectedPrismaTenant.client_secret,
         tsg_id: this.selectedPrismaTenant.tsg_id,
         token_url:
-          "https://auth.apps.paloaltonetworks.com/am/oauth2/access_token", // Add this line
+          "https://auth.apps.paloaltonetworks.com/am/oauth2/access_token",
       };
 
       console.log("syncInformation:", syncInformation);

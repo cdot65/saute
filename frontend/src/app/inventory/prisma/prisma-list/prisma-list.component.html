@@ -17,7 +17,6 @@
                             <tr>
                                 <th>Tenant Name</th>
                                 <th>Client ID</th>
-                                <th>Client Secret</th>
                                 <th>TSG ID</th>
                                 <th class="text-right">Actions</th>
                             </tr>
@@ -26,7 +25,6 @@
                             <tr *ngFor="let row of prismaData">
                                 <td>{{ row.tenant_name }}</td>
                                 <td>{{ row.client_id }}</td>
-                                <td>{{ row.client_secret }}</td>
                                 <td>{{ row.tsg_id }}</td>
                                 <td class="text-right">
                                     <button class="btn btn-warning btn-sm"

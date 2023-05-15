@@ -34,7 +34,6 @@ export class AutomationExampleComponent
     const docsUrl =
       packageJson?.config?.coreui_library_docs_url ??
       "https://coreui.io/angular/";
-    // const path: string = version ? `${version}/${value}` : '';
     this._href = `${docsUrl}${value}`;
   }
 
