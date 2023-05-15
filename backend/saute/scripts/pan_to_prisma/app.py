@@ -309,7 +309,9 @@ def create_prisma_security_rules(
                 "application": security_rule.applications,
                 "service": ["any"],
                 "log_setting": "Cortex Data Lake",
-                "description": security_rule.description if security_rule.description else "n/a",
+                "description": security_rule.description
+                if security_rule.description
+                else "n/a",
             }
             prisma_security_rule = PrismaSecurityRule(**prisma_security_rule_data)
             logging.debug("prisma_security_rule: %s", prisma_security_rule)
