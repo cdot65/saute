@@ -17,10 +17,8 @@
     - [Frontend Features](#frontend-features)
   - [Working with the Backend Application](#working-with-the-backend-application)
     - [Django Admin Panel](#django-admin-panel)
-    - [Important API Endpoints](#important-api-endpoints)
   - [Working with the Frontend Application](#working-with-the-frontend-application)
     - [Angular Basics](#angular-basics)
-    - [Important Components and Routes](#important-components-and-routes)
     - [Interacting with the Backend API](#interacting-with-the-backend-api)
 
 ## Introduction
@@ -50,7 +48,6 @@ To work with this project, you'll need the following software installed on your 
 - Docker
 - Docker Compose
 - Python 3.9
-- Node.js (for the frontend)
 
 ## Deployment Steps
 
@@ -107,19 +104,22 @@ Your application should now be up and running! 🎉
 
 ### Backend Features
 
+- PostgreSQL as the database
+- Celery workers for asynchronous tasks
+- Redis as the Celery broker
 - Django Rest Framework (DRF) for creating a RESTful API
 - Django Allauth for user authentication and registration
-- PostgreSQL as the database
-- Docker and Docker Compose for easy and reproducible deployment
 - API documentation using Redoc and Swagger
 
 ### Frontend Features
 
 - Angular framework for building a dynamic and responsive UI
 - Angular Material for a modern, sleek design
-- Integration with the backend REST API
+- Integration with the backend DRF REST API
 - Routing and route guards for secure navigation
 - Operational module for generating reports for Panorama devices
+- Login and Registration forms with validation
+- Frontend to execute Python scripts on the backend celery workers
 
 ## Working with the Backend Application
 
@@ -141,100 +141,11 @@ The Django admin panel is a powerful built-in tool for managing your application
 
 4. You can now manage users, groups, and other models through the admin panel. Click on the model you want to manage and add, edit, or delete entries as needed.
 
-### Important API Endpoints
-
-The backend application provides several important API endpoints that you can use to interact with the data. Some of the key endpoints are:
-
-1. User Registration: `/api/v1/accounts/register/`
-
-    ```yaml
-    - Method: POST
-    - Description: Register a new user with a username, email, and password.
-    ```
-
-2. User Login: `/api/v1/accounts/login/`
-
-    ```yaml
-    - Method: POST
-    - Description: Log in an existing user with their username and password. Returns an authentication token.
-    ```
-
-3. User Logout: `/api/v1/accounts/logout/`
-
-    ```yaml
-    - Method: POST
-    - Description: Log out the currently logged-in user.
-    ```
-
-4. User Details: `/api/v1/accounts/user/`
-
-    ```yaml
-    - Method: GET
-    - Description: Retrieve the details of the currently logged-in user.
-    ```
-
-5. List Panoramas: `/api/v1/panoramas/`
-
-    ```yaml
-    - Method: GET
-    - Description: Retrieve a list of all panoramas.
-    ```
-
-6. Create Panorama: `/api/v1/panoramas/`
-
-    ```yaml
-    - Method: POST
-    - Description: Create a new panorama.
-    ```
-
-7. Retrieve, Update, or Delete a Panorama: `/api/v1/panoramas/:id/`
-
-    ```yaml
-    - Method: GET, PUT, DELETE
-    - Description: Retrieve, update, or delete a specific panorama based on its ID.
-    ```
-
-    Replace `:id` with the actual ID of the panorama you want to retrieve, update, or delete. These endpoints can be used with tools like Postman, Insomnia, or even with JavaScript fetch or Axios in the frontend to interact with the backend application.
-
-8. Generate Panorama Rules Report: `/api/v1/report/rules`
-
-    ```yaml
-    - Method: POST
-    - Description: Generates a rules report for the selected Panorama device, takes `pan_url` and `api_token` in the payload.
-    ```
-
 ## Working with the Frontend Application
 
 ### Angular Basics
 
 The frontend of this project is built using Angular, a popular web application framework. To work with the frontend, you should be familiar with Angular's key concepts, such as components, services, and routing. You can learn more about Angular from the [official documentation](https://angular.io/docs).
-
-### Important Components and Routes
-
-The frontend application consists of several components that work together to provide a seamless user experience. Some of the key components and their associated routes are:
-
-1. DashboardComponent (`/`)
-   - Description: This component serves as the dashboard of the application. Users can navigate to different parts of the application from here.
-
-2. LoginComponent (`/login`)
-   - Description: This component handles user authentication, allowing users to log in with their username and password. Upon successful login, the user is redirected to the Homepage component.
-
-3. InventoryComponent (`/inventory`)
-   - Description: This component is the main entry point for the inventory features, but also provides the tables of subsequent inventory components. Will contain navigation options for the Panorama and Prisma components.
-
-4. FirewallComponent (`/inventory/firewall`)
-   - Description: This component displays a list of PAN-OS firewalls and allows users to create new ones. It fetches data from the backend API and requires the user to be logged in. It also provides a detail view for each firewall entry, accessible via the URL pattern `/inventory/firewall/:id`, where `:id` is the ID of the firewall.
-
-5. PanoramaComponent (`/inventory/panorama`)
-   - Description: This component displays a list of panoramas and allows users to create new ones. It fetches data from the backend API and requires the user to be logged in. It also provides a detail view for each panorama entry, accessible via the URL pattern `/inventory/panorama/:id`, where `:id` is the ID of the panorama.
-
-6. PrismaComponent (`/inventory/prisma`)
-   - Description: This component is dedicated to Prisma-specific features, displaying a list of Prisma tenants and allowing users to create new ones. It fetches data from the backend API and requires the user to be logged in. It also provides a detail view for each Prisma tenant entry, accessible via the URL pattern `/inventory/prisma/:id`, where `:id` is the ID of the Prisma tenant.
-
-7. PanoramaReportsComponent (`/operational/panorama-reports`)
-   - Description: This component allows users to generate reports for Panorama devices. Users can select a Panorama device from a list and initiate the report generation process. It fetches data from the backend API and requires the user to be logged in.
-
-To navigate between these components, use the Angular Router. The router enables navigation from one component to the next as users perform tasks in the application. The RouterModule and Routes are imported in the `app.module.ts` file, and the routes are defined in the `app-routing.module.ts` file.
 
 ### Interacting with the Backend API
 
