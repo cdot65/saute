@@ -1,5 +1,5 @@
 .sidebar {
-    --#{$prefix}sidebar-bg: #333333;
+    --#{$prefix}sidebar-bg: #19222e;
 }
 
 .nav-pills-container {
@@ -22,7 +22,7 @@
         font-weight: 500;
         min-width: 120px; // Increase minimum width
         text-align: center;
-        color: #555;
+        color: #333;
         transition: all .3s;
         border-radius: 30px;
         padding: 12px 28px; // Increase padding
@@ -44,8 +44,8 @@
     .nav-link.active,
     .show>.nav-link {
         color: #fff;
-        background-color: #333333;
-        box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #9c27b066;
+        background-color: #4E617A;
+        box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #36547A;
     }
 }
 
@@ -76,8 +76,8 @@
 .nav-pills.nav-pills-warning .nav-item .nav-link.active,
 .nav-pills.nav-pills-warning .nav-item .nav-link.active:focus,
 .nav-pills.nav-pills-warning .nav-item .nav-link.active:hover {
-    background-color: #9c27b0;
-    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #9c27b066;
+    background-color: #36547A;
+    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #36547A66;
     color: #fff;
 }
 
@@ -108,11 +108,22 @@
 }
 
 .login {
-    background-color: #333333;
+    background-color: #19222E;
 }
 
 .btn-execute {
     margin-top: 10px;
+}
+
+.btn:disabled, .btn.disabled, fieldset:disabled .btn {
+    opacity: 1;
+    background-color: #{$gray-600};
+    border-color: #{$gray-700};
+}
+
+.btn-primary {
+    opacity: 1;
+    background-color: #{$secondary};
 }
 
 .align-right {

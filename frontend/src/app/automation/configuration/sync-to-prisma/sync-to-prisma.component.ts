@@ -51,9 +51,9 @@ export class SyncToPrismaComponent implements OnInit {
           const taskUrl = `#/jobs/details/${response.task_id}`;
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
           const toast: Toast = {
-            title: "Success",
+            title: "Job submitted successfully",
             message: `${response.message}. ${anchor}`,
-            color: "success-25",
+            color: "secondary",
             autohide: true,
             delay: 5000,
             closeButton: true,
