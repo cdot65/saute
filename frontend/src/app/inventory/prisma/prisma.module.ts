@@ -15,13 +15,13 @@ import {
 import { PrismaRoutingModule } from "./prisma-routing.module";
 import { PrismaCreateComponent } from "./prisma-create/prisma-create.component";
 import { PrismaListComponent } from "./prisma-list/prisma-list.component";
-import { PrismaDetailsComponent } from "./prisma-details/prisma-details.component"; // Import the new component
+import { PrismaDetailsComponent } from "./prisma-details/prisma-details.component";
 
 @NgModule({
   declarations: [
     PrismaCreateComponent,
     PrismaListComponent,
-    PrismaDetailsComponent, // Add the new component to declarations
+    PrismaDetailsComponent,
   ],
   imports: [
     CommonModule,
