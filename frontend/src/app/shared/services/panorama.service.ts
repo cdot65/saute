@@ -23,7 +23,7 @@ export class PanoramaService {
     return this.http
       .post<any>(
         "http://localhost:8000/api/v1/report/get-system-info",
-        softwareInformation, // Remove JSON.stringify
+        softwareInformation,
         { headers: headers }
       )
       .pipe(

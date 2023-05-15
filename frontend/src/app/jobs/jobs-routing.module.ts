@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { JobsListComponent } from "./jobs-list/jobs-list.component";
-import { JobsDetailsComponent } from "./jobs-details/jobs-details.component"; // Import the new component
+import { JobsDetailsComponent } from "./jobs-details/jobs-details.component";
 
 const routes: Routes = [
   {
