@@ -13,11 +13,11 @@ $white: #fff;
 // $gray-200:  #d8dbe0;
 // $gray-300:  #c4c9d0;
 // $gray-400:  #b1b7c1;
-// $gray-500:  #9da5b1;
+$gray-500:  #9da5b1;
 $gray-600: #8a93a2;
-// $gray-700:  #768192;
-// $gray-800:  #636f83;
-// $gray-900:  #4f5d73;
+$gray-700:  #768192;
+$gray-800:  #636f83;
+$gray-900:  #4f5d73;
 $black: #000015;
 
 // fusv-disable
@@ -63,16 +63,16 @@ $black: #000015;
 // );
 // scss-docs-end colors-map
 
-$primary-dark: #311B92;
-// $primary: #4527A0;
-$primary: #333333;
-$primary-50: #4527a080;
-$primary-25: #4527a048;
+$primary-dark: #2E2719;
+// $primary: #19222E;
+$primary: #19222E;
+$primary-50: #19222E80;
+$primary-25: #19222E48;
 
 $secondary-dark: #212233;
-$secondary: #9da5b1;
-$secondary-50: #9da5b1;
-$secondary-25: #ced2d8;
+$secondary: #4E617A;
+$secondary-50: #4E617A;
+$secondary-25: #36547A;
 
 $success-dark: #1b9e3e;
 $success: #2eb85c;
