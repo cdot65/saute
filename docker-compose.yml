@@ -42,7 +42,7 @@ services:
       dockerfile: Dockerfile.${CPU_ARCHITECTURE}
     command: celery -A django_project worker -l info
     deploy:
-      replicas: 3
+      replicas: 2
     volumes:
       - ./backend:/code
     depends_on:

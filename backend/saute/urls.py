@@ -10,6 +10,7 @@ from .views import (
     execute_export_rules_to_csv,
     execute_get_system_info,
     execute_upload_cert_chain,
+    execute_sync_to_prisma,
 )
 
 router = SimpleRouter()
@@ -32,6 +33,11 @@ urlpatterns += [
         "report/get-system-info",
         execute_get_system_info,
         name="execute_get_system_info",
+    ),
+    path(
+        "configuration/sync-to-prisma",
+        execute_sync_to_prisma,
+        name="execute_sync_to_prisma",
     ),
     path(
         "configuration/upload-cert-chain",
