@@ -107,7 +107,7 @@ def setup_panorama_client(pan_url: str, api_token: str) -> Panorama:
 # ----------------------------------------------------------------------------
 def get_administrators(pan: Panorama) -> AdminList:
     admin_list = pan.xapi.get(xpath="/config/mgt-config/users")
-    xml_str = ET.tostring(admin_list, encoding='utf-8').decode('utf-8')
+    xml_str = ET.tostring(admin_list, encoding="utf-8").decode("utf-8")
     data = xmltodict.parse(xml_str)
 
     admins = AdminList(**data)
