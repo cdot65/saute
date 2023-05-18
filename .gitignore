@@ -69,3 +69,4 @@ frontend/dist/**
 **chatgpt**
 backend/media/profile_images/**
 .vscode/settings.json
+backend/packages/*.whl
