@@ -7,6 +7,7 @@ from .views import (
     JobsViewSet,
     UserViewSet,
     UserProfileView,
+    execute_admin_report,
     execute_export_rules_to_csv,
     execute_get_system_info,
     execute_upload_cert_chain,
@@ -24,6 +25,11 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path("user-profile/", UserProfileView.as_view(), name="user_profile"),
+    path(
+        "assessment/admin-report",
+        execute_admin_report,
+        name="execute_admin_report",
+    ),
     path(
         "report/rules",
         execute_export_rules_to_csv,

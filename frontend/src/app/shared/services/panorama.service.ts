@@ -33,4 +33,20 @@ export class PanoramaService {
         })
       );
   }
+
+  executeAdminReport(jobDetails: any): Observable<any> {
+    const headers = new HttpHeaders({ "Content-Type": "application/json" });
+    return this.http
+      .post<any>(
+        "http://localhost:8000/api/v1/assessment/admin-report",
+        jobDetails,
+        { headers: headers }
+      )
+      .pipe(
+        catchError((error) => {
+          console.error("Error executing request:", error);
+          return of(null);
+        })
+      );
+  }
 }

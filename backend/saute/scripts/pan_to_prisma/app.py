@@ -87,7 +87,7 @@ class AddressGroupData(BaseModel):
 # ----------------------------------------------------------------------------
 def parse_arguments():
     parser = argparse.ArgumentParser(
-        description="Export security rules and associated Security Profile Groups to a CSV file."
+        description="Parse arguments passed from Saute frontend."
     )
     parser.add_argument(
         "--pan-url",

@@ -27,6 +27,7 @@ from .tasks import (
     execute_get_system_info as get_system_info_task,
     execute_upload_cert_chain as upload_cert_chain_task,
     execute_sync_to_prisma as sync_to_prisma_task,
+    execute_admin_report as admin_report_task,
 )
 
 
@@ -208,6 +209,29 @@ def execute_sync_to_prisma(request):
         client_secret,
         tsg_id,
         token_url,
+        author_id,
+    )
+
+    task_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "task_id": task_id},
+        status=status.HTTP_200_OK,
+    )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_admin_report(request):
+    pan_url = request.data.get("pan_url")
+    api_token = request.data.get("api_token")
+    to_emails = request.data.get("to_emails")
+    author_id = request.user.id
+
+    task = admin_report_task.delay(
+        pan_url,
+        api_token,
+        to_emails,
         author_id,
     )
 
