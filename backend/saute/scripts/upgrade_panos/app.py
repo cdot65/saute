@@ -85,7 +85,6 @@ def run_readiness_checks(
         return
 
     logging.info("Completed checks successfully!")
-    logging.debug("results: \n%s", results)
 
     return results
 
@@ -93,11 +92,11 @@ def run_readiness_checks(
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_upgrade_check(pan_url: str, api_token: str):
+def run_upgrade_check(hostname: str, api_key: str):
     # setup Firewall client
     firewall = setup_firewall_proxy(
-        hostname=pan_url,
-        api_key=api_token,
+        hostname=hostname,
+        api_key=api_key,
     )
 
     checks_configuration = [
@@ -119,7 +118,7 @@ def run_upgrade_check(pan_url: str, api_token: str):
 if __name__ == "__main__":
     args = parse_arguments()
     result = run_upgrade_check(
-        args.pan_url,
-        args.api_token,
+        args.hostname,
+        args.api_key,
     )
     logging.debug(result)
