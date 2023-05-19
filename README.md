@@ -59,7 +59,6 @@ To deploy both backend and frontend using Docker and Docker Compose, follow thes
 
     ```bash
     cp backend/.env.example backend/.env
-    vim .backend/.env
     ```
 
 3. Build the Docker images and start the containers.
@@ -67,6 +66,8 @@ To deploy both backend and frontend using Docker and Docker Compose, follow thes
     ```bash
     docker-compose up --build
     ```
+    
+    This will take around three minutes for the first time to build and run.
 
 4. Wait for the web application to start (you can check the logs to ensure everything is running smoothly):
 
@@ -88,6 +89,9 @@ To deploy both backend and frontend using Docker and Docker Compose, follow thes
     ```
 
 Your application should now be up and running! 🎉
+
+Access the frontend at [localhost:8080/](localhost:8000/) or the backend at  [localhost:8000/admin](localhost:8000/admin)
+
 
 ## Technical Features
 
