@@ -34,12 +34,12 @@ export class PanoramaService {
       );
   }
 
-  executeAdminReport(panoramaDetails: any): Observable<any> {
+  executeAdminReport(jobDetails: any): Observable<any> {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
     return this.http
       .post<any>(
         "http://localhost:8000/api/v1/assessment/admin-report",
-        panoramaDetails,
+        jobDetails,
         { headers: headers }
       )
       .pipe(

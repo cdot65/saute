@@ -26,16 +26,16 @@ export class AdminReportComponent implements OnInit {
 
   onSubmitForm(form: NgForm): void {
     if (form.valid) {
-      const panoramaDetails = {
+      const jobDetails = {
         pan_url: this.selectedPanorama.hostname,
         api_token: this.selectedPanorama.api_token,
-        email: this.email,
+        to_emails: this.email,
       };
 
-      console.log("panoramaDetails:", panoramaDetails);
+      console.log("jobDetails:", jobDetails);
 
       this.panoramaService
-        .executeAdminReport(panoramaDetails)
+        .executeAdminReport(jobDetails)
         .subscribe((response) => {
           console.log(response);
           const taskUrl = `#/jobs/details/${response.task_id}`;

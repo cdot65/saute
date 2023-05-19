@@ -149,10 +149,11 @@ def convert_to_html_table(result: Dict[str, Any]) -> str:
 # ----------------------------------------------------------------------------
 def send_email(html_content: str, to_emails: str, sendgrid_api_key: str):
     message = Mail(
-        from_email='calvin@redtail.consulting',
+        from_email="calvin@redtail.consulting",
         to_emails=to_emails,
-        subject='Panorama Administrators',
-        html_content=html_content)
+        subject="Panorama Administrators",
+        html_content=html_content,
+    )
     try:
         sg = SendGridAPIClient(sendgrid_api_key)
         response = sg.send(message)
@@ -166,13 +167,12 @@ def send_email(html_content: str, to_emails: str, sendgrid_api_key: str):
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_get_admins(
+def run_admin_report(
     pan_url: str,
     api_token: str,
     to_emails: str,
     sendgrid_api_key: str,
 ) -> Dict[str, Any]:
-
     # authenticate with Panorama
     logging.info("Authenticating with Panorama...")
     pan = setup_panorama_client(pan_url, api_token)
@@ -182,24 +182,21 @@ def run_get_admins(
     try:
         logging.info("Retrieving administrators...")
         admins = get_administrators(pan)
-        logging.debug(admins)
     except Exception as e:
         logging.error("Error retrieving administrators: %s", e)
         return
 
     logging.info("Completed job successfully!")
-    result = admins.dict()
+    logging.debug("admins: \n%s", admins.dict())
 
     # Convert the result into an HTML table
-    html_table = convert_to_html_table(result)
-
-    # Print the HTML table
-    logging.debug(html_table)
+    html_table = convert_to_html_table(admins.dict())
+    logging.debug("html_table: \n%s", html_table)
 
     # Send the HTML table as an email
     send_email(html_table, to_emails, sendgrid_api_key)
 
-    return admins.json()
+    return admins.dict()
 
 
 # ----------------------------------------------------------------------------
@@ -207,7 +204,7 @@ def run_get_admins(
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    result = run_get_admins(
+    result = run_admin_report(
         args.pan_url,
         args.api_token,
         args.to_emails,

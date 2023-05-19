@@ -9,6 +9,7 @@ from saute.models import Jobs
 
 # import our python scripts
 from saute.scripts import (
+    run_admin_report,
     run_export_rules_to_csv,
     run_get_system_info,
     run_sync_to_prisma,
@@ -124,6 +125,38 @@ def execute_sync_to_prisma(
             pan_url, api_token, client_id, client_secret, tsg_id, token_url
         )
         job.json_data = json_report
+    except Exception as e:
+        job.result = f"Job ID: {job.pk}\nError: {e}"
+
+    # Save the updated job information
+    job.save()
+
+
+@shared_task(bind=True)  # Add bind=True to access task instance
+def execute_admin_report(
+    self,
+    pan_url,
+    api_token,
+    to_emails,
+    author_id,
+):
+    # Retrieve the user object by id
+    author = User.objects.get(id=author_id)
+
+    # Create a new Jobs entry
+    job = Jobs.objects.create(
+        job_type="admin_report",
+        json_data=None,
+        author=author,
+        task_id=self.request.id,
+    )
+    logging.info(f"Job ID: {job.pk}")
+
+    try:
+        json_report = run_admin_report(pan_url, api_token, to_emails)
+        logging.info(json_report)
+        job.json_data = json_report
+        logging.info(job)
     except Exception as e:
         job.result = f"Job ID: {job.pk}\nError: {e}"
 
