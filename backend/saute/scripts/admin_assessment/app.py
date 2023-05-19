@@ -9,6 +9,8 @@ from environs import Env
 import xml.etree.ElementTree as ET
 import xmltodict
 import pandas as pd
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 # Palo Alto Networks PAN-OS imports
 from panos.panorama import Panorama
@@ -90,6 +92,18 @@ def parse_arguments():
         default=pan_config["api_token"],
         help="Panorama API token (default: %(default)s)",
     )
+    parser.add_argument(
+        "--to-emails",
+        dest="to_emails",
+        default=env("TO_EMAILS", "to@example.com"),
+        help="Recipient email address (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--sendgrid-api-key",
+        dest="sendgrid_api_key",
+        default=env("SENDGRID_API_KEY"),
+        help="SendGrid API key (default: %(default)s)",
+    )
     return parser.parse_args()
 
 
@@ -115,12 +129,50 @@ def get_administrators(pan: Panorama) -> AdminList:
 
 
 # ----------------------------------------------------------------------------
+# Function to convert result into pandas DataFrame and then into HTML table
+# ----------------------------------------------------------------------------
+def convert_to_html_table(result: Dict[str, Any]) -> str:
+    # Convert the list of Entry objects into a DataFrame
+    df = pd.DataFrame(result["response"]["result"]["users"]["entry"])
+
+    # Drop the phash column
+    df = df.drop(columns=["phash", "permissions"])
+
+    # Convert the DataFrame into an HTML table
+    html_table = df.to_html()
+
+    return html_table
+
+
+# ----------------------------------------------------------------------------
+# Function to send an email with the HTML table
+# ----------------------------------------------------------------------------
+def send_email(html_content: str, to_emails: str, sendgrid_api_key: str):
+    message = Mail(
+        from_email='calvin@redtail.consulting',
+        to_emails=to_emails,
+        subject='Panorama Administrators',
+        html_content=html_content)
+    try:
+        sg = SendGridAPIClient(sendgrid_api_key)
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(str(e))
+
+
+# ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
 def run_get_admins(
     pan_url: str,
     api_token: str,
+    to_emails: str,
+    sendgrid_api_key: str,
 ) -> Dict[str, Any]:
+
     # authenticate with Panorama
     logging.info("Authenticating with Panorama...")
     pan = setup_panorama_client(pan_url, api_token)
@@ -136,7 +188,18 @@ def run_get_admins(
         return
 
     logging.info("Completed job successfully!")
-    return admins.dict()
+    result = admins.dict()
+
+    # Convert the result into an HTML table
+    html_table = convert_to_html_table(result)
+
+    # Print the HTML table
+    logging.debug(html_table)
+
+    # Send the HTML table as an email
+    send_email(html_table, to_emails, sendgrid_api_key)
+
+    return admins.json()
 
 
 # ----------------------------------------------------------------------------
@@ -147,19 +210,7 @@ if __name__ == "__main__":
     result = run_get_admins(
         args.pan_url,
         args.api_token,
+        args.to_emails,
+        args.sendgrid_api_key,
     )
     logging.debug(result)
-    # Print the result object to understand its structure
-    print(result)
-
-    # Convert the list of Entry objects into a DataFrame
-    df = pd.DataFrame(result["response"]["result"]["users"]["entry"])
-
-    # Drop the phash column
-    df = df.drop(columns=["phash", "permissions"])
-
-    # Convert the DataFrame into an HTML table
-    html_table = df.to_html()
-
-    # Print the HTML table
-    logging.debug(html_table)
