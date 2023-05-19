@@ -62,17 +62,6 @@ To deploy both backend and frontend using Docker and Docker Compose, follow thes
     vim .backend/.env
     ```
 
-    ```conf
-    DJANGO_ALLOWED_HOSTS=['localhost', '127.0.0.1', '*']
-    DJANGO_DEBUG=True
-    DJANGO_SECRET_KEY=qKJ9h-ph4VY7zJIQnnRuvR-MARWs-b2tOdRtJZpeXfc
-    POSTGRES_USER=django_user
-    POSTGRES_PASSWORD=django_password
-    POSTGRES_DB=postgres
-    POSTGRES_HOST=db
-    POSTGRES_PORT=5432
-    ```
-
 3. Build the Docker images and start the containers.
 
     ```bash
