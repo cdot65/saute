@@ -138,21 +138,31 @@ def convert_to_html_table(result: Dict[str, Any]) -> str:
     # Drop the phash column
     df = df.drop(columns=["phash", "permissions"])
 
-    # Convert the DataFrame into an HTML table
-    html_table = df.to_html()
+    # Convert the DataFrame into an HTML table with bootstrap styled classes
+    html_table = df.to_html(classes="table table-striped table-hover")
 
-    return html_table
+    # Wrap the HTML with bootstrap CSS from a CDN
+    styled_html_table = f"""
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {html_table}
+    """
+
+    return styled_html_table
 
 
 # ----------------------------------------------------------------------------
 # Function to send an email with the HTML table
 # ----------------------------------------------------------------------------
 def send_email(html_content: str, to_emails: str, sendgrid_api_key: str):
+    header = "<h1>Admin Report</h1>"
+    body = "<p>Dear Team,</p><p>Please find the latest admin report attached below:</p>"
+    footer = "<p>Best regards,<br/>Your Admin Team</p>"
+
     message = Mail(
         from_email="calvin@redtail.consulting",
         to_emails=to_emails,
         subject="Panorama Administrators",
-        html_content=html_content,
+        html_content=f"{header}{body}{html_content}{footer}",
     )
     try:
         sg = SendGridAPIClient(sendgrid_api_key)
