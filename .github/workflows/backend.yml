@@ -59,7 +59,7 @@ jobs:
       - name: Code formatting with Black
         run: |
           pip install black
-          black --check backend/
+          black --check --exclude '/(backend/accounts/migrations|backend/saute/migrations)/' backend/
 
       - name: Linting with Flake8 and yamllint
         run: |
