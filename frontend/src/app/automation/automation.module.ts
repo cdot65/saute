@@ -32,6 +32,7 @@ import { VmseriesToProxmoxComponent } from "./deploy/vmseries-to-proxmox/vmserie
 import { VmseriesToOracleComponent } from "./deploy/vmseries-to-oracle/vmseries-to-oracle.component";
 import { SyncToPrismaComponent } from "./configuration/sync-to-prisma/sync-to-prisma.component";
 import { AdminReportComponent } from "./assessment/admin-report/admin-report.component";
+import { AssuranceArpEntryComponent } from './operations/assurance-arp-entry/assurance-arp-entry.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AdminReportComponent } from "./assessment/admin-report/admin-report.com
     VmseriesToOracleComponent,
     SyncToPrismaComponent,
     AdminReportComponent,
+    AssuranceArpEntryComponent,
   ],
   imports: [
     CommonModule,
