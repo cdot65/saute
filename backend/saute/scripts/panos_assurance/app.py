@@ -180,7 +180,7 @@ def setup_firewall_proxy(hostname: str, api_key: str) -> FirewallProxy:
 # ----------------------------------------------------------------------------
 # Run operations
 # ----------------------------------------------------------------------------
-def run_operation(
+def run_assurance(
     hostname: str,
     api_key: str,
     operation_type: str,
@@ -277,13 +277,11 @@ if __name__ == "__main__":
         format="%(asctime)s [%(levelname)s] %(message)s",
     )
 
-    # ipdb.set_trace()
-
     # Look for config settings as argument, else empty dictionary
     config = args.config if args.config else {}
 
-    # Run operation
-    run_operation(
+    # Run ARP entry assurance
+    run_assurance(
         args.hostname,
         args.api_key,
         args.operation_type,

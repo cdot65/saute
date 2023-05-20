@@ -13,7 +13,7 @@ from environs import Env
 # import our python scripts
 from saute.scripts import (
     run_admin_report,
-    run_assurance_arp_entry,
+    run_assurance,
     run_export_rules_to_csv,
     run_get_system_info,
     run_sync_to_prisma,
@@ -223,7 +223,7 @@ def execute_assurance_arp_entry(
 
     # Execute the assurance check
     try:
-        json_report = run_assurance_arp_entry(
+        json_report = run_assurance(
             hostname,
             api_key,
             operation_type,

@@ -18,5 +18,16 @@ export class OperationsWidgetComponent {
       buttonLink: "/automation/operations/get-software-information",
       hashtags: ["#panos", "#panorama", "#python"],
     },
+    {
+      icon: "cibPython",
+      iconPath: "../../../../assets/icons/panos_white.svg",
+      title: "Assurance ARP entry",
+      description: "Validate if ARP entry is found on firewall.",
+      customClass: "bg-panos",
+      capBg: { "--cui-card-cap-bg": "#FA582D" },
+      values: [{ title: "Operations", value: "Now" }],
+      buttonLink: "/automation/operations/assurance-arp-entry",
+      hashtags: ["#panos", "#assurance", "#python"],
+    },
   ];
 }

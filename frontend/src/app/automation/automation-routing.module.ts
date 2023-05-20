@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { GetSoftwareInformationComponent } from "./operations/get-software-information/get-software-information.component";
 import { SyncToPrismaComponent } from "./configuration/sync-to-prisma/sync-to-prisma.component";
 import { AdminReportComponent } from "./assessment/admin-report/admin-report.component";
+import { AssuranceArpEntryComponent } from "./operations/assurance-arp-entry/assurance-arp-entry.component";
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: "configuration/sync-to-prisma",
     component: SyncToPrismaComponent,
+  },
+  {
+    path: "operations/assurance-arp-entry",
+    component: AssuranceArpEntryComponent,
   },
   {
     path: "operations/get-software-information",
