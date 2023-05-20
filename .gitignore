@@ -5,8 +5,6 @@ db.sqlite3
 .vscode/settings.json
 backend/.env
 .chatgpt/
-backend/accounts/migrations/00**.py
-backend/saute/migrations/00**.py
 **.env
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
@@ -54,9 +52,6 @@ Thumbs.db
 frontend/node_modules/
 frontend/.angular/
 backend/saute/scripts/.env
-
-# exclude database migrations
-**00**.py
 
 # exclude certs
 **.crt
