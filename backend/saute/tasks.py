@@ -13,6 +13,7 @@ from environs import Env
 # import our python scripts
 from saute.scripts import (
     run_admin_report,
+    run_assurance_arp_entry,
     run_export_rules_to_csv,
     run_get_system_info,
     run_sync_to_prisma,
@@ -187,6 +188,53 @@ def execute_admin_report(
         logging.info(json_report)
         job.json_data = json_report
         logging.info(job)
+    except Exception as e:
+        logging.error(e)
+        job.result = f"Job ID: {job.pk}\nError: {e}"
+
+    # Save the updated job information
+    job.save()
+
+
+# ----------------------------------------------------------------------------
+# Assurance: Check for ARP entry
+# ----------------------------------------------------------------------------
+@shared_task(bind=True)
+def execute_assurance_arp_entry(
+    self,
+    hostname,
+    api_key,
+    operation_type,
+    action,
+    config,
+    author_id,
+):
+    # Retrieve the user object by id
+    author = User.objects.get(id=author_id)
+
+    # Create a new entry in our Jobs database table
+    job = Jobs.objects.create(
+        job_type="assurance_arp_entry",
+        json_data=None,
+        author=author,
+        task_id=self.request.id,
+    )
+    logging.debug(f"Job ID: {job.pk}")
+
+    # Execute the assurance check
+    try:
+        json_report = run_assurance_arp_entry(
+            hostname,
+            api_key,
+            operation_type,
+            action,
+            config,
+        )
+
+        # logging.debug(json_report)
+        job.json_data = json_report
+        logging.debug(job)
+
     except Exception as e:
         logging.error(e)
         job.result = f"Job ID: {job.pk}\nError: {e}"

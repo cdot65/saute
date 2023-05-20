@@ -8,7 +8,7 @@ from .views import (
     UserViewSet,
     UserProfileView,
     execute_admin_report,
-    execute_export_rules_to_csv,
+    execute_assurance_arp_entry,
     execute_get_system_info,
     execute_upload_cert_chain,
     execute_sync_to_prisma,
@@ -31,16 +31,6 @@ urlpatterns += [
         name="execute_admin_report",
     ),
     path(
-        "report/rules",
-        execute_export_rules_to_csv,
-        name="execute_export_rules_to_csv",
-    ),
-    path(
-        "report/get-system-info",
-        execute_get_system_info,
-        name="execute_get_system_info",
-    ),
-    path(
         "configuration/sync-to-prisma",
         execute_sync_to_prisma,
         name="execute_sync_to_prisma",
@@ -49,5 +39,15 @@ urlpatterns += [
         "configuration/upload-cert-chain",
         execute_upload_cert_chain,
         name="execute_upload_cert_chain",
+    ),
+    path(
+        "operations/assurance-arp-entry",
+        execute_assurance_arp_entry,
+        name="execute_assurance_arp_entry",
+    ),
+    path(
+        "report/get-system-info",
+        execute_get_system_info,
+        name="execute_get_system_info",
     ),
 ]

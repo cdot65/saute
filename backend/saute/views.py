@@ -23,14 +23,17 @@ from .serializers import (
 
 # Python scripts
 from .tasks import (
-    execute_export_rules_to_csv as export_rules_to_csv_task,
     execute_get_system_info as get_system_info_task,
     execute_upload_cert_chain as upload_cert_chain_task,
     execute_sync_to_prisma as sync_to_prisma_task,
     execute_admin_report as admin_report_task,
+    execute_assurance_arp_entry as assurance_arp_entry_task,
 )
 
 
+# ----------------------------------------------------------------------------
+# Define ViewSets for API endpoints
+# ----------------------------------------------------------------------------
 class PanoramaViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Panorama.objects.all()
@@ -139,23 +142,12 @@ class UserProfileView(RetrieveAPIView):
         return self.request.user
 
 
-@api_view(["POST"])
-@permission_classes([IsAuthenticated])
-def execute_export_rules_to_csv(request):
-    pan_url = request.data.get("pan_url")
-    api_token = request.data.get("api_token")
-    author_id = request.user.id
-
-    task = export_rules_to_csv_task.delay(pan_url, api_token, author_id)
-
-    job_id = task.id
-
-    return Response(
-        {"message": "Task has been executed", "job_id": job_id},
-        status=status.HTTP_200_OK,
-    )
+# ----------------------------------------------------------------------------
+# Define API endpoints for executing tasks
+# ----------------------------------------------------------------------------
 
 
+# Get System Info from Panorama
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def execute_get_system_info(request):
@@ -173,6 +165,7 @@ def execute_get_system_info(request):
     )
 
 
+# Retrieve Certificate Chain
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def execute_upload_cert_chain(request):
@@ -191,6 +184,7 @@ def execute_upload_cert_chain(request):
     )
 
 
+# Sync Panorama to Prsima
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def execute_sync_to_prisma(request):
@@ -220,6 +214,35 @@ def execute_sync_to_prisma(request):
     )
 
 
+# Assurance ARP Entry
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_assurance_arp_entry(request):
+    hostname = request.data.get("hostname")
+    api_key = request.data.get("api_key")
+    operation_type = request.data.get("operation_type")
+    action = request.data.get("action")
+    config = request.data.get("config")
+    author_id = request.user.id
+
+    task = assurance_arp_entry_task.delay(
+        hostname,
+        api_key,
+        operation_type,
+        action,
+        config,
+        author_id,
+    )
+
+    task_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "task_id": task_id},
+        status=status.HTTP_200_OK,
+    )
+
+
+# Report of Administrators
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def execute_admin_report(request):
