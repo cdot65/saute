@@ -4,6 +4,7 @@ import { GetSoftwareInformationComponent } from "./operations/get-software-infor
 import { SyncToPrismaComponent } from "./configuration/sync-to-prisma/sync-to-prisma.component";
 import { AdminReportComponent } from "./assessment/admin-report/admin-report.component";
 import { AssuranceArpEntryComponent } from "./operations/assurance-arp-entry/assurance-arp-entry.component";
+import { AssuranceSnapshotsComponent } from "./operations/assurance-snapshots/assurance-snapshots.component";
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: "operations/assurance-arp-entry",
     component: AssuranceArpEntryComponent,
+  },
+  {
+    path: "operations/assurance-snapshots",
+    component: AssuranceSnapshotsComponent,
   },
   {
     path: "operations/get-software-information",

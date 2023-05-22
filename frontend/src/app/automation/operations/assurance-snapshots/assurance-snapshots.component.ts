@@ -4,11 +4,11 @@ import { FirewallService } from "../../../shared/services/firewall.service";
 import { NgForm } from "@angular/forms";
 
 @Component({
-  selector: "app-assurance-arp-entry",
-  templateUrl: "./assurance-arp-entry.component.html",
-  styleUrls: ["./assurance-arp-entry.component.scss"],
+  selector: "app-assurance-snapshots",
+  templateUrl: "./assurance-snapshots.component.html",
+  styleUrls: ["./assurance-snapshots.component.scss"],
 })
-export class AssuranceArpEntryComponent implements OnInit {
+export class AssuranceSnapshotsComponent implements OnInit {
   firewalls: any[] = [];
   selectedFirewall: any = null;
   ipaddress: string = "";
@@ -29,15 +29,15 @@ export class AssuranceArpEntryComponent implements OnInit {
       const jobDetails = {
         hostname: this.selectedFirewall.hostname,
         api_key: this.selectedFirewall.api_token,
-        operation_type: "readiness_check",
-        action: "arp_entry_exist",
+        operation_type: "state_snapshot",
+        action: "snapshot",
         config: { ip: this.ipaddress },
       };
 
       console.log("jobDetails:", jobDetails);
 
       this.firewallService
-        .assessmentArpEntry(jobDetails)
+        .assessmentSnapshot(jobDetails)
         .subscribe((response) => {
           console.log(response);
           const taskUrl = `#/jobs/details/${response.task_id}`;
