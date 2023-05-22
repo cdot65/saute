@@ -68,12 +68,14 @@ LOGGING_LEVELS = {
 # Define models
 # ----------------------------------------------------------------------------
 class Args(BaseModel):
-    hostname: str
-    api_key: str
-    operation_type: str
     action: str
-    log_level: str = "debug"
+    api_key: str
     config: dict = {}
+    hostname: str
+    log_level: str = "debug"
+    operation_type: str
+    serial: str = None
+    vsys: str = None
 
 
 # ----------------------------------------------------------------------------
@@ -94,30 +96,19 @@ def parse_arguments() -> Args:
     """
     parser = argparse.ArgumentParser(description="Run operations on the Firewall.")
     parser.add_argument(
-        "--hostname",
-        dest="hostname",
+        "--action",
+        dest="action",
         required=True,
-        help="Firewall hostname or IP",
+        help="The specific action to be performed within the operation type",
     )
+
     parser.add_argument(
         "--api-key",
         dest="api_key",
         required=True,
         help="Firewall API key",
     )
-    parser.add_argument(
-        "--type",
-        dest="operation_type",
-        choices=["readiness_check", "state_snapshot", "report"],
-        required=True,
-        help="The type of operation to be executed",
-    )
-    parser.add_argument(
-        "--action",
-        dest="action",
-        required=True,
-        help="The specific action to be performed within the operation type",
-    )
+
     parser.add_argument(
         "--config",
         dest="config",
@@ -129,12 +120,42 @@ def parse_arguments() -> Args:
             '\'{"key1": "value1", "key2": "value2"}\''
         ),
     )
+
+    parser.add_argument(
+        "--hostname",
+        dest="hostname",
+        required=True,
+        help="Firewall hostname or IP",
+    )
+
     parser.add_argument(
         "--log-level",
         dest="log_level",
         choices=LOGGING_LEVELS.keys(),
         default="debug",
         help="Set the logging output level",
+    )
+
+    parser.add_argument(
+        "--type",
+        dest="operation_type",
+        choices=["readiness_check", "state_snapshot", "report"],
+        required=True,
+        help="The type of operation to be executed",
+    )
+
+    parser.add_argument(
+        "--serial",
+        dest="serial",
+        required=False,
+        help="Optional: serial of a Panorama managed firwall",
+    )
+
+    parser.add_argument(
+        "--vsys",
+        dest="vsys",
+        required=False,
+        help="Optional: vsys of remote firewall",
     )
 
     args = parser.parse_args()
