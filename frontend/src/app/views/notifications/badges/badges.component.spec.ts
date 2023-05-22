@@ -1,24 +1,35 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { BadgeModule, ButtonModule, CardModule, GridModule, UtilitiesModule } from '@coreui/angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
-import { DocsComponentsModule } from '../../../../components';
-import { BadgesComponent } from './badges.component';
+import {
+  BadgeModule,
+  ButtonModule,
+  CardModule,
+  GridModule,
+  UtilitiesModule,
+} from "@coreui/angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../icons/icon-subset";
+import { BadgesComponent } from "./badges.component";
 
-describe('BadgesComponent', () => {
+describe("BadgesComponent", () => {
   let component: BadgesComponent;
   let fixture: ComponentFixture<BadgesComponent>;
   let iconSetService: IconSetService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BadgesComponent ],
-      imports: [BadgeModule, CardModule, GridModule, UtilitiesModule, ButtonModule, DocsComponentsModule, RouterTestingModule],
-      providers: [IconSetService]
-    })
-    .compileComponents();
+      declarations: [BadgesComponent],
+      imports: [
+        BadgeModule,
+        CardModule,
+        GridModule,
+        UtilitiesModule,
+        ButtonModule,
+        RouterTestingModule,
+      ],
+      providers: [IconSetService],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -30,7 +41,7 @@ describe('BadgesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

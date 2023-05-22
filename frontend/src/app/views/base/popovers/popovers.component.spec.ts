@@ -1,13 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { ButtonModule, CardModule, GridModule, PopoverModule } from '@coreui/angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
-import { DocsComponentsModule } from '../../../../components';
-import { PopoversComponent } from './popovers.component';
+import {
+  ButtonModule,
+  CardModule,
+  GridModule,
+  PopoverModule,
+} from "@coreui/angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../icons/icon-subset";
+import { PopoversComponent } from "./popovers.component";
 
-describe('PopoversComponent', () => {
+describe("PopoversComponent", () => {
   let component: PopoversComponent;
   let fixture: ComponentFixture<PopoversComponent>;
   let iconSetService: IconSetService;
@@ -15,10 +19,15 @@ describe('PopoversComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PopoversComponent],
-      imports: [CardModule, GridModule, PopoverModule, ButtonModule, DocsComponentsModule, RouterTestingModule],
-      providers: [IconSetService]
-    })
-      .compileComponents();
+      imports: [
+        CardModule,
+        GridModule,
+        PopoverModule,
+        ButtonModule,
+        RouterTestingModule,
+      ],
+      providers: [IconSetService],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -30,7 +39,7 @@ describe('PopoversComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

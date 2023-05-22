@@ -1,14 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { AlertModule, ButtonModule, CardModule, GridModule } from '@coreui/angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
-import { DocsComponentsModule } from '../../../../components';
-import { AlertsComponent } from './alerts.component';
+import {
+  AlertModule,
+  ButtonModule,
+  CardModule,
+  GridModule,
+} from "@coreui/angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../icons/icon-subset";
+import { AlertsComponent } from "./alerts.component";
 
-describe('AlertsComponent', () => {
+describe("AlertsComponent", () => {
   let component: AlertsComponent;
   let fixture: ComponentFixture<AlertsComponent>;
   let iconSetService: IconSetService;
@@ -16,10 +20,16 @@ describe('AlertsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AlertsComponent],
-      imports: [AlertModule, ButtonModule, NoopAnimationsModule, GridModule, CardModule, DocsComponentsModule, RouterTestingModule],
-      providers: [IconSetService]
-    })
-      .compileComponents();
+      imports: [
+        AlertModule,
+        ButtonModule,
+        NoopAnimationsModule,
+        GridModule,
+        CardModule,
+        RouterTestingModule,
+      ],
+      providers: [IconSetService],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -31,7 +41,7 @@ describe('AlertsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

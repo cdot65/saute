@@ -1,13 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { CardModule, GridModule, ProgressModule } from '@coreui/angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
-import { DocsComponentsModule } from '../../../../components';
-import { ProgressComponent } from './progress.component';
+import { CardModule, GridModule, ProgressModule } from "@coreui/angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../icons/icon-subset";
+import { ProgressComponent } from "./progress.component";
 
-describe('ProgressComponent', () => {
+describe("ProgressComponent", () => {
   let component: ProgressComponent;
   let fixture: ComponentFixture<ProgressComponent>;
   let iconSetService: IconSetService;
@@ -15,10 +14,9 @@ describe('ProgressComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProgressComponent],
-      imports: [ProgressModule, CardModule, GridModule, DocsComponentsModule, RouterTestingModule],
-      providers: [IconSetService]
-    })
-      .compileComponents();
+      imports: [ProgressModule, CardModule, GridModule, RouterTestingModule],
+      providers: [IconSetService],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -30,7 +28,7 @@ describe('ProgressComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,26 +1,31 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { CardModule, CarouselModule, GridModule } from '@coreui/angular';
-import { IconModule } from '@coreui/icons-angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
-import { DocsComponentsModule } from '../../../../components';
-import { CarouselsComponent } from './carousels.component';
+import { CardModule, CarouselModule, GridModule } from "@coreui/angular";
+import { IconModule } from "@coreui/icons-angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../icons/icon-subset";
+import { CarouselsComponent } from "./carousels.component";
 
-describe('CarouselsComponent', () => {
+describe("CarouselsComponent", () => {
   let component: CarouselsComponent;
   let fixture: ComponentFixture<CarouselsComponent>;
-  let iconSetService: IconSetService
+  let iconSetService: IconSetService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CarouselsComponent ],
-      imports: [CarouselModule, NoopAnimationsModule, CardModule, GridModule, IconModule, DocsComponentsModule, RouterTestingModule],
-      providers: [IconSetService]
-    })
-    .compileComponents();
+      declarations: [CarouselsComponent],
+      imports: [
+        CarouselModule,
+        NoopAnimationsModule,
+        CardModule,
+        GridModule,
+        IconModule,
+        RouterTestingModule,
+      ],
+      providers: [IconSetService],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -32,7 +37,7 @@ describe('CarouselsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

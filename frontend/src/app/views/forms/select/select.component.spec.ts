@@ -1,13 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { CardModule, GridModule } from '@coreui/angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
-import { DocsComponentsModule } from '../../../../components';
-import { SelectComponent } from './select.component';
+import { CardModule, GridModule } from "@coreui/angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../icons/icon-subset";
+import { SelectComponent } from "./select.component";
 
-describe('SelectComponent', () => {
+describe("SelectComponent", () => {
   let component: SelectComponent;
   let fixture: ComponentFixture<SelectComponent>;
   let iconSetService: IconSetService;
@@ -15,10 +14,9 @@ describe('SelectComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SelectComponent],
-      imports: [CardModule, GridModule, DocsComponentsModule, RouterTestingModule],
-      providers: [IconSetService]
-    })
-      .compileComponents();
+      imports: [CardModule, GridModule, RouterTestingModule],
+      providers: [IconSetService],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -30,7 +28,7 @@ describe('SelectComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

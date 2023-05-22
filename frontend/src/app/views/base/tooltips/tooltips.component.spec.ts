@@ -1,24 +1,33 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { ButtonModule, CardModule, GridModule, TooltipModule } from '@coreui/angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
-import { DocsComponentsModule } from '../../../../components';
-import { TooltipsComponent } from './tooltips.component';
+import {
+  ButtonModule,
+  CardModule,
+  GridModule,
+  TooltipModule,
+} from "@coreui/angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../icons/icon-subset";
+import { TooltipsComponent } from "./tooltips.component";
 
-describe('TooltipsComponent', () => {
+describe("TooltipsComponent", () => {
   let component: TooltipsComponent;
   let fixture: ComponentFixture<TooltipsComponent>;
   let iconSetService: IconSetService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TooltipsComponent ],
-      imports: [CardModule, GridModule, TooltipModule, ButtonModule, DocsComponentsModule, RouterTestingModule],
-      providers: [IconSetService]
-    })
-    .compileComponents();
+      declarations: [TooltipsComponent],
+      imports: [
+        CardModule,
+        GridModule,
+        TooltipModule,
+        ButtonModule,
+        RouterTestingModule,
+      ],
+      providers: [IconSetService],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -30,7 +39,7 @@ describe('TooltipsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

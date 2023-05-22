@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { BadgeModule, CardModule, GridModule } from '@coreui/angular';
-import { ChartjsModule } from '@coreui/angular-chartjs';
+import { BadgeModule, CardModule, GridModule } from "@coreui/angular";
+import { ChartjsModule } from "@coreui/angular-chartjs";
 
-import { ChartsComponent } from './charts.component';
-import { ChartsRoutingModule } from './charts-routing.module';
-import { DocsComponentsModule } from '@docs-components/docs-components.module';
+import { ChartsComponent } from "./charts.component";
+import { ChartsRoutingModule } from "./charts-routing.module";
 
 @NgModule({
   declarations: [ChartsComponent],
@@ -17,8 +16,6 @@ import { DocsComponentsModule } from '@docs-components/docs-components.module';
     CardModule,
     GridModule,
     BadgeModule,
-    DocsComponentsModule
-  ]
+  ],
 })
-export class ChartsModule {
-}
+export class ChartsModule {}

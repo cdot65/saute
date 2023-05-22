@@ -1,13 +1,12 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { BreadcrumbModule, CardModule, GridModule } from '@coreui/angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
-import { DocsComponentsModule } from '../../../../components';
-import { BreadcrumbsComponent } from './breadcrumbs.component';
+import { BreadcrumbModule, CardModule, GridModule } from "@coreui/angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../icons/icon-subset";
+import { BreadcrumbsComponent } from "./breadcrumbs.component";
 
-describe('BreadcrumbsComponent', () => {
+describe("BreadcrumbsComponent", () => {
   let component: BreadcrumbsComponent;
   let fixture: ComponentFixture<BreadcrumbsComponent>;
   let iconSetService: IconSetService;
@@ -15,8 +14,8 @@ describe('BreadcrumbsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [BreadcrumbsComponent],
-      imports: [CardModule, GridModule, BreadcrumbModule, RouterTestingModule, DocsComponentsModule],
-      providers: [IconSetService]
+      imports: [CardModule, GridModule, BreadcrumbModule, RouterTestingModule],
+      providers: [IconSetService],
     }).compileComponents();
   }));
 
@@ -29,7 +28,7 @@ describe('BreadcrumbsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
