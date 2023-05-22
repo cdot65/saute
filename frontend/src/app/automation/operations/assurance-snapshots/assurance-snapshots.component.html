@@ -36,32 +36,50 @@
                         <ul [flush]="true" cListGroup>
                             <li cListGroupItem>
                                 <c-form-check>
-                                    <input cFormCheckInput [(ngModel)]="checkboxes.one" name="one" type="checkbox"/>
-                                    <label cFormCheckLabel>Cras justo odio</label>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.all" name="all" type="checkbox" (ngModelChange)="onAllChange()"/>
+                                    <label cFormCheckLabel>All</label>
                                 </c-form-check>
                             </li>
                             <li cListGroupItem>
                                 <c-form-check>
-                                    <input cFormCheckInput [(ngModel)]="checkboxes.two" name="two" type="checkbox"/>
-                                    <label cFormCheckLabel>Dapibus ac facilisis in</label>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.arp_table" name="arp_table" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>ARP Table</label>
                                 </c-form-check>
                             </li>
                             <li cListGroupItem>
                                 <c-form-check>
-                                    <input cFormCheckInput [(ngModel)]="checkboxes.three" name="three" type="checkbox"/>
-                                    <label cFormCheckLabel>Morbi leo risus</label>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.content_version" name="content_version" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>Content Version</label>
                                 </c-form-check>
                             </li>
                             <li cListGroupItem>
                                 <c-form-check>
-                                    <input cFormCheckInput [(ngModel)]="checkboxes.four" name="four" type="checkbox"/>
-                                    <label cFormCheckLabel>Orta ac consectetur ac</label>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.ip_sec_tunnels" name="ip_sec_tunnels" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>IPsec VPN Tunnels</label>
                                 </c-form-check>
                             </li>
                             <li cListGroupItem>
                                 <c-form-check>
-                                    <input cFormCheckInput [(ngModel)]="checkboxes.five" name="five" type="checkbox"/>
-                                    <label cFormCheckLabel>Vestibulum at eros</label>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.license" name="license" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>License</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.nics" name="nics" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>NICs</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.routes" name="routes" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>Routes</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.session_stats" name="session_stats" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>Session Stats</label>
                                 </c-form-check>
                             </li>
                         </ul>
