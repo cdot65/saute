@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ButtonModule, FormModule, GridModule } from '@coreui/angular';
-import { IconModule } from '@coreui/icons-angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
-import { Page500Component } from './page500.component';
+import { ButtonModule, FormModule, GridModule } from "@coreui/angular";
+import { IconModule } from "@coreui/icons-angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../shared/icons/icon-subset";
+import { Page500Component } from "./page500.component";
 
-describe('Page500Component', () => {
+describe("Page500Component", () => {
   let component: Page500Component;
   let fixture: ComponentFixture<Page500Component>;
   let iconSetService: IconSetService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Page500Component ],
+      declarations: [Page500Component],
       imports: [GridModule, ButtonModule, FormModule, IconModule],
-      providers: [IconSetService]
-    })
-    .compileComponents();
+      providers: [IconSetService],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -29,7 +28,7 @@ describe('Page500Component', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

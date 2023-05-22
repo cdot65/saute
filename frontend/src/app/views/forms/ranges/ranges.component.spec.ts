@@ -3,7 +3,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 
 import { CardModule, FormModule, GridModule } from "@coreui/angular";
 import { IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "../../../icons/icon-subset";
+import { iconSubset } from "../../../shared/icons/icon-subset";
 import { RangesComponent } from "./ranges.component";
 
 describe("RangesComponent", () => {

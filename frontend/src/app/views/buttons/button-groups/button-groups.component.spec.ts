@@ -11,7 +11,7 @@ import {
   GridModule,
 } from "@coreui/angular";
 import { IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "../../../icons/icon-subset";
+import { iconSubset } from "../../../shared/icons/icon-subset";
 import { ButtonGroupsComponent } from "./button-groups.component";
 
 describe("ButtonGroupsComponent", () => {

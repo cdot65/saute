@@ -3,7 +3,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 
 import { BreadcrumbModule, CardModule, GridModule } from "@coreui/angular";
 import { IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "../../../icons/icon-subset";
+import { iconSubset } from "../../../shared/icons/icon-subset";
 import { BreadcrumbsComponent } from "./breadcrumbs.component";
 
 describe("BreadcrumbsComponent", () => {

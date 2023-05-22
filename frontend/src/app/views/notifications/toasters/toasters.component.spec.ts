@@ -11,7 +11,7 @@ import {
   ToastModule,
 } from "@coreui/angular";
 import { IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "../../../icons/icon-subset";
+import { iconSubset } from "../../../shared/icons/icon-subset";
 import { ToastersComponent } from "./toasters.component";
 import { AppToastComponent } from "./toast-simple/toast.component";
 

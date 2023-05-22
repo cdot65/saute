@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
-import { ButtonModule, ProgressModule, ToastModule } from '@coreui/angular';
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../../icons/icon-subset';
-import { AppToastComponent } from './toast.component';
+import { ButtonModule, ProgressModule, ToastModule } from "@coreui/angular";
+import { IconSetService } from "@coreui/icons-angular";
+import { iconSubset } from "../../../../shared/icons/icon-subset";
+import { AppToastComponent } from "./toast.component";
 
-describe('ToastComponent', () => {
+describe("ToastComponent", () => {
   let component: AppToastComponent;
   let fixture: ComponentFixture<AppToastComponent>;
   let iconSetService: IconSetService;
@@ -14,10 +14,14 @@ describe('ToastComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [AppToastComponent],
-      imports: [NoopAnimationsModule, ToastModule, ProgressModule, ButtonModule],
-      providers: [IconSetService]
-    })
-      .compileComponents();
+      imports: [
+        NoopAnimationsModule,
+        ToastModule,
+        ProgressModule,
+        ButtonModule,
+      ],
+      providers: [IconSetService],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -29,7 +33,7 @@ describe('ToastComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

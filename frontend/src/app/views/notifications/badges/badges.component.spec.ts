@@ -9,7 +9,7 @@ import {
   UtilitiesModule,
 } from "@coreui/angular";
 import { IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "../../../icons/icon-subset";
+import { iconSubset } from "../../../shared/icons/icon-subset";
 import { BadgesComponent } from "./badges.component";
 
 describe("BadgesComponent", () => {

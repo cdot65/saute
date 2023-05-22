@@ -3,7 +3,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 
 import { CardModule, GridModule, NavModule, TabsModule } from "@coreui/angular";
 import { IconModule, IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "../../../icons/icon-subset";
+import { iconSubset } from "../../../shared/icons/icon-subset";
 import { TabsComponent } from "./tabs.component";
 
 describe("TabsComponent", () => {
