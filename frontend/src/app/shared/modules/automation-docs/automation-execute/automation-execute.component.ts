@@ -18,6 +18,8 @@ import packageJson from "../../../../../../package.json";
 export class AutomationExecuteComponent
   implements AfterContentInit, AfterViewInit
 {
+  activeTab: string = "execute";
+
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   @Input() fragment?: string;

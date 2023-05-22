@@ -33,22 +33,39 @@
                 ">
                                 Looks good!</c-form-feedback>
                         </c-col>
-                        <c-col md="8">
-                            <label cLabel for="validationServer05">IP Address</label>
-                            <div>
-                                <input type="ipaddress" cInput id="validationServer05" [(ngModel)]="ipaddress"
-                                    name="ipaddress" #ipaddressControl="ngModel" required />
-                                <c-form-feedback [valid]="
-                    ipaddressControl.valid && ipaddressControl.touched
-                      ? true
-                      : undefined
-                  ">
-                                    Looks good!</c-form-feedback>
-                                <c-form-feedback invalid>
-                                    Please provide a valid ipaddress.
-                                </c-form-feedback>
-                            </div>
-                        </c-col>
+                        <ul [flush]="true" cListGroup>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.one" name="one" type="checkbox"/>
+                                    <label cFormCheckLabel>Cras justo odio</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.two" name="two" type="checkbox"/>
+                                    <label cFormCheckLabel>Dapibus ac facilisis in</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.three" name="three" type="checkbox"/>
+                                    <label cFormCheckLabel>Morbi leo risus</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.four" name="four" type="checkbox"/>
+                                    <label cFormCheckLabel>Orta ac consectetur ac</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.five" name="five" type="checkbox"/>
+                                    <label cFormCheckLabel>Vestibulum at eros</label>
+                                </c-form-check>
+                            </li>
+                        </ul>
+
                         <c-col xs="12">
                             <button cButton class="me-1" color="primary" type="submit"
                                 [disabled]="!customStylesForm.valid">

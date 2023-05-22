@@ -13,6 +13,15 @@ export class AssuranceSnapshotsComponent implements OnInit {
   selectedFirewall: any = null;
   ipaddress: string = "";
 
+  // Added checkboxes object
+  checkboxes = {
+    one: false,
+    two: false,
+    three: false,
+    four: false,
+    five: false,
+  };
+
   constructor(
     private firewallService: FirewallService,
     private toastService: ToastService
@@ -32,6 +41,7 @@ export class AssuranceSnapshotsComponent implements OnInit {
         operation_type: "state_snapshot",
         action: "snapshot",
         config: { ip: this.ipaddress },
+        checkboxes: this.checkboxes,
       };
 
       console.log("jobDetails:", jobDetails);
