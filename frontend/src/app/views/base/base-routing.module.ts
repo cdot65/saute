@@ -1,137 +1,129 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 
-import { AccordionsComponent } from './accordion/accordions.component';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { CardsComponent } from './cards/cards.component';
-import { CarouselsComponent } from './carousels/carousels.component';
-import { CollapsesComponent } from './collapses/collapses.component';
-import { ListGroupsComponent } from './list-groups/list-groups.component';
-import { NavsComponent } from './navs/navs.component';
-import { PaginationsComponent } from './paginations/paginations.component';
-import { PopoversComponent } from './popovers/popovers.component';
-import { ProgressComponent } from './progress/progress.component';
-import { SpinnersComponent } from './spinners/spinners.component';
-import { TablesComponent } from './tables/tables.component';
-import { TooltipsComponent } from './tooltips/tooltips.component';
-import { TabsComponent } from './tabs/tabs.component';
-import { PlaceholdersComponent } from './placeholders/placeholders.component';
+import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
+import { CardsComponent } from "./cards/cards.component";
+import { CarouselsComponent } from "./carousels/carousels.component";
+import { CollapsesComponent } from "./collapses/collapses.component";
+import { ListGroupsComponent } from "./list-groups/list-groups.component";
+import { NavsComponent } from "./navs/navs.component";
+import { PaginationsComponent } from "./paginations/paginations.component";
+import { PopoversComponent } from "./popovers/popovers.component";
+import { ProgressComponent } from "./progress/progress.component";
+import { SpinnersComponent } from "./spinners/spinners.component";
+import { TablesComponent } from "./tables/tables.component";
+import { TooltipsComponent } from "./tooltips/tooltips.component";
+import { TabsComponent } from "./tabs/tabs.component";
+import { PlaceholdersComponent } from "./placeholders/placeholders.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     data: {
-      title: 'Base',
+      title: "Base",
     },
     children: [
       {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'cards',
+        path: "",
+        pathMatch: "full",
+        redirectTo: "cards",
       },
       {
-        path: 'accordion',
-        component: AccordionsComponent,
-        data: {
-          title: 'Accordion',
-        },
-      },
-      {
-        path: 'breadcrumbs',
+        path: "breadcrumbs",
         component: BreadcrumbsComponent,
         data: {
-          title: 'Breadcrumbs',
+          title: "Breadcrumbs",
         },
       },
       {
-        path: 'cards',
+        path: "cards",
         component: CardsComponent,
         data: {
-          title: 'Cards',
+          title: "Cards",
         },
       },
       {
-        path: 'carousel',
+        path: "carousel",
         component: CarouselsComponent,
         data: {
-          title: 'Carousel',
+          title: "Carousel",
         },
       },
       {
-        path: 'collapse',
+        path: "collapse",
         component: CollapsesComponent,
         data: {
-          title: 'Collapse',
+          title: "Collapse",
         },
       },
       {
-        path: 'list-group',
+        path: "list-group",
         component: ListGroupsComponent,
         data: {
-          title: 'List Group',
+          title: "List Group",
         },
       },
       {
-        path: 'navs',
+        path: "navs",
         component: NavsComponent,
         data: {
-          title: 'Navs & Tabs',
+          title: "Navs & Tabs",
         },
       },
       {
-        path: 'pagination',
+        path: "pagination",
         component: PaginationsComponent,
         data: {
-          title: 'Pagination',
+          title: "Pagination",
         },
       },
       {
-        path: 'placeholder',
+        path: "placeholder",
         component: PlaceholdersComponent,
         data: {
-          title: 'Placeholder',
+          title: "Placeholder",
         },
       },
       {
-        path: 'popovers',
+        path: "popovers",
         component: PopoversComponent,
         data: {
-          title: 'Popovers',
+          title: "Popovers",
         },
       },
       {
-        path: 'progress',
+        path: "progress",
         component: ProgressComponent,
         data: {
-          title: 'Progress',
+          title: "Progress",
         },
       },
       {
-        path: 'spinners',
+        path: "spinners",
         component: SpinnersComponent,
         data: {
-          title: 'Spinners',
+          title: "Spinners",
         },
       },
       {
-        path: 'tables',
+        path: "tables",
         component: TablesComponent,
         data: {
-          title: 'Tables',
+          title: "Tables",
         },
       },
       {
-        path: 'tabs',
+        path: "tabs",
         component: TabsComponent,
         data: {
-          title: 'Tabs',
+          title: "Tabs",
         },
       },
       {
-        path: 'tooltips',
+        path: "tooltips",
         component: TooltipsComponent,
         data: {
-          title: 'Tooltips',
+          title: "Tooltips",
         },
       },
     ],
@@ -143,4 +135,3 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class BaseRoutingModule {}
-

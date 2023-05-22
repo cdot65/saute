@@ -33,7 +33,6 @@ import { IconModule } from "@coreui/icons-angular";
 // utils
 
 // views
-import { AccordionsComponent } from "./accordion/accordions.component";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { CardsComponent } from "./cards/cards.component";
 import { CarouselsComponent } from "./carousels/carousels.component";
@@ -83,7 +82,6 @@ import { BaseRoutingModule } from "./base-routing.module";
     TableModule,
   ],
   declarations: [
-    AccordionsComponent,
     BreadcrumbsComponent,
     CardsComponent,
     CarouselsComponent,
