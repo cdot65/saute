@@ -7,7 +7,6 @@ import { CollapsesComponent } from "./collapses/collapses.component";
 import { ListGroupsComponent } from "./list-groups/list-groups.component";
 import { NavsComponent } from "./navs/navs.component";
 import { PaginationsComponent } from "./paginations/paginations.component";
-import { ProgressComponent } from "./progress/progress.component";
 import { TablesComponent } from "./tables/tables.component";
 import { TooltipsComponent } from "./tooltips/tooltips.component";
 import { TabsComponent } from "./tabs/tabs.component";
@@ -72,13 +71,6 @@ const routes: Routes = [
         component: PlaceholdersComponent,
         data: {
           title: "Placeholder",
-        },
-      },
-      {
-        path: "progress",
-        component: ProgressComponent,
-        data: {
-          title: "Progress",
         },
       },
       {
