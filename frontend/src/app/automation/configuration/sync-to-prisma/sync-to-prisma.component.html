@@ -8,7 +8,7 @@
                 <p class="text-medium-emphasis small">
                     This operation syncs the Panorama instance with Prisma. It fetches system information from a Panorama instance (Palo Alto Networks) and transfers it to Prisma.
                 </p>
-                <app-automation-example href="forms/validation">
+                <app-automation-execute href="forms/validation">
                     <form #syncForm="ngForm" (ngSubmit)="onSubmitForm(syncForm)"
                         [ngClass]="{'was-validated': syncForm.valid}" cForm class="row g-3 needs-validation">
                         <c-col md="8">
@@ -44,7 +44,7 @@
                             </button>
                         </c-col>
                     </form>
-                </app-automation-example>
+                </app-automation-execute>
             </c-card-body>
         </c-card>
     </c-col>

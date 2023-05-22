@@ -11,7 +11,7 @@
                     <a href="https://github.com/PaloAltoNetworks/pan-os-upgrade-assurance">pan-os-upgrade-assurance</a>
                     package to perform the checks.
                 </p>
-                <app-automation-example href="forms/validation">
+                <app-automation-execute href="forms/validation">
                     <form #customStylesForm="ngForm" (ngSubmit)="onSubmitForm(customStylesForm)"
                         [ngClass]="{ 'was-validated': customStylesForm.valid }" cForm class="row g-3 needs-validation">
                         <c-col md="8">
@@ -56,7 +56,7 @@
                             </button>
                         </c-col>
                     </form>
-                </app-automation-example>
+                </app-automation-execute>
             </c-card-body>
         </c-card>
     </c-col>

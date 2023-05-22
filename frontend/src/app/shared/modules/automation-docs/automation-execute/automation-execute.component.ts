@@ -10,12 +10,12 @@ import {
 import packageJson from "../../../../../../package.json";
 
 @Component({
-  selector: "app-automation-example",
-  templateUrl: "./automation-example.component.html",
-  styleUrls: ["./automation-example.component.scss"],
+  selector: "app-automation-execute",
+  templateUrl: "./automation-execute.component.html",
+  styleUrls: ["./automation-execute.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutomationExampleComponent
+export class AutomationExecuteComponent
   implements AfterContentInit, AfterViewInit
 {
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
