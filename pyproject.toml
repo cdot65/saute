@@ -18,7 +18,6 @@ dj-rest-auth = "2.1.11"
 django-allauth = ">=0.48.0,<0.49.0"
 drf-spectacular = ">=0.24.0,<0.25.0"
 environs = {version = ">=9.5.0,<9.6.0", extras = ["django"]}
-psycopg2 = "2.9.3"
 psycopg2-binary = "^2.9.5"
 pan-os-python = "^1.8.1"
 celery = {extras = ["redis"], version = "^5.2.7"}
