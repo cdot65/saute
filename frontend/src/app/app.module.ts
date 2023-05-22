@@ -31,7 +31,7 @@ import {
   DefaultFooterComponent,
   DefaultHeaderComponent,
   DefaultLayoutComponent,
-} from "./containers";
+} from "./shared/containers";
 
 import {
   AvatarModule,

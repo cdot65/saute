@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { AuthService } from "../../../auth.service";
-import { UserProfileService } from "../../../shared/services/user-profile.service";
+import { AuthService } from "../../../../auth.service";
+import { UserProfileService } from "../../../services/user-profile.service";
 
 import { ClassToggleService, HeaderComponent } from "@coreui/angular";
 

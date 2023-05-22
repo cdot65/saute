@@ -11,7 +11,7 @@ import {
   SidebarModule,
 } from "@coreui/angular";
 import { IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "../../../shared/icons/icon-subset";
+import { iconSubset } from "../../../icons/icon-subset";
 import { DefaultHeaderComponent } from "./default-header.component";
 import { RouterTestingModule } from "@angular/router/testing";
 
