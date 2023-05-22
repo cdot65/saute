@@ -12,8 +12,7 @@
                     package to perform the checks.
                 </p>
                 <app-automation-execute href="blob/main/backend/saute/scripts/panos_assurance/app.py">
-                    <form #customStylesForm="ngForm" (ngSubmit)="onSubmitForm(customStylesForm)"
-                        [ngClass]="{ 'was-validated': customStylesForm.valid }" cForm class="row g-3 needs-validation">
+                    <form #customStylesForm="ngForm" (ngSubmit)="onSubmitForm(customStylesForm)" cForm class="row g-3 needs-validation">
                         <c-col md="8">
                             <label cLabel for="validationServer04">Firewall Instance</label>
                             <select cSelect id="validationServer04" [(ngModel)]="selectedFirewall"
@@ -85,8 +84,7 @@
                         </ul>
 
                         <c-col xs="12">
-                            <button cButton class="me-1" color="primary" type="submit"
-                            [disabled]="!customStylesForm.valid || !isAnyCheckboxSelected()">
+                            <button cButton class="me-1" color="primary" type="submit">
                             Submit form
                             </button>
                         </c-col>

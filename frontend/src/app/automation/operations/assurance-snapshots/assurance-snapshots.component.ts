@@ -50,42 +50,47 @@ export class AssuranceSnapshotsComponent implements OnInit {
     });
   }
 
-  onSubmitForm(form: NgForm): void {
-    if (form.valid && this.isAnyCheckboxSelected()) {
-      const jobDetails = {
-        hostname: this.selectedFirewall.hostname,
-        api_key: this.selectedFirewall.api_token,
-        operation_type: "state_snapshot",
-        action: "snapshot",
-        config: { ip: this.ipaddress },
-        checkboxes: this.checkboxes,
-      };
-
-      console.log("jobDetails:", jobDetails);
-
-      this.firewallService
-        .assessmentSnapshot(jobDetails)
-        .subscribe((response) => {
-          console.log(response);
-          const taskUrl = `#/jobs/details/${response.task_id}`;
-          const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
-          const toast: Toast = {
-            title: "Job submitted successfully",
-            message: `${response.message}. ${anchor}`,
-            color: "secondary",
-            autohide: true,
-            delay: 5000,
-            closeButton: true,
-          };
-          this.toastService.show(toast);
-        });
-    } else {
-      console.error("Form is invalid");
-    }
-  }
-
-  isAnyCheckboxSelected(): boolean {
+  public isAnyCheckboxSelected(): boolean {
     const { all, ...rest } = this.checkboxes;
     return Object.values(rest).includes(true);
+  }
+
+  onSubmitForm(form: NgForm): void {
+    if (!this.selectedFirewall) {
+      console.error("No firewall selected");
+      return;
+    }
+    if (!this.isAnyCheckboxSelected()) {
+      console.error("No checkboxes selected");
+      return;
+    }
+    // rest of the code...
+    const jobDetails = {
+      hostname: this.selectedFirewall.hostname,
+      api_key: this.selectedFirewall.api_token,
+      operation_type: "state_snapshot",
+      action: "snapshot",
+      config: { ip: this.ipaddress },
+      checkboxes: this.checkboxes,
+    };
+
+    console.log("jobDetails:", jobDetails);
+
+    this.firewallService
+      .assessmentSnapshot(jobDetails)
+      .subscribe((response) => {
+        console.log(response);
+        const taskUrl = `#/jobs/details/${response.task_id}`;
+        const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
+        const toast: Toast = {
+          title: "Job submitted successfully",
+          message: `${response.message}. ${anchor}`,
+          color: "secondary",
+          autohide: true,
+          delay: 5000,
+          closeButton: true,
+        };
+        this.toastService.show(toast);
+      });
   }
 }
