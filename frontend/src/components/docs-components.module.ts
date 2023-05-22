@@ -9,11 +9,10 @@ import {
   UtilitiesModule,
 } from "@coreui/angular";
 import { IconModule } from "@coreui/icons-angular";
-import { DocsCalloutComponent } from "./docs-callout/docs-callout.component";
 
 @NgModule({
-  declarations: [DocsCalloutComponent],
-  exports: [DocsCalloutComponent],
+  declarations: [],
+  exports: [],
   imports: [
     CommonModule,
     NavModule,
