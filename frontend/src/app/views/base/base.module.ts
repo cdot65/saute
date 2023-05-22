@@ -35,7 +35,6 @@ import { IconModule } from "@coreui/icons-angular";
 // views
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { CardsComponent } from "./cards/cards.component";
-import { CarouselsComponent } from "./carousels/carousels.component";
 import { CollapsesComponent } from "./collapses/collapses.component";
 import { ListGroupsComponent } from "./list-groups/list-groups.component";
 import { NavsComponent } from "./navs/navs.component";
@@ -84,7 +83,6 @@ import { BaseRoutingModule } from "./base-routing.module";
   declarations: [
     BreadcrumbsComponent,
     CardsComponent,
-    CarouselsComponent,
     CollapsesComponent,
     ListGroupsComponent,
     NavsComponent,

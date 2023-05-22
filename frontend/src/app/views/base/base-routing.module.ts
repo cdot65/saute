@@ -3,7 +3,6 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { CardsComponent } from "./cards/cards.component";
-import { CarouselsComponent } from "./carousels/carousels.component";
 import { CollapsesComponent } from "./collapses/collapses.component";
 import { ListGroupsComponent } from "./list-groups/list-groups.component";
 import { NavsComponent } from "./navs/navs.component";
@@ -40,13 +39,6 @@ const routes: Routes = [
         component: CardsComponent,
         data: {
           title: "Cards",
-        },
-      },
-      {
-        path: "carousel",
-        component: CarouselsComponent,
-        data: {
-          title: "Carousel",
         },
       },
       {
