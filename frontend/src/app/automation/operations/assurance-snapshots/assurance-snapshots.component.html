@@ -86,8 +86,8 @@
 
                         <c-col xs="12">
                             <button cButton class="me-1" color="primary" type="submit"
-                                [disabled]="!customStylesForm.valid">
-                                Submit form
+                            [disabled]="!customStylesForm.valid || !isAnyCheckboxSelected()">
+                            Submit form
                             </button>
                         </c-col>
                     </form>

@@ -51,7 +51,7 @@ export class AssuranceSnapshotsComponent implements OnInit {
   }
 
   onSubmitForm(form: NgForm): void {
-    if (form.valid) {
+    if (form.valid && this.isAnyCheckboxSelected()) {
       const jobDetails = {
         hostname: this.selectedFirewall.hostname,
         api_key: this.selectedFirewall.api_token,
@@ -82,5 +82,10 @@ export class AssuranceSnapshotsComponent implements OnInit {
     } else {
       console.error("Form is invalid");
     }
+  }
+
+  isAnyCheckboxSelected(): boolean {
+    const { all, ...rest } = this.checkboxes;
+    return Object.values(rest).includes(true);
   }
 }
