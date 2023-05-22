@@ -10,18 +10,18 @@ import {
 } from "@coreui/angular";
 
 import { IconModule } from "@coreui/icons-angular";
-import { AutomationExampleComponent } from "./automation-example/automation-example.component";
+import { AutomationExecuteComponent } from "./automation-execute/automation-execute.component";
 import { AutomationLinkComponent } from "./automation-link/automation-link.component";
 import { AutomationCalloutComponent } from "./automation-callout/automation-callout.component";
 
 @NgModule({
   declarations: [
-    AutomationExampleComponent,
+    AutomationExecuteComponent,
     AutomationLinkComponent,
     AutomationCalloutComponent,
   ],
   exports: [
-    AutomationExampleComponent,
+    AutomationExecuteComponent,
     AutomationLinkComponent,
     AutomationCalloutComponent,
   ],

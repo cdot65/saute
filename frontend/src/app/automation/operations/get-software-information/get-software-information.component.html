@@ -24,7 +24,7 @@
                     instance object. The main function, <code>run_get_system_info()</code>, is executed by a Celery
                     worker, fetching system information and logging the result into the Jobs table of our database.
                 </p>
-                <app-automation-example href="forms/validation">
+                <app-automation-execute href="blob/main/backend/saute/scripts/get_system_info.py">
                     <form #customStylesForm="ngForm" (ngSubmit)="onSubmitForm(customStylesForm)"
                         [ngClass]="{'was-validated': customStylesForm.valid}" cForm class="row g-3 needs-validation">
                         <c-col md="8">
@@ -47,7 +47,7 @@
                             </button>
                         </c-col>
                     </form>
-                </app-automation-example>
+                </app-automation-execute>
             </c-card-body>
         </c-card>
     </c-col>
