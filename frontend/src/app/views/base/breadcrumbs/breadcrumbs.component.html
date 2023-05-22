@@ -22,7 +22,6 @@
             </a>
             .
           </p>
-          <app-docs-example href="components/breadcrumb">
             <c-breadcrumb class="mb-2">
               <c-breadcrumb-item *ngFor="let item of items; index as i; last as isLast"
                                  [active]="isLast"
@@ -74,8 +73,7 @@
                 Bootstrap
               </c-breadcrumb-item>
             </c-breadcrumb>
-          </app-docs-example>
-        </c-card-body>
+          </c-card-body>
       </c-card>
     </c-col>
     <c-col xs="12">
@@ -84,11 +82,9 @@
           <strong>Angular Breadcrumbs</strong> <small>router</small>
         </c-card-header>
         <c-card-body>
-          <app-docs-example href="components/breadcrumb#router">
             <c-breadcrumb-router></c-breadcrumb-router>
             <c-breadcrumb-router [items]="items"></c-breadcrumb-router>
-          </app-docs-example>
-        </c-card-body>
+          </c-card-body>
       </c-card>
     </c-col>
   </c-row>

@@ -25,7 +25,6 @@
           width. Cards have no fixed width to start, so they&#39;ll naturally
           fill the full width of its parent element.
         </p>
-        <app-docs-example href="components/card">
           <c-card style="width: 18rem;">
             <ng-container *ngTemplateOutlet="imgPlaceholderTemplate"></ng-container>
             <c-card-body>
@@ -36,7 +35,6 @@
               <button cButton color="primary">Go somewhere</button>
             </c-card-body>
           </c-card>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -50,11 +48,9 @@
           The main block of a card is the <code>&lt;c-card-body&gt;</code>. Use
           it whenever you need a padded section within a card.
         </p>
-        <app-docs-example href="components/card/#body">
           <c-card style="width: 18rem;">
             <c-card-body>This is some text within a card body.</c-card-body>
           </c-card>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -76,7 +72,6 @@
           in a <code>&lt;c-card-body&gt;</code>. The card title, and subtitle
           are arranged properly.
         </p>
-        <app-docs-example href="components/card/#body">
           <c-card style="width: 18rem;">
             <c-card-body>
               <h5 cCardTitle>Card title</h5>
@@ -91,7 +86,6 @@
               <a cCardLink>Another link</a>
             </c-card-body>
           </c-card>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -107,7 +101,6 @@
           within <code>cCardText</code> can additionally be styled with the
           regular HTML tags.
         </p>
-        <app-docs-example href="components/card/#images">
           <c-card style="width: 18rem;">
             <ng-container *ngTemplateOutlet="imgPlaceholderTemplate"></ng-container>
             <c-card-body>
@@ -117,7 +110,6 @@
               </p>
             </c-card-body>
           </c-card>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -130,7 +122,6 @@
         <p class="text-medium-emphasis small">
           Create lists of content in a card with a flush list group.
         </p>
-        <app-docs-example href="components/card/#list-groups">
           <c-row>
             <c-col lg="4">
               <c-card>
@@ -162,7 +153,6 @@
               </c-card>
             </c-col>
           </c-row>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -177,7 +167,6 @@
           throw everything in there. Shown below are image styles, blocks, text
           styles, and a list group—all wrapped in a fixed-width card.
         </p>
-        <app-docs-example href="components/card/#kitchen-sink">
           <c-card style="width: 18rem;">
             <ng-container *ngTemplateOutlet="imgPlaceholderTemplate"></ng-container>
             <c-card-body>
@@ -197,7 +186,6 @@
               <a cCardLink>Another link</a>
             </c-card-body>
           </c-card>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -212,21 +200,18 @@
             <p class="text-medium-emphasis small">
               Add an optional header and/or footer within a card.
             </p>
-            <app-docs-example href="components/card/#header-and-footer">
               <c-card class="mb-4">
                 <c-card-header>Header</c-card-header>
                 <c-card-body>
                   <ng-container *ngTemplateOutlet="cardBodyTemplate"></ng-container>
                 </c-card-body>
               </c-card>
-            </app-docs-example>
-          </c-col>
+              </c-col>
           <c-col>
             <p class="text-medium-emphasis small">
               Card headers can be styled by adding ex.
               <code>&#34;h5&#34;</code>.
             </p>
-            <app-docs-example href="components/card/#header-and-footer">
               <c-card class="mb-4">
                 <c-card-header>
                   <h5>Header</h5>
@@ -235,12 +220,10 @@
                   <ng-container *ngTemplateOutlet="cardBodyTemplate"></ng-container>
                 </c-card-body>
               </c-card>
-            </app-docs-example>
-          </c-col>
+              </c-col>
         </c-row>
         <c-row>
           <c-col>
-            <app-docs-example href="components/card/#header-and-footer">
               <c-card class="mb-4">
                 <c-card-header>Quote</c-card-header>
                 <c-card-body>
@@ -256,10 +239,8 @@
                   </blockquote>
                 </c-card-body>
               </c-card>
-            </app-docs-example>
-          </c-col>
+              </c-col>
           <c-col>
-            <app-docs-example href="components/card/#header-and-footer">
               <c-card class="text-center mb-4">
                 <c-card-header>Header</c-card-header>
                 <c-card-body>
@@ -270,8 +251,7 @@
                 </c-card-footer
                 >
               </c-card>
-            </app-docs-example>
-          </c-col>
+              </c-col>
         </c-row>
       </c-card-body>
     </c-card>
@@ -291,7 +271,6 @@
         <p class="text-medium-emphasis small">
           Using the grid, wrap cards in columns and rows as needed.
         </p>
-        <app-docs-example href="components/card/#sizing">
           <c-row>
             <c-col sm="6">
               <c-card class="mb-4">
@@ -308,7 +287,6 @@
               </c-card>
             </c-col>
           </c-row>
-        </app-docs-example>
         <h3>Using utilities</h3>
         <p class="text-medium-emphasis small">
           Use some of
@@ -317,7 +295,6 @@
           >
           to rapidly set a card width.
         </p>
-        <app-docs-example href="components/card/#sizing">
           <c-card class="w-75 mb-4">
             <c-card-body>
               <ng-container *ngTemplateOutlet="cardBodyTemplate"></ng-container>
@@ -328,18 +305,15 @@
               <ng-container *ngTemplateOutlet="cardBodyTemplate"></ng-container>
             </c-card-body>
           </c-card>
-        </app-docs-example>
         <strong>Using custom CSS</strong>
         <p class="text-medium-emphasis small">
           Use custom CSS in your stylesheets or as inline styles to set a width.
         </p>
-        <app-docs-example href="components/card/#sizing">
           <c-card class="mb-4" style="width: 18rem;">
             <c-card-body>
               <ng-container *ngTemplateOutlet="cardBodyTemplate"></ng-container>
             </c-card-body>
           </c-card>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -357,7 +331,6 @@
           >
           classes.
         </p>
-        <app-docs-example href="components/card/#text-alignment">
           <c-row>
             <c-col>
               <c-card class="mb-4">
@@ -381,7 +354,6 @@
               </c-card>
             </c-col>
           </c-row>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -397,7 +369,6 @@
         </p>
         <c-row>
           <c-col>
-            <app-docs-example href="components/card/##navigation">
               <c-card class="text-center mb-4">
                 <c-card-header>
                   <c-nav class="card-header-tabs" variant="tabs">
@@ -420,10 +391,8 @@
                   <ng-container *ngTemplateOutlet="cardBodyTemplate"></ng-container>
                 </c-card-body>
               </c-card>
-            </app-docs-example>
-          </c-col>
+              </c-col>
           <c-col>
-            <app-docs-example href="components/card/##navigation">
               <c-card class="text-center mb-4">
                 <c-card-header>
                   <c-nav class="card-header-pills" variant="pills">
@@ -446,8 +415,7 @@
                   <ng-container *ngTemplateOutlet="cardBodyTemplate"></ng-container>
                 </c-card-body>
               </c-card>
-            </app-docs-example>
-          </c-col>
+              </c-col>
         </c-row>
       </c-card-body>
     </c-card>
@@ -462,7 +430,6 @@
           Similar to headers and footers, cards can include top and bottom &#34;image
           caps&#34;—images at the top or bottom of a card.
         </p>
-        <app-docs-example href="components/card/#image-caps">
           <c-row>
             <c-col lg="6">
               <c-card class="mb-3">
@@ -495,7 +462,6 @@
               </c-card>
             </c-col>
           </c-row>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -512,7 +478,6 @@
         <p class="text-medium-emphasis small">
           Use <code>color</code> property to change the appearance of a card.
         </p>
-        <app-docs-example href="components/card/#background-and-color">
           <c-row>
             <c-col *ngFor="let item of colors; index as i" lg="4">
               <c-card [color]="item.color"
@@ -530,7 +495,6 @@
               </c-card>
             </c-col>
           </c-row>
-        </app-docs-example>
         <h3>Border</h3>
         <p class="text-medium-emphasis small">
           Use <a href="https://coreui.io/docs/utilities/borders/">border utilities</a> to change
@@ -538,7 +502,6 @@
           <code>textColor</code> property on the <code>&lt;c-card&gt;</code> or a subset of the
           card&#39;s contents as shown below.
         </p>
-        <app-docs-example href="components/card/#border">
           <c-row>
             <c-col *ngFor="let item of colors; index as i" lg="4">
               <c-card [cBorder]="item.color" [textColor]="item.textColor" class="mb-3">
@@ -554,7 +517,6 @@
               </c-card>
             </c-col>
           </c-row>
-        </app-docs-example>
         <h3>Top border</h3>
         <p class="text-medium-emphasis small">
           Use <a href="https://coreui.io/docs/utilities/borders/">border utilities</a> to change
@@ -562,7 +524,6 @@
           <code>textColor</code> property on the <code>&lt;c-card&gt;</code> or a subset of the
           card&#39;s contents as shown below.
         </p>
-        <app-docs-example href="components/card/#top-border">
           <c-row>
             <c-col *ngFor="let item of colors; index as i" lg="4">
               <c-card [cBorder]="{top: {color: item.color, width: 3}}" [textColor]="item.textColor" class="mb-3">
@@ -578,7 +539,6 @@
               </c-card>
             </c-col>
           </c-row>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -594,7 +554,6 @@
           height columns. Card groups start off stacked and use <code>display: flex;</code> to
           become attached with uniform dimensions starting at the <code>sm</code> breakpoint.
         </p>
-        <app-docs-example href="components/card/#card-groups">
           <c-card-group class="mb-4">
             <c-card>
               <ng-container *ngTemplateOutlet="imgPlaceholderTemplate"></ng-container>
@@ -637,11 +596,9 @@
               </c-card-body>
             </c-card>
           </c-card-group>
-        </app-docs-example>
         <p class="text-medium-emphasis small">
           When using card groups with footers, their content will automatically line up.
         </p>
-        <app-docs-example href="components/card/#card-groups">
           <c-card-group class="mb-4">
             <c-card>
               <ng-container *ngTemplateOutlet="imgPlaceholderTemplate"></ng-container>
@@ -684,7 +641,6 @@
               </c-card-footer>
             </c-card>
           </c-card-group>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -700,7 +656,6 @@
           example <code>xs="1"</code> laying out the cards on one column, and <code>md="1"</code> splitting
           four cards to equal width across multiple rows, from the medium breakpoint up.
         </p>
-        <app-docs-example href="components/card/#grid-cards">
           <c-row [gutter]="{g: 4}" class="mb-3" [md]="2" [xs]="1">
             <c-col>
               <c-card>
@@ -763,11 +718,9 @@
               </c-card>
             </c-col>
           </c-row>
-        </app-docs-example>
         <p class="text-medium-emphasis small">
           Change it to <code>md="3"</code> and you'll see the fourth card wraps.
         </p>
-        <app-docs-example href="components/card/#grid-cards">
           <c-row [gutter]="{g: 4}" [md]="3" [xs]="1">
             <c-col>
               <c-card>
@@ -830,7 +783,6 @@
               </c-card>
             </c-col>
           </c-row>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>

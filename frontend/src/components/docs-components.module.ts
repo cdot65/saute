@@ -1,24 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 
-import { CalloutModule, NavModule, TabsModule, UtilitiesModule } from '@coreui/angular';
-import { IconModule } from '@coreui/icons-angular';
-import { DocsExampleComponent } from './docs-example/docs-example.component';
-import { DocsLinkComponent } from './docs-link/docs-link.component';
-import { DocsCalloutComponent } from './docs-callout/docs-callout.component';
+import {
+  CalloutModule,
+  NavModule,
+  TabsModule,
+  UtilitiesModule,
+} from "@coreui/angular";
+import { IconModule } from "@coreui/icons-angular";
+import { DocsCalloutComponent } from "./docs-callout/docs-callout.component";
 
 @NgModule({
-  declarations: [
-    DocsExampleComponent,
-    DocsLinkComponent,
-    DocsCalloutComponent
-  ],
-  exports: [
-    DocsExampleComponent,
-    DocsLinkComponent,
-    DocsCalloutComponent
-  ],
+  declarations: [DocsCalloutComponent],
+  exports: [DocsCalloutComponent],
   imports: [
     CommonModule,
     NavModule,
@@ -26,8 +21,7 @@ import { DocsCalloutComponent } from './docs-callout/docs-callout.component';
     RouterModule,
     TabsModule,
     UtilitiesModule,
-    CalloutModule
-  ]
+    CalloutModule,
+  ],
 })
-export class DocsComponentsModule {
-}
+export class DocsComponentsModule {}

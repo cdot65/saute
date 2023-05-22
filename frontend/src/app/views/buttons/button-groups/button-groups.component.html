@@ -12,18 +12,15 @@
           Wrap a series of <code>&lt;CButton&gt;</code> components in
           <code>&lt;c-button-group&gt;</code>.
         </p>
-        <app-docs-example href="components/button-group">
           <c-button-group aria-label="Basic example" role="group">
             <button cButton color="primary">Left</button>
             <button cButton color="primary">Middle</button>
             <button cButton color="primary">Right</button>
           </c-button-group>
-        </app-docs-example>
         <p>
           These classes can also be added to groups of links, as an alternative to the
           <code>&lt;CNav&gt;</code> components.
         </p>
-        <app-docs-example href="components/button-group">
           <c-button-group>
             <a [active]="true" cButton color="primary" routerLink="./">
               Active link
@@ -35,7 +32,6 @@
               Link
             </a>
           </c-button-group>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -45,13 +41,11 @@
         <strong>Angular Button Group</strong> <span>Mixed styles</span>
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="components/button-group#mixed-styles">
           <c-button-group aria-label="Basic mixed styles example" role="group">
             <button cButton color="danger">Left</button>
             <button cButton color="warning">Middle</button>
             <button cButton color="success">Right</button>
           </c-button-group>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -61,7 +55,6 @@
         <strong>Angular Button Group</strong> <span>Outlined styles</span>
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="components/button-group#outlined-styles">
           <c-button-group aria-label="Basic outlined example" role="group">
             <button cButton color="primary" variant="outline">
               Left
@@ -73,7 +66,6 @@
               Right
             </button>
           </c-button-group>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -87,7 +79,6 @@
           Combine button-like checkbox and radio toggle buttons into a seamless looking button
           group.
         </p>
-        <app-docs-example href="components/button-group#checkbox-and-radio-button-groups">
           <form [formGroup]="formCheck1">
             <c-button-group aria-label="Basic checkbox toggle button group" role="group">
               <input class="btn-check" formControlName="checkbox1" type="checkbox"/>
@@ -104,8 +95,6 @@
             </c-button-group>
           </form>
           <br class="mb-3">
-        </app-docs-example>
-        <app-docs-example href="components/button-group#checkbox-and-radio-button-groups">
           <form [formGroup]="formRadio1">
             <c-button-group aria-label="Basic radio toggle button group" role="group">
               <input class="btn-check" formControlName="radio1" type="radio" value="Radio1"/>
@@ -120,7 +109,6 @@
               <label (click)="setRadioValue('Radio3')" cButton cFormCheckLabel variant="outline">Radio 3</label>
             </c-button-group>
           </form>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -134,7 +122,6 @@
           Join sets of button groups into button toolbars for more complicated components. Use
           utility classes as needed to space out groups, buttons, and more.
         </p>
-        <app-docs-example href="components/button-group#button-toolbar">
           <c-button-toolbar aria-label="Toolbar with button groups" role="group">
             <c-button-group aria-label="First group" class="me-2" role="group">
               <button cButton color="primary">1</button>
@@ -151,12 +138,10 @@
               <button cButton color="info">8</button>
             </c-button-group>
           </c-button-toolbar>
-        </app-docs-example>
         <p>
           Feel free to combine input groups with button groups in your toolbars. Similar to the
           example above, you’ll likely need some utilities through to space items correctly.
         </p>
-        <app-docs-example href="components/button-group#button-toolbar">
           <c-button-toolbar aria-label="Toolbar with button groups" class="mb-3" role="group">
             <c-button-group aria-label="First group" class="me-2" role="group">
               <button cButton color="secondary" variant="outline">
@@ -209,7 +194,6 @@
               />
             </c-input-group>
           </c-button-toolbar>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -224,7 +208,6 @@
           <code>size</code> property to all <code>&lt;c-button-group&gt;</code>&#39;s, including
           each one when nesting multiple groups.
         </p>
-        <app-docs-example href="components/button-group#sizing">
           <c-button-group aria-label="Large button group" class="m-1" role="group" size="lg">
             <button cButton color="dark" variant="outline">
               Left
@@ -260,7 +243,6 @@
               Right
             </button>
           </c-button-group>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -275,7 +257,6 @@
           <code>&lt;c-button-group&gt;</code> when you need dropdown menus combined with a series
           of buttons.
         </p>
-        <app-docs-example href="components/button-group#nesting">
           <c-button-group aria-label="Button group with nested dropdown" role="group">
             <button cButton color="primary">1</button>
             <button cButton color="primary">2</button>
@@ -292,7 +273,6 @@
               </ul>
             </c-dropdown>
           </c-button-group>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -306,7 +286,6 @@
           Create a set of buttons that appear vertically stacked rather than horizontally.
           <strong>Split button dropdowns are not supported here.</strong>
         </p>
-        <app-docs-example href="components/button-group/#vertical-variation">
           <c-button-group [vertical]="true" aria-label="Vertical button group" role="group">
             <button cButton color="dark">Button</button>
             <button cButton color="dark">Button</button>
@@ -317,8 +296,6 @@
             <button cButton color="dark">Button</button>
           </c-button-group>
           <br>
-        </app-docs-example>
-        <app-docs-example href="components/button-group/#vertical-variation">
           <c-button-group [vertical]="true" aria-label="Vertical button group" role="group">
             <button cButton color="primary">Button</button>
             <button cButton color="primary">Button</button>
@@ -373,8 +350,6 @@
               </ul>
             </c-dropdown>
           </c-button-group>
-        </app-docs-example>
-        <app-docs-example href="components/button-group/#vertical-variation">
           <form [formGroup]="formRadio1">
             <c-button-group [vertical]="true" aria-label="Vertical button group" role="group">
               <input class="btn-check" formControlName="radio1" type="radio" value="Radio1"/>
@@ -390,7 +365,6 @@
                 3</label>
             </c-button-group>
           </form>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>

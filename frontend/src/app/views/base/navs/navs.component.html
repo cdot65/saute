@@ -14,7 +14,6 @@
           overrides (for working with lists), some link padding for larger hit areas, and basic
           [disabled]="true" styling.
         </p>
-        <app-docs-example href="components/nav#base-nav">
           <c-nav>
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -33,14 +32,12 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
         <p class="text-medium-emphasis small mt-3">
           Classes are used throughout, so your markup can be super flexible. Use
           <code>c-nav-item</code> like above, or roll your own with a <code>&lt;c-nav&gt;</code> element. Because
           the <code>.nav</code> uses <code>display: flex</code>, the <code>cNavLink</code> behaves the same as <code>c-nav-item</code> would, but
           without the extra markup.
         </p>
-        <app-docs-example href="components/nav#base-nav">
           <c-nav role="navigation">
             <a [active]="true" cNavLink routerLink="./">
               Active
@@ -51,7 +48,6 @@
               Disabled
             </a>
           </c-nav>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -72,7 +68,6 @@
         <p class="text-medium-emphasis small">
           Centered with <code>.justify-content-center</code>:
         </p>
-        <app-docs-example href="components/nav#horizontal-alignment">
           <c-nav class="justify-content-center">
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -91,11 +86,9 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
         <p class="text-medium-emphasis small">
           Right-aligned with <code>.justify-content-end</code>:
         </p>
-        <app-docs-example href="components/nav#base-nav">
           <c-nav class="justify-content-end">
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -114,7 +107,6 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -129,7 +121,6 @@
           <code>.flex-column</code> utility. Need to stack them on some viewports but not
           others? Use the responsive versions (e.g., <code>.flex-sm-column</code>).
         </p>
-        <app-docs-example href="components/nav#vertical">
           <c-nav class="flex-column">
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -148,7 +139,6 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -162,7 +152,6 @@
           Take the basic nav from above and add the <code>variant=&#34;tabs&#34;</code> class
           to generate a tabbed interface
         </p>
-        <app-docs-example href="components/nav#tabs">
           <c-nav variant="tabs">
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -181,7 +170,6 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -194,7 +182,6 @@
         <p class="text-medium-emphasis small">
           Take that same HTML, but use <code>variant=&#34;pills&#34;</code> instead:
         </p>
-        <app-docs-example href="components/nav#pills">
           <c-nav variant="pills">
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -213,7 +200,6 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -229,7 +215,6 @@
           <code>.nav-item</code>s, use <code>layout=&#34;fill&#34;</code>. Notice that all
           horizontal space is occupied, but not every nav item has the same width.
         </p>
-        <app-docs-example href="components/nav#fill-and-justify">
           <c-nav layout="fill" variant="pills">
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -248,13 +233,11 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
         <p class="text-medium-emphasis small">
           For equal-width elements, use <code>layout=&#34;justified&#34;</code>. All horizontal
           space will be occupied by nav links, but unlike the .nav-fill above, every nav item
           will be the same width.
         </p>
-        <app-docs-example href="components/nav#fill-and-justify">
           <c-nav layout="justified" variant="pills">
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -273,7 +256,6 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -290,7 +272,6 @@
           the example below, our nav will be stacked on the lowest breakpoint, then adapt to a
           horizontal layout that fills the available width starting from the small breakpoint.
         </p>
-        <app-docs-example href="components/nav#working-with-flex-utilities">
           <c-nav class="flex-column flex-sm-row" role="navigation" variant="pills">
             <a [active]="true" cNavLink routerLink="./">
               Active
@@ -301,7 +282,6 @@
               Disabled
             </a>
           </c-nav>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -311,7 +291,6 @@
         <strong>Angular Navs</strong> <small>Tabs with dropdowns</small>
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="components/nav#tabs-with-dropdowns">
           <c-nav variant="tabs">
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -337,7 +316,6 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -347,7 +325,6 @@
         <strong>Angular Navs</strong> <small>Pills with dropdowns</small>
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="components/nav#pills-with-dropdowns">
           <c-nav variant="pills">
             <c-nav-item>
               <a [active]="true" cNavLink routerLink="./">
@@ -373,7 +350,6 @@
               </a>
             </c-nav-item>
           </c-nav>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>

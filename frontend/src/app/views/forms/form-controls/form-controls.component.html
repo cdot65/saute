@@ -8,7 +8,6 @@
         <strong>Angular Form Control</strong>
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="forms/form-control">
           <form cForm>
             <div class="mb-3">
               <label cLabel for="exampleFormControlInput1">Email address</label>
@@ -23,7 +22,6 @@
               <textarea cFormControl id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
           </form>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -37,7 +35,6 @@
           Set heights using <code>sizing</code> property like <code>sizing=&#34;lg&#34;</code> and
           <code>sizing=&#34;sm&#34;</code>.
         </p>
-        <app-docs-example href="forms/form-control#sizing">
           <input aria-label="lg input example"
                  cFormControl
                  placeholder="Large input"
@@ -57,7 +54,6 @@
                  sizing="sm"
                  type="text"
           />
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -71,7 +67,6 @@
           Add the <code>disabled</code> boolean attribute on an input to give it a grayed out
           appearance and remove pointer events.
         </p>
-        <app-docs-example href="forms/form-control#disabled">
           <input aria-label="Disabled input example"
                  cFormControl
                  disabled
@@ -87,7 +82,6 @@
                  type="text"
           />
           <br />
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -102,14 +96,12 @@
           the input&#39;s value. Read-only inputs appear lighter (just like disabled inputs),
           but retain the standard cursor.
         </p>
-        <app-docs-example href="forms/form-control#readonly">
           <input aria-label="readonly input example"
                  cFormControl
                  placeholder="Readonly input here..."
                  readOnly
                  type="text"
           />
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -124,7 +116,6 @@
           as plain text, use the <code>plainText</code> boolean property to remove the default
           form field styling and preserve the correct margin and padding.
         </p>
-        <app-docs-example href="forms/form-control#readonly">
           <c-row class="mb-3">
             <label cLabel class="col-sm-2 col-form-label" for="staticEmail">
               Email
@@ -147,8 +138,6 @@
               <input cFormControl id="inputPassword" type="password" />
             </div>
           </c-row>
-        </app-docs-example>
-        <app-docs-example href="forms/form-control#readonly">
           <form cForm class="row g-3">
             <div class="col-auto">
               <label cLabel class="visually-hidden" for="staticEmail2">
@@ -174,7 +163,6 @@
               </button>
             </div>
           </form>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -184,7 +172,6 @@
         <strong>Angular Form Control</strong> <small>File input</small>
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="forms/form-control#file-input">
           <div class="mb-3">
             <label cLabel for="formFile">Default file input example</label>
             <input cFormControl id="formFile" type="file" />
@@ -205,7 +192,6 @@
             <label cLabel for="formFileLg">Large file input example</label>
             <input cFormControl id="formFileLg" sizing="lg" type="file" />
           </div>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -215,7 +201,6 @@
         <strong>Angular Form Control</strong> <small>Color</small>
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="forms/form-control#color">
           <c-row class="align-items-center g-2">
             <c-col xs="auto">
               <label cLabel="col" for="exampleColorInput">Color picker</label>
@@ -233,7 +218,7 @@
             <c-col xs="auto">
               <strong>{{favoriteColor}}</strong>
             </c-col>
-          </c-row>        </app-docs-example>
+          </c-row>
       </c-card-body>
     </c-card>
   </c-col>

@@ -16,7 +16,6 @@
           </a>
           , ensuring you can stack progress bars, animate them, and place text labels over them.
         </p>
-        <app-docs-example href="components/progress">
           <c-progress class="mb-3">
             <c-progress-bar [value]="0"></c-progress-bar>
           </c-progress>
@@ -32,7 +31,6 @@
           <c-progress class="mb-3">
             <c-progress-bar [value]="100"></c-progress-bar>
           </c-progress>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -46,11 +44,9 @@
           Add labels to your progress bars by placing text within the
           <code>&lt;c-progress-bar&gt;</code>.
         </p>
-        <app-docs-example href="components/progress#labels">
           <c-progress class="mb-3">
             <c-progress-bar [value]="25">25%</c-progress-bar>
           </c-progress>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -65,7 +61,6 @@
           you change that [value] the inner <code>&lt;c-progress-bar&gt;</code> will automatically
           resize accordingly.
         </p>
-        <app-docs-example href="components/progress#height">
           <c-progress class="mb-3" height="1">
             <c-progress-bar [value]="25"></c-progress-bar>
           </c-progress>
@@ -90,7 +85,6 @@
           <c-progress class="mb-3" height="19">
             <c-progress-bar [value]="25"></c-progress-bar>
           </c-progress>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -103,7 +97,6 @@
         <p class="text-medium-emphasis small">
           Use <code>color</code> prop to change the appearance of individual progress bars.
         </p>
-        <app-docs-example href="components/progress#backgrounds">
           <c-progress class="mb-3">
             <c-progress-bar [value]="25" color="success"></c-progress-bar>
           </c-progress>
@@ -116,7 +109,6 @@
           <c-progress class="mb-3">
             <c-progress-bar [value]="100" color="danger"></c-progress-bar>
           </c-progress>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -129,13 +121,11 @@
         <p class="text-medium-emphasis small">
           Include multiple progress bars in a progress component if you need.
         </p>
-        <app-docs-example href="components/progress#multiple-bars">
           <c-progress class="mb-3">
             <c-progress-bar [value]="15">15</c-progress-bar>
             <c-progress-bar [value]="30" color="success">30</c-progress-bar>
             <c-progress-bar [value]="20" color="info">20</c-progress-bar>
           </c-progress>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -149,7 +139,6 @@
           Add <code>variant=&#34;striped&#34;</code> to any <code>&lt;c-progress-bar&gt;</code> to
           apply a stripe via CSS gradient over the progress bar&#39;s background color.
         </p>
-        <app-docs-example href="components/progress#striped">
           <c-progress class="mb-3">
             <c-progress-bar [value]="25" color="success" variant="striped"></c-progress-bar>
           </c-progress>
@@ -162,7 +151,6 @@
           <c-progress class="mb-3">
             <c-progress-bar [value]="100" color="danger" variant="striped"></c-progress-bar>
           </c-progress>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -177,7 +165,6 @@
           <code>&lt;c-progress-bar&gt;</code> to animate the stripes right to left via CSS3
           animations.
         </p>
-        <app-docs-example href="components/progress#animated-stripes">
           <c-progress class="mb-3">
             <c-progress-bar [animated]="true" [value]="25" color="success" variant="striped"></c-progress-bar>
           </c-progress>
@@ -190,7 +177,6 @@
           <c-progress class="mb-3">
             <c-progress-bar [animated]="true" [value]="100" color="danger" variant="striped"></c-progress-bar>
           </c-progress>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>

@@ -16,7 +16,6 @@
           pseudo-element. Also note that the <code>&lt;cFormControl&gt;</code> must come first so
           we can utilize a sibling selector (e.g., <code>~</code>).
         </p>
-        <app-docs-example href="forms/floating-labels">
           <div [cFormFloating]="true" class="mb-3">
             <input cFormControl id="floatingInput" placeholder="name@example.com" type="email" />
             <label cLabel for="floatingInput">Email address</label>
@@ -25,12 +24,10 @@
             <input cFormControl id="floatingPassword" placeholder="Password" type="password" />
             <label cLabel for="floatingPassword">Password</label>
           </div>
-        </app-docs-example>
         <p class="text-medium-emphasis small">
           When there&#39;s a <code>value</code> already defined, <code>&lt;label&gt;</code>
           s will automatically adjust to their floated position.
         </p>
-        <app-docs-example href="forms/floating-labels">
           <form cForm cFormFloating>
             <input
               cFormControl
@@ -41,7 +38,6 @@
             />
             <label cLabel for="floatingInputValue">Input with value</label>
           </form>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -55,7 +51,6 @@
           By default, <code>&lt;CFormTextarea&gt;</code>s will be the same height as
           <code>&lt;input&gt;</code>s.
         </p>
-        <app-docs-example href="forms/floating-labels#textareas">
           <div cFormFloating>
             <input
               cFormControl
@@ -65,13 +60,11 @@
             >
             <label cLabel for="floatingTextarea">Comments</label>
           </div>
-        </app-docs-example>
         <p class="text-medium-emphasis small">
           To set a custom height on your <code>&lt;CFormTextarea;&gt;</code>, do not use the
           <code>rows</code> attribute. Instead, set an explicit <code>height</code> (either
           inline or via custom CSS).
         </p>
-        <app-docs-example href="forms/floating-labels#textareas">
           <div cFormFloating>
             <textarea [ngStyle]="{ 'height.px': 100 }"
                       cFormControl
@@ -80,7 +73,6 @@
             ></textarea>
             <label cLabel for="floatingTextarea2">Comments</label>
           </div>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -99,7 +91,6 @@
             Selects with <code>size</code> and <code>multiple</code> are not supported.
           </strong>
         </p>
-        <app-docs-example href="forms/floating-labels#selects">
           <div cFormFloating>
             <select aria-label="Floating label select example" cSelect id="floatingSelect">
               <option>Open this select menu</option>
@@ -109,7 +100,6 @@
             </select>
             <label cLabel for="floatingSelect">Works with selects</label>
           </div>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -123,7 +113,6 @@
           When working with the CoreUI for Bootstrap grid system, be sure to place form elements
           within column classes.
         </p>
-        <app-docs-example href="forms/floating-labels#layout">
           <c-row [gutter]="{g: 2}">
             <c-col md>
               <div cFormFloating>
@@ -149,7 +138,6 @@
               </div>
             </c-col>
           </c-row>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>

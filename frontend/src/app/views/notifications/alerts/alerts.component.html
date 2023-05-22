@@ -1,6 +1,5 @@
 <c-row>
   <c-col xs="12">
-    <app-docs-callout href="components/alert" name="Alert"></app-docs-callout>
   </c-col>
   <c-col xs="12">
     <c-card class="mb-4">
@@ -17,7 +16,6 @@
           </a>
           .
         </p>
-        <app-docs-example href="components/alert">
           <c-alert color="primary">A simple primary alert—check it out!</c-alert>
           <c-alert color="secondary">A simple secondary alert—check it out!</c-alert>
           <c-alert color="success">A simple success alert—check it out!</c-alert>
@@ -26,7 +24,6 @@
           <c-alert color="info">A simple info alert—check it out!</c-alert>
           <c-alert color="light">A simple light alert—check it out!</c-alert>
           <c-alert color="dark">A simple dark alert—check it out!</c-alert>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -36,7 +33,6 @@
         <strong>Angular Alert</strong> <small>solid variant</small>
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="components/alert">
           <c-alert color="primary" variant="solid">A solid primary alert—check it out!</c-alert>
           <c-alert color="secondary" variant="solid">A solid secondary alert—check it out!</c-alert>
           <c-alert color="success" variant="solid">A solid success alert—check it out!</c-alert>
@@ -45,7 +41,6 @@
           <c-alert color="info" variant="solid">A solid info alert—check it out!</c-alert>
           <c-alert color="light" variant="solid">A solid light alert—check it out!</c-alert>
           <c-alert color="dark" variant="solid">A solid dark alert—check it out!</c-alert>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -59,7 +54,6 @@
           Use the <code>cAlertLink</code> directive to immediately give matching colored
           links inside any alert.
         </p>
-        <app-docs-example href="components/alert#link-color">
           <c-alert color="primary">
             A simple primary alert with <a cAlertLink routerLink="./">an example link</a>. Give
             it a click if you like.
@@ -92,7 +86,6 @@
             A simple dark alert with <a cAlertLink routerLink="./">an example link</a>. Give it
             a click if you like.
           </c-alert>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -106,7 +99,6 @@
           Alert can also incorporate supplementary components &amp; elements like heading,
           paragraph, and divider.
         </p>
-        <app-docs-example href="components/alert#additional-content">
           <c-alert color="success">
             <h4 cAlertHeading>Well done!</h4>
             <p>
@@ -120,7 +112,6 @@
               tidy.
             </p>
           </c-alert>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -130,7 +121,6 @@
         <strong>Angular Alert</strong>  <small>Icons</small>
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="components/alert">
           <c-alert color="dark" class="d-flex align-items-center">
             <svg cIcon name="cilCheck" class="flex-shrink-0 me-2" size="xl"></svg>
             <div>An example alert with an icon</div>
@@ -143,7 +133,7 @@
           </c-alert>
 
           <hr>
-          
+
           <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
             <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -172,7 +162,6 @@
             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#exclamation-triangle-fill"/></svg>
             <div>An example danger alert with an icon</div>
           </c-alert>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -185,7 +174,6 @@
         <p class="text-medium-emphasis small">
           Alerts can also be easily dismissed. Just add the <code>dismissible</code> prop.
         </p>
-        <app-docs-example href="components/alert#dismissing">
           <c-alert [(visible)]="visible[0]" dismissible color="warning" fade *ngIf="visible[0]">
             <strong>Go right ahead</strong> and click that dismiss over there on the right.
           </c-alert>
@@ -204,7 +192,6 @@
           <hr>
           <button (click)="onToggleDismiss()" cButton class="'me-1'" color="primary">Toggle</button>
           <button (click)="onResetDismiss()" cButton color="secondary">Reset</button>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>

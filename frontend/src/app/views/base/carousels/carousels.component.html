@@ -10,7 +10,6 @@
         </c-card-header>
         <c-card-body>
           <p class="text-medium-emphasis small">Here’s a carousel with slides</p>
-          <app-docs-example href="components/carousel">
             <c-carousel (itemChange)="onItemChange($event)" [interval]="7000" transition="slide">
               <c-carousel-inner>
                 <c-carousel-item *ngFor="let slide of slides[0]">
@@ -23,8 +22,7 @@
                 </c-carousel-item>
               </c-carousel-inner>
             </c-carousel>
-          </app-docs-example>
-        </c-card-body>
+          </c-card-body>
       </c-card>
     </c-col>
     <c-col xs="12">
@@ -36,7 +34,6 @@
           <p class="text-medium-emphasis small">
             Adding in the previous and next controls with <code>c-carousel-controls</code> component.
           </p>
-          <app-docs-example href="components/carousel/#with-controls">
             <c-carousel (itemChange)="onItemChange($event)" [interval]="0">
               <c-carousel-inner>
                 <c-carousel-item *ngFor="let slide of slides[0]">
@@ -51,8 +48,7 @@
               <c-carousel-control [routerLink]="[]" caption="Previous" direction="prev" i18n-caption></c-carousel-control>
               <c-carousel-control [routerLink]="[]" caption="Next" direction="next" i18n-caption></c-carousel-control>
             </c-carousel>
-          </app-docs-example>
-        </c-card-body>
+          </c-card-body>
       </c-card>
     </c-col>
     <c-col xs="12">
@@ -63,7 +59,6 @@
         <c-card-body>
           <p class="text-medium-emphasis small">
             Adding in the previous and next controls with custom content of <code>c-carousel-controls</code> component.
-            <app-docs-example href="components/carousel/#with-controls">
               <c-carousel (itemChange)="onItemChange($event)" [interval]="0">
                 <c-carousel-inner>
                   <c-carousel-item *ngFor="let slide of slides[0]">
@@ -84,8 +79,7 @@
                   <span class="visually-hidden">Next</span>
                 </c-carousel-control>
               </c-carousel>
-            </app-docs-example>
-        </c-card-body>
+            </c-card-body>
       </c-card>
     </c-col>
     <c-col xs="12">
@@ -97,7 +91,6 @@
           <p class="text-medium-emphasis small">
             You can attach the indicators to the carousel, lengthwise the controls, too.
           </p>
-          <app-docs-example href="components/carousel/#with-indicators">
             <c-carousel (itemChange)="onItemChange($event)" [activeIndex]="1" [dark]="true" [interval]="5000"
                         direction="prev">
               <c-carousel-indicators></c-carousel-indicators>
@@ -112,8 +105,7 @@
                 </c-carousel-item>
               </c-carousel-inner>
             </c-carousel>
-          </app-docs-example>
-        </c-card-body>
+          </c-card-body>
       </c-card>
     </c-col>
     <c-col xs="12">
@@ -130,7 +122,6 @@
             We hide them with <code>.d-none</code> and draw them back on medium-sized devices with
             <code>.d-md-block</code>.
           </p>
-          <app-docs-example href="components/carousel/#with-captions">
             <c-carousel (itemChange)="onItemChange($event)" [interval]="3000" transition="slide" [wrap]="false">
               <c-carousel-indicators></c-carousel-indicators>
               <c-carousel-inner>
@@ -150,8 +141,7 @@
               <c-carousel-control [routerLink]="[]" caption="Previous" direction="prev" i18n-caption></c-carousel-control>
               <c-carousel-control [routerLink]="[]" caption="Next" direction="next" i18n-caption></c-carousel-control>
             </c-carousel>
-          </app-docs-example>
-        </c-card-body>
+          </c-card-body>
       </c-card>
     </c-col>
     <c-col xs="12">
@@ -164,7 +154,6 @@
             Add <code>transition="crossfade"</code> to your carousel to animate slides
             with a fade transition instead of a slide.
           </p>
-          <app-docs-example href="components/carousel/#crossfade">
             <c-carousel (itemChange)="onItemChange($event)" [animate]="false" [interval]="5000" transition="crossfade">
               <c-carousel-inner>
                 <c-carousel-item *ngFor="let slide of slides[0]">
@@ -183,8 +172,7 @@
               <c-carousel-control [routerLink]="[]" caption="Previous" direction="prev" i18n-caption></c-carousel-control>
               <c-carousel-control [routerLink]="[]" caption="Next" direction="next" i18n-caption></c-carousel-control>
             </c-carousel>
-          </app-docs-example>
-        </c-card-body>
+          </c-card-body>
       </c-card>
     </c-col>
     <c-col xs="12">
@@ -199,7 +187,6 @@
             with the <code>filter</code> CSS property. Captions and controls have additional Sass
             variables that customize the <code>color</code> and <code>background-color</code>.
           </p>
-          <app-docs-example href="components/carousel/#dark-variant">
             <c-carousel (itemChange)="onItemChange($event)" [dark]="true" [interval]="3000" transition="slide">
               <c-carousel-indicators></c-carousel-indicators>
               <c-carousel-inner>
@@ -219,8 +206,7 @@
               <c-carousel-control [routerLink]="[]" caption="Previous" direction="prev" i18n-caption></c-carousel-control>
               <c-carousel-control [routerLink]="[]" caption="Next" direction="next" i18n-caption></c-carousel-control>
             </c-carousel>
-          </app-docs-example>
-        </c-card-body>
+          </c-card-body>
       </c-card>
     </c-col>
   </c-row>

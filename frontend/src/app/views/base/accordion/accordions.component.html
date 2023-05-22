@@ -11,7 +11,6 @@
         <p class="text-medium-emphasis small">
           Click the accordions below to expand/collapse the accordion content.
         </p>
-        <app-docs-example href="components/accordion">
           <c-accordion [alwaysOpen]="false" [flush]="false" class="shadow rounded-2">
             <c-accordion-item #item0="cAccordionItem" [visible]="false">
               <ng-template cTemplateId="accordionHeaderTemplate">
@@ -56,7 +55,6 @@
               </ng-template>
             </c-accordion-item>
           </c-accordion>
-        </app-docs-example>
       </c-card-body>
     </c-card>
     <c-card class="mb-4">
@@ -67,7 +65,6 @@
         <p class="text-medium-emphasis small">
           Click the accordions below to expand/collapse the accordion content.
         </p>
-        <app-docs-example href="components/accordion#flush">
           <c-accordion [flush]="true">
             <c-accordion-item visible>
               <ng-template cTemplateId="accordionHeader">
@@ -94,7 +91,6 @@
               </ng-template>
             </c-accordion-item>
           </c-accordion>
-        </app-docs-example>
       </c-card-body>
     </c-card>
     <c-card class="mb-4">
@@ -102,7 +98,6 @@
         <strong>Angular Accordion</strong> alwaysOpen
       </c-card-header>
       <c-card-body>
-        <app-docs-example href="components/accordion#always-open">
           <c-accordion [alwaysOpen]="true" class="shadow accordion-custom rounded-2">
             <c-accordion-item *ngFor="let item of items; let i = index;" [visible]="i===1">
               <ng-template cTemplateId="accordionHeader">
@@ -114,7 +109,6 @@
               </ng-template>
             </c-accordion-item>
           </c-accordion>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>

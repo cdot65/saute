@@ -12,7 +12,6 @@
           Here&#39;s how you can put them to work with either <code>&lt;button&gt;</code>
           elements:
         </p>
-        <app-docs-example href="components/dropdown#single-button">
           <c-dropdown>
             <button cButton cDropdownToggle color="secondary">
               Dropdown button
@@ -30,11 +29,9 @@
               </li>
             </ul>
           </c-dropdown>
-        </app-docs-example>
         <p class="text-medium-emphasis small">
           The best part is you can do this with any button variant, too:
         </p>
-        <app-docs-example href="components/dropdown#single-button">
           <c-dropdown *ngFor="let color of colors; index as i;" variant="btn-group">
             <button [color]="color" cButton cDropdownToggle>
               {{color}}
@@ -57,7 +54,6 @@
               </li>
             </ul>
           </c-dropdown>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -78,7 +74,6 @@
           normal button dropdowns. Those additional changes hold the caret centered in the split
           button and implement a more properly sized hit area next to the main button.
         </p>
-        <app-docs-example href="components/dropdown#split-button">
           <c-dropdown *ngFor="let color of colors; index as i;" placement="bottom-start" variant="btn-group">
             <button [color]="color" cButton>
               {{color}}
@@ -104,7 +99,6 @@
               </li>
             </ul>
           </c-dropdown>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -118,7 +112,6 @@
           Button dropdowns work with buttons of all sizes, including default and split dropdown
           buttons.
         </p>
-        <app-docs-example href="components/dropdown#sizing">
           <c-dropdown variant="btn-group">
             <button cButton cDropdownToggle color="secondary" size="lg">
               Large button
@@ -166,8 +159,6 @@
               </li>
             </ul>
           </c-dropdown>
-        </app-docs-example>
-        <app-docs-example href="components/dropdown#sizing">
           <c-dropdown variant="btn-group">
             <button cButton cDropdownToggle color="secondary" size="sm">
               Small button
@@ -215,7 +206,6 @@
               </li>
             </ul>
           </c-dropdown>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -229,7 +219,6 @@
           Opt into darker dropdowns to match a dark navbar or custom style by set
           <code>dark</code> property. No changes are required to the dropdown items.
         </p>
-        <app-docs-example href="components/dropdown#dark-dropdowns">
           <c-dropdown>
             <button cButton cDropdownToggle color="secondary">
               Dropdown button
@@ -252,9 +241,7 @@
               </li>
             </ul>
           </c-dropdown>
-        </app-docs-example>
         <p class="text-medium-emphasis small">And putting it to use in a navbar:</p>
-        <app-docs-example href="components/dropdown#dark-dropdowns">
           <c-navbar class="bg-dark" colorScheme="dark" expand="lg">
             <c-container [fluid]="true">
               <a cNavbarBrand href="https://coreui.io/angular/" target="_blank">
@@ -304,7 +291,6 @@
               </div>
             </c-container>
           </c-navbar>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -319,7 +305,6 @@
           <code>direction=&#34;dropup&#34;</code> to the <code>&lt;c-dropdown&gt;</code>
           component.
         </p>
-        <app-docs-example href="components/dropdown#dropup">
           <c-dropdown direction="dropup" variant="btn-group">
             <button cButton cDropdownToggle color="secondary">
               Dropup
@@ -367,7 +352,6 @@
               </li>
             </ul>
           </c-dropdown>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -382,7 +366,6 @@
           <code>direction=&#34;dropend&#34;</code> to the <code>&lt;c-dropdown&gt;</code>
           component.
         </p>
-        <app-docs-example href="components/dropdown#dropright">
           <c-dropdown direction="dropend" variant="btn-group">
             <button cButton cDropdownToggle color="secondary">
               Dropend
@@ -430,7 +413,6 @@
               </li>
             </ul>
           </c-dropdown>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -445,7 +427,6 @@
           <code>direction=&#34;dropstart&#34;</code> to the <code>&lt;c-dropdown&gt;</code>
           component.
         </p>
-        <app-docs-example href="components/dropdown#dropleft">
           <c-button-group>
             <c-dropdown direction="dropstart" variant="input-group">
               <button [split]="true" cButton cDropdownToggle color="secondary">
@@ -473,7 +454,6 @@
               </button>
             </c-dropdown>
           </c-button-group>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -486,7 +466,6 @@
         <p class="text-medium-emphasis small">
           Trigger dropdown menus centered below the toggle by adding <code>direction="center"</code> to the <code>c-dropdown</code> component.
         </p>
-        <app-docs-example href="components/dropdown#centered">
           <c-dropdown direction="center" variant="btn-group">
             <button cButton cDropdownToggle color="secondary">Centered dropdown</button>
             <ul cDropdownMenu>
@@ -503,7 +482,6 @@
               <li><button cDropdownItem>Action three</button></li>
             </ul>
           </c-dropdown>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>

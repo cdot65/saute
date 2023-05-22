@@ -13,7 +13,6 @@
           CSS classes. Build upon it with the options that follow, or with your
           CSS as required.
         </p>
-        <app-docs-example href="components/list-group">
           <ul cListGroup>
             <li cListGroupItem>Cras justo odio</li>
             <li cListGroupItem>Dapibus ac facilisis in</li>
@@ -21,7 +20,6 @@
             <li cListGroupItem>Porta ac consectetur ac</li>
             <li cListGroupItem>Vestibulum at eros</li>
           </ul>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -35,7 +33,6 @@
           Add <code>active</code> boolean property to a
           <code>cListGroupItem</code> to show the current active selection.
         </p>
-        <app-docs-example href="components/list-group/#active-items">
           <ul cListGroup>
             <li [active]="true" cListGroupItem>Cras justo odio</li>
             <li cListGroupItem>Dapibus ac facilisis in</li>
@@ -43,7 +40,6 @@
             <li cListGroupItem>Porta ac consectetur ac</li>
             <li cListGroupItem>Vestibulum at eros</li>
           </ul>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -57,7 +53,6 @@
           Add <code>disabled</code> boolean property to a
           <code>cListGroupItem</code> to make it appear disabled.
         </p>
-        <app-docs-example href="components/list-group/#disabled-items">
           <div cListGroup>
             <button cListGroupItem disabled>Cras justo odio</button>
             <button cListGroupItem>Dapibus ac facilisis in</button>
@@ -65,7 +60,6 @@
             <button cListGroupItem>Porta ac consectetur ac</button>
             <button cListGroupItem>Vestibulum at eros</button>
           </div>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -83,7 +77,6 @@
           non-interactive elements (like <code>&lt;li&gt;</code> or
           <code>&lt;div&gt;</code>) don't provide a click or tap affordance.
         </p>
-        <app-docs-example href="components/list-group/#links-and-buttons">
           <div cListGroup>
             <a [active]="true" cListGroupItem href>
               Cras justo odio
@@ -101,7 +94,6 @@
               Vestibulum at eros
             </a>
           </div>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -116,7 +108,6 @@
           rounded corners to render list group items edge-to-edge in a parent
           container (e.g., cards).
         </p>
-        <app-docs-example href="components/list-group/#flush">
           <ul [flush]="true" cListGroup>
             <li cListGroupItem>Cras justo odio</li>
             <li cListGroupItem>Dapibus ac facilisis in</li>
@@ -124,7 +115,6 @@
             <li cListGroupItem>Porta ac consectetur ac</li>
             <li cListGroupItem>Vestibulum at eros</li>
           </ul>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -149,7 +139,6 @@
             groups.</strong
           >
         </p>
-        <app-docs-example href="components/list-group/#flush">
           <ul
             *ngFor="let breakpoint of breakpoints; index as i"
             [horizontal]="breakpoint"
@@ -160,7 +149,6 @@
             <li cListGroupItem>Dapibus ac facilisis in</li>
             <li cListGroupItem>Morbi leo risus</li>
           </ul>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -174,13 +162,11 @@
           Use contextual classes to style list items with a stateful background
           and color.
         </p>
-        <app-docs-example href="components/list-group/#contextual-classes">
           <ul cListGroup class="mb-3">
             <li *ngFor="let color of colors" [color]="color" cListGroupItem>
               A simple {{ color }} list group item
             </li>
           </ul>
-        </app-docs-example>
         <p class="text-medium-emphasis small mt-1">
           Contextual classes also work with <code>&lt;a&gt;</code> or
           <code>&lt;button&gt;</code>. Note the addition of the hover styles
@@ -188,7 +174,6 @@
           <code>active</code> state; apply it to indicate an active selection on
           a contextual list group item.
         </p>
-        <app-docs-example href="components/list-group/#contextual-classes">
           <div cListGroup>
             <a
               *ngFor="let color of colors; index as i"
@@ -198,7 +183,6 @@
             >A simple {{ color }} list group item</a
             >
           </div>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -212,7 +196,6 @@
           Add badges to any list group item to show unread counts, activity, and
           more.
         </p>
-        <app-docs-example href="components/list-group/#with-badges">
           <div cListGroup>
             <button
               cListGroupItem
@@ -251,7 +234,6 @@
               <c-badge color="secondary" shape="rounded-pill">42</c-badge>
             </button>
           </div>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -267,7 +249,6 @@
           <a href="https://coreui.io/docs/utilities/flex/">flexbox utilities</a
           >.
         </p>
-        <app-docs-example href="components/list-group/#custom-content">
           <div cListGroup>
             <a [active]="true" cListGroupItem href>
               <div class="d-flex w-100 justify-content-between">
@@ -307,7 +288,6 @@
               >
             </a>
           </div>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -321,7 +301,6 @@
           Place CoreUI&#39;s checkboxes and radios within list group items and
           customize as needed.
         </p>
-        <app-docs-example href="components/list-group/#checkboxes-and-radios">
           <form [formGroup]="checkBoxes" (ngSubmit)="logValue()" cForm>
             <ul [flush]="true" cListGroup>
               <button (click)="setValue('one');" cListGroupItem type="button">
@@ -357,7 +336,6 @@
             </ul>
             <button cButton class="mt-3" type="submit">Submit</button>
           </form>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>

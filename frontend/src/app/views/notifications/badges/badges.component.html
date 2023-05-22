@@ -1,6 +1,5 @@
 <c-row>
   <c-col xs="12">
-    <app-docs-callout href="components/badge" name="Badges"></app-docs-callout>
   </c-col>
   <c-col lg="6">
     <c-card class="mb-4">
@@ -12,7 +11,6 @@
           Bootstrap badge scale to suit the size of the parent element by using relative font
           sizing and <code>em</code> units.
         </p>
-        <app-docs-example href="components/badge">
           <h1>
             Example heading
             <c-badge color="secondary">New</c-badge>
@@ -37,16 +35,13 @@
             Example heading
             <c-badge color="secondary">New</c-badge>
           </h6>
-        </app-docs-example>
         <p class="text-medium-emphasis small">
           Badges can be used as part of links or buttons to provide a counter.
         </p>
-        <app-docs-example href="components/badge">
           <button cButton color="primary">
             Notifications
             <c-badge color="secondary">4</c-badge>
           </button>
-        </app-docs-example>
         <p class="text-medium-emphasis small">
           Remark that depending on how you use them, badges may be complicated for users of
           screen readers and related assistive technologies.
@@ -55,13 +50,11 @@
           Unless the context is clear, consider including additional context with a visually
           hidden piece of additional text.
         </p>
-        <app-docs-example href="components/badge">
           <button cButton color="primary">
             Profile
             <c-badge color="secondary">9</c-badge>
             <span class="visually-hidden">unread messages</span>
           </button>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
@@ -75,7 +68,6 @@
           Add any of the below-mentioned <code>color</code> props to modify the presentation of
           a badge.
         </p>
-        <app-docs-example href="components/badge#contextual-variations">
           <c-badge class="me-1" color="primary">primary</c-badge>
           <c-badge class="me-1" color="success">success</c-badge>
           <c-badge class="me-1" color="danger">danger</c-badge>
@@ -83,7 +75,6 @@
           <c-badge class="me-1" color="info">info</c-badge>
           <c-badge class="me-1" color="light">light</c-badge>
           <c-badge class="me-1" color="dark">dark</c-badge>
-        </app-docs-example>
       </c-card-body>
     </c-card>
     <c-card class="mb-4">
@@ -94,7 +85,6 @@
         <p class="text-medium-emphasis small">
           Apply the <code>shape=&#34;rounded-pill&#34;</code> prop to make badges rounded.
         </p>
-        <app-docs-example href="components/badge#pill-badges">
           <c-badge class="me-1" color="primary" shape="rounded-pill">
             primary
           </c-badge>
@@ -116,7 +106,6 @@
           <c-badge class="me-1" color="dark" shape="rounded-pill">
             dark
           </c-badge>
-        </app-docs-example>
       </c-card-body>
     </c-card>
     <c-card class="mb-4">
@@ -127,7 +116,6 @@
         <p class="text-medium-emphasis small">
           Use position prop to modify a component and position it in the corner of a link or button.
         </p>
-        <app-docs-example href="components/badge#positioned">
           <button cButton color="primary" class="position-relative mx-2">
             Profile
             <c-badge color="danger" position="top-start" shape="rounded-pill">99+</c-badge>
@@ -149,7 +137,6 @@
             <c-badge color="danger" position="bottom-end" shape="rounded-pill">99+</c-badge>
             <span class="visually-hidden">unread messages</span>
           </button>
-        </app-docs-example>
       </c-card-body>
     </c-card>
     <c-card class="mb-4">
@@ -160,14 +147,12 @@
         <p class="text-medium-emphasis small">
           You can also create more generic indicators without a counter using a few more utilities.
         </p>
-        <app-docs-example href="components/badge#positioned">
           <button cButton color="primary" class="position-relative">
             Profile
             <c-badge color="danger" position="top-end" shape="rounded-circle" class="p-2" cBorder="light">
               <span class="visually-hidden">unread messages</span>
             </c-badge>
           </button>
-        </app-docs-example>
       </c-card-body>
     </c-card>
   </c-col>
