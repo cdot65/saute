@@ -55,6 +55,10 @@ export class AssuranceSnapshotsComponent implements OnInit {
     return Object.values(rest).includes(true);
   }
 
+  isFormValid(): boolean {
+    return this.selectedFirewall && this.isAnyCheckboxSelected();
+  }
+
   onSubmitForm(form: NgForm): void {
     if (!this.selectedFirewall) {
       console.error("No firewall selected");

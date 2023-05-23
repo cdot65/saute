@@ -84,7 +84,7 @@
                         </ul>
 
                         <c-col xs="12">
-                            <button cButton class="me-1" color="primary" type="submit">
+                            <button [disabled]="!isFormValid()" cButton class="me-1" color="primary" type="submit">
                             Submit form
                             </button>
                         </c-col>
