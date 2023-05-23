@@ -1,8 +1,10 @@
 // Importing Angular, and services required for the component
 import { Component, OnInit } from "@angular/core";
-import { ToastService, Toast } from "../../../shared/services/toast.service";
+import { ToastService } from "../../../shared/services/toast.service";
 import { FirewallService } from "../../../shared/services/firewall.service";
 import { NgForm } from "@angular/forms";
+import { Firewall } from "../../../shared/interfaces/firewall.interface";
+import { Toast } from "../../../shared/interfaces/toast.interface";
 
 // The component decorator marks this TypeScript class as an Angular component
 @Component({
@@ -11,12 +13,10 @@ import { NgForm } from "@angular/forms";
   styleUrls: ["./assurance-snapshots.component.scss"],
 })
 export class AssuranceSnapshotsComponent implements OnInit {
-  // Initializing the variables used in the component
-  firewalls: any[] = [];
-  selectedFirewall: any = null;
+  firewalls: Firewall[] = [];
+  selectedFirewall: Firewall | null = null;
   ipaddress: string = "";
 
-  // Checkboxes for the component. 'all' will select/deselect all other checkboxes
   checkboxes = {
     all: false,
     arp_table: false,
@@ -28,7 +28,6 @@ export class AssuranceSnapshotsComponent implements OnInit {
     session_stats: false,
   };
 
-  // This function is called when the 'all' checkbox changes. It changes the state of all other checkboxes
   onAllChange(): void {
     let newState = this.checkboxes.all;
     this.checkboxes = {
@@ -43,27 +42,28 @@ export class AssuranceSnapshotsComponent implements OnInit {
     };
   }
 
-  // The constructor is called before the component is initialized. Services are injected here
   constructor(
     private firewallService: FirewallService,
     private toastService: ToastService
   ) {}
 
-  // ngOnInit is a lifecycle hook. It is called after the component is initialized.
   ngOnInit(): void {
-    // Fetching the firewall data from the service and storing it in 'firewalls'
-    this.firewallService.fetchFirewallData().subscribe((data: any[]) => {
-      this.firewalls = data;
-    });
+    this.firewallService.fetchFirewallData().subscribe(
+      (data: Firewall[]) => {
+        this.firewalls = data;
+      },
+      (error) => {
+        console.error(error);
+        // Handle the error appropriately
+      }
+    );
   }
 
-  // This function checks if any checkbox (except 'all') is selected
   public isAnyCheckboxSelected(): boolean {
     const { all, ...rest } = this.checkboxes;
     return Object.values(rest).includes(true);
   }
 
-  // This function returns a list of the names of the selected checkboxes
   public getSelectedCheckboxes(): string[] {
     const { all, ...rest } = this.checkboxes;
     return Object.entries(rest)
@@ -71,26 +71,39 @@ export class AssuranceSnapshotsComponent implements OnInit {
       .map(([key]) => key);
   }
 
-  // This function checks if the form is valid: if a firewall is selected and at least one checkbox is checked
   isFormValid(): boolean {
-    return this.selectedFirewall && this.isAnyCheckboxSelected();
+    return this.selectedFirewall !== null && this.isAnyCheckboxSelected();
   }
 
-  // This function is called when the form is submitted
   onSubmitForm(form: NgForm): void {
     if (!this.selectedFirewall) {
-      console.error("No firewall selected");
-      return;
-    }
-    if (!this.isAnyCheckboxSelected()) {
-      console.error("No checkboxes selected");
+      // Show the error to the user
+      this.toastService.show({
+        title: "Error",
+        message: "No firewall selected",
+        color: "danger",
+        autohide: true,
+        delay: 5000,
+        closeButton: true,
+      });
       return;
     }
 
-    // Convert selected checkboxes to a comma-separated string
+    if (!this.isAnyCheckboxSelected()) {
+      // Show the error to the user
+      this.toastService.show({
+        title: "Error",
+        message: "No checkboxes selected",
+        color: "danger",
+        autohide: true,
+        delay: 5000,
+        closeButton: true,
+      });
+      return;
+    }
+
     const selectedCheckboxes = this.getSelectedCheckboxes().join(",");
 
-    // Prepare the job details
     const jobDetails = {
       hostname: this.selectedFirewall.hostname,
       api_key: this.selectedFirewall.api_token,
@@ -100,10 +113,8 @@ export class AssuranceSnapshotsComponent implements OnInit {
 
     console.log("jobDetails:", jobDetails);
 
-    // Call the service function with the job details
-    this.firewallService
-      .assessmentSnapshot(jobDetails)
-      .subscribe((response) => {
+    this.firewallService.assessmentSnapshot(jobDetails).subscribe(
+      (response) => {
         console.log(response);
         const taskUrl = `#/jobs/details/${response.task_id}`;
         const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
@@ -115,7 +126,12 @@ export class AssuranceSnapshotsComponent implements OnInit {
           delay: 5000,
           closeButton: true,
         };
-        this.toastService.show(toast); // Show the success message
-      });
+        this.toastService.show(toast);
+      },
+      (error) => {
+        console.error(error);
+        // Handle the error appropriately
+      }
+    );
   }
 }
