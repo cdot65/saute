@@ -263,11 +263,12 @@ def run_assurance(
         logging.info("Completed checks successfully!")
 
     elif operation_type == "state_snapshot":
-        if action not in STATE_SNAPSHOTS:
-            logging.error(f"Invalid action for state snapshot: {action}")
-            return
-        logging.info(f"Taking state snapshot: {action}")
-        # result = getattr(StateSnapshot(firewall), action)(**config)
+        actions = action.split(',')
+        for action in actions:
+            if action not in STATE_SNAPSHOTS:
+                logging.error(f"Invalid action for state snapshot: {action}")
+                return
+            logging.info(f"Taking state snapshot: {action}")
 
     elif operation_type == "report":
         if action not in REPORTS:
