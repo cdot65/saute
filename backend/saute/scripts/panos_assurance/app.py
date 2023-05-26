@@ -263,12 +263,25 @@ def run_assurance(
         logging.info("Completed checks successfully!")
 
     elif operation_type == "state_snapshot":
-        actions = action.split(',')
-        for action in actions:
-            if action not in STATE_SNAPSHOTS:
-                logging.error(f"Invalid action for state snapshot: {action}")
+        actions = action.split(",")
+
+        snapshot_node = CheckFirewall(firewall)
+
+        # validate each type of action
+        for each in actions:
+            if each not in STATE_SNAPSHOTS:
+                logging.error(f"Invalid action for state snapshot: {each}")
                 return
-            logging.info(f"Taking state snapshot: {action}")
+
+        # take snapshots
+        try:
+            logging.info("Running snapshots...")
+            results = snapshot_node.run_snapshots(snapshots_config=actions)
+            logging.info(results)
+
+        except Exception as e:
+            logging.error("Error running readiness checks: %s", e)
+            return
 
     elif operation_type == "report":
         if action not in REPORTS:
