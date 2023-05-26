@@ -21,8 +21,8 @@
                                 <option [ngValue]="null" disabled selected>
                                     Select a Firewall
                                 </option>
-                                <option *ngFor="let panorama of panoramas" [ngValue]="panorama">
-                                    {{ panorama.hostname }}
+                                <option *ngFor="let firewall of firewalls" [ngValue]="firewall">
+                                    {{ firewall.hostname }}
                                 </option>
                             </select>
                             <c-form-feedback [valid]="

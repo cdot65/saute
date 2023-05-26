@@ -1,0 +1,100 @@
+<c-row>
+    <c-col xs="8">
+        <c-card class="mb-4">
+            <c-card-header ngPreserveWhitespaces>
+                <strong>Assurance Snapshots</strong>
+            </c-card-header>
+            <c-card-body>
+                <p class="text-medium-emphasis small">
+                    This request will perform a snapshot on the state of various
+                    tables on a remote firewall. This Python script leverages the
+                    <a href="https://github.com/PaloAltoNetworks/pan-os-upgrade-assurance">pan-os-upgrade-assurance</a>
+                    package to perform the checks.
+                </p>
+                <app-automation-execute href="blob/main/backend/saute/scripts/panos_assurance/app.py">
+                    <form #customStylesForm="ngForm" (ngSubmit)="onSubmitForm(customStylesForm)" cForm class="row g-3 needs-validation">
+                        <c-col md="8">
+                            <label cLabel for="validationServer04">Firewall Instance</label>
+                            <select cSelect id="validationServer04" [(ngModel)]="selectedFirewall"
+                                name="selectedFirewall" #selectedFirewallControl="ngModel" required>
+                                <option [ngValue]="null" disabled selected>
+                                    Select a Firewall
+                                </option>
+                                <option *ngFor="let firewall of firewalls" [ngValue]="firewall">
+                                    {{ firewall.hostname }}
+                                </option>
+                            </select>
+                            <c-form-feedback [valid]="
+                  selectedFirewallControl.valid &&
+                  selectedFirewallControl.touched
+                    ? true
+                    : undefined
+                ">
+                                Looks good!</c-form-feedback>
+                        </c-col>
+                        <ul [flush]="true" cListGroup>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.all" name="all" type="checkbox" (ngModelChange)="onAllChange()"/>
+                                    <label cFormCheckLabel>All</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.arp_table" name="arp_table" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>ARP Table</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.content_version" name="content_version" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>Content Version</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.ip_sec_tunnels" name="ip_sec_tunnels" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>IPsec VPN Tunnels</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.license" name="license" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>License</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.nics" name="nics" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>NICs</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.routes" name="routes" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>Routes</label>
+                                </c-form-check>
+                            </li>
+                            <li cListGroupItem>
+                                <c-form-check>
+                                    <input cFormCheckInput [(ngModel)]="checkboxes.session_stats" name="session_stats" type="checkbox" [disabled]="checkboxes.all" />
+                                    <label cFormCheckLabel>Session Stats</label>
+                                </c-form-check>
+                            </li>
+                        </ul>
+
+                        <c-col xs="12">
+                            <button [disabled]="!isFormValid()" cButton class="me-1" color="primary" type="submit">
+                            Submit form
+                            </button>
+                        </c-col>
+                    </form>
+                </app-automation-execute>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="4">
+        <app-automation-callout href="blob/main/backend/saute/scripts/panos_assurance/app.py" name="app.py">
+        </app-automation-callout>
+    </c-col>
+</c-row>

@@ -29,5 +29,16 @@ export class OperationsWidgetComponent {
       buttonLink: "/automation/operations/assurance-arp-entry",
       hashtags: ["#panos", "#assurance", "#python"],
     },
+    {
+      icon: "cibPython",
+      iconPath: "../../../../assets/icons/panos_white.svg",
+      title: "Assurance Snapshots",
+      description: "Perform snapshots of various firewall tables.",
+      customClass: "bg-panos",
+      capBg: { "--cui-card-cap-bg": "#FA582D" },
+      values: [{ title: "Operations", value: "Now" }],
+      buttonLink: "/automation/operations/assurance-snapshots",
+      hashtags: ["#panos", "#assurance", "#python"],
+    },
   ];
 }

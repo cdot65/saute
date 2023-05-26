@@ -9,7 +9,7 @@ import { NgForm } from "@angular/forms";
   styleUrls: ["./assurance-arp-entry.component.scss"],
 })
 export class AssuranceArpEntryComponent implements OnInit {
-  panoramas: any[] = [];
+  firewalls: any[] = [];
   selectedFirewall: any = null;
   ipaddress: string = "";
 
@@ -20,7 +20,7 @@ export class AssuranceArpEntryComponent implements OnInit {
 
   ngOnInit(): void {
     this.firewallService.fetchFirewallData().subscribe((data: any[]) => {
-      this.panoramas = data;
+      this.firewalls = data;
     });
   }
 

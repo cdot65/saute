@@ -21,6 +21,7 @@ import { AutomationRoutingModule } from "./automation-routing.module";
 // local components
 import { AdminReportComponent } from "./assessment/admin-report/admin-report.component";
 import { AssuranceArpEntryComponent } from "./operations/assurance-arp-entry/assurance-arp-entry.component";
+import { AssuranceSnapshotsComponent } from "./operations/assurance-snapshots/assurance-snapshots.component";
 import { GetSoftwareInformationComponent } from "./operations/get-software-information/get-software-information.component";
 import { SyncToPrismaComponent } from "./configuration/sync-to-prisma/sync-to-prisma.component";
 import { VmseriesToAzureComponent } from "./deploy/vmseries-to-azure/vmseries-to-azure.component";
@@ -29,6 +30,7 @@ import { VmseriesToVcenterComponent } from "./deploy/vmseries-to-vcenter/vmserie
 
 @NgModule({
   declarations: [
+    AssuranceSnapshotsComponent,
     GetSoftwareInformationComponent,
     VmseriesToAzureComponent,
     VmseriesToAwsComponent,
