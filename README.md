@@ -2,12 +2,24 @@
 
 [![Build and Deploy](https://github.com/cdot65/saute/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/saute/actions/workflows/backend.yml)
 
+## Introduction
+
+Saute is a web application consisting of separate backend and frontend components. Its goal is to provide a simple and intuitive interface for managing products from Palo Alto Networks.
+
+The backend is built using Django and PostgreSQL, while the frontend is developed with Angular. The backend provides a robust REST API, and the frontend consumes this API to offer a seamless user experience.
+
+The Saute now also includes an Operational module, which allows users to generate reports for Panorama devices.
+
+### Example Snapshot
+
+![Saute Snapshot](docs/images/dashboard.gif)
+
 ## Table of Contents
 
 - [Saute 🚀🌐](#saute-)
-  - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
-    - [Screenshot](#screenshot)
+    - [Example Snapshot](#example-snapshot)
+  - [Table of Contents](#table-of-contents)
   - [Backend Overview](#backend-overview)
   - [Frontend Overview](#frontend-overview)
   - [Project Dependencies](#project-dependencies)
@@ -20,18 +32,6 @@
   - [Working with the Frontend Application](#working-with-the-frontend-application)
     - [Angular Basics](#angular-basics)
     - [Interacting with the Backend API](#interacting-with-the-backend-api)
-
-## Introduction
-
-Saute is a web application consisting of separate backend and frontend components. Its goal is to provide a simple and intuitive interface for managing products from Palo Alto Networks.
-
-The backend is built using Django and PostgreSQL, while the frontend is developed with Angular. The backend provides a robust REST API, and the frontend consumes this API to offer a seamless user experience.
-
-The Saute now also includes an Operational module, which allows users to generate reports for Panorama devices.
-
-### Screenshot
-
-![Saute Screenshot](docs/images/dashboard.png)
 
 ## Backend Overview
 
@@ -66,7 +66,7 @@ To deploy both backend and frontend using Docker and Docker Compose, follow thes
     ```bash
     docker-compose up --build
     ```
-    
+
     This will take around three minutes for the first time to build and run.
 
 4. Wait for the web application to start (you can check the logs to ensure everything is running smoothly):
@@ -75,10 +75,9 @@ To deploy both backend and frontend using Docker and Docker Compose, follow thes
     docker-compose logs -f
     ```
 
-5. Perform database migrations.
+5. Perform database migrations, this will update your local database instance with the correct tables.
 
     ```bash
-    docker-compose exec backend python manage.py makemigrations
     docker-compose exec backend python manage.py migrate
     ```
 
@@ -91,7 +90,6 @@ To deploy both backend and frontend using Docker and Docker Compose, follow thes
 Your application should now be up and running! 🎉
 
 Access the frontend at [localhost:8080/](localhost:8000/) or the backend at  [localhost:8000/admin](localhost:8000/admin)
-
 
 ## Technical Features
 
