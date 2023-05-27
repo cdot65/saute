@@ -61,7 +61,7 @@ backend/saute/scripts/.env
 # exclude dist folder
 frontend/dist/**
 
-**chatgpt**
+./chatgpt
 backend/media/profile_images/**
 .vscode/settings.json
 backend/packages/*.whl

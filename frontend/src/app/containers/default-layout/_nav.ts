@@ -11,6 +11,31 @@ export const navItems: INavData[] = [
     },
   },
   {
+    name: "ChatGPT",
+    url: "/chatgpt",
+    iconComponent: { name: "cil-chat-bubble" },
+    children: [
+      {
+        name: "Create Script",
+        iconComponent: { name: "cil-code" },
+        badge: {
+          color: "danger-gradient",
+          text: "NEW",
+        },
+        url: "/chatgpt/create-script",
+      },
+      {
+        name: "Troubleshoot",
+        iconComponent: { name: "cil-magnifying-glass" },
+        badge: {
+          color: "danger-gradient",
+          text: "NEW",
+        },
+        url: "/chatgpt/troubleshoot",
+      },
+    ],
+  },
+  {
     name: "Inventory",
     url: "/inventory",
     iconComponent: { name: "cil-lan" },
