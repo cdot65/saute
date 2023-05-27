@@ -7,11 +7,11 @@ import { catchError } from "rxjs/operators";
 @Injectable({
   providedIn: "root",
 })
-export class ChatGptService {
+export class AiService {
   constructor(private http: HttpClient) {}
 
-  fetchChatGptData(): Observable<any[]> {
-    return this.http.get<any[]>("http://localhost:8000/api/v1/chatgpt/").pipe(
+  fetchAiData(): Observable<any[]> {
+    return this.http.get<any[]>("http://localhost:8000/api/v1/ai/").pipe(
       catchError((error) => {
         console.error("Error fetching ChatGPT data:", error);
         return of([]);
@@ -22,11 +22,9 @@ export class ChatGptService {
   sendScript(scriptDetails: any): Observable<any> {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
     return this.http
-      .post<any>(
-        "http://localhost:8000/api/v1/chatgpt/send-script",
-        scriptDetails,
-        { headers: headers }
-      )
+      .post<any>("http://localhost:8000/api/v1/ai/send-script", scriptDetails, {
+        headers: headers,
+      })
       .pipe(
         catchError((error) => {
           console.error("Error sending script:", error);

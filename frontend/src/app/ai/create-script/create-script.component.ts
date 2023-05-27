@@ -1,7 +1,7 @@
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { ChatGptService } from "../../shared/services/chatgpt.service";
-import { Component } from "@angular/core";
+import { AiService } from "../../shared/services/ai.service";
 import { ToastService } from "../../shared/services/toast.service";
 
 @Component({
@@ -9,29 +9,54 @@ import { ToastService } from "../../shared/services/toast.service";
   templateUrl: "./create-script.component.html",
   styleUrls: ["./create-script.component.scss"],
 })
-export class CreateScriptComponent {
-  scriptForm: FormGroup;
+export class CreateScriptComponent implements OnInit {
+  scriptForm: FormGroup | any;
+  selectedLanguage: string = "Python";
+  selectedTarget: string = "PAN-OS";
+
+  colors: { [key: string]: string } = {
+    Ansible: "#CD0001",
+    bash: "#262F33",
+    Powershell: "#002253",
+    Python: "#F2DD6C",
+    Terraform: "#753FB2",
+    "PAN-OS": "#FA592C",
+    Panorama: "#FA592C",
+    "Prisma Access": "#01B5DB",
+    "Prisma Cloud": "#01B5DB",
+  };
 
   constructor(
     private fb: FormBuilder,
-    private chatGptService: ChatGptService,
+    private AiService: AiService,
     private toastService: ToastService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.scriptForm = this.fb.group({
       message: ["", Validators.required],
+      language: [this.selectedLanguage],
+      target: [this.selectedTarget],
     });
+  }
+
+  getColor(item: string) {
+    return this.colors[item] || "#ABCDEF"; // default color of black
   }
 
   onSubmit(): void {
     if (this.scriptForm.valid) {
       console.log(this.scriptForm.value);
 
-      const scriptDetails = this.scriptForm.value;
+      const scriptDetails = {
+        ...this.scriptForm.value,
+        language: this.selectedLanguage,
+        target: this.selectedTarget,
+      };
 
-      this.chatGptService.sendScript(scriptDetails).subscribe(
+      this.AiService.sendScript(scriptDetails).subscribe(
         (response) => {
           console.log(response);
-          // You might want to create a Toast message here indicating success
           const toast = {
             title: "Script submitted successfully",
             message: response.message,
@@ -44,7 +69,6 @@ export class CreateScriptComponent {
         },
         (error) => {
           console.error(error);
-          // Handle the error appropriately
           const toast = {
             title: "Error",
             message: "There was an error submitting the script",

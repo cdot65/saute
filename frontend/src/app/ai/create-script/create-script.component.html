@@ -1,0 +1,173 @@
+<c-card>
+  <c-card-header>
+    <strong>Create Script</strong>
+  </c-card-header>
+  <c-card-body>
+    <div class="message">
+      <div class="message-message-details flex-wrap pb-3">
+        <form [formGroup]="scriptForm" (ngSubmit)="onSubmit()" cForm>
+          <c-row
+            class="justify-content-center align-items-center"
+            style="height: 100%"
+          >
+            <c-col class="ms-auto" sm="12">
+              <c-row *ngIf="selectedLanguage || selectedTarget">
+                <c-col>
+                  Generate a
+                  <c-badge
+                    *ngIf="selectedLanguage"
+                    [ngStyle]="{
+                      'background-color': getColor(selectedLanguage)
+                    }"
+                    >{{ selectedLanguage }}</c-badge
+                  >
+                  script to automate
+                  <c-badge
+                    *ngIf="selectedTarget"
+                    [ngStyle]="{ 'background-color': getColor(selectedTarget) }"
+                    >{{ selectedTarget }}</c-badge
+                  >
+                </c-col>
+              </c-row>
+              <hr />
+              <c-button-toolbar role="toolbar">
+                <c-dropdown class="ms-1">
+                  <button
+                    [routerLink]="[]"
+                    cButton
+                    cDropdownToggle
+                    color="light"
+                  >
+                    Select Language <svg cIcon name="cil-code"></svg>
+                  </button>
+                  <div cDropdownMenu>
+                    <a
+                      [routerLink]="[]"
+                      cDropdownItem
+                      class="d-flex"
+                      (click)="selectedLanguage = 'Ansible'"
+                    >
+                      <c-badge class="ms-auto align-self-end" color="info"
+                        >Ansible</c-badge
+                      >
+                    </a>
+                    <a
+                      [routerLink]="[]"
+                      cDropdownItem
+                      class="d-flex"
+                      (click)="selectedLanguage = 'bash'"
+                    >
+                      <c-badge class="ms-auto align-self-end" color="primary"
+                        >bash</c-badge
+                      >
+                    </a>
+                    <a
+                      [routerLink]="[]"
+                      cDropdownItem
+                      class="d-flex"
+                      (click)="selectedLanguage = 'Powershell'"
+                    >
+                      <c-badge class="ms-auto align-self-end" color="primary"
+                        >Powershell</c-badge
+                      >
+                    </a>
+                    <a
+                      [routerLink]="[]"
+                      cDropdownItem
+                      class="d-flex"
+                      (click)="selectedLanguage = 'Python'"
+                    >
+                      <c-badge class="ms-auto align-self-end" color="warning">
+                        Python
+                      </c-badge>
+                    </a>
+                    <a
+                      [routerLink]="[]"
+                      cDropdownItem
+                      class="d-flex"
+                      (click)="selectedLanguage = 'Terraform'"
+                    >
+                      <c-badge class="ms-auto align-self-end" color="success"
+                        >Terraform</c-badge
+                      >
+                    </a>
+                  </div>
+                </c-dropdown>
+                <c-dropdown class="ms-1">
+                  <button
+                    [routerLink]="[]"
+                    cButton
+                    cDropdownToggle
+                    color="light"
+                  >
+                    Select Target <svg cIcon name="cil-cloud"></svg>
+                  </button>
+                  <div cDropdownMenu>
+                    <a
+                      [routerLink]="[]"
+                      cDropdownItem
+                      class="d-flex"
+                      (click)="selectedTarget = 'PAN-OS'"
+                    >
+                      <c-badge class="ms-auto align-self-end" color="info"
+                        >PAN-OS</c-badge
+                      >
+                    </a>
+                    <a
+                      [routerLink]="[]"
+                      cDropdownItem
+                      class="d-flex"
+                      (click)="selectedTarget = 'Panorama'"
+                    >
+                      <c-badge class="ms-auto align-self-end" color="primary"
+                        >Panorama</c-badge
+                      >
+                    </a>
+                    <a
+                      [routerLink]="[]"
+                      cDropdownItem
+                      class="d-flex"
+                      (click)="selectedTarget = 'Prisma Access'"
+                    >
+                      <c-badge class="ms-auto align-self-end" color="primary"
+                        >Prisma Access</c-badge
+                      >
+                    </a>
+                    <a
+                      [routerLink]="[]"
+                      cDropdownItem
+                      class="d-flex"
+                      (click)="selectedTarget = 'Prisma Cloud'"
+                    >
+                      <c-badge class="ms-auto align-self-end" color="warning">
+                        Prisma Cloud
+                      </c-badge>
+                    </a>
+                  </div>
+                </c-dropdown>
+              </c-button-toolbar>
+              <div class="mb-3 mt-4">
+                <textarea
+                  formControlName="message"
+                  cFormControl
+                  id="message"
+                  name="body"
+                  placeholder="Describe your desired script here"
+                  rows="12"
+                ></textarea>
+              </div>
+              <div class="mt-1 d-flex justify-content-center">
+                <button cButton class="me-1" color="success" type="submit">
+                  Send
+                </button>
+                <button cButton class="me-1" color="danger" type="reset">
+                  Discard
+                </button>
+              </div>
+            </c-col>
+          </c-row>
+        </form>
+      </div>
+    </div>
+  </c-card-body>
+</c-card>

@@ -11,9 +11,9 @@ export const navItems: INavData[] = [
     },
   },
   {
-    name: "ChatGPT",
-    url: "/chatgpt",
-    iconComponent: { name: "cil-chat-bubble" },
+    name: "AI",
+    url: "/ai",
+    iconComponent: { name: "cib-react" },
     children: [
       {
         name: "Create Script",
@@ -22,7 +22,7 @@ export const navItems: INavData[] = [
           color: "danger-gradient",
           text: "NEW",
         },
-        url: "/chatgpt/create-script",
+        url: "/ai/create-script",
       },
       {
         name: "Troubleshoot",
@@ -31,7 +31,7 @@ export const navItems: INavData[] = [
           color: "danger-gradient",
           text: "NEW",
         },
-        url: "/chatgpt/troubleshoot",
+        url: "/ai/troubleshoot",
       },
     ],
   },

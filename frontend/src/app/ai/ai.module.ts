@@ -10,7 +10,7 @@ import {
   SharedModule,
 } from "@coreui/angular";
 
-import { ChatGptRoutingModule } from "./chatgpt-routing.module";
+import { AiRoutingModule } from "./ai-routing.module";
 import { CommonModule } from "@angular/common";
 import { CreateScriptComponent } from "./create-script/create-script.component";
 import { IconModule } from "@coreui/icons-angular";
@@ -22,7 +22,7 @@ import { TroubleshootComponent } from "./troubleshoot/troubleshoot.component";
   declarations: [TroubleshootComponent, CreateScriptComponent],
   imports: [
     CommonModule,
-    ChatGptRoutingModule,
+    AiRoutingModule,
     GridModule,
     CardModule,
     HeaderModule,
@@ -36,4 +36,4 @@ import { TroubleshootComponent } from "./troubleshoot/troubleshoot.component";
     SharedModule,
   ],
 })
-export class ChatGptModule {}
+export class AiModule {}

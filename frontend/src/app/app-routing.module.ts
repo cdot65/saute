@@ -119,9 +119,8 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: "chatgpt",
-        loadChildren: () =>
-          import("./chatgpt/chatgpt.module").then((m) => m.ChatGptModule),
+        path: "ai",
+        loadChildren: () => import("./ai/ai.module").then((m) => m.AiModule),
         canActivate: [AuthGuard],
       },
     ],
