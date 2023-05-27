@@ -158,7 +158,6 @@ def run_create_script(
         if target not in TARGETS:
             logging.error(f"Invalid target for automation: {target}")
             return
-        logging.info(f"Performing readiness check: {target}")
 
         try:
             logging.info("Running request to ChatGPT...")
@@ -174,6 +173,7 @@ def run_create_script(
                 **openai_config,
             )
             logging.info("ChatGPT request completed.")
+            logging.debug("results: %s", results)
         except Exception as e:
             logging.error(f"ChatGPT request failed with exception: {e}")
             return
@@ -210,4 +210,4 @@ if __name__ == "__main__":
             "max_tokens": env.int("OPENAI_MAX_TOKENS", 4096),
         },
     )
-    logging.info(f'Result: {result["choices"][0]["message"]}')
+    logging.info(f'Result: {result["choices"][0]["message"]["content"]}')

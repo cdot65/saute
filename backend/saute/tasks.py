@@ -269,14 +269,14 @@ def execute_create_script(
 
     # Execute the assurance check
     try:
-        json_report = run_create_script(
+        result = run_create_script(
             message,
             language,
             target,
         )
 
-        # logging.debug(json_report)
-        job.json_data = json_report
+        # logging.debug(result)
+        job.json_data = result["choices"][0]["message"]["content"]
         logging.debug(job)
 
     except Exception as e:
