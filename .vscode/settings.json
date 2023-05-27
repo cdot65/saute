@@ -30,5 +30,8 @@
     "editorGroup": false
   },
   "ng-evergreen.upgradeChannel": "Latest",
-  "cSpell.words": ["chatgpt"]
+  "cSpell.words": ["chatgpt"],
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
 }
