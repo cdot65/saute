@@ -28,6 +28,7 @@ from .tasks import (
     execute_sync_to_prisma as sync_to_prisma_task,
     execute_admin_report as admin_report_task,
     execute_assurance_arp_entry as assurance_arp_entry_task,
+    execute_create_script as create_script_task,
 )
 
 
@@ -255,6 +256,30 @@ def execute_admin_report(request):
         pan_url,
         api_token,
         to_emails,
+        author_id,
+    )
+
+    task_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "task_id": task_id},
+        status=status.HTTP_200_OK,
+    )
+
+
+# Create Script
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_create_script(request):
+    message = request.data.get("message")
+    language = request.data.get("language")
+    target = request.data.get("target")
+    author_id = request.user.id
+
+    task = create_script_task.delay(
+        message,
+        language,
+        target,
         author_id,
     )
 

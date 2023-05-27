@@ -14,6 +14,7 @@ from environs import Env
 from saute.scripts import (
     run_admin_report,
     run_assurance,
+    run_create_script,
     run_export_rules_to_csv,
     run_get_system_info,
     run_sync_to_prisma,
@@ -229,6 +230,49 @@ def execute_assurance_arp_entry(
             operation_type,
             action,
             config,
+        )
+
+        # logging.debug(json_report)
+        job.json_data = json_report
+        logging.debug(job)
+
+    except Exception as e:
+        logging.error(e)
+        job.result = f"Job ID: {job.pk}\nError: {e}"
+
+    # Save the updated job information
+    job.save()
+
+
+# ----------------------------------------------------------------------------
+# AI: Create Script with ChatGPT
+# ----------------------------------------------------------------------------
+@shared_task(bind=True)
+def execute_create_script(
+    self,
+    message,
+    language,
+    target,
+    author_id,
+):
+    # Retrieve the user object by id
+    author = User.objects.get(id=author_id)
+
+    # Create a new entry in our Jobs database table
+    job = Jobs.objects.create(
+        job_type="create_script",
+        json_data=None,
+        author=author,
+        task_id=self.request.id,
+    )
+    logging.debug(f"Job ID: {job.pk}")
+
+    # Execute the assurance check
+    try:
+        json_report = run_create_script(
+            message,
+            language,
+            target,
         )
 
         # logging.debug(json_report)
