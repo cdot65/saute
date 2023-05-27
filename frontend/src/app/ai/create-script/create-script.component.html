@@ -47,7 +47,9 @@
                       class="d-flex"
                       (click)="selectedLanguage = 'Ansible'"
                     >
-                      <c-badge class="ms-auto align-self-end" color="info"
+                      <c-badge
+                        class="ms-auto align-self-end"
+                        [ngStyle]="{ 'background-color': getColor('Ansible') }"
                         >Ansible</c-badge
                       >
                     </a>
@@ -57,7 +59,9 @@
                       class="d-flex"
                       (click)="selectedLanguage = 'bash'"
                     >
-                      <c-badge class="ms-auto align-self-end" color="primary"
+                      <c-badge
+                        class="ms-auto align-self-end"
+                        [ngStyle]="{ 'background-color': getColor('bash') }"
                         >bash</c-badge
                       >
                     </a>
@@ -67,7 +71,11 @@
                       class="d-flex"
                       (click)="selectedLanguage = 'Powershell'"
                     >
-                      <c-badge class="ms-auto align-self-end" color="primary"
+                      <c-badge
+                        class="ms-auto align-self-end"
+                        [ngStyle]="{
+                          'background-color': getColor('Powershell')
+                        }"
                         >Powershell</c-badge
                       >
                     </a>
@@ -77,9 +85,13 @@
                       class="d-flex"
                       (click)="selectedLanguage = 'Python'"
                     >
-                      <c-badge class="ms-auto align-self-end" color="warning">
-                        Python
-                      </c-badge>
+                      <c-badge
+                        class="ms-auto align-self-end"
+                        [ngStyle]="{
+                          'background-color': getColor('Python')
+                        }"
+                        >Python</c-badge
+                      >
                     </a>
                     <a
                       [routerLink]="[]"
@@ -87,7 +99,11 @@
                       class="d-flex"
                       (click)="selectedLanguage = 'Terraform'"
                     >
-                      <c-badge class="ms-auto align-self-end" color="success"
+                      <c-badge
+                        class="ms-auto align-self-end"
+                        [ngStyle]="{
+                          'background-color': getColor('Terraform')
+                        }"
                         >Terraform</c-badge
                       >
                     </a>
@@ -109,7 +125,9 @@
                       class="d-flex"
                       (click)="selectedTarget = 'PAN-OS'"
                     >
-                      <c-badge class="ms-auto align-self-end" color="info"
+                      <c-badge
+                        class="ms-auto align-self-end"
+                        [ngStyle]="{ 'background-color': getColor('PAN-OS') }"
                         >PAN-OS</c-badge
                       >
                     </a>
@@ -119,7 +137,9 @@
                       class="d-flex"
                       (click)="selectedTarget = 'Panorama'"
                     >
-                      <c-badge class="ms-auto align-self-end" color="primary"
+                      <c-badge
+                        class="ms-auto align-self-end"
+                        [ngStyle]="{ 'background-color': getColor('Panorama') }"
                         >Panorama</c-badge
                       >
                     </a>
@@ -129,7 +149,11 @@
                       class="d-flex"
                       (click)="selectedTarget = 'Prisma Access'"
                     >
-                      <c-badge class="ms-auto align-self-end" color="primary"
+                      <c-badge
+                        class="ms-auto align-self-end"
+                        [ngStyle]="{
+                          'background-color': getColor('Prisma Access')
+                        }"
                         >Prisma Access</c-badge
                       >
                     </a>
@@ -139,9 +163,13 @@
                       class="d-flex"
                       (click)="selectedTarget = 'Prisma Cloud'"
                     >
-                      <c-badge class="ms-auto align-self-end" color="warning">
-                        Prisma Cloud
-                      </c-badge>
+                      <c-badge
+                        class="ms-auto align-self-end"
+                        [ngStyle]="{
+                          'background-color': getColor('Prisma Cloud')
+                        }"
+                        >Prisma Cloud</c-badge
+                      >
                     </a>
                   </div>
                 </c-dropdown>
@@ -152,7 +180,7 @@
                   cFormControl
                   id="message"
                   name="body"
-                  placeholder="Describe your desired script here"
+                  placeholder="Describe your desired outcome of the script here"
                   rows="12"
                 ></textarea>
               </div>
