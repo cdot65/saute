@@ -35,6 +35,7 @@ pyjwt = "2.7.0"
 pandas = "^2.0.1"
 sendgrid = "^6.10.0"
 panos-upgrade-assurance = {url = "https://github.com/PaloAltoNetworks/pan-os-upgrade-assurance/archive/refs/tags/v0.0.1.tar.gz"}
+openai = "^0.27.7"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

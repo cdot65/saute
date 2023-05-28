@@ -1,14 +1,13 @@
-import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-
-import { DefaultLayoutComponent } from "./containers";
-import { Page404Component } from "./views/pages/page404/page404.component";
-import { Page500Component } from "./views/pages/page500/page500.component";
-import { LoginComponent } from "./views/pages/login/login.component";
-import { RegisterComponent } from "./views/pages/register/register.component";
 
 // AuthGuard
 import { AuthGuard } from "./auth.guard";
+import { DefaultLayoutComponent } from "./containers";
+import { LoginComponent } from "./views/pages/login/login.component";
+import { NgModule } from "@angular/core";
+import { Page404Component } from "./views/pages/page404/page404.component";
+import { Page500Component } from "./views/pages/page500/page500.component";
+import { RegisterComponent } from "./views/pages/register/register.component";
 
 const routes: Routes = [
   {
@@ -117,6 +116,11 @@ const routes: Routes = [
           import("./automation/automation.module").then(
             (m) => m.AutomationModule
           ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "ai",
+        loadChildren: () => import("./ai/ai.module").then((m) => m.AiModule),
         canActivate: [AuthGuard],
       },
     ],

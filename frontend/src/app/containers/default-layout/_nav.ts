@@ -11,6 +11,31 @@ export const navItems: INavData[] = [
     },
   },
   {
+    name: "AI",
+    url: "/ai",
+    iconComponent: { name: "cib-react" },
+    children: [
+      {
+        name: "Create Script",
+        iconComponent: { name: "cil-code" },
+        badge: {
+          color: "danger-gradient",
+          text: "NEW",
+        },
+        url: "/ai/create-script",
+      },
+      {
+        name: "Troubleshoot",
+        iconComponent: { name: "cil-magnifying-glass" },
+        badge: {
+          color: "danger-gradient",
+          text: "NEW",
+        },
+        url: "/ai/troubleshoot",
+      },
+    ],
+  },
+  {
     name: "Inventory",
     url: "/inventory",
     iconComponent: { name: "cil-lan" },

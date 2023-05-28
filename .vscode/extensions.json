@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "amatiasq.sort-imports",
+    "DSKWRK.vscode-generate-getter-setter",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "johnpapa.vscode-peacock",
+    "ms-azuretools.vscode-docker",
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "PKief.material-icon-theme",
+    "WallabyJs.quokka-vscode",
+    "expertly-simple.ng-evergreen",
+    "formulahendry.auto-close-tag",
+    "HookyQR.beautify",
+    "johnpapa.angular-essentials",
+    "msjsdiag.debugger-for-edge"
+  ]
+}

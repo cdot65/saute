@@ -9,6 +9,7 @@ from .views import (
     UserProfileView,
     execute_admin_report,
     execute_assurance_arp_entry,
+    execute_create_script,
     execute_get_system_info,
     execute_upload_cert_chain,
     execute_sync_to_prisma,
@@ -25,6 +26,11 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path("user-profile/", UserProfileView.as_view(), name="user_profile"),
+    path(
+        "ai/create-script",
+        execute_create_script,
+        name="execute_create_script",
+    ),
     path(
         "assessment/admin-report",
         execute_admin_report,
