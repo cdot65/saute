@@ -277,8 +277,8 @@ def execute_create_script(request):
     author_id = request.user.id
 
     task = create_script_task.delay(
-        message,
         language,
+        message,
         target,
         author_id,
     )

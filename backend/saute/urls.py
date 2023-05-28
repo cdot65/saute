@@ -27,7 +27,7 @@ urlpatterns = router.urls
 urlpatterns += [
     path("user-profile/", UserProfileView.as_view(), name="user_profile"),
     path(
-        "ai/create_script",
+        "ai/create-script",
         execute_create_script,
         name="execute_create_script",
     ),

@@ -22,9 +22,13 @@ export class AiService {
   sendScript(scriptDetails: any): Observable<any> {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
     return this.http
-      .post<any>("http://localhost:8000/api/v1/ai/send-script", scriptDetails, {
-        headers: headers,
-      })
+      .post<any>(
+        "http://localhost:8000/api/v1/ai/create-script",
+        scriptDetails,
+        {
+          headers: headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           console.error("Error sending script:", error);

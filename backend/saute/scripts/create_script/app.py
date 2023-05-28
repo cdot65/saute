@@ -9,17 +9,8 @@ from environs import Env
 from pydantic import BaseModel
 
 # Local prompt file imports
-from prompts import python_panorama_system_request
+from .prompts import python_panorama_system_request
 
-# ----------------------------------------------------------------------------
-# Define workflows
-# ----------------------------------------------------------------------------
-READINESS_CHECKS = [
-    "pan_os",
-    "panorama",
-    "prisma_access",
-    "prisma_cloud",
-]
 
 # ----------------------------------------------------------------------------
 # Define logging levels
@@ -37,7 +28,7 @@ LOGGING_LEVELS = {
 # Define targets
 # ----------------------------------------------------------------------------
 TARGETS = [
-    "pan_os",
+    "pan-os",
     "panorama",
     "prisma_access",
     "prisma_cloud",
@@ -112,27 +103,12 @@ def parse_arguments() -> Args:
 
 
 # ----------------------------------------------------------------------------
-# Setup OpenAI API key
-# ----------------------------------------------------------------------------
-def setup_openai_api_key(api_key: str) -> None:
-    """
-    Set the OpenAI API key.
-
-    Args:
-        api_key (str): OpenAI API key
-    """
-    logging.debug(f"api_key: {api_key}")
-    openai.api_key = api_key
-
-
-# ----------------------------------------------------------------------------
 # Run operations
 # ----------------------------------------------------------------------------
 def run_create_script(
     language: str,
     message: str,
     target: str,
-    openai_config: Dict[str, str],
 ) -> Union[Dict[str, Union[str, int, float, bool]], None]:
     """
     Request ChatGPT to create a script and return the result of the operation.
@@ -141,21 +117,27 @@ def run_create_script(
         language (str): Language for the ChatGPT script
         message (str): User's request
         target (str): Palo Alto Networks product to target
-        openai_config (dict): OpenAI configuration settings
 
     Returns:
         dict: Result of the operation
         None: If target is invalid
     """
+    # Get environment variables
+    env = Env()
+    env.read_env()
+
     # setup OpenAI API key
-    setup_openai_api_key(
-        api_key=openai_config["api_key"],
-    )
+    openai_config = {
+        "temperature": env.float("OPENAI_TEMPERATURE", 0.6),
+        "max_tokens": env.int("OPENAI_MAX_TOKENS", 4096),
+    }
+
+    openai.api_key = env("OPENAI_API_KEY")
 
     results = None
 
-    if language == "Python":
-        if target not in TARGETS:
+    if language.lower() == "python":
+        if target.lower() not in TARGETS:
             logging.error(f"Invalid target for automation: {target}")
             return
 
@@ -179,7 +161,7 @@ def run_create_script(
             return
 
     else:
-        logging.error(f"Invalid readiness check target: {target}")
+        logging.error(f"Invalid target: {target}")
         return
 
     return results
@@ -189,10 +171,6 @@ def run_create_script(
 # Initialize
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Get environment variables
-    env = Env()
-    env.read_env()
-
     # Parse arguments
     args = parse_arguments()
 
@@ -204,10 +182,5 @@ if __name__ == "__main__":
         language=args.language,
         message=args.message,
         target=args.target,
-        openai_config={
-            "api_key": env("OPENAI_API_KEY"),
-            "temperature": env.float("OPENAI_TEMPERATURE", 0.6),
-            "max_tokens": env.int("OPENAI_MAX_TOKENS", 4096),
-        },
     )
     logging.info(f'Result: {result["choices"][0]["message"]["content"]}')
