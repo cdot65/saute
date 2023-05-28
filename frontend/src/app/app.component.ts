@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 
 import { IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "./shared/icons/icon-subset";
 import { Title } from "@angular/platform-browser";
+import { iconSubset } from "./shared/icons/icon-subset";
 
 @Component({
   selector: "app-root",

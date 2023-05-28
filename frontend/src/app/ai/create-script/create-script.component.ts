@@ -1,18 +1,22 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Subscription, interval } from "rxjs";
 
 import { AiService } from "../../shared/services/ai.service";
 import { ToastService } from "../../shared/services/toast.service";
+import { switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-create-script",
   templateUrl: "./create-script.component.html",
   styleUrls: ["./create-script.component.scss"],
 })
-export class CreateScriptComponent implements OnInit {
+export class CreateScriptComponent implements OnInit, OnDestroy {
   scriptForm: FormGroup | any;
   selectedLanguage: string = "Python";
   selectedTarget: string = "PAN-OS";
+  jobDetails: any;
+  jobPollingSubscription: Subscription | undefined;
 
   colors: { [key: string]: string } = {
     Ansible: "#CD0001",
@@ -29,7 +33,8 @@ export class CreateScriptComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private AiService: AiService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +43,12 @@ export class CreateScriptComponent implements OnInit {
       language: [this.selectedLanguage],
       target: [this.selectedTarget],
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.jobPollingSubscription) {
+      this.jobPollingSubscription.unsubscribe();
+    }
   }
 
   getColor(item: string) {
@@ -54,20 +65,42 @@ export class CreateScriptComponent implements OnInit {
         target: this.selectedTarget,
       };
 
-      this.AiService.sendScript(scriptDetails).subscribe(
-        (response) => {
+      this.AiService.sendScript(scriptDetails).subscribe({
+        next: (response) => {
           console.log(response);
+          const jobId = response.task_id; // capture the job ID from the response
+          const taskUrl = `#/jobs/details/${jobId}`;
+          const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
           const toast = {
             title: "Script submitted successfully",
-            message: response.message,
+            message: `${response.message}. ${anchor}`,
             color: "secondary",
             autohide: true,
             delay: 5000,
             closeButton: true,
           };
           this.toastService.show(toast);
+
+          // Poll for job updates every 5 seconds
+          this.jobPollingSubscription = interval(5000)
+            .pipe(switchMap(() => this.AiService.getJobDetails(jobId)))
+            .subscribe({
+              next: (jobDetails) => {
+                // Update the job details
+                this.jobDetails = jobDetails;
+
+                // If the job is done (i.e., json_data is present), stop polling and update code editor
+                if (jobDetails.json_data) {
+                  this.jobPollingSubscription?.unsubscribe();
+                  this.cdr.detectChanges();
+                }
+              },
+              error: (error) => {
+                console.error("Error while polling job updates:", error);
+              },
+            });
         },
-        (error) => {
+        error: (error) => {
           console.error(error);
           const toast = {
             title: "Error",
@@ -78,8 +111,8 @@ export class CreateScriptComponent implements OnInit {
             closeButton: true,
           };
           this.toastService.show(toast);
-        }
-      );
+        },
+      });
     } else {
       console.log("Form is not valid");
     }
