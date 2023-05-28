@@ -161,7 +161,7 @@ def run_create_script(
             return
 
     else:
-        logging.error(f"Invalid target: {target}")
+        logging.error(f"Invalid Language: {language}")
         return
 
     return results
