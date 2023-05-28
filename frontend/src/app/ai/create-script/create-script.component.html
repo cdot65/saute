@@ -197,5 +197,23 @@
         </form>
       </div>
     </div>
+    <div class="message-message-details flex-wrap pb-3">
+      <c-card *ngIf="jobDetails">
+        <c-card-header>
+          <strong>Script Result</strong>
+        </c-card-header>
+        <c-card-body>
+          <c-progress class="mb-3">
+            <c-progress-bar
+              [animated]="true"
+              color="info"
+              [value]="progressValue"
+              variant="striped"
+            ></c-progress-bar>
+          </c-progress>
+          <pre>{{ jobDetails.json_data | json }}</pre>
+        </c-card-body>
+      </c-card>
+    </div>
   </c-card-body>
 </c-card>

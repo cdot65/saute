@@ -17,6 +17,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
   selectedTarget: string = "PAN-OS";
   jobDetails: any;
   jobPollingSubscription: Subscription | undefined;
+  progressValue: number = 0;
 
   colors: { [key: string]: string } = {
     Ansible: "#CD0001",
@@ -76,10 +77,11 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
             message: `${response.message}. ${anchor}`,
             color: "secondary",
             autohide: true,
-            delay: 5000,
+            delay: 2500,
             closeButton: true,
           };
           this.toastService.show(toast);
+          this.progressValue = 10;
 
           // Poll for job updates every 5 seconds
           this.jobPollingSubscription = interval(5000)
@@ -88,11 +90,13 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
               next: (jobDetails) => {
                 // Update the job details
                 this.jobDetails = jobDetails;
+                this.progressValue = 15;
 
                 // If the job is done (i.e., json_data is present), stop polling and update code editor
                 if (jobDetails.json_data) {
                   this.jobPollingSubscription?.unsubscribe();
                   this.cdr.detectChanges();
+                  this.progressValue = 100;
                 }
               },
               error: (error) => {
