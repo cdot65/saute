@@ -1,4 +1,3 @@
-import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
@@ -6,11 +5,12 @@ import { CardsComponent } from "./cards/cards.component";
 import { CollapsesComponent } from "./collapses/collapses.component";
 import { ListGroupsComponent } from "./list-groups/list-groups.component";
 import { NavsComponent } from "./navs/navs.component";
+import { NgModule } from "@angular/core";
 import { PaginationsComponent } from "./paginations/paginations.component";
-import { TablesComponent } from "./tables/tables.component";
-import { TooltipsComponent } from "./tooltips/tooltips.component";
-import { TabsComponent } from "./tabs/tabs.component";
 import { PlaceholdersComponent } from "./placeholders/placeholders.component";
+import { TablesComponent } from "./tables/tables.component";
+import { TabsComponent } from "./tabs/tabs.component";
+import { TooltipsComponent } from "./tooltips/tooltips.component";
 
 const routes: Routes = [
   {

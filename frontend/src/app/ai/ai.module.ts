@@ -1,4 +1,5 @@
 import {
+  AccordionModule,
   BadgeModule,
   ButtonGroupModule,
   ButtonModule,
@@ -8,6 +9,7 @@ import {
   GridModule,
   HeaderModule,
   SharedModule,
+  SpinnerModule,
 } from "@coreui/angular";
 
 import { AiRoutingModule } from "./ai-routing.module";
@@ -36,6 +38,8 @@ import { TroubleshootComponent } from "./troubleshoot/troubleshoot.component";
     ProgressModule,
     ReactiveFormsModule,
     SharedModule,
+    AccordionModule,
+    SpinnerModule,
   ],
 })
 export class AiModule {}

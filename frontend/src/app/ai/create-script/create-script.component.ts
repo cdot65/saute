@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription, interval } from "rxjs";
 
 import { AiService } from "../../shared/services/ai.service";
+import { DomSanitizer } from "@angular/platform-browser";
 import { ToastService } from "../../shared/services/toast.service";
 import { switchMap } from "rxjs/operators";
 
@@ -18,6 +19,11 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
   jobDetails: any;
   jobPollingSubscription: Subscription | undefined;
   progressValue: number = 0;
+  jsonData: string = "";
+  jsonDataHighlighted: string = "";
+  scriptStatus: string = "Building Script...";
+  items = [1];
+  isLoading: boolean = false;
 
   colors: { [key: string]: string } = {
     Ansible: "#CD0001",
@@ -35,6 +41,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private AiService: AiService,
     private toastService: ToastService,
+    private sanitizer: DomSanitizer,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -59,6 +66,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     if (this.scriptForm.valid) {
       console.log(this.scriptForm.value);
+      this.isLoading = true;
 
       const scriptDetails = {
         ...this.scriptForm.value,
@@ -90,13 +98,16 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
               next: (jobDetails) => {
                 // Update the job details
                 this.jobDetails = jobDetails;
-                this.progressValue = 15;
+                this.progressValue = 35;
 
                 // If the job is done (i.e., json_data is present), stop polling and update code editor
                 if (jobDetails.json_data) {
                   this.jobPollingSubscription?.unsubscribe();
                   this.cdr.detectChanges();
+                  this.jsonData = jobDetails.json_data;
+                  this.scriptStatus = "Generated Script";
                   this.progressValue = 100;
+                  this.isLoading = false;
                 }
               },
               error: (error) => {
@@ -120,5 +131,18 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
     } else {
       console.log("Form is not valid");
     }
+  }
+
+  getAccordionBodyText(value: string) {
+    const textSample = `
+      <strong>This is the <mark>#${value}</mark> item accordion body.</strong> It is hidden by
+      default, until the collapse plugin adds the appropriate classes that we use to
+      style each element. These classes control the overall appearance, as well as
+      the showing and hiding via CSS transitions. You can modify any of this with
+      custom CSS or overriding our default variables. It&#39;s also worth noting
+      that just about any HTML can go within the <code>.accordion-body</code>,
+      though the transition does limit overflow.
+    `;
+    return this.sanitizer.bypassSecurityTrustHtml(textSample);
   }
 }
