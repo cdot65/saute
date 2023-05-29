@@ -1,7 +1,3 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
-
 // CoreUI Modules
 import {
   AccordionModule,
@@ -28,24 +24,25 @@ import {
   UtilitiesModule,
 } from "@coreui/angular";
 
-import { IconModule } from "@coreui/icons-angular";
-
-// utils
-
+// Components Routing
+import { BaseRoutingModule } from "./base-routing.module";
 // views
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { CardsComponent } from "./cards/cards.component";
 import { CollapsesComponent } from "./collapses/collapses.component";
+import { CommonModule } from "@angular/common";
+import { IconModule } from "@coreui/icons-angular";
 import { ListGroupsComponent } from "./list-groups/list-groups.component";
 import { NavsComponent } from "./navs/navs.component";
+import { NgModule } from "@angular/core";
 import { PaginationsComponent } from "./paginations/paginations.component";
 import { PlaceholdersComponent } from "./placeholders/placeholders.component";
+import { ReactiveFormsModule } from "@angular/forms";
 import { TablesComponent } from "./tables/tables.component";
-import { TooltipsComponent } from "./tooltips/tooltips.component";
 import { TabsComponent } from "./tabs/tabs.component";
+import { TooltipsComponent } from "./tooltips/tooltips.component";
 
-// Components Routing
-import { BaseRoutingModule } from "./base-routing.module";
+// utils
 
 @NgModule({
   imports: [
