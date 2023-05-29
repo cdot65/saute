@@ -1,147 +1,98 @@
-# Saute 🚀🌐
+# Saute
 
 [![Build and Deploy](https://github.com/cdot65/saute/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/saute/actions/workflows/backend.yml)
 
-## Introduction
+## 📚 Table of Contents
 
-Saute is a web application consisting of separate backend and frontend components. Its goal is to provide a simple and intuitive interface for managing products from Palo Alto Networks.
+- [Saute](#saute)
+  - [📚 Table of Contents](#-table-of-contents)
+  - [📖 Overview](#-overview)
+  - [🏗️ Application Structure](#️-application-structure)
+  - [🚀 Features](#-features)
+  - [📸 Screenshots](#-screenshots)
+  - [🛠️ Setup Instructions](#️-setup-instructions)
+  - [👥 Contribution Guidelines](#-contribution-guidelines)
+  - [📜 License Information](#-license-information)
 
-The backend is built using Django and PostgreSQL, while the frontend is developed with Angular. The backend provides a robust REST API, and the frontend consumes this API to offer a seamless user experience.
+## 📖 Overview
 
-The Saute now also includes an Operational module, which allows users to generate reports for Panorama devices.
+Saute is a powerful, scalable application built on modern technologies. It seamlessly integrates a Django REST API backend with an Angular frontend, utilizing a Postgres database, Celery runners, and a container-based architecture for enhanced functionality and development efficiency.
 
-### Example Snapshot
+The resulting application is a robust, scalable, and performant solution for executing automation through a GUI or REST API. It is designed to be easily deployed to your local machine or cloud platforms such as AWS or GCP.
 
-![Saute Snapshot](docs/images/dashboard.gif)
+## 🏗️ Application Structure
 
-## Table of Contents
+The application has a well-defined structure with separate directories for backend and frontend code. The key backend files include:
 
-- [Saute 🚀🌐](#saute-)
-  - [Introduction](#introduction)
-    - [Example Snapshot](#example-snapshot)
-  - [Table of Contents](#table-of-contents)
-  - [Backend Overview](#backend-overview)
-  - [Frontend Overview](#frontend-overview)
-  - [Project Dependencies](#project-dependencies)
-  - [Deployment Steps](#deployment-steps)
-  - [Technical Features](#technical-features)
-    - [Backend Features](#backend-features)
-    - [Frontend Features](#frontend-features)
-  - [Working with the Backend Application](#working-with-the-backend-application)
-    - [Django Admin Panel](#django-admin-panel)
-  - [Working with the Frontend Application](#working-with-the-frontend-application)
-    - [Angular Basics](#angular-basics)
-    - [Interacting with the Backend API](#interacting-with-the-backend-api)
+- `settings.py`: This file defines the configuration of our Django backend application.
+- `models.py`: This file defines the database models for our application.
+- `views.py`: This Django file handles API endpoints and request-response lifecycle.
+- `tasks.py`: This file defines Celery tasks for asynchronous execution.
 
-## Backend Overview
+The key frontend files include:
 
-The backend is designed using Django and Django Rest Framework (DRF), featuring a modular architecture with well-structured applications. This setup lays a strong foundation for future development.
+- `app.module.ts`: This is the entry point for the Angular frontend.
+- `app-routing.module.ts`: This file defines the routes for the frontend.
+- `widgets.module.ts`: This file defines the widgets for the dashboard.
+- `create-script.component.ts`: Defines the logic for the ChatGPT integration.
 
-## Frontend Overview
+The backend code is primarily organized in the Django application, located in the `/backend` directory. The Angular code resides in a separate `/frontend` directory. The two applications communicate through the backend's Django REST API.
 
-The frontend is developed using Angular, providing a seamless user experience while interacting with the backend REST API.
+## 🚀 Features
 
-## Project Dependencies
+- **Django REST API**: Backend server that handles requests and database operations.
+- **Angular frontend**: User interface and frontend logic.
+- **Postgres database**: Robust relational database for data storage.
+- **Celery runners**: Asynchronous task execution to improve performance.
+- **Container-based architecture**: Simplified development and deployment process.
 
-To work with this project, you'll need the following software installed on your system:
+## 📸 Screenshots
 
-- Docker
-- Docker Compose
-- Python 3.9
+Here's a look at our application:
 
-## Deployment Steps
+Taking a snapshot of a firewall before and after a change is a breeze:
 
-To deploy both backend and frontend using Docker and Docker Compose, follow these steps:
+![Taking Snapshots](docs/images/snapshots.gif)
 
-1. Ensure Docker and Docker Compose are installed on your system.
+Using the ChatGPT integration to generate a script for a firewall change:
 
-2. Create an `.env` file in the backend directory and update it accordingly.
+![ChatGPT Integration](docs/images/chatgpt.gif)
 
-    ```bash
-    cp backend/.env.example backend/.env
-    ```
+## 🛠️ Setup Instructions
 
-3. Build the Docker images and start the containers.
+Here are the steps to set up the application in a local development environment:
 
-    ```bash
-    docker-compose up --build
-    ```
+1. Clone the repository.
+2. Navigate to the project directory.
+3. Run the following command to build and start the services:
 
-    This will take around three minutes for the first time to build and run.
+   ```bash
+   docker-compose up -d --build
+   ```
 
-4. Wait for the web application to start (you can check the logs to ensure everything is running smoothly):
+4. Once the services are up and running, execute the database migrations:
 
-    ```bash
-    docker-compose logs -f
-    ```
+   ```bash
+   docker-compose exec backend python manage.py migrate
+   ```
 
-5. Perform database migrations, this will update your local database instance with the correct tables.
+5. Create a superuser account:
 
-    ```bash
-    docker-compose exec backend python manage.py migrate
-    ```
+   ```bash
+   docker-compose exec backend python manage.py createsuperuser
+   ```
 
-6. Create a superuser.
+6. The backend application should now be accessible at `localhost:8000`, the frontend will be available at `localhost:8080`.
 
-    ```bash
-    docker-compose exec backend python manage.py createsuperuser
-    ```
+## 👥 Contribution Guidelines
 
-Your application should now be up and running! 🎉
+We welcome and appreciate any contributions. Please follow these steps:
 
-Access the frontend at [localhost:8080/](localhost:8000/) or the backend at  [localhost:8000/admin](localhost:8000/admin)
+1. Fork the project repository.
+2. Create a new branch for your feature or fix.
+3. Make your changes and commit them to your branch.
+4. Submit a pull request, and our team will review your contribution.
 
-## Technical Features
+## 📜 License Information
 
-### Backend Features
-
-- PostgreSQL as the database
-- Celery workers for asynchronous tasks
-- Redis as the Celery broker
-- Django Rest Framework (DRF) for creating a RESTful API
-- Django Allauth for user authentication and registration
-- API documentation using Redoc and Swagger
-
-### Frontend Features
-
-- Angular framework for building a dynamic and responsive UI
-- Angular Material for a modern, sleek design
-- Integration with the backend DRF REST API
-- Routing and route guards for secure navigation
-- Operational module for generating reports for Panorama devices
-- Login and Registration forms with validation
-- Frontend to execute Python scripts on the backend celery workers
-
-## Working with the Backend Application
-
-### Django Admin Panel
-
-The Django admin panel is a powerful built-in tool for managing your application's data. With the admin panel, you can easily manage users, groups, and other models in your application. To access the admin panel:
-
-1. Create a superuser (if you haven't already):
-
-    ```bash
-    docker-compose exec backend python manage.py createsuperuser
-    ```
-
-    Follow the prompts to create a superuser with a username, email, and password.
-
-2. Access the admin panel by visiting `http://localhost:8000/admin` in your browser.
-
-3. Log in with the superuser credentials you created earlier.
-
-4. You can now manage users, groups, and other models through the admin panel. Click on the model you want to manage and add, edit, or delete entries as needed.
-
-## Working with the Frontend Application
-
-### Angular Basics
-
-The frontend of this project is built using Angular, a popular web application framework. To work with the frontend, you should be familiar with Angular's key concepts, such as components, services, and routing. You can learn more about Angular from the [official documentation](https://angular.io/docs).
-
-### Interacting with the Backend API
-
-The frontend interacts with the backend API using Angular's HttpClient. The AuthService and other services are responsible for making API calls to the backend. These services are injected into components using Angular's dependency injection system.
-
-For example, in the LoginComponent, the AuthService is used to log in a user by making a POST request to the `/api/v1/accounts/login/` endpoint. Upon successful login, the authentication token is stored in a cookie, and the user is redirected to the Homepage component.
-
-To add more functionality or interact with additional API endpoints, create new services or modify existing ones. Then, inject those services into the components that require the new functionality.
+This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE) file in the project root.
