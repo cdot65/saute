@@ -17,7 +17,6 @@ export const navItems: INavData[] = [
     children: [
       {
         name: "Create Script",
-        iconComponent: { name: "cil-code" },
         badge: {
           color: "danger-gradient",
           text: "NEW",
@@ -26,7 +25,6 @@ export const navItems: INavData[] = [
       },
       {
         name: "Troubleshoot",
-        iconComponent: { name: "cil-magnifying-glass" },
         badge: {
           color: "danger-gradient",
           text: "NEW",
