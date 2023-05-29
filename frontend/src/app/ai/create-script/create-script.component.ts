@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription, interval } from "rxjs";
 
 import { AiService } from "../../shared/services/ai.service";
+import { CHATGPT_TIPS_TEXT } from "../../shared/constants/chatgpt-tips";
 import { DISCLAIMER_TEXT } from "../../shared/constants/disclaimer";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ToastService } from "../../shared/services/toast.service";
@@ -17,7 +18,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
   scriptForm: FormGroup | any;
   selectedLanguage: string = "Python";
   normalizedLanguage: string = "python";
-  selectedTarget: string = "PAN OS";
+  selectedTarget: string = "PAN-OS";
   normalizedTarget: string = "pan_os";
   jobDetails: any;
   jobPollingSubscription: Subscription | undefined;
@@ -28,6 +29,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
   items = [1];
   isLoading: boolean = false;
   disclaimer = DISCLAIMER_TEXT.replace(/\n/g, "<br/>");
+  chatGptTips = CHATGPT_TIPS_TEXT.replace(/\n/g, "<br/>");
 
   colors: { [key: string]: string } = {
     Ansible: "#CD0001",
@@ -35,7 +37,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
     Powershell: "#002253",
     Python: "#F2DD6C",
     Terraform: "#753FB2",
-    "PAN OS": "#FA592C",
+    "PAN-OS": "#FA592C",
     Panorama: "#FA592C",
     "Prisma Access": "#01B5DB",
     "Prisma Cloud": "#01B5DB",
