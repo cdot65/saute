@@ -157,14 +157,14 @@
                                       [routerLink]="[]"
                                       cDropdownItem
                                       class="d-flex"
-                                      (click)="selectedTarget = 'PAN-OS'"
+                                      (click)="selectedTarget = 'PAN OS'"
                                     >
                                       <c-badge
                                         class="ms-auto align-self-end"
                                         [ngStyle]="{
-                                          'background-color': getColor('PAN-OS')
+                                          'background-color': getColor('PAN OS')
                                         }"
-                                        >PAN-OS</c-badge
+                                        >PAN OS</c-badge
                                       >
                                     </a>
                                     <a
@@ -232,16 +232,49 @@
                                   color="success"
                                   type="submit"
                                 >
-                                  Send
+                                  Create Script
                                 </button>
                                 <button
+                                  [cModalToggle]="
+                                    verticallyCenteredScrollableModal.id
+                                  "
                                   cButton
-                                  class="me-1"
-                                  color="danger"
-                                  type="reset"
                                 >
-                                  Discard
+                                  Disclaimer
                                 </button>
+                                <c-modal
+                                  #verticallyCenteredScrollableModal
+                                  [scrollable]="true"
+                                  alignment="center"
+                                  id="verticallyCenteredScrollableModal"
+                                >
+                                  <c-modal-header>
+                                    <h5 cModalTitle>
+                                      DISCLAIMER AND NOTICE OF LIABILITY
+                                    </h5>
+                                    <button
+                                      [cModalToggle]="
+                                        verticallyCenteredScrollableModal.id
+                                      "
+                                      cButtonClose
+                                    ></button>
+                                  </c-modal-header>
+                                  <c-modal-body>
+                                    <p [innerHTML]="disclaimer"></p>
+                                  </c-modal-body>
+
+                                  <c-modal-footer>
+                                    <button
+                                      [cModalToggle]="
+                                        verticallyCenteredScrollableModal.id
+                                      "
+                                      cButton
+                                      color="secondary"
+                                    >
+                                      Understood
+                                    </button>
+                                  </c-modal-footer>
+                                </c-modal>
                               </div>
                             </c-col>
                           </c-row>
@@ -253,6 +286,7 @@
               </form>
             </div>
           </div>
+
           <button cButton class="m-1 w-100" disabled *ngIf="isLoading">
             <c-spinner aria-hidden="true" size="sm"></c-spinner>
             Sending to ChatGPT...

@@ -9,7 +9,7 @@ from environs import Env
 from pydantic import BaseModel
 
 # Local prompt file imports
-from .prompts import python_panorama_system_request
+from .prompts import chatgpt_prompts
 
 
 # ----------------------------------------------------------------------------
@@ -22,17 +22,6 @@ LOGGING_LEVELS = {
     "error": logging.ERROR,
     "critical": logging.CRITICAL,
 }
-
-
-# ----------------------------------------------------------------------------
-# Define targets
-# ----------------------------------------------------------------------------
-TARGETS = [
-    "pan-os",
-    "panorama",
-    "prisma_access",
-    "prisma_cloud",
-]
 
 
 # ----------------------------------------------------------------------------
@@ -122,6 +111,10 @@ def run_create_script(
         dict: Result of the operation
         None: If target is invalid
     """
+    # enforce lowercase
+    language = language.lower()
+    target = target.lower()
+
     # Get environment variables
     env = Env()
     env.read_env()
@@ -136,11 +129,16 @@ def run_create_script(
 
     results = None
 
-    if language.lower() == "python":
-        if target.lower() not in TARGETS:
-            logging.error(f"Invalid target for automation: {target}")
-            return
+    logging.info("language: %s", language)
+    logging.info("target: %s", target)
+    logging.info("chatgpt_prompts: %s", chatgpt_prompts)
 
+    # Accessing prompt using the get_prompt method
+    prompt = chatgpt_prompts.get_prompt(language, target)
+
+    logging.info("prompt: %s", prompt)
+
+    if prompt is not None:
         try:
             logging.info("Running request to ChatGPT...")
             results = openai.ChatCompletion.create(
@@ -148,7 +146,7 @@ def run_create_script(
                 messages=[
                     {
                         "role": "system",
-                        "content": f"{python_panorama_system_request}.",
+                        "content": f"{prompt}.",
                     },
                     {"role": "user", "content": message},
                 ],
@@ -159,9 +157,10 @@ def run_create_script(
         except Exception as e:
             logging.error(f"ChatGPT request failed with exception: {e}")
             return
-
     else:
-        logging.error(f"Invalid Language: {language}")
+        logging.error(
+            "Result of 'chatgpt_prompts.get_prompt(language, target)' was None"
+        )
         return
 
     return results
@@ -183,4 +182,7 @@ if __name__ == "__main__":
         message=args.message,
         target=args.target,
     )
-    logging.info(f'Result: {result["choices"][0]["message"]["content"]}')
+    if result:
+        logging.info(f'Result: {result["choices"][0]["message"]["content"]}')
+    else:
+        logging.error("Result was None")
