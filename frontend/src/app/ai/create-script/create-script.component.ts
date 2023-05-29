@@ -17,7 +17,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
   scriptForm: FormGroup | any;
   selectedLanguage: string = "Python";
   normalizedLanguage: string = "python";
-  selectedTarget: string = "PAN OS";
+  selectedTarget: string = "PAN-OS";
   normalizedTarget: string = "pan_os";
   jobDetails: any;
   jobPollingSubscription: Subscription | undefined;
@@ -35,7 +35,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
     Powershell: "#002253",
     Python: "#F2DD6C",
     Terraform: "#753FB2",
-    "PAN OS": "#FA592C",
+    "PAN-OS": "#FA592C",
     Panorama: "#FA592C",
     "Prisma Access": "#01B5DB",
     "Prisma Cloud": "#01B5DB",
