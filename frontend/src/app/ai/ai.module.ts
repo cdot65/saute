@@ -8,11 +8,13 @@ import {
   FormModule,
   GridModule,
   HeaderModule,
+  ModalModule,
   SharedModule,
   SpinnerModule,
 } from "@coreui/angular";
 
 import { AiRoutingModule } from "./ai-routing.module";
+import { AutomationDocsModule } from "../shared/modules/automation-docs/automation-docs.module";
 import { CommonModule } from "@angular/common";
 import { CreateScriptComponent } from "./create-script/create-script.component";
 import { IconModule } from "@coreui/icons-angular";
@@ -26,6 +28,7 @@ import { TroubleshootComponent } from "./troubleshoot/troubleshoot.component";
   imports: [
     CommonModule,
     AiRoutingModule,
+    AutomationDocsModule,
     GridModule,
     CardModule,
     HeaderModule,
@@ -40,6 +43,7 @@ import { TroubleshootComponent } from "./troubleshoot/troubleshoot.component";
     SharedModule,
     AccordionModule,
     SpinnerModule,
+    ModalModule,
   ],
 })
 export class AiModule {}

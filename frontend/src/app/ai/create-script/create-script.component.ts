@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription, interval } from "rxjs";
 
 import { AiService } from "../../shared/services/ai.service";
+import { DISCLAIMER_TEXT } from "../../shared/constants/disclaimer";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ToastService } from "../../shared/services/toast.service";
 import { switchMap } from "rxjs/operators";
@@ -15,7 +16,9 @@ import { switchMap } from "rxjs/operators";
 export class CreateScriptComponent implements OnInit, OnDestroy {
   scriptForm: FormGroup | any;
   selectedLanguage: string = "Python";
-  selectedTarget: string = "PAN-OS";
+  normalizedLanguage: string = "python";
+  selectedTarget: string = "PAN OS";
+  normalizedTarget: string = "pan_os";
   jobDetails: any;
   jobPollingSubscription: Subscription | undefined;
   progressValue: number = 0;
@@ -24,6 +27,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
   scriptStatus: string = "Building Script...";
   items = [1];
   isLoading: boolean = false;
+  disclaimer = DISCLAIMER_TEXT.replace(/\n/g, "<br/>");
 
   colors: { [key: string]: string } = {
     Ansible: "#CD0001",
@@ -31,7 +35,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
     Powershell: "#002253",
     Python: "#F2DD6C",
     Terraform: "#753FB2",
-    "PAN-OS": "#FA592C",
+    "PAN OS": "#FA592C",
     Panorama: "#FA592C",
     "Prisma Access": "#01B5DB",
     "Prisma Cloud": "#01B5DB",
@@ -65,14 +69,23 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.scriptForm.valid) {
-      console.log(this.scriptForm.value);
       this.isLoading = true;
+
+      // normalize language and target
+      const normalizedLanguage = this.selectedLanguage
+        .toLowerCase()
+        .replace(/[- ]/g, "_");
+      const normalizedTarget = this.selectedTarget
+        .toLowerCase()
+        .replace(/[- ]/g, "_");
 
       const scriptDetails = {
         ...this.scriptForm.value,
-        language: this.selectedLanguage,
-        target: this.selectedTarget,
+        language: normalizedLanguage,
+        target: normalizedTarget,
       };
+
+      console.log(scriptDetails);
 
       this.AiService.sendScript(scriptDetails).subscribe({
         next: (response) => {
