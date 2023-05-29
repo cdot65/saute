@@ -2,6 +2,8 @@
 
 [![Build and Deploy](https://github.com/cdot65/saute/actions/workflows/backend.yml/badge.svg)](https://github.com/cdot65/saute/actions/workflows/backend.yml)
 
+Saute is a self-service automation catalogue, designed to simplify the process of executing automation tasks. With no opinions on the automation technology of choice, it provides a user-friendly interface for executing automation tasks, as well as a REST API for programmatic access.
+
 ## 📚 Table of Contents
 
 - [Saute](#saute)
