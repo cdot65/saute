@@ -9,7 +9,7 @@ from environs import Env
 from pydantic import BaseModel
 
 # Local prompt file imports
-from prompts import chatgpt_prompts
+from .prompts import chatgpt_prompts
 
 
 # ----------------------------------------------------------------------------
@@ -129,14 +129,14 @@ def run_create_script(
 
     results = None
 
-    logging.debug("language: %s", language)
-    logging.debug("target: %s", target)
-    logging.debug("chatgpt_prompts: %s", chatgpt_prompts)
+    logging.info("language: %s", language)
+    logging.info("target: %s", target)
+    logging.info("chatgpt_prompts: %s", chatgpt_prompts)
 
     # Accessing prompt using the get_prompt method
     prompt = chatgpt_prompts.get_prompt(language, target)
 
-    logging.debug("prompt: %s", prompt)
+    logging.info("prompt: %s", prompt)
 
     if prompt is not None:
         try:
