@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription, interval } from "rxjs";
 
 import { AiService } from "../../shared/services/ai.service";
+import { CHATGPT_TIPS_TEXT } from "../../shared/constants/chatgpt-tips";
 import { DISCLAIMER_TEXT } from "../../shared/constants/disclaimer";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ToastService } from "../../shared/services/toast.service";
@@ -28,6 +29,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
   items = [1];
   isLoading: boolean = false;
   disclaimer = DISCLAIMER_TEXT.replace(/\n/g, "<br/>");
+  chatGptTips = CHATGPT_TIPS_TEXT.replace(/\n/g, "<br/>");
 
   colors: { [key: string]: string } = {
     Ansible: "#CD0001",
