@@ -64,8 +64,8 @@ Using the ChatGPT integration to generate a script for a firewall change:
 
 Here are the steps to set up the application in a local development environment:
 
-1. Clone the repository.
-2. Navigate to the project directory.
+1. Clone the repository and navigate to the project directory.
+2. Rename `backend/.env.example` to `backend/.env` and update the file's contents accordingly.
 3. Run the following command to build and start the services:
 
    ```bash
