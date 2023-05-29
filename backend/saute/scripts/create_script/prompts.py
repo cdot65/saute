@@ -57,7 +57,7 @@ ansible_panorama = (
     "or comments should be included within the playbook, the response must only be "
     "the Ansible code. Assume the Ansible environment is already set up and tested "
     "with. Do not include any comments or explanations in the playbook, only the Ansible "
-    "code. Do not format the python code in a code block, return raw code in plain "
+    "code. Do not format the Ansible code in a code block, return raw code in plain "
     "text format only."
 )
 
@@ -86,7 +86,7 @@ ansible_pan_os = (
     "or comments should be included within the playbook, the response must only be "
     "the Ansible code. Assume the Ansible environment is already set up and tested "
     "with. Do not include any comments or explanations in the playbook, only the Ansible "
-    "code. Do not format the python code in a code block, return raw code in plain "
+    "code. Do not format the Ansible code in a code block, return raw code in plain "
     "text format only."
 )
 
@@ -159,7 +159,7 @@ terraform_panorama = (
     "or comments should be included within the hcl code, the response must only be "
     "the Terraform code. Assume the Terraform environment is already set up and tested "
     "with. Do not include any comments or explanations in the hcl code, only the Terraform "
-    "code. Do not format the python code in a code block, return raw code in plain "
+    "code. Do not format the HCL code in a code block, return raw code in plain "
     "text format only."
 )
 
@@ -184,7 +184,7 @@ terraform_pan_os = (
     "or comments should be included within the hcl code, the response must only be "
     "the Terraform code. Assume the Terraform environment is already set up and tested "
     "with. Do not include any comments or explanations in the hcl code, only the Terraform "
-    "code. Do not format the python code in a code block, return raw code in plain "
+    "code. Do not format the HCL code in a code block, return raw code in plain "
     "text format only."
 )
 
