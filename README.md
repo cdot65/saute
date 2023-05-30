@@ -13,6 +13,7 @@ Saute is a self-service automation catalogue, designed to simplify the process o
   - [🚀 Features](#-features)
   - [📸 Screenshots](#-screenshots)
   - [🛠️ Setup Instructions](#️-setup-instructions)
+  - [📝 Troubleshooting](#-troubleshooting)
   - [👥 Contribution Guidelines](#-contribution-guidelines)
   - [📜 License Information](#-license-information)
 
@@ -72,10 +73,11 @@ Here are the steps to set up the application in a local development environment:
    docker-compose up -d --build
    ```
 
-4. Once the services are up and running, execute the database migrations:
+4. Once the services are up and running, execute the database migrations and give it a little restart to make everyone happy:
 
    ```bash
    docker-compose exec backend python manage.py migrate
+   docker-compose restart
    ```
 
 5. Create a superuser account:
@@ -85,6 +87,23 @@ Here are the steps to set up the application in a local development environment:
    ```
 
 6. The backend application should now be accessible at `localhost:8000`, the frontend will be available at `localhost:8080`.
+
+## 📝 Troubleshooting
+
+If there are any issues with the application, its likely that checking the backend and worker containers are going to provide the most valuable information. To do this, run the following commands:
+
+```bash
+docker-compose logs backend
+docker-compose logs worker
+```
+
+The frontend container will likely always be running, but if there are any issues with it, you can check the logs with the following command:
+
+```bash
+docker-compose logs frontend
+```
+
+More times than not I have found myself working just fine within the frontend angular application, only to find that the backend is throwing errors. If you are having issues with the frontend communicating with the backend (cannot login, no inventory or jobs found), it is worth checking the backend logs to see if there are any errors being thrown.
 
 ## 👥 Contribution Guidelines
 
