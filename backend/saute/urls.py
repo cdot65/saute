@@ -9,6 +9,7 @@ from .views import (
     UserProfileView,
     execute_admin_report,
     execute_assurance_arp_entry,
+    execute_assurance_snapshot,
     execute_create_script,
     execute_get_system_info,
     execute_upload_cert_chain,
@@ -50,6 +51,11 @@ urlpatterns += [
         "operations/assurance-arp-entry",
         execute_assurance_arp_entry,
         name="execute_assurance_arp_entry",
+    ),
+    path(
+        "operations/assurance-snapshot",
+        execute_assurance_snapshot,
+        name="execute_assurance_snapshot",
     ),
     path(
         "report/get-system-info",
