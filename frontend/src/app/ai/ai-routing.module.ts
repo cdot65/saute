@@ -17,17 +17,17 @@ const routes: Routes = [
         pathMatch: "full",
       },
       {
-        path: "create-script",
-        component: CreateScriptComponent,
-        data: {
-          title: "create-script",
-        },
-      },
-      {
         path: "change-analysis",
         component: ChangeAnalysisComponent,
         data: {
           title: "change-analysis",
+        },
+      },
+      {
+        path: "create-script",
+        component: CreateScriptComponent,
+        data: {
+          title: "create-script",
         },
       },
       {
