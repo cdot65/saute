@@ -114,8 +114,9 @@ export class ChangeAnalysisComponent implements OnInit, OnDestroy {
           this.progressValue = 10;
 
           // Poll for job updates every 5 seconds
+          // Poll for job updates every 5 seconds
           this.jobPollingSubscription = interval(5000)
-            .pipe(switchMap(() => this.AiService.getJobDetails(jobId)))
+            .pipe(switchMap(() => this.jobsService.getJobDetails(jobId)))
             .subscribe({
               next: (jobDetails) => {
                 // Update the job details
