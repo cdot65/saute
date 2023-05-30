@@ -36,15 +36,4 @@ export class AiService {
         })
       );
   }
-
-  getJobDetails(jobId: string): Observable<any> {
-    return this.http
-      .get<any>(`http://localhost:8000/api/v1/jobs/${jobId}/`)
-      .pipe(
-        catchError((error) => {
-          console.error("Error fetching job details:", error);
-          return of(null);
-        })
-      );
-  }
 }
