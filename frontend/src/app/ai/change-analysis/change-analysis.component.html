@@ -54,82 +54,8 @@
                                       <svg cIcon name="cil-code"></svg>
                                     </button>
                                     <div cDropdownMenu>
-                                      <a
-                                        [routerLink]="[]"
-                                        cDropdownItem
-                                        class="d-flex"
-                                        (click)="selectedLanguage = 'Ansible'"
-                                      >
-                                        <c-badge
-                                          class="ms-auto align-self-end"
-                                          [ngStyle]="{
-                                            'background-color':
-                                              getColor('Ansible')
-                                          }"
-                                          >Ansible</c-badge
-                                        >
-                                      </a>
-                                      <a
-                                        [routerLink]="[]"
-                                        cDropdownItem
-                                        class="d-flex"
-                                        (click)="selectedLanguage = 'bash'"
-                                      >
-                                        <c-badge
-                                          class="ms-auto align-self-end"
-                                          [ngStyle]="{
-                                            'background-color': getColor('bash')
-                                          }"
-                                          >bash</c-badge
-                                        >
-                                      </a>
-                                      <a
-                                        [routerLink]="[]"
-                                        cDropdownItem
-                                        class="d-flex"
-                                        (click)="
-                                          selectedLanguage = 'Powershell'
-                                        "
-                                      >
-                                        <c-badge
-                                          class="ms-auto align-self-end"
-                                          [ngStyle]="{
-                                            'background-color':
-                                              getColor('Powershell')
-                                          }"
-                                          >Powershell</c-badge
-                                        >
-                                      </a>
-                                      <a
-                                        [routerLink]="[]"
-                                        cDropdownItem
-                                        class="d-flex"
-                                        (click)="selectedLanguage = 'Python'"
-                                      >
-                                        <c-badge
-                                          class="ms-auto align-self-end"
-                                          [ngStyle]="{
-                                            'background-color':
-                                              getColor('Python')
-                                          }"
-                                          >Python</c-badge
-                                        >
-                                      </a>
-                                      <a
-                                        [routerLink]="[]"
-                                        cDropdownItem
-                                        class="d-flex"
-                                        (click)="selectedLanguage = 'Terraform'"
-                                      >
-                                        <c-badge
-                                          class="ms-auto align-self-end"
-                                          [ngStyle]="{
-                                            'background-color':
-                                              getColor('Terraform')
-                                          }"
-                                          >Terraform</c-badge
-                                        >
-                                      </a>
+                                      <!-- dynamic dropdown with data sourced from
+                                      Jobs table entries that have a type of "assurance_snapshot" -->
                                     </div>
                                   </c-dropdown>
                                   <c-dropdown class="ms-1">
@@ -143,70 +69,8 @@
                                       <svg cIcon name="cil-cloud"></svg>
                                     </button>
                                     <div cDropdownMenu>
-                                      <a
-                                        [routerLink]="[]"
-                                        cDropdownItem
-                                        class="d-flex"
-                                        (click)="selectedTarget = 'PAN-OS'"
-                                      >
-                                        <c-badge
-                                          class="ms-auto align-self-end"
-                                          [ngStyle]="{
-                                            'background-color':
-                                              getColor('PAN-OS')
-                                          }"
-                                          >PAN-OS</c-badge
-                                        >
-                                      </a>
-                                      <a
-                                        [routerLink]="[]"
-                                        cDropdownItem
-                                        class="d-flex"
-                                        (click)="selectedTarget = 'Panorama'"
-                                      >
-                                        <c-badge
-                                          class="ms-auto align-self-end"
-                                          [ngStyle]="{
-                                            'background-color':
-                                              getColor('Panorama')
-                                          }"
-                                          >Panorama</c-badge
-                                        >
-                                      </a>
-                                      <a
-                                        [routerLink]="[]"
-                                        cDropdownItem
-                                        class="d-flex"
-                                        (click)="
-                                          selectedTarget = 'Prisma Access'
-                                        "
-                                      >
-                                        <c-badge
-                                          class="ms-auto align-self-end"
-                                          [ngStyle]="{
-                                            'background-color':
-                                              getColor('Prisma Access')
-                                          }"
-                                          >Prisma Access</c-badge
-                                        >
-                                      </a>
-                                      <a
-                                        [routerLink]="[]"
-                                        cDropdownItem
-                                        class="d-flex"
-                                        (click)="
-                                          selectedTarget = 'Prisma Cloud'
-                                        "
-                                      >
-                                        <c-badge
-                                          class="ms-auto align-self-end"
-                                          [ngStyle]="{
-                                            'background-color':
-                                              getColor('Prisma Cloud')
-                                          }"
-                                          >Prisma Cloud</c-badge
-                                        >
-                                      </a>
+                                      <!-- dynamic dropdown with data sourced from
+                                      Jobs table entries that have a type of "assurance_snapshot" -->
                                     </div>
                                   </c-dropdown>
                                 </div>
