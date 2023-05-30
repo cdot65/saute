@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription, of, timer } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
-import { of, Subscription, timer } from "rxjs";
+
+import { ActivatedRoute } from "@angular/router";
+import { JobsService } from "../../shared/services/jobs.service";
 import { Params } from "@angular/router";
 import { Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: "app-jobs-details",
@@ -15,29 +15,20 @@ export class JobsDetailsComponent implements OnInit, OnDestroy {
   data: any;
   isJobCompleted: boolean = false;
   private pollingSubscription: Subscription = new Subscription();
-  authToken: string;
-  headers: HttpHeaders;
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient,
     private router: Router,
-    private cookieService: CookieService,
+    private jobsService: JobsService,
     private cdr: ChangeDetectorRef
-  ) {
-    this.authToken = this.cookieService.get("auth_token");
-    this.headers = new HttpHeaders().set(
-      "Authorization",
-      `Token ${this.authToken}`
-    );
-  }
+  ) {}
 
   ngOnInit(): void {
     this.route.params
       .pipe(
         switchMap((params: Params) => {
           const taskId = params["id"];
-          return this.getJobDetails(taskId);
+          return this.jobsService.getJobDetails(taskId);
         })
       )
       .subscribe((job: any) => {
@@ -60,7 +51,7 @@ export class JobsDetailsComponent implements OnInit, OnDestroy {
     const pollingInterval = 5000;
 
     this.pollingSubscription = timer(0, pollingInterval)
-      .pipe(switchMap(() => this.getJobDetails(taskId)))
+      .pipe(switchMap(() => this.jobsService.getJobDetails(taskId)))
       .subscribe((job: any) => {
         if (job !== null) {
           this.data = job;
@@ -71,19 +62,6 @@ export class JobsDetailsComponent implements OnInit, OnDestroy {
           this.cdr.detectChanges();
         }
       });
-  }
-
-  getJobDetails(taskId: string) {
-    return this.http
-      .get(`http://localhost:8000/api/v1/jobs/${taskId}/`, {
-        headers: this.headers,
-      })
-      .pipe(
-        catchError((error) => {
-          console.error("Error fetching job details:", error);
-          return of(null);
-        })
-      );
   }
 
   stopPolling() {
