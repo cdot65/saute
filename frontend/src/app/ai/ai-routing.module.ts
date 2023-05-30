@@ -1,8 +1,8 @@
 import { RouterModule, Routes } from "@angular/router";
 
+import { ChangeAnalysisComponent } from "./change-analysis/change-analysis.component";
 import { CreateScriptComponent } from "./create-script/create-script.component";
 import { NgModule } from "@angular/core";
-import { TroubleshootComponent } from "./troubleshoot/troubleshoot.component";
 
 const routes: Routes = [
   {
@@ -24,10 +24,10 @@ const routes: Routes = [
         },
       },
       {
-        path: "troubleshoot",
-        component: TroubleshootComponent,
+        path: "change-analysis",
+        component: ChangeAnalysisComponent,
         data: {
-          title: "troubleshoot",
+          title: "change-analysis",
         },
       },
       {
