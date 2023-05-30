@@ -14,7 +14,7 @@
         <ng-template cTemplateId="accordionBody">
           <div class="message">
             <div class="message-message-details flex-wrap pb-3">
-              <form [formGroup]="scriptForm" (ngSubmit)="onSubmit()" cForm>
+              <form [formGroup]="comparisonForm" (ngSubmit)="onSubmit()" cForm>
                 <c-row
                   class="justify-content-center align-items-center"
                   style="height: 100%"
@@ -23,7 +23,7 @@
                     <div class="message">
                       <div class="message-message-details flex-wrap pb-3">
                         <form
-                          [formGroup]="scriptForm"
+                          [formGroup]="comparisonForm"
                           (ngSubmit)="onSubmit()"
                           cForm
                         >
@@ -32,7 +32,7 @@
                             style="height: 100%"
                           >
                             <c-col class="ms-auto" sm="12">
-                              <c-row *ngIf="selectedLanguage || selectedTarget">
+                              <c-row>
                                 <c-col>
                                   This tool will compare the snapshots taken and
                                   report the differences between them in
@@ -50,12 +50,16 @@
                                       cDropdownToggle
                                       color="light"
                                     >
-                                      Select "Before" Snapshot
-                                      <svg cIcon name="cil-code"></svg>
+                                      <b>{{ beforeSnapshotDate }}</b>
                                     </button>
                                     <div cDropdownMenu>
-                                      <!-- dynamic dropdown with data sourced from
-                                      Jobs table entries that have a type of "assurance_snapshot" -->
+                                      <button
+                                        *ngFor="let job of assuranceJobs"
+                                        (click)="selectBeforeSnapshot(job)"
+                                        class="dropdown-item"
+                                      >
+                                        {{ job.created_at }}
+                                      </button>
                                     </div>
                                   </c-dropdown>
                                   <c-dropdown class="ms-1">
@@ -65,12 +69,16 @@
                                       cDropdownToggle
                                       color="light"
                                     >
-                                      Select "After" Snapshot
-                                      <svg cIcon name="cil-cloud"></svg>
+                                      <b>{{ afterSnapshotDate }}</b>
                                     </button>
                                     <div cDropdownMenu>
-                                      <!-- dynamic dropdown with data sourced from
-                                      Jobs table entries that have a type of "assurance_snapshot" -->
+                                      <button
+                                        *ngFor="let job of assuranceJobs"
+                                        (click)="selectAfterSnapshot(job)"
+                                        class="dropdown-item"
+                                      >
+                                        {{ job.created_at }}
+                                      </button>
                                     </div>
                                   </c-dropdown>
                                 </div>
