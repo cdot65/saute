@@ -42,7 +42,10 @@
                                       [routerLink]="[]"
                                       cButton
                                       cDropdownToggle
-                                      color="light"
+                                      [ngStyle]="{
+                                        'background-color':
+                                          getColor(selectedLanguage)
+                                      }"
                                     >
                                       {{ selectedLanguage || "Language" }}
                                       <svg cIcon name="cil-code"></svg>
@@ -132,7 +135,10 @@
                                       [routerLink]="[]"
                                       cButton
                                       cDropdownToggle
-                                      color="light"
+                                      [ngStyle]="{
+                                        'background-color':
+                                          getColor(selectedTarget)
+                                      }"
                                     >
                                       {{ selectedTarget || "Target" }}
                                       <svg cIcon name="cil-cloud"></svg>
