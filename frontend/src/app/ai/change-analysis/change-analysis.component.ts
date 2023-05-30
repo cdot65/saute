@@ -96,7 +96,7 @@ export class ChangeAnalysisComponent implements OnInit, OnDestroy {
 
       console.log(comparisonDetails);
 
-      this.AiService.sendScript(comparisonDetails).subscribe({
+      this.AiService.sendChangeAnalysis(comparisonDetails).subscribe({
         next: (response) => {
           console.log(response);
           const jobId = response.task_id; // capture the job ID from the response
@@ -113,7 +113,6 @@ export class ChangeAnalysisComponent implements OnInit, OnDestroy {
           this.toastService.show(toast);
           this.progressValue = 10;
 
-          // Poll for job updates every 5 seconds
           // Poll for job updates every 5 seconds
           this.jobPollingSubscription = interval(5000)
             .pipe(switchMap(() => this.jobsService.getJobDetails(jobId)))
