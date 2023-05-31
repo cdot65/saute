@@ -1,8 +1,8 @@
 import { RouterModule, Routes } from "@angular/router";
 
+import { ChangeAnalysisComponent } from "./change-analysis/change-analysis.component";
 import { CreateScriptComponent } from "./create-script/create-script.component";
 import { NgModule } from "@angular/core";
-import { TroubleshootComponent } from "./troubleshoot/troubleshoot.component";
 
 const routes: Routes = [
   {
@@ -17,17 +17,17 @@ const routes: Routes = [
         pathMatch: "full",
       },
       {
+        path: "change-analysis",
+        component: ChangeAnalysisComponent,
+        data: {
+          title: "change-analysis",
+        },
+      },
+      {
         path: "create-script",
         component: CreateScriptComponent,
         data: {
           title: "create-script",
-        },
-      },
-      {
-        path: "troubleshoot",
-        component: TroubleshootComponent,
-        data: {
-          title: "troubleshoot",
         },
       },
       {

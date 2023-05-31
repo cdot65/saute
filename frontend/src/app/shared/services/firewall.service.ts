@@ -1,7 +1,8 @@
-import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable, of } from "rxjs";
+
+import { Injectable } from "@angular/core";
 import { catchError } from "rxjs/operators";
-import { of, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -54,7 +55,7 @@ export class FirewallService {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
     return this.http
       .post<any>(
-        "http://localhost:8000/api/v1/operations/assurance-arp-entry",
+        "http://localhost:8000/api/v1/operations/assurance-snapshot",
         jobDetails,
         { headers: headers }
       )

@@ -14,6 +14,7 @@ from environs import Env
 from saute.scripts import (
     run_admin_report,
     run_assurance,
+    run_change_analysis,
     run_create_script,
     run_export_rules_to_csv,
     run_get_system_info,
@@ -234,6 +235,123 @@ def execute_assurance_arp_entry(
 
         # logging.debug(json_report)
         job.json_data = json_report
+        logging.debug(job)
+
+    except Exception as e:
+        logging.error(e)
+        job.result = f"Job ID: {job.pk}\nError: {e}"
+
+    # Save the updated job information
+    job.save()
+
+
+# ----------------------------------------------------------------------------
+# Assurance: Snapshot
+# ----------------------------------------------------------------------------
+@shared_task(bind=True)
+def execute_assurance_snapshot(
+    self,
+    hostname,
+    api_key,
+    operation_type,
+    action,
+    config,
+    author_id,
+):
+    # Retrieve the user object by id
+    author = User.objects.get(id=author_id)
+
+    # Create a new entry in our Jobs database table
+    job = Jobs.objects.create(
+        job_type="assurance_snapshot",
+        json_data=None,
+        author=author,
+        task_id=self.request.id,
+    )
+    logging.debug(f"Job ID: {job.pk}")
+
+    # Execute the assurance check
+    try:
+        json_report = run_assurance(
+            hostname,
+            api_key,
+            operation_type,
+            action,
+            config,
+        )
+
+        # logging.debug(json_report)
+        job.json_data = json_report
+        logging.debug(job)
+
+    except Exception as e:
+        logging.error(e)
+        job.result = f"Job ID: {job.pk}\nError: {e}"
+
+    # Save the updated job information
+    job.save()
+
+
+# ----------------------------------------------------------------------------
+# AI: Change Analysis with ChatGPT
+# ----------------------------------------------------------------------------
+@shared_task(bind=True)
+def execute_change_analysis(
+    self,
+    after_snapshot_id,
+    before_snapshot_id,
+    message,
+    expertise_level,
+    author_id,
+):
+    # Retrieve the user object by id
+    author = User.objects.get(id=author_id)
+
+    # Create a new entry in our Jobs database table
+    job = Jobs.objects.create(
+        job_type="change_analysis",
+        json_data=None,
+        author=author,
+        task_id=self.request.id,
+    )
+    logging.debug(f"Job ID: {job.pk}")
+
+    # Retrieve the JSON data for the before_snapshot and after_snapshot
+    before_snapshot_contents = (
+        Jobs.objects.filter(task_id=before_snapshot_id).values("json_data").first()
+    )
+    after_snapshot_contents = (
+        Jobs.objects.filter(task_id=after_snapshot_id).values("json_data").first()
+    )
+
+    if before_snapshot_contents:
+        before_snapshot_contents = before_snapshot_contents["json_data"]
+        if not isinstance(before_snapshot_contents, dict):
+            raise ValueError(
+                f"Unexpected data format for 'before_snapshot_contents', got {type(before_snapshot_contents)}"
+            )
+
+    if after_snapshot_contents:
+        after_snapshot_contents = after_snapshot_contents["json_data"]
+        if not isinstance(after_snapshot_contents, dict):
+            raise ValueError(
+                f"Unexpected data format for 'after_snapshot_contents', got {type(after_snapshot_contents)}"
+            )
+
+    logging.debug(f"before_snapshot_contents: {before_snapshot_contents}")
+    logging.debug(f"after_snapshot_contents: {after_snapshot_contents}")
+
+    # Execute the assurance check
+    try:
+        result = run_change_analysis(
+            after_snapshot_contents,
+            before_snapshot_contents,
+            message,
+            expertise_level,
+        )
+
+        # logging.debug(result)
+        job.json_data = result["choices"][0]["message"]["content"]
         logging.debug(job)
 
     except Exception as e:

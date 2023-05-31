@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError } from "rxjs/operators";
-import { of } from "rxjs";
+
+import { JobsService } from "../../shared/services/jobs.service";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
+import { catchError } from "rxjs/operators";
+import { of } from "rxjs";
 
 @Component({
   selector: "app-jobs-list",
@@ -16,24 +18,20 @@ export class JobsListComponent implements OnInit {
   pageSize: number = 15;
   pageSizeOptions: number[] = [15, 50, 100];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private jobsService: JobsService
+  ) {}
 
   ngOnInit(): void {
     this.fetchJobsData();
   }
 
   fetchJobsData() {
-    this.http
-      .get<any[]>("http://localhost:8000/api/v1/jobs/")
-      .pipe(
-        catchError((error) => {
-          console.error("Error fetching Jobs data:", error);
-          return of([]);
-        })
-      )
-      .subscribe((data: any[]) => {
-        this.jobsData = data;
-      });
+    this.jobsService.fetchJobsData().subscribe((data: any[]) => {
+      this.jobsData = data;
+    });
   }
 
   applyFilter(event: Event) {

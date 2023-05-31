@@ -37,12 +37,19 @@ export class AiService {
       );
   }
 
-  getJobDetails(jobId: string): Observable<any> {
+  sendChangeAnalysis(comparisonDetails: any): Observable<any> {
+    const headers = new HttpHeaders({ "Content-Type": "application/json" });
     return this.http
-      .get<any>(`http://localhost:8000/api/v1/jobs/${jobId}/`)
+      .post<any>(
+        "http://localhost:8000/api/v1/ai/change-analysis",
+        comparisonDetails,
+        {
+          headers: headers,
+        }
+      )
       .pipe(
         catchError((error) => {
-          console.error("Error fetching job details:", error);
+          console.error("Error sending script:", error);
           return of(null);
         })
       );

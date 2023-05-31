@@ -57,9 +57,13 @@ Taking a snapshot of a firewall before and after a change is a breeze:
 
 ![Taking Snapshots](docs/images/snapshots.gif)
 
+Let ChatGPT explain the differences between the snapshots and provide suggestions on next steps:
+
+![ChatGPT](docs/images/change-analysis.gif)
+
 Using the ChatGPT integration to generate a script for a firewall change:
 
-![ChatGPT Integration](docs/images/chatgpt.gif)
+![ChatGPT Integration](docs/images/create-script.gif)
 
 ## 🛠️ Setup Instructions
 

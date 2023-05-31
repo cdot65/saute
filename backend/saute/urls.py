@@ -9,6 +9,8 @@ from .views import (
     UserProfileView,
     execute_admin_report,
     execute_assurance_arp_entry,
+    execute_assurance_snapshot,
+    execute_change_analysis,
     execute_create_script,
     execute_get_system_info,
     execute_upload_cert_chain,
@@ -26,6 +28,11 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path("user-profile/", UserProfileView.as_view(), name="user_profile"),
+    path(
+        "ai/change-analysis",
+        execute_change_analysis,
+        name="execute_change_analysis",
+    ),
     path(
         "ai/create-script",
         execute_create_script,
@@ -50,6 +57,11 @@ urlpatterns += [
         "operations/assurance-arp-entry",
         execute_assurance_arp_entry,
         name="execute_assurance_arp_entry",
+    ),
+    path(
+        "operations/assurance-snapshot",
+        execute_assurance_snapshot,
+        name="execute_assurance_snapshot",
     ),
     path(
         "report/get-system-info",

@@ -6,6 +6,7 @@ import { AiService } from "../../shared/services/ai.service";
 import { CHATGPT_TIPS_TEXT } from "../../shared/constants/chatgpt-tips";
 import { DISCLAIMER_TEXT } from "../../shared/constants/disclaimer";
 import { DomSanitizer } from "@angular/platform-browser";
+import { JobsService } from "src/app/shared/services/jobs.service"; // Make sure to import JobsService
 import { ToastService } from "../../shared/services/toast.service";
 import { switchMap } from "rxjs/operators";
 
@@ -48,7 +49,8 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
     private AiService: AiService,
     private toastService: ToastService,
     private sanitizer: DomSanitizer,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private jobsService: JobsService
   ) {}
 
   ngOnInit(): void {
@@ -107,8 +109,9 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
           this.progressValue = 10;
 
           // Poll for job updates every 5 seconds
+          // Poll for job updates every 5 seconds
           this.jobPollingSubscription = interval(5000)
-            .pipe(switchMap(() => this.AiService.getJobDetails(jobId)))
+            .pipe(switchMap(() => this.jobsService.getJobDetails(jobId)))
             .subscribe({
               next: (jobDetails) => {
                 // Update the job details
@@ -146,18 +149,5 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
     } else {
       console.log("Form is not valid");
     }
-  }
-
-  getAccordionBodyText(value: string) {
-    const textSample = `
-      <strong>This is the <mark>#${value}</mark> item accordion body.</strong> It is hidden by
-      default, until the collapse plugin adds the appropriate classes that we use to
-      style each element. These classes control the overall appearance, as well as
-      the showing and hiding via CSS transitions. You can modify any of this with
-      custom CSS or overriding our default variables. It&#39;s also worth noting
-      that just about any HTML can go within the <code>.accordion-body</code>,
-      though the transition does limit overflow.
-    `;
-    return this.sanitizer.bypassSecurityTrustHtml(textSample);
   }
 }
