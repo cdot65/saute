@@ -5,3 +5,4 @@ from .upload_cert_chain import run_upload_cert_chain
 from .pan_to_prisma.app import run_sync_to_prisma
 from .panos_assurance.app import run_assurance
 from .create_script.app import run_create_script
+from .change_analysis.app import run_change_analysis

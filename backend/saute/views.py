@@ -30,6 +30,7 @@ from .tasks import (
     execute_assurance_arp_entry as assurance_arp_entry_task,
     execute_assurance_snapshot as assurance_snapshot_task,
     execute_create_script as create_script_task,
+    execute_change_analysis as change_analysis_task,
 )
 
 
@@ -309,6 +310,30 @@ def execute_create_script(request):
         language,
         message,
         target,
+        author_id,
+    )
+
+    task_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "task_id": task_id},
+        status=status.HTTP_200_OK,
+    )
+
+
+# Change Analysis
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_change_analysis(request):
+    after_snapshot_id = request.data.get("afterSnapshot")
+    before_snapshot_id = request.data.get("beforeSnapshot")
+    message = request.data.get("message")
+    author_id = request.user.id
+
+    task = change_analysis_task.delay(
+        after_snapshot_id,
+        before_snapshot_id,
+        message,
         author_id,
     )
 
