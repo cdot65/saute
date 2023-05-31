@@ -152,14 +152,14 @@ def run_change_analysis(
 
     results = None
 
-    logging.info("after_snapshot: %s", after_snapshot_contents)
-    logging.info("before_snapshot: %s", before_snapshot_contents)
-    logging.info("expertise_level: %s", expertise_level)
+    logging.debug("after_snapshot: %s", after_snapshot_contents)
+    logging.debug("before_snapshot: %s", before_snapshot_contents)
+    logging.debug("expertise_level: %s", expertise_level)
 
     # Accessing prompt using the get_prompt method
     prompt = chatgpt_prompts.get_prompt(expertise_level)
 
-    logging.info("prompt: %s", prompt)
+    logging.debug("prompt: %s", prompt)
 
     message = (
         f"{message} \n after: {after_snapshot_contents} \n before: {before_snapshot_contents}",
@@ -210,9 +210,10 @@ if __name__ == "__main__":
     result = run_change_analysis(
         before_snapshot_contents=args.before_snapshot_contents,
         after_snapshot_contents=args.after_snapshot_contents,
+        expertise_level=args.expertise_level,
         message=args.message,
     )
     if result:
-        logging.info(f'Result: {result["choices"][0]["message"]["content"]}')
+        logging.debug(f'Result: {result["choices"][0]["message"]["content"]}')
     else:
         logging.error("Result was None")
