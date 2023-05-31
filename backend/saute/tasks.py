@@ -301,6 +301,7 @@ def execute_change_analysis(
     after_snapshot_id,
     before_snapshot_id,
     message,
+    expertise_level,
     author_id,
 ):
     # Retrieve the user object by id
@@ -346,6 +347,7 @@ def execute_change_analysis(
             after_snapshot_contents,
             before_snapshot_contents,
             message,
+            expertise_level,
         )
 
         # logging.debug(result)

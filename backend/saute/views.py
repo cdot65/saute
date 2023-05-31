@@ -328,12 +328,14 @@ def execute_change_analysis(request):
     after_snapshot_id = request.data.get("afterSnapshot")
     before_snapshot_id = request.data.get("beforeSnapshot")
     message = request.data.get("message")
+    expertise_level = request.data.get("expertiseLevel")
     author_id = request.user.id
 
     task = change_analysis_task.delay(
         after_snapshot_id,
         before_snapshot_id,
         message,
+        expertise_level,
         author_id,
     )
 

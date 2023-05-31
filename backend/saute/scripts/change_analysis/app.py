@@ -25,12 +25,24 @@ LOGGING_LEVELS = {
 
 
 # ----------------------------------------------------------------------------
+# Define ChatGPT technical response depth, to revisit later
+# ----------------------------------------------------------------------------
+EXPERTISE_LEVEL = {
+    "beginner": "beginner",
+    "apprentice": "apprentice",
+    "professional": "professional",
+    "expert": "expert",
+}
+
+
+# ----------------------------------------------------------------------------
 # Define models
 # ----------------------------------------------------------------------------
 class Args(BaseModel):
     after_snapshot_contents: Dict
     before_snapshot_contents: Dict
     message: str
+    expertise_level: str
     log_level: str = "debug"
 
 
@@ -85,6 +97,14 @@ def parse_arguments() -> Args:
         help="Set the logging output level",
     )
 
+    parser.add_argument(
+        "--expertise-level",
+        dest="expertise_level",
+        choices=EXPERTISE_LEVEL.keys(),
+        default="expert",
+        help="Set the technical depth that ChatGPT will respond in",
+    )
+
     args = parser.parse_args()
 
     # Return an instance of Args model
@@ -92,6 +112,7 @@ def parse_arguments() -> Args:
         after_snapshot_contents=args.after_snapshot_contents,
         before_snapshot_contents=args.before_snapshot_contents,
         message=args.message,
+        expertise_level=args.expertise_level,
         log_level=args.log_level,
     )
 
@@ -103,6 +124,7 @@ def run_change_analysis(
     after_snapshot_contents: Dict,
     before_snapshot_contents: Dict,
     message: str,
+    expertise_level: str,
 ) -> Union[Dict[str, Union[str, int, float, bool]], None]:
     """
     Request ChatGPT to create a script and return the result of the operation.
@@ -132,9 +154,10 @@ def run_change_analysis(
 
     logging.info("after_snapshot: %s", after_snapshot_contents)
     logging.info("before_snapshot: %s", before_snapshot_contents)
+    logging.info("expertise_level: %s", expertise_level)
 
     # Accessing prompt using the get_prompt method
-    prompt = chatgpt_prompts.get_prompt("expert")
+    prompt = chatgpt_prompts.get_prompt(expertise_level)
 
     logging.info("prompt: %s", prompt)
 
