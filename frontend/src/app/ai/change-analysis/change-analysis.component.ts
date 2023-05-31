@@ -19,6 +19,7 @@ import { switchMap } from "rxjs/operators";
 })
 export class ChangeAnalysisComponent implements OnInit, OnDestroy {
   comparisonForm: FormGroup | any;
+  expertiseLevel: string = "Select Expertise Level";
   assuranceJobs: any[] = [];
   beforeSnapshot: string = "";
   afterSnapshot: string = "";
@@ -49,6 +50,7 @@ export class ChangeAnalysisComponent implements OnInit, OnDestroy {
       message: ["", Validators.required],
       beforeSnapshot: ["", Validators.required],
       afterSnapshot: ["", Validators.required],
+      expertiseLevel: ["", Validators.required],
     });
     this.fetchJobsData();
   }
@@ -76,16 +78,27 @@ export class ChangeAnalysisComponent implements OnInit, OnDestroy {
       });
   }
 
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toISOString().split(".")[0] + "Z";
+  }
+
   selectBeforeSnapshot(job: any): void {
     this.comparisonForm.get("beforeSnapshot").setValue(job.task_id);
-    this.beforeSnapshotDate = job.created_at;
+    this.beforeSnapshotDate = this.formatDate(job.created_at);
     console.log(this.comparisonForm.get("beforeSnapshot").value);
   }
 
   selectAfterSnapshot(job: any): void {
     this.comparisonForm.get("afterSnapshot").setValue(job.task_id);
-    this.afterSnapshotDate = job.created_at;
+    this.afterSnapshotDate = this.formatDate(job.created_at);
     console.log(this.comparisonForm.get("afterSnapshot").value);
+  }
+
+  selectExpertiseLevel(level: string): void {
+    this.comparisonForm.get("expertiseLevel").setValue(level);
+    this.expertiseLevel = level;
+    console.log(this.comparisonForm.get("expertiseLevel").value);
   }
 
   onSubmit(): void {

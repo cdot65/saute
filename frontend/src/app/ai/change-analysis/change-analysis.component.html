@@ -82,6 +82,34 @@
                                     </div>
                                   </c-dropdown>
                                 </div>
+                                <div class="dropdown-group">
+                                  <c-dropdown class="ms-1">
+                                    <button
+                                      [routerLink]="[]"
+                                      cButton
+                                      cDropdownToggle
+                                      color="light"
+                                    >
+                                      <b>{{ expertiseLevel }}</b>
+                                    </button>
+                                    <div cDropdownMenu>
+                                      <button
+                                        *ngFor="
+                                          let level of [
+                                            'beginner',
+                                            'apprentice',
+                                            'professional',
+                                            'expert'
+                                          ]
+                                        "
+                                        (click)="selectExpertiseLevel(level)"
+                                        class="dropdown-item"
+                                      >
+                                        {{ level }}
+                                      </button>
+                                    </div>
+                                  </c-dropdown>
+                                </div>
                                 <div class="button-group">
                                   <button
                                     [cModalToggle]="examples.id"
