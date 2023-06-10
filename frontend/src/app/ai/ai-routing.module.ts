@@ -1,8 +1,10 @@
 import { RouterModule, Routes } from "@angular/router";
 
 import { ChangeAnalysisComponent } from "./change-analysis/change-analysis.component";
+import { ChatComponent } from "./chat/chat.component";
 import { CreateScriptComponent } from "./create-script/create-script.component";
 import { NgModule } from "@angular/core";
+import { PersonasComponent } from "./personas/personas.component";
 
 const routes: Routes = [
   {
@@ -17,10 +19,24 @@ const routes: Routes = [
         pathMatch: "full",
       },
       {
+        path: "automation-mentors",
+        component: PersonasComponent,
+        data: {
+          title: "Automation Mentors",
+        },
+      },
+      {
         path: "change-analysis",
         component: ChangeAnalysisComponent,
         data: {
           title: "change-analysis",
+        },
+      },
+      {
+        path: "chat",
+        component: ChatComponent,
+        data: {
+          title: "Chat",
         },
       },
       {

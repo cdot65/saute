@@ -1,6 +1,3 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-
 import {
   ButtonModule,
   CardModule,
@@ -10,16 +7,18 @@ import {
   SharedModule,
   WidgetModule,
 } from "@coreui/angular";
-import { IconModule } from "@coreui/icons-angular";
+
+import { AssessmentWidgetComponent } from "./widgets-assessment/widgets-assessment.component";
 import { ChartjsModule } from "@coreui/angular-chartjs";
-
-import { WidgetsRoutingModule } from "./widgets-routing.module";
-
+import { CommonModule } from "@angular/common";
+import { ConfigurationWidgetComponent } from "./widgets-configuration/widgets-configuration.component";
 // local widgets
 import { DeployWidgetComponent } from "./widgets-deploy/widgets-deploy.component";
-import { ConfigurationWidgetComponent } from "./widgets-configuration/widgets-configuration.component";
+import { IconModule } from "@coreui/icons-angular";
+import { NgModule } from "@angular/core";
 import { OperationsWidgetComponent } from "./widgets-operations/widgets-operations.component";
-import { AssessmentWidgetComponent } from "./widgets-assessment/widgets-assessment.component";
+import { PersonaWidgetComponent } from "./widgets-persona/widgets-persona.component";
+import { WidgetsRoutingModule } from "./widgets-routing.module";
 
 @NgModule({
   declarations: [
@@ -27,6 +26,7 @@ import { AssessmentWidgetComponent } from "./widgets-assessment/widgets-assessme
     ConfigurationWidgetComponent,
     OperationsWidgetComponent,
     AssessmentWidgetComponent,
+    PersonaWidgetComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +46,7 @@ import { AssessmentWidgetComponent } from "./widgets-assessment/widgets-assessme
     ConfigurationWidgetComponent,
     OperationsWidgetComponent,
     AssessmentWidgetComponent,
+    PersonaWidgetComponent,
   ],
 })
 export class WidgetsModule {}
