@@ -16,19 +16,19 @@ export const navItems: INavData[] = [
     iconComponent: { name: "cib-react" },
     children: [
       {
+        name: "Automation Mentors",
+        url: "/ai/automation-mentors",
+      },
+      {
         name: "Change Analysis",
-        badge: {
-          color: "danger",
-          text: "NEW",
-        },
+        // badge: {
+        //   color: "danger",
+        //   text: "NEW",
+        // },
         url: "/ai/change-analysis",
       },
       {
         name: "Create Script",
-        badge: {
-          color: "danger",
-          text: "NEW",
-        },
         url: "/ai/create-script",
       },
     ],

@@ -1,9 +1,6 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
-
 import {
   AvatarModule,
+  BadgeModule,
   ButtonGroupModule,
   ButtonModule,
   CardModule,
@@ -14,12 +11,14 @@ import {
   TableModule,
   TabsModule,
 } from "@coreui/angular";
-import { IconModule } from "@coreui/icons-angular";
+
 import { ChartjsModule } from "@coreui/angular-chartjs";
-
-import { DashboardRoutingModule } from "./dashboard-routing.module";
+import { CommonModule } from "@angular/common";
 import { DashboardComponent } from "./dashboard.component";
-
+import { DashboardRoutingModule } from "./dashboard-routing.module";
+import { IconModule } from "@coreui/icons-angular";
+import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 import { WidgetsModule } from "../shared/modules/widgets/widgets.module";
 
 @NgModule({
