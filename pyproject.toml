@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "saute"
-version = "0.1.0"
+version = "0.0.1"
 description = "Backend Django web server"
 authors = ["Calvin Remsburg <cremsburg.dev@gmail.com>"]
 license = "Apache 2.0"
