@@ -6,11 +6,16 @@ import {
 import { Component, OnInit } from "@angular/core";
 import { Configuration, OpenAIApi } from "openai";
 import { ElementRef, ViewChild } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { cilArrowRight, cilChartPie } from "@coreui/icons";
 
+import { AiService } from "../../shared/services/ai.service";
+import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import { WidgetDataService } from "../../shared/services/widget-data.service";
 import { environment } from "src/environments/environment";
+import { firstValueFrom } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-chat",
@@ -19,16 +24,20 @@ import { environment } from "src/environments/environment";
 })
 export class ChatComponent implements OnInit {
   @ViewChild("chatBox") private chatContainer!: ElementRef;
+  authorId: string = ""; // to store author's id
   chatConversation: ChatWithBot[] = []; // Array to hold chat conversation
-  response!: ResponseModel | undefined; // Response from GPT-4
-  promptText = ""; // Text entered by the user
-  showTyping = false; // Boolean to show typing animation
-  selectedWidget: any; // Currently selected widget
   icons = { cilChartPie, cilArrowRight };
+  promptText = ""; // Text entered by the user
+  response!: ResponseModel | undefined; // Response from GPT-4
+  selectedWidget: any; // Currently selected widget
+  showTyping = false; // Boolean to show typing animation
 
   constructor(
     private widgetDataService: WidgetDataService,
-    private router: Router
+    private router: Router,
+    private aiService: AiService,
+    private http: HttpClient,
+    private cookieService: CookieService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +55,9 @@ export class ChatComponent implements OnInit {
         }
       }
     });
+
+    // get user data
+    this.getUserData();
   }
 
   ngAfterViewChecked() {
@@ -77,34 +89,71 @@ export class ChatComponent implements OnInit {
     return data.split("\n").filter((f) => f.length > 0);
   }
 
+  generateUUID(): string {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        let r = (Math.random() * 16) | 0,
+          v = c === "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      }
+    );
+  }
+
+  getUserData() {
+    const authToken = this.cookieService.get("auth_token");
+    const headers = new HttpHeaders().set(
+      "Authorization",
+      `Token ${authToken}`
+    );
+
+    this.http
+      .get("http://localhost:8000/api/v1/dj-rest-auth/user/", {
+        headers,
+      })
+      .pipe(map((response) => response as any)) // map response to any
+      .subscribe({
+        next: (response) => {
+          this.authorId = response.pk;
+        },
+        error: (error) => {
+          console.error("Error getting user data:", error);
+        },
+      });
+  }
+
   async invokeGPT() {
     if (this.promptText.length < 2) return;
 
     try {
       this.response = undefined;
-      let configuration = new Configuration({
-        apiKey: environment.envVar.OPENAI_API_KEY,
-      });
-      let openai = new OpenAIApi(configuration);
-
       this.showTyping = true;
 
-      let apiResponse = await openai.createChatCompletion({
-        model: "gpt-4",
-        messages: [
-          { role: "system", content: this.selectedWidget.systemPrompt },
-          { role: "user", content: this.promptText },
-        ],
+      // Adjusting the payload as per backend expectation
+      const backendPayload = {
+        message: this.promptText,
+        conversation_id: this.generateUUID(),
+        llm: "gpt-4",
+        persona: this.selectedWidget.name,
+        author_id: this.authorId,
+      };
+
+      this.aiService.generateResponse(backendPayload).subscribe({
+        next: (response) => {
+          this.response = response as ResponseModel;
+          this.pushChatContent(
+            this.response.choices[0].message.content.trim(),
+            this.selectedWidget.name,
+            "bot"
+          );
+
+          this.showTyping = false;
+        },
+        error: (error) => {
+          this.showTyping = false;
+          console.error(`Error with OpenAI API request: ${error.message}`);
+        },
       });
-
-      this.response = apiResponse.data as ResponseModel;
-      this.pushChatContent(
-        this.response.choices[0].message.content.trim(),
-        this.selectedWidget.name,
-        "bot"
-      );
-
-      this.showTyping = false;
     } catch (error: any) {
       this.showTyping = false;
 

@@ -352,14 +352,17 @@ def execute_change_analysis(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def execute_chat(request):
-    author_id = request.user.id
+    author_id = request.data.get("author_id")
     conversation_id = request.data.get("conversation_id")
     llm = request.data.get("llm")
     message = request.data.get("message")
     persona = request.data.get("persona")
 
     # Use get_or_create to ensure Conversation instance exists
-    convo, created = Conversation.objects.get_or_create(conversation_id=conversation_id)
+    convo, created = Conversation.objects.get_or_create(
+        conversation_id=conversation_id,
+        defaults={"author_id": author_id},  # provide author_id here
+    )
 
     # If a new Conversation instance was created, you might want to set additional fields here
     if created:
