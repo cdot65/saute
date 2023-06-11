@@ -443,14 +443,12 @@ def execute_chat(
         Message.objects.create(
             content=message,
             role="user",
-            llm=llm,
             author=author,
             conversation=convo,
         )
         Message.objects.create(
             content=result["choices"][0]["message"]["content"],
             role="bot",
-            llm=llm,
             author=author,
             conversation=convo,
         )
