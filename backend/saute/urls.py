@@ -11,6 +11,7 @@ from .views import (
     execute_assurance_arp_entry,
     execute_assurance_snapshot,
     execute_change_analysis,
+    execute_chat,
     execute_create_script,
     execute_get_system_info,
     execute_upload_cert_chain,
@@ -32,6 +33,11 @@ urlpatterns += [
         "ai/change-analysis",
         execute_change_analysis,
         name="execute_change_analysis",
+    ),
+    path(
+        "ai/chat",
+        execute_chat,
+        name="execute_chat",
     ),
     path(
         "ai/create-script",

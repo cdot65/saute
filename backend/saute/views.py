@@ -11,7 +11,7 @@ from rest_framework.generics import RetrieveAPIView
 
 
 # directory object imports
-from .models import Panorama, Prisma, Firewall, Jobs
+from .models import Panorama, Prisma, Firewall, Jobs, Conversation
 from .permissions import IsAuthorOrReadOnly
 from .serializers import (
     PanoramaSerializer,
@@ -31,6 +31,7 @@ from .tasks import (
     execute_assurance_snapshot as assurance_snapshot_task,
     execute_create_script as create_script_task,
     execute_change_analysis as change_analysis_task,
+    execute_chat as send_message_task,
 )
 
 
@@ -337,6 +338,39 @@ def execute_change_analysis(request):
         message,
         expertise_level,
         author_id,
+    )
+
+    task_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "task_id": task_id},
+        status=status.HTTP_200_OK,
+    )
+
+
+# Send Message to AI
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_chat(request):
+    author_id = request.user.id
+    conversation_id = request.data.get("conversation_id")
+    llm = request.data.get("llm")
+    message = request.data.get("message")
+    persona = request.data.get("persona")
+
+    # Use get_or_create to ensure Conversation instance exists
+    convo, created = Conversation.objects.get_or_create(conversation_id=conversation_id)
+
+    # If a new Conversation instance was created, you might want to set additional fields here
+    if created:
+        convo.save()
+
+    task = send_message_task.delay(
+        author_id,
+        conversation_id,
+        llm,
+        message,
+        persona,
     )
 
     task_id = task.id
