@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.routers import SimpleRouter
 from .views import (
+    MessageViewSet,
     PanoramaViewSet,
     PrismaViewSet,
     FirewallViewSet,
@@ -24,6 +25,7 @@ router.register("prisma", PrismaViewSet, basename="prisma")
 router.register("firewall", FirewallViewSet, basename="firewall")
 router.register("jobs", JobsViewSet, basename="jobs")
 router.register("users", UserViewSet, basename="users")
+router.register("ai/messages", MessageViewSet, basename="messages")
 
 urlpatterns = router.urls
 

@@ -440,13 +440,19 @@ def execute_chat(
 
         # Store the result in the Message model
         convo = Conversation.objects.get(conversation_id=conversation_id)
+
+        # Compute next message index
+        next_index = convo.messages.count() + 1
+
         Message.objects.create(
+            index=next_index,
             content=message,
             role="user",
             author=author,
             conversation=convo,
         )
         Message.objects.create(
+            index=next_index + 1,
             content=result["choices"][0]["message"]["content"],
             role="bot",
             author=author,

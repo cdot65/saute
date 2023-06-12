@@ -80,6 +80,7 @@ class Conversation(models.Model):
 
 
 class Message(models.Model):
+    index = models.PositiveIntegerField()
     ROLE_CHOICES = [
         ("user", "User"),
         ("bot", "Bot"),

@@ -11,9 +11,10 @@ from rest_framework.generics import RetrieveAPIView
 
 
 # directory object imports
-from .models import Panorama, Prisma, Firewall, Jobs, Conversation
+from .models import Panorama, Prisma, Firewall, Jobs, Conversation, Message
 from .permissions import IsAuthorOrReadOnly
 from .serializers import (
+    MessageSerializer,
     PanoramaSerializer,
     PrismaSerializer,
     FirewallSerializer,
@@ -144,6 +145,17 @@ class UserProfileView(RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class MessageViewSet(viewsets.ModelViewSet):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+
+    def retrieve(self, request, pk=None, format=None):
+        conversation = Conversation.objects.get(pk=pk)
+        message = conversation.messages.order_by("-index").first()
+        serializer = self.get_serializer(message)
+        return Response(serializer.data)
 
 
 # ----------------------------------------------------------------------------
@@ -379,6 +391,10 @@ def execute_chat(request):
     task_id = task.id
 
     return Response(
-        {"message": "Task has been executed", "task_id": task_id},
+        {
+            "message": "Task has been executed",
+            "conversation_id": conversation_id,
+            "task_id": task_id,
+        },
         status=status.HTTP_200_OK,
     )

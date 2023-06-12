@@ -54,18 +54,4 @@ export class AiService {
         })
       );
   }
-
-  generateResponse(chatDetails: any): Observable<any> {
-    const headers = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http
-      .post<any>("http://localhost:8000/api/v1/ai/chat", chatDetails, {
-        headers: headers,
-      })
-      .pipe(
-        catchError((error) => {
-          console.error("Error generating chat response:", error);
-          return of(null);
-        })
-      );
-  }
 }
