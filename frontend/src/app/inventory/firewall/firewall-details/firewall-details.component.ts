@@ -3,12 +3,14 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 
 import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-firewall-details",
   templateUrl: "./firewall-details.component.html",
 })
 export class FirewallDetailsComponent implements OnInit {
+  private API_URL = environment.apiUrl;
   entryForm!: FormGroup;
   id!: number;
 
@@ -38,7 +40,7 @@ export class FirewallDetailsComponent implements OnInit {
 
   fetchFirewallData(): void {
     this.http
-      .get<any>(`http://localhost:8000/api/v1/firewall/${this.id}/`)
+      .get<any>(`${this.API_URL}/api/v1/firewall/${this.id}/`)
       .subscribe((data) => {
         this.entryForm.setValue({
           hostname: data.hostname,
@@ -51,7 +53,7 @@ export class FirewallDetailsComponent implements OnInit {
 
   updateEntry(updatedEntry: any): void {
     if (this.entryForm.valid) {
-      const apiUrl = `http://localhost:8000/api/v1/firewall/${this.id}/`;
+      const apiUrl = `${this.API_URL}/api/v1/firewall/${this.id}/`;
       if (!updatedEntry.ipv6_address) {
         updatedEntry.ipv6_address = null;
       }

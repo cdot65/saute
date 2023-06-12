@@ -3,11 +3,14 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
+import { environment } from "src/environments/environment";
+
 @Component({
   selector: "app-prisma-details",
   templateUrl: "./prisma-details.component.html",
 })
 export class PrismaDetailsComponent implements OnInit {
+  private API_URL = environment.apiUrl;
   entryForm!: FormGroup;
   id!: number;
 
@@ -37,7 +40,7 @@ export class PrismaDetailsComponent implements OnInit {
 
   fetchPrismaData(): void {
     this.http
-      .get<any>(`http://localhost:8000/api/v1/prisma/${this.id}/`)
+      .get<any>(`${this.API_URL}/api/v1/prisma/${this.id}/`)
       .subscribe((data) => {
         this.entryForm.setValue({
           tenant_name: data.tenant_name,
@@ -50,7 +53,7 @@ export class PrismaDetailsComponent implements OnInit {
 
   updateEntry(updatedEntry: any): void {
     if (this.entryForm.valid) {
-      const apiUrl = `http://localhost:8000/api/v1/prisma/${this.id}/`;
+      const apiUrl = `${this.API_URL}/api/v1/prisma/${this.id}/`;
       if (!updatedEntry.tsg_id) {
         updatedEntry.tsg_id = null;
       }

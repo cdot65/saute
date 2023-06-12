@@ -5,6 +5,7 @@ import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 import { catchError } from "rxjs/operators";
+import { environment } from "src/environments/environment";
 import { of } from "rxjs";
 
 @Component({
@@ -12,6 +13,7 @@ import { of } from "rxjs";
   templateUrl: "./firewall-list.component.html",
 })
 export class FirewallListComponent implements OnInit {
+  private API_URL = environment.apiUrl;
   firewallData: any[];
 
   constructor(
@@ -29,7 +31,7 @@ export class FirewallListComponent implements OnInit {
   // Fetch data from the API
   fetchFirewallData() {
     this.http
-      .get<any[]>("http://localhost:8000/api/v1/firewall/")
+      .get<any[]>(`${this.API_URL}/api/v1/firewall/`)
       .pipe(
         catchError((error) => {
           console.error("Error fetching Firewall data:", error);
@@ -64,7 +66,7 @@ export class FirewallListComponent implements OnInit {
       `Token ${authToken}`
     );
     this.http
-      .delete(`http://localhost:8000/api/v1/firewall/${entryId}/`, { headers })
+      .delete(`${this.API_URL}/api/v1/firewall/${entryId}/`, { headers })
       .subscribe(
         (response) => {
           // console.log("Firewall instance deleted:", response);

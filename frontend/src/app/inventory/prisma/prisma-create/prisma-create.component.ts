@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 import { firstValueFrom } from "rxjs";
 
 @Component({
@@ -11,6 +12,7 @@ import { firstValueFrom } from "rxjs";
   templateUrl: "./prisma-create.component.html",
 })
 export class PrismaCreateComponent implements OnInit {
+  private API_URL = environment.apiUrl;
   prisma = {
     tenant_name: "",
     client_id: "",
@@ -38,7 +40,7 @@ export class PrismaCreateComponent implements OnInit {
 
     try {
       const response: any = await firstValueFrom(
-        this.http.get("http://localhost:8000/api/v1/dj-rest-auth/user/", {
+        this.http.get(`${this.API_URL}/api/v1/dj-rest-auth/user/`, {
           headers,
         })
       );
@@ -57,7 +59,7 @@ export class PrismaCreateComponent implements OnInit {
       );
 
       this.http
-        .post("http://localhost:8000/api/v1/prisma/", this.prisma, {
+        .post(`${this.API_URL}/api/v1/prisma/`, this.prisma, {
           headers,
         })
         .subscribe({

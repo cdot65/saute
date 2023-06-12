@@ -1,16 +1,20 @@
-import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable, of } from "rxjs";
+
+import { Injectable } from "@angular/core";
 import { catchError } from "rxjs/operators";
-import { of, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class PrismaService {
+  private API_URL = environment.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   fetchPrismaData(): Observable<any[]> {
-    return this.http.get<any[]>("http://localhost:8000/api/v1/prisma/").pipe(
+    return this.http.get<any[]>(`${this.API_URL}/api/v1/prisma/`).pipe(
       catchError((error) => {
         console.error("Error fetching Prisma data:", error);
         return of([]);
@@ -22,7 +26,7 @@ export class PrismaService {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
     return this.http
       .post<any>(
-        "http://localhost:8000/api/v1/configuration/sync-to-prisma",
+        `${this.API_URL}/api/v1/configuration/sync-to-prisma`,
         syncInformation,
         { headers: headers }
       )

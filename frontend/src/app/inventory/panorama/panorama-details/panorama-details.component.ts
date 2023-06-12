@@ -3,11 +3,14 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
+import { environment } from "src/environments/environment";
+
 @Component({
   selector: "app-panorama-details",
   templateUrl: "./panorama-details.component.html",
 })
 export class PanoramaDetailsComponent implements OnInit {
+  private API_URL = environment.apiUrl;
   entryForm!: FormGroup;
   id!: number;
 
@@ -37,7 +40,7 @@ export class PanoramaDetailsComponent implements OnInit {
 
   fetchPanoramaData(): void {
     this.http
-      .get<any>(`http://localhost:8000/api/v1/panorama/${this.id}/`)
+      .get<any>(`${this.API_URL}/api/v1/panorama/${this.id}/`)
       .subscribe((data) => {
         this.entryForm.setValue({
           hostname: data.hostname,
@@ -50,7 +53,7 @@ export class PanoramaDetailsComponent implements OnInit {
 
   updateEntry(updatedEntry: any): void {
     if (this.entryForm.valid) {
-      const apiUrl = `http://localhost:8000/api/v1/panorama/${this.id}/`;
+      const apiUrl = `${this.API_URL}/api/v1/panorama/${this.id}/`;
       if (!updatedEntry.ipv6_address) {
         updatedEntry.ipv6_address = null;
       }

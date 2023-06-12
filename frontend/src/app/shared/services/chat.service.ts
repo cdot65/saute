@@ -3,13 +3,14 @@ import { Observable, interval, of } from "rxjs";
 
 import { Injectable } from "@angular/core";
 import { catchError } from "rxjs/operators";
+import { environment } from "src/environments/environment";
 import { switchMap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
 export class BotResponseService {
-  private API_URL = "http://localhost:8000";
+  private API_URL = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -31,7 +32,7 @@ export class BotResponseService {
   generateResponse(chatDetails: any): Observable<any> {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
     return this.http
-      .post<any>("http://localhost:8000/api/v1/ai/chat", chatDetails, {
+      .post<any>(`${this.API_URL}/api/v1/ai/chat`, chatDetails, {
         headers: headers,
       })
       .pipe(

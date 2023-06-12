@@ -9,6 +9,7 @@ import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { WidgetDataService } from "../../shared/services/widget-data.service";
+import { environment } from "src/environments/environment";
 import { map } from "rxjs/operators";
 
 @Component({
@@ -18,6 +19,7 @@ import { map } from "rxjs/operators";
 })
 export class ChatComponent implements OnInit, OnDestroy {
   @ViewChild("chatBox") private chatContainer!: ElementRef;
+  private API_URL = environment.apiUrl;
   authorId: string = ""; // to store author's id
   chatConversation: ChatWithBot[] = []; // Array to hold chat conversation
   icons = { cilChartPie, cilArrowRight };
@@ -116,7 +118,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
 
     this.http
-      .get("http://localhost:8000/api/v1/dj-rest-auth/user/", {
+      .get(`${this.API_URL}/api/v1/dj-rest-auth/user/`, {
         headers,
       })
       .pipe(map((response) => response as any)) // map response to any
