@@ -74,7 +74,7 @@ export class ChangeAnalysisComponent implements OnInit, OnDestroy {
         this.assuranceJobs = jobs.filter(
           (job) => job.job_type === "assurance_snapshot"
         );
-        console.log(this.assuranceJobs);
+        // console.log(this.assuranceJobs);
       });
   }
 
@@ -86,19 +86,19 @@ export class ChangeAnalysisComponent implements OnInit, OnDestroy {
   selectBeforeSnapshot(job: any): void {
     this.comparisonForm.get("beforeSnapshot").setValue(job.task_id);
     this.beforeSnapshotDate = this.formatDate(job.created_at);
-    console.log(this.comparisonForm.get("beforeSnapshot").value);
+    // console.log(this.comparisonForm.get("beforeSnapshot").value);
   }
 
   selectAfterSnapshot(job: any): void {
     this.comparisonForm.get("afterSnapshot").setValue(job.task_id);
     this.afterSnapshotDate = this.formatDate(job.created_at);
-    console.log(this.comparisonForm.get("afterSnapshot").value);
+    // console.log(this.comparisonForm.get("afterSnapshot").value);
   }
 
   selectExpertiseLevel(level: string): void {
     this.comparisonForm.get("expertiseLevel").setValue(level);
     this.expertiseLevel = level;
-    console.log(this.comparisonForm.get("expertiseLevel").value);
+    // console.log(this.comparisonForm.get("expertiseLevel").value);
   }
 
   onSubmit(): void {
@@ -107,11 +107,11 @@ export class ChangeAnalysisComponent implements OnInit, OnDestroy {
 
       const comparisonDetails = this.comparisonForm.value;
 
-      console.log(comparisonDetails);
+      // console.log(comparisonDetails);
 
       this.AiService.sendChangeAnalysis(comparisonDetails).subscribe({
         next: (response) => {
-          console.log(response);
+          // console.log(response);
           const jobId = response.task_id; // capture the job ID from the response
           const taskUrl = `#/jobs/details/${jobId}`;
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;

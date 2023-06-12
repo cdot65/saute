@@ -14,7 +14,7 @@ export class BotResponseService {
   constructor(private http: HttpClient) {}
 
   pollBotResponses(conversationId: string): Observable<any> {
-    console.log("pollBotResponses called with conversationId:", conversationId);
+    // console.log("pollBotResponses called with conversationId:", conversationId);
 
     return interval(2000).pipe(
       switchMap(() => this.getBotResponse(conversationId))
@@ -22,7 +22,7 @@ export class BotResponseService {
   }
 
   private getBotResponse(conversationId: string): Observable<any> {
-    console.log("getBotResponse called with conversationId:", conversationId);
+    // console.log("getBotResponse called with conversationId:", conversationId);
     return this.http.get(
       `${this.API_URL}/api/v1/ai/messages/${conversationId}`
     );

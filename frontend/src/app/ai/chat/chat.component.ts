@@ -1,21 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import {
-  ChatWithBot,
-  Message,
-  ResponseModel,
-} from "../../shared/models/gpt-response";
-import { Configuration, OpenAIApi } from "openai";
+import { ChatWithBot, ResponseModel } from "../../shared/models/gpt-response";
 import { ElementRef, ViewChild } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { cilArrowRight, cilChartPie } from "@coreui/icons";
 
-import { AiService } from "../../shared/services/ai.service";
 import { BotResponseService } from "../../shared/services/chat.service";
 import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { WidgetDataService } from "../../shared/services/widget-data.service";
-import { environment } from "src/environments/environment";
 import { map } from "rxjs/operators";
 
 @Component({
@@ -39,7 +32,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   constructor(
     private widgetDataService: WidgetDataService,
     private router: Router,
-    private aiService: AiService,
     private botResponseService: BotResponseService,
     private http: HttpClient,
     private cookieService: CookieService,
@@ -88,7 +80,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   checkResponse() {
     this.pushChatContent(this.promptText, "You", "person");
-    console.log("promptText:", this.promptText);
+    // console.log("promptText:", this.promptText);
     this.invokeGPT();
   }
 
@@ -176,7 +168,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   pollMessages(conversationId: string) {
-    console.log("pollMessages called with conversationId:", conversationId);
+    // console.log("pollMessages called with conversationId:", conversationId);
 
     // Unsubscribe the previous polling if it exists
     if (this.messagePollingSubscription) {

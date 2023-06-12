@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
+
 import { HttpClient } from "@angular/common/http";
-import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-firewall-details",
@@ -57,7 +58,7 @@ export class FirewallDetailsComponent implements OnInit {
 
       this.http.patch(apiUrl, updatedEntry).subscribe({
         next: (response) => {
-          console.log("Entry updated:", response);
+          // console.log("Entry updated:", response);
           this.router.navigate(["/inventory/firewall/"]);
         },
         error: (error) => {

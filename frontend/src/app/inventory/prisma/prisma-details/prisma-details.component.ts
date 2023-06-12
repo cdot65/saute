@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-prisma-details",
@@ -57,7 +57,7 @@ export class PrismaDetailsComponent implements OnInit {
 
       this.http.patch(apiUrl, updatedEntry).subscribe({
         next: (response) => {
-          console.log("Entry updated:", response);
+          // console.log("Entry updated:", response);
           this.router.navigate(["/inventory/prisma/"]);
         },
         error: (error) => {

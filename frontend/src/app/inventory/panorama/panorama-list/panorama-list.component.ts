@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+
+import { CookieService } from "ngx-cookie-service";
+import { Router } from "@angular/router";
+import Swal from "sweetalert2";
 import { catchError } from "rxjs/operators";
 import { of } from "rxjs";
-import { Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
-import Swal from "sweetalert2";
 
 @Component({
   selector: "app-panorama-list",
@@ -66,7 +67,7 @@ export class PanoramaListComponent implements OnInit {
       .delete(`http://localhost:8000/api/v1/panorama/${entryId}/`, { headers })
       .subscribe(
         (response) => {
-          console.log("Panorama instance deleted:", response);
+          // console.log("Panorama instance deleted:", response);
           this.fetchPanoramaData();
         },
         (error) => {

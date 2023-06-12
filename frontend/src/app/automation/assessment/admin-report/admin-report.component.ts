@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ToastService, Toast } from "../../../shared/services/toast.service";
-import { PanoramaService } from "../../../shared/services/panorama.service";
+import { Toast, ToastService } from "../../../shared/services/toast.service";
+
 import { NgForm } from "@angular/forms";
+import { PanoramaService } from "../../../shared/services/panorama.service";
 
 @Component({
   selector: "app-admin-report",
@@ -32,12 +33,12 @@ export class AdminReportComponent implements OnInit {
         to_emails: this.email,
       };
 
-      console.log("jobDetails:", jobDetails);
+      // console.log("jobDetails:", jobDetails);
 
       this.panoramaService
         .executeAdminReport(jobDetails)
         .subscribe((response) => {
-          console.log(response);
+          // console.log(response);
           const taskUrl = `#/jobs/details/${response.task_id}`;
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
           const toast: Toast = {

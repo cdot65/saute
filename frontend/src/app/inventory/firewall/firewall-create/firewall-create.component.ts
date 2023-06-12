@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { NgForm } from "@angular/forms";
+
 import { CookieService } from "ngx-cookie-service";
+import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { firstValueFrom } from "rxjs";
 
@@ -64,7 +65,7 @@ export class FirewallCreateComponent implements OnInit {
         })
         .subscribe({
           next: (response) => {
-            console.log("New firewall created:", response);
+            // console.log("New firewall created:", response);
             this.resetForm(form);
             this.router.navigate(["/inventory/firewall/"]);
           },
