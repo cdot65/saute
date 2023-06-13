@@ -6,3 +6,4 @@ from .pan_to_prisma.app import run_sync_to_prisma
 from .panos_assurance.app import run_assurance
 from .create_script.app import run_create_script
 from .change_analysis.app import run_change_analysis
+from .send_message.app import run_send_message

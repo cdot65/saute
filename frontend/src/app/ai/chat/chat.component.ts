@@ -1,34 +1,43 @@
-import {
-  ChatWithBot,
-  Message,
-  ResponseModel,
-} from "../../shared/models/gpt-response";
-import { Component, OnInit } from "@angular/core";
-import { Configuration, OpenAIApi } from "openai";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { ChatWithBot, ResponseModel } from "../../shared/models/gpt-response";
 import { ElementRef, ViewChild } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { cilArrowRight, cilChartPie } from "@coreui/icons";
 
+import { BotResponseService } from "../../shared/services/chat.service";
+import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
 import { WidgetDataService } from "../../shared/services/widget-data.service";
 import { environment } from "src/environments/environment";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-chat",
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   @ViewChild("chatBox") private chatContainer!: ElementRef;
+  private API_URL = environment.apiUrl;
+  authorId: string = ""; // to store author's id
   chatConversation: ChatWithBot[] = []; // Array to hold chat conversation
-  response!: ResponseModel | undefined; // Response from GPT-4
-  promptText = ""; // Text entered by the user
-  showTyping = false; // Boolean to show typing animation
-  selectedWidget: any; // Currently selected widget
   icons = { cilChartPie, cilArrowRight };
+  promptText = ""; // Text entered by the user
+  response!: ResponseModel | undefined; // Response from GPT-4
+  selectedWidget: any; // Currently selected widget
+  showTyping = false; // Boolean to show typing animation
+  messagePollingSubscription: Subscription | undefined;
+  lastMessageIndex: number | undefined; // initialize it as undefined
+  conversationId: string = this.generateUUID(); // Initialize with a UUID
 
   constructor(
     private widgetDataService: WidgetDataService,
-    private router: Router
+    private router: Router,
+    private botResponseService: BotResponseService,
+    private http: HttpClient,
+    private cookieService: CookieService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +55,18 @@ export class ChatComponent implements OnInit {
         }
       }
     });
+
+    // get user data
+    this.getUserData();
+
+    // Generate a UUID for this conversation when the component is loaded
+    this.conversationId = this.generateUUID();
+  }
+
+  ngOnDestroy(): void {
+    if (this.messagePollingSubscription) {
+      this.messagePollingSubscription.unsubscribe();
+    }
   }
 
   ngAfterViewChecked() {
@@ -61,6 +82,7 @@ export class ChatComponent implements OnInit {
 
   checkResponse() {
     this.pushChatContent(this.promptText, "You", "person");
+    // console.log("promptText:", this.promptText);
     this.invokeGPT();
   }
 
@@ -77,34 +99,65 @@ export class ChatComponent implements OnInit {
     return data.split("\n").filter((f) => f.length > 0);
   }
 
-  async invokeGPT() {
+  generateUUID(): string {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        let r = (Math.random() * 16) | 0,
+          v = c === "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      }
+    );
+  }
+
+  getUserData() {
+    const authToken = this.cookieService.get("auth_token");
+    const headers = new HttpHeaders().set(
+      "Authorization",
+      `Token ${authToken}`
+    );
+
+    this.http
+      .get(`${this.API_URL}/api/v1/dj-rest-auth/user/`, {
+        headers,
+      })
+      .pipe(map((response) => response as any)) // map response to any
+      .subscribe({
+        next: (response) => {
+          this.authorId = response.pk;
+        },
+        error: (error) => {
+          console.error("Error getting user data:", error);
+        },
+      });
+  }
+
+  invokeGPT() {
     if (this.promptText.length < 2) return;
 
     try {
       this.response = undefined;
-      let configuration = new Configuration({
-        apiKey: environment.envVar.OPENAI_API_KEY,
-      });
-      let openai = new OpenAIApi(configuration);
-
       this.showTyping = true;
 
-      let apiResponse = await openai.createChatCompletion({
-        model: "gpt-4",
-        messages: [
-          { role: "system", content: this.selectedWidget.systemPrompt },
-          { role: "user", content: this.promptText },
-        ],
+      // Adjusting the payload as per backend expectation
+      const backendPayload = {
+        message: this.promptText,
+        conversation_id: this.conversationId,
+        llm: "gpt-4",
+        persona: this.selectedWidget.name,
+        author_id: this.authorId,
+      };
+
+      this.botResponseService.generateResponse(backendPayload).subscribe({
+        next: (response) => {
+          // Start/Restart the polling here
+          this.pollMessages(backendPayload.conversation_id);
+        },
+        error: (error) => {
+          this.showTyping = false;
+          console.error(`Error with OpenAI API request: ${error.message}`);
+        },
       });
-
-      this.response = apiResponse.data as ResponseModel;
-      this.pushChatContent(
-        this.response.choices[0].message.content.trim(),
-        this.selectedWidget.name,
-        "bot"
-      );
-
-      this.showTyping = false;
     } catch (error: any) {
       this.showTyping = false;
 
@@ -114,5 +167,41 @@ export class ChatComponent implements OnInit {
         console.error(`Error with OpenAI API request: ${error.message}`);
       }
     }
+  }
+
+  pollMessages(conversationId: string) {
+    // console.log("pollMessages called with conversationId:", conversationId);
+
+    // Unsubscribe the previous polling if it exists
+    if (this.messagePollingSubscription) {
+      this.messagePollingSubscription.unsubscribe();
+    }
+
+    this.messagePollingSubscription = this.botResponseService
+      .pollBotResponses(conversationId)
+      .subscribe((response: any) => {
+        const newMessage = response;
+
+        if (
+          !this.lastMessageIndex ||
+          newMessage.index > this.lastMessageIndex
+        ) {
+          this.lastMessageIndex = newMessage.index;
+
+          if (newMessage.content.trim() != "") {
+            // to make sure the message is not empty
+            this.showTyping = false; // stop showing the typing animation
+            this.pushChatContent(
+              newMessage.content,
+              this.selectedWidget.name,
+              "bot"
+            );
+            this.cdr.detectChanges();
+            if (this.messagePollingSubscription) {
+              this.messagePollingSubscription.unsubscribe(); // stop polling after receiving the message
+            }
+          }
+        }
+      });
   }
 }

@@ -1,16 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError } from "rxjs/operators";
-import { of } from "rxjs";
-import { Router } from "@angular/router";
+
 import { CookieService } from "ngx-cookie-service";
+import { Router } from "@angular/router";
 import Swal from "sweetalert2";
+import { catchError } from "rxjs/operators";
+import { environment } from "src/environments/environment";
+import { of } from "rxjs";
 
 @Component({
   selector: "app-panorama-list",
   templateUrl: "./panorama-list.component.html",
 })
 export class PanoramaListComponent implements OnInit {
+  private API_URL = environment.apiUrl;
   panoramaData: any[];
 
   constructor(
@@ -28,7 +31,7 @@ export class PanoramaListComponent implements OnInit {
   // Fetch data from the API
   fetchPanoramaData() {
     this.http
-      .get<any[]>("http://localhost:8000/api/v1/panorama/")
+      .get<any[]>(`${this.API_URL}/api/v1/panorama/`)
       .pipe(
         catchError((error) => {
           console.error("Error fetching Panorama data:", error);
@@ -63,10 +66,10 @@ export class PanoramaListComponent implements OnInit {
       `Token ${authToken}`
     );
     this.http
-      .delete(`http://localhost:8000/api/v1/panorama/${entryId}/`, { headers })
+      .delete(`${this.API_URL}/api/v1/panorama/${entryId}/`, { headers })
       .subscribe(
         (response) => {
-          console.log("Panorama instance deleted:", response);
+          // console.log("Panorama instance deleted:", response);
           this.fetchPanoramaData();
         },
         (error) => {

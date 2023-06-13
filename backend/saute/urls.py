@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.routers import SimpleRouter
 from .views import (
+    MessageViewSet,
     PanoramaViewSet,
     PrismaViewSet,
     FirewallViewSet,
@@ -11,6 +12,7 @@ from .views import (
     execute_assurance_arp_entry,
     execute_assurance_snapshot,
     execute_change_analysis,
+    execute_chat,
     execute_create_script,
     execute_get_system_info,
     execute_upload_cert_chain,
@@ -23,6 +25,7 @@ router.register("prisma", PrismaViewSet, basename="prisma")
 router.register("firewall", FirewallViewSet, basename="firewall")
 router.register("jobs", JobsViewSet, basename="jobs")
 router.register("users", UserViewSet, basename="users")
+router.register("ai/messages", MessageViewSet, basename="messages")
 
 urlpatterns = router.urls
 
@@ -32,6 +35,11 @@ urlpatterns += [
         "ai/change-analysis",
         execute_change_analysis,
         name="execute_change_analysis",
+    ),
+    path(
+        "ai/chat",
+        execute_chat,
+        name="execute_chat",
     ),
     path(
         "ai/create-script",

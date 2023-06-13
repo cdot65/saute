@@ -1,10 +1,11 @@
 // Importing Angular, and services required for the component
 import { Component, OnInit } from "@angular/core";
-import { ToastService } from "../../../shared/services/toast.service";
+
+import { Firewall } from "../../../shared/interfaces/firewall.interface";
 import { FirewallService } from "../../../shared/services/firewall.service";
 import { NgForm } from "@angular/forms";
-import { Firewall } from "../../../shared/interfaces/firewall.interface";
 import { Toast } from "../../../shared/interfaces/toast.interface";
+import { ToastService } from "../../../shared/services/toast.service";
 
 // The component decorator marks this TypeScript class as an Angular component
 @Component({
@@ -111,11 +112,11 @@ export class AssuranceSnapshotsComponent implements OnInit {
       action: selectedCheckboxes,
     };
 
-    console.log("jobDetails:", jobDetails);
+    // console.log("jobDetails:", jobDetails);
 
     this.firewallService.assessmentSnapshot(jobDetails).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         const taskUrl = `#/jobs/details/${response.task_id}`;
         const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
         const toast: Toast = {

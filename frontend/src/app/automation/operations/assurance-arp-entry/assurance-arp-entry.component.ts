@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ToastService, Toast } from "../../../shared/services/toast.service";
+import { Toast, ToastService } from "../../../shared/services/toast.service";
+
 import { FirewallService } from "../../../shared/services/firewall.service";
 import { NgForm } from "@angular/forms";
 
@@ -34,12 +35,12 @@ export class AssuranceArpEntryComponent implements OnInit {
         config: { ip: this.ipaddress },
       };
 
-      console.log("jobDetails:", jobDetails);
+      // console.log("jobDetails:", jobDetails);
 
       this.firewallService
         .assessmentArpEntry(jobDetails)
         .subscribe((response) => {
-          console.log(response);
+          // console.log(response);
           const taskUrl = `#/jobs/details/${response.task_id}`;
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
           const toast: Toast = {

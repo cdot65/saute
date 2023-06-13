@@ -42,12 +42,15 @@
   color: white;
 }
 
+.message-text {
+  white-space: pre-wrap;
+}
+
 .frame-box{
   border: dotted 2px #33333350; padding: 20px;
   min-height: 400px;
   overflow-y: auto;
 }
-
 
 .padding{
   padding: 5px;

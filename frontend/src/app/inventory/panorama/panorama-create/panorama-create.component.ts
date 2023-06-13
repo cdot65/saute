@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { NgForm } from "@angular/forms";
+
 import { CookieService } from "ngx-cookie-service";
+import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 import { firstValueFrom } from "rxjs";
 
 @Component({
@@ -10,6 +12,7 @@ import { firstValueFrom } from "rxjs";
   templateUrl: "./panorama-create.component.html",
 })
 export class PanoramaCreateComponent implements OnInit {
+  private API_URL = environment.apiUrl;
   panorama = {
     hostname: "",
     ipv4_address: "",
@@ -37,7 +40,7 @@ export class PanoramaCreateComponent implements OnInit {
 
     try {
       const response: any = await firstValueFrom(
-        this.http.get("http://localhost:8000/api/v1/dj-rest-auth/user/", {
+        this.http.get(`${this.API_URL}/api/v1/dj-rest-auth/user/`, {
           headers,
         })
       );
@@ -56,12 +59,12 @@ export class PanoramaCreateComponent implements OnInit {
       );
 
       this.http
-        .post("http://localhost:8000/api/v1/panorama/", this.panorama, {
+        .post(`${this.API_URL}/api/v1/panorama/`, this.panorama, {
           headers,
         })
         .subscribe({
           next: (response) => {
-            console.log("New panorama created:", response);
+            // console.log("New panorama created:", response);
             this.resetForm(form);
             this.router.navigate(["/inventory/panorama/"]);
           },

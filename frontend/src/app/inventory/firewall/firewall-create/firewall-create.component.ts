@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { NgForm } from "@angular/forms";
+
 import { CookieService } from "ngx-cookie-service";
+import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 import { firstValueFrom } from "rxjs";
 
 @Component({
@@ -10,6 +12,7 @@ import { firstValueFrom } from "rxjs";
   templateUrl: "./firewall-create.component.html",
 })
 export class FirewallCreateComponent implements OnInit {
+  private API_URL = environment.apiUrl;
   firewall = {
     hostname: "",
     ipv4_address: "",
@@ -39,7 +42,7 @@ export class FirewallCreateComponent implements OnInit {
 
     try {
       const response: any = await firstValueFrom(
-        this.http.get("http://localhost:8000/api/v1/dj-rest-auth/user/", {
+        this.http.get(`${this.API_URL}/api/v1/dj-rest-auth/user/`, {
           headers,
         })
       );
@@ -59,7 +62,7 @@ export class FirewallCreateComponent implements OnInit {
       );
 
       this.http
-        .post("http://localhost:8000/api/v1/firewall/", this.firewall, {
+        .post(`${this.API_URL}/api/v1/firewall/`, this.firewall, {
           headers,
         })
         .subscribe({

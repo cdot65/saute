@@ -5,7 +5,7 @@ import logging
 
 from celery import shared_task
 from django.contrib.auth import get_user_model
-from saute.models import Jobs
+from saute.models import Message, Conversation, Jobs
 
 # third party library imports
 from environs import Env
@@ -18,6 +18,7 @@ from saute.scripts import (
     run_create_script,
     run_export_rules_to_csv,
     run_get_system_info,
+    run_send_message,
     run_sync_to_prisma,
     run_upload_cert_chain,
 )
@@ -41,7 +42,6 @@ sendgrid_api_key = env(
 )
 
 sys.path.append("/code/backend")
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_project.settings")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_project.settings")
 django.setup()
 User = get_user_model()
@@ -385,12 +385,78 @@ def execute_create_script(
     )
     logging.debug(f"Job ID: {job.pk}")
 
-    # Execute the assurance check
+    # Execute the creation of the script
     try:
         result = run_create_script(
             message,
             language,
             target,
+        )
+
+        # logging.debug(result)
+        job.json_data = result["choices"][0]["message"]["content"]
+        logging.debug(job)
+
+    except Exception as e:
+        logging.error(e)
+        job.result = f"Job ID: {job.pk}\nError: {e}"
+
+    # Save the updated job information
+    job.save()
+
+
+# ----------------------------------------------------------------------------
+# AI: Chat with ChatGPT
+# ----------------------------------------------------------------------------
+@shared_task(bind=True)
+def execute_chat(
+    self,
+    author_id,
+    conversation_id,
+    llm,
+    message,
+    persona,
+):
+    # Retrieve the user object by id
+    author = User.objects.get(id=author_id)
+
+    # Create a new entry in our Jobs database table
+    job = Jobs.objects.create(
+        job_type="send_message",
+        json_data=None,
+        author=author,
+        task_id=self.request.id,
+    )
+    logging.debug(f"Job ID: {job.pk}")
+
+    # Execute the assurance check
+    try:
+        result = run_send_message(
+            conversation_id,
+            llm,
+            message,
+            persona,
+        )
+
+        # Store the result in the Message model
+        convo = Conversation.objects.get(conversation_id=conversation_id)
+
+        # Compute next message index
+        next_index = convo.messages.count() + 1
+
+        Message.objects.create(
+            index=next_index,
+            content=message,
+            role="user",
+            author=author,
+            conversation=convo,
+        )
+        Message.objects.create(
+            index=next_index + 1,
+            content=result["choices"][0]["message"]["content"],
+            role="bot",
+            author=author,
+            conversation=convo,
         )
 
         # logging.debug(result)

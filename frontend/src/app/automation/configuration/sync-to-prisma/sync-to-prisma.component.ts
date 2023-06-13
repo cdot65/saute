@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { ToastService, Toast } from "../../../shared/services/toast.service";
+import { Toast, ToastService } from "../../../shared/services/toast.service";
+
+import { NgForm } from "@angular/forms";
 import { PanoramaService } from "../../../shared/services/panorama.service";
 import { PrismaService } from "../../../shared/services/prisma.service";
-import { NgForm } from "@angular/forms";
 
 @Component({
   selector: "app-sync-to-prisma",
@@ -42,12 +43,12 @@ export class SyncToPrismaComponent implements OnInit {
           "https://auth.apps.paloaltonetworks.com/am/oauth2/access_token",
       };
 
-      console.log("syncInformation:", syncInformation);
+      // console.log("syncInformation:", syncInformation);
 
       this.prismaService
         .postSyncInformation(syncInformation)
         .subscribe((response) => {
-          console.log(response);
+          // console.log(response);
           const taskUrl = `#/jobs/details/${response.task_id}`;
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
           const toast: Toast = {

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.conf import settings
-from .models import Panorama, Prisma, Firewall, Jobs
+from .models import Panorama, Prisma, Firewall, Jobs, Message
 
 
 class PanoramaSerializer(serializers.ModelSerializer):
@@ -93,3 +93,9 @@ class UserSerializer(serializers.ModelSerializer):
         if obj.profile_image:
             return settings.MEDIA_URL + str(obj.profile_image)
         return None
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = "__all__"

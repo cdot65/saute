@@ -89,11 +89,11 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
         target: normalizedTarget,
       };
 
-      console.log(scriptDetails);
+      // console.log(scriptDetails);
 
       this.AiService.sendScript(scriptDetails).subscribe({
         next: (response) => {
-          console.log(response);
+          // console.log(response);
           const jobId = response.task_id; // capture the job ID from the response
           const taskUrl = `#/jobs/details/${jobId}`;
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
