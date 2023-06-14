@@ -29,9 +29,9 @@ LOGGING_LEVELS = {
 # ----------------------------------------------------------------------------
 class Args(BaseModel):
     conversation_id: str
-    llm: str = "gpt-4"
+    llm: str
     message: str
-    persona: str = "Herbert"
+    persona: str
     log_level: str = "debug"
 
 
@@ -127,7 +127,7 @@ def run_send_message(
     llm = llm.lower()
 
     # swap hyphens for underscores
-    under_llm = format_llm(llm)
+    fixed_llm_name = format_llm(llm)
 
     # Get environment variables
     env = Env()
@@ -139,6 +139,10 @@ def run_send_message(
         "max_tokens": env.int("OPENAI_MAX_TOKENS", 4096),
     }
 
+    # Set max_tokens to 2048 if fixed_llm_name equals gpt_3_5_turbo
+    if fixed_llm_name == "gpt_3_5_turbo":
+        openai_config["max_tokens"] = 2048
+
     openai.api_key = env("OPENAI_API_KEY")
 
     results = None
@@ -148,7 +152,7 @@ def run_send_message(
     logging.info("persona: %s", persona)
 
     # Accessing prompt using the get_prompt method
-    prompt = chatgpt_prompts.get_prompt(under_llm, persona)
+    prompt = chatgpt_prompts.get_prompt(fixed_llm_name, persona)
 
     logging.info("prompt: %s", prompt)
 
@@ -179,7 +183,9 @@ def run_send_message(
 
 
 def format_llm(llm: str) -> str:
-    return llm.replace("-", "_")
+    llm = llm.replace("-", "_")
+    llm = llm.replace(".", "_")
+    return llm
 
 
 # ----------------------------------------------------------------------------

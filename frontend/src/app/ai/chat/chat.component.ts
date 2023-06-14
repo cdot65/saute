@@ -145,7 +145,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       const backendPayload = {
         message: this.promptText,
         conversation_id: this.conversationId,
-        llm: "gpt-4",
+        llm: this.selectedModel,
         persona: this.selectedWidget.name,
         author_id: this.authorId,
       };
