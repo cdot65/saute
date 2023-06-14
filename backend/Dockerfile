@@ -9,9 +9,9 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # set work directory
 WORKDIR /code
 
-# copy project
-COPY . .
-
 # install dependencies
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
+
+# copy project
+COPY . .

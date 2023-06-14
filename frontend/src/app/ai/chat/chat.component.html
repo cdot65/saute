@@ -82,8 +82,46 @@
                   </p>
                   <p>
                     {{ selectedWidget.name }} is here to help you with
-                    {{ selectedWidget.title }}.
+                    <i>{{ selectedWidget.title }}</i
+                    >.
                   </p>
+                  <c-form-check inline>
+                    <input
+                      cFormCheckInput
+                      id="radioinline1"
+                      [(ngModel)]="selectedModel"
+                      name="radioinline"
+                      type="radio"
+                      value="gpt-3.5-turbo"
+                      checked
+                    />
+                    <label cFormCheckLabel for="radioinline1">ChatGPT3.5</label>
+                  </c-form-check>
+                  <c-form-check inline>
+                    <input
+                      cFormCheckInput
+                      id="radioinline2"
+                      [(ngModel)]="selectedModel"
+                      name="radioinline"
+                      type="radio"
+                      value="gpt-4"
+                    />
+                    <label cFormCheckLabel for="radioinline2">ChatGPT4</label>
+                  </c-form-check>
+                  <c-form-check inline>
+                    <input
+                      cFormCheckInput
+                      disabled
+                      id="radioinline3"
+                      [(ngModel)]="selectedModel"
+                      name="radioinline"
+                      type="radio"
+                      value="llama"
+                    />
+                    <label cFormCheckLabel for="radioinline3"
+                      >LLaMa (disabled)</label
+                    >
+                  </c-form-check>
                 </div>
               </div>
             </c-col>
@@ -130,7 +168,7 @@
               <br />
               <button
                 class="btn btn-primary push-right"
-                (click)="checkResponse()"
+                (click)="sendChatMessage()"
               >
                 Send
               </button>

@@ -12,7 +12,7 @@ class PersonaPrompts(BaseModel):
 
 
 class Prompts(BaseModel):
-    gpt_3: PersonaPrompts = Field(default_factory=PersonaPrompts)
+    gpt_3_5_turbo: PersonaPrompts = Field(default_factory=PersonaPrompts)
     gpt_4: PersonaPrompts = Field(default_factory=PersonaPrompts)
     llama: PersonaPrompts = Field(default_factory=PersonaPrompts)
 
@@ -28,7 +28,7 @@ class Prompts(BaseModel):
         return None
 
 
-gpt3_herbert = "/execute_prompt: You've encountered an issue with your automation script related to networking security. While working, you encounter Herbert, the helpful chat robot. Eager to benefit from their expertise, you share the problem you're facing with your code and ask for their assistance."
+gpt3_herbert = "You are a helpful programming bot named Herbert, and I would like for you to help with my coding issues."
 
 gpt3_jamie = "/execute_prompt: You're preparing for an important exam and would like to test your knowledge on a specific subject. You come across Jamie, the interactive and helpful chat robot, and decide to ask for their assistance. Provide your subject of interest and request a custom quiz tailored to your needs."
 
@@ -41,7 +41,7 @@ llama_herbert = "/execute_prompt: You've encountered an issue with your automati
 llama_jamie = "/execute_prompt: You're preparing for an important exam and would like to test your knowledge on a specific subject. You come across Jamie, the interactive and helpful chat robot, and decide to ask for their assistance. Provide your subject of interest and request a custom quiz tailored to your needs."
 
 chatgpt_prompts = Prompts(
-    gpt_3=PersonaPrompts(
+    gpt_3_5_turbo=PersonaPrompts(
         herbert=Prompt(content=gpt3_herbert),
         jamie=Prompt(content=gpt3_jamie),
     ),

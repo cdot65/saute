@@ -30,6 +30,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   messagePollingSubscription: Subscription | undefined;
   lastMessageIndex: number | undefined; // initialize it as undefined
   conversationId: string = this.generateUUID(); // Initialize with a UUID
+  selectedModel: string = "gpt-4"; // Initialize with gpt-4
 
   constructor(
     private widgetDataService: WidgetDataService,
@@ -80,14 +81,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     } catch (err) {}
   }
 
-  checkResponse() {
-    this.pushChatContent(this.promptText, "You", "person");
+  sendChatMessage() {
+    this.llmMessage(this.selectedModel, this.promptText, "You", "person");
     // console.log("promptText:", this.promptText);
-    this.invokeGPT();
+    this.messageToLlm();
   }
 
-  pushChatContent(content: string, person: string, cssClass: string) {
+  llmMessage(model: string, content: string, person: string, cssClass: string) {
     const chatToPush: ChatWithBot = {
+      model: model,
       person: person,
       response: content,
       cssClass: cssClass,
@@ -132,7 +134,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
   }
 
-  invokeGPT() {
+  messageToLlm() {
     if (this.promptText.length < 2) return;
 
     try {
@@ -143,7 +145,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       const backendPayload = {
         message: this.promptText,
         conversation_id: this.conversationId,
-        llm: "gpt-4",
+        llm: this.selectedModel,
         persona: this.selectedWidget.name,
         author_id: this.authorId,
       };
@@ -191,7 +193,8 @@ export class ChatComponent implements OnInit, OnDestroy {
           if (newMessage.content.trim() != "") {
             // to make sure the message is not empty
             this.showTyping = false; // stop showing the typing animation
-            this.pushChatContent(
+            this.llmMessage(
+              "llm",
               newMessage.content,
               this.selectedWidget.name,
               "bot"
