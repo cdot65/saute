@@ -243,3 +243,5 @@ LOGGING = {
         },
     },
 }
+
+SCRIPTS_BASE_PATH = "/code/saute/scripts/"

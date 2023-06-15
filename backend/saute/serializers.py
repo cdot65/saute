@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.conf import settings
-from .models import Panorama, Prisma, Firewall, Jobs, Message
+import os
+from .models import Panorama, Prisma, Firewall, Jobs, Message, Script
 
 
 class PanoramaSerializer(serializers.ModelSerializer):
@@ -99,3 +100,29 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = "__all__"
+
+
+class ScriptSerializer(serializers.ModelSerializer):
+    content = serializers.CharField(write_only=True, required=False)
+    file_content = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Script
+        fields = "__all__"
+
+    def get_file_content(self, obj):
+        file_path = os.path.join(settings.SCRIPTS_BASE_PATH, obj.file.name)
+        try:
+            with open(file_path) as f:
+                return f.read()
+        except FileNotFoundError:
+            print("FileNotFoundError for file path: ", file_path)
+            return "File not found"
+
+    def update(self, instance, validated_data):
+        file_path = os.path.join(settings.SCRIPTS_BASE_PATH, instance.file.name)
+        if "content" in validated_data:
+            with open(file_path, "w") as f:
+                f.write(validated_data.pop("content"))
+
+        return super().update(instance, validated_data)

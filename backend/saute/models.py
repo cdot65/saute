@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.core.validators import FileExtensionValidator
 
 
 class Panorama(models.Model):
@@ -99,3 +100,14 @@ class Message(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class Script(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    file = models.FileField(
+        upload_to="scripts/",
+        validators=[FileExtensionValidator(allowed_extensions=["py"])],
+    )
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

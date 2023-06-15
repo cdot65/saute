@@ -6,6 +6,7 @@ from .views import (
     PrismaViewSet,
     FirewallViewSet,
     JobsViewSet,
+    ScriptViewSet,
     UserViewSet,
     UserProfileView,
     execute_admin_report,
@@ -25,6 +26,7 @@ router.register("prisma", PrismaViewSet, basename="prisma")
 router.register("firewall", FirewallViewSet, basename="firewall")
 router.register("jobs", JobsViewSet, basename="jobs")
 router.register("users", UserViewSet, basename="users")
+router.register("scripts", ScriptViewSet, basename="scripts")
 router.register("ai/messages", MessageViewSet, basename="messages")
 
 urlpatterns = router.urls
