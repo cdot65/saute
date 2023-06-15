@@ -15,6 +15,11 @@ export class SyncToPrismaComponent implements OnInit {
   selectedPanorama: any = null;
   prismaTenants: any[] = [];
   selectedPrismaTenant: any = null;
+  myObject = {
+    key: "value",
+    anotherKey: "another value",
+    // ...
+  };
 
   constructor(
     private panoramaService: PanoramaService,
