@@ -30,8 +30,19 @@
     >
       <ng-content></ng-content>
     </div>
-    <div *ngIf="activeTab === 'code'" class="tab-pane show p-3 preview fade">
-      <!-- Code content here -->
+    <div
+      *ngIf="activeTab === 'code'"
+      class="tab-pane active show p-3 preview fade"
+    >
+      <div class="col-md-8">
+        <ngs-code-editor
+          [theme]="theme"
+          [codeModel]="codeModel"
+          [options]="options"
+          (valueChanged)="onCodeChanged($event)"
+          class="code-editor-container"
+        ></ngs-code-editor>
+      </div>
     </div>
     <div *ngIf="activeTab === 'api'" class="tab-pane show p-3 preview fade">
       <!-- API content here -->

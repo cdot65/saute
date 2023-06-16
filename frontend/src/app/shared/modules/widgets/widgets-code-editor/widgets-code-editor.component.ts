@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from "@angular/core";
 
 import { CodeModel } from "@ngstack/code-editor";
 
@@ -7,7 +13,7 @@ import { CodeModel } from "@ngstack/code-editor";
   templateUrl: "./widgets-code-editor.component.html",
   styleUrls: ["./widgets-code-editor.component.scss"],
 })
-export class CodeEditorWidgetComponent implements OnChanges {
+export class CodeEditorWidgetComponent implements OnChanges, OnInit {
   @Input() codeObject: any;
 
   theme = "vs-dark";
@@ -23,16 +29,25 @@ export class CodeEditorWidgetComponent implements OnChanges {
   };
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["codeObject"] && this.codeObject) {
-      this.codeModel = {
-        language: "typescript",
-        uri: "main.ts",
-        value: JSON.stringify(this.codeObject, null, 2),
-      };
+    if (changes["codeObject"]) {
+      if (this.codeObject) {
+        console.log("CodeObject received:", this.codeObject); // Log the received codeObject
+        this.codeModel = {
+          language: "python",
+          uri: "main.py",
+          value: this.codeObject,
+        };
+      } else {
+        console.log("CodeObject received is empty or null"); // If codeObject is null or empty
+      }
     }
   }
 
+  ngOnInit(): void {
+    console.log("CodeEditorWidgetComponent initialized");
+  }
+
   onCodeChanged(value: string) {
-    console.log(value);
+    console.log("Code changed:", value); // Log when the code in editor changes
   }
 }

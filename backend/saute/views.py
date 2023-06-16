@@ -161,8 +161,16 @@ class MessageViewSet(viewsets.ModelViewSet):
 
 class ScriptViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthorOrReadOnly,)
-    queryset = Script.objects.all()
     serializer_class = ScriptSerializer
+
+    def get_queryset(self):
+        queryset = Script.objects.all()
+
+        name = self.request.query_params.get("name", None)
+        if name is not None:
+            queryset = queryset.filter(name=name)
+
+        return queryset
 
 
 # ----------------------------------------------------------------------------

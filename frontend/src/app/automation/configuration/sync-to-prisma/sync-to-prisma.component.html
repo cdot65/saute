@@ -1,5 +1,5 @@
 <c-row>
-  <c-col xs="8">
+  <c-col xs="12">
     <c-card class="mb-4">
       <c-card-header ngPreserveWhitespaces>
         <strong>Sync to Prisma</strong>
@@ -10,9 +10,7 @@
           system information from a Panorama instance (Palo Alto Networks) and
           transfers it to Prisma.
         </p>
-        <app-automation-execute
-          href="blob/main/backend/saute/scripts/pan_to_prisma/app.py"
-        >
+        <app-automation-interface [scriptName]="'pan_to_prisma/app.py'">
           <form
             #syncForm="ngForm"
             (ngSubmit)="onSubmitForm(syncForm)"
@@ -88,20 +86,8 @@
               </button>
             </c-col>
           </form>
-        </app-automation-execute>
+        </app-automation-interface>
       </c-card-body>
     </c-card>
-  </c-col>
-  <c-col xs="4">
-    <app-automation-callout
-      href="blob/main/backend/saute/scripts/pan_to_prisma/app.py"
-      name="app.py"
-    >
-    </app-automation-callout>
-  </c-col>
-</c-row>
-<c-row>
-  <c-col xs="8">
-    <app-code-editor-widget [codeObject]="myObject"></app-code-editor-widget>
   </c-col>
 </c-row>

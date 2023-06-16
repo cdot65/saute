@@ -123,6 +123,14 @@ const routes: Routes = [
         loadChildren: () => import("./ai/ai.module").then((m) => m.AiModule),
         canActivate: [AuthGuard],
       },
+      {
+        path: "script",
+        loadChildren: () =>
+          import(
+            "./shared/modules/automation-interface/automation-interface.module"
+          ).then((m) => m.AutomationInterfaceModule),
+        canActivate: [AuthGuard],
+      },
     ],
   },
   {

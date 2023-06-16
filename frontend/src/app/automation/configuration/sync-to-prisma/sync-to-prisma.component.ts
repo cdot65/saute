@@ -4,6 +4,7 @@ import { Toast, ToastService } from "../../../shared/services/toast.service";
 import { NgForm } from "@angular/forms";
 import { PanoramaService } from "../../../shared/services/panorama.service";
 import { PrismaService } from "../../../shared/services/prisma.service";
+import { ScriptService } from "src/app/shared/services/script.service";
 
 @Component({
   selector: "app-sync-to-prisma",
@@ -15,16 +16,12 @@ export class SyncToPrismaComponent implements OnInit {
   selectedPanorama: any = null;
   prismaTenants: any[] = [];
   selectedPrismaTenant: any = null;
-  myObject = {
-    key: "value",
-    anotherKey: "another value",
-    // ...
-  };
 
   constructor(
     private panoramaService: PanoramaService,
     private prismaService: PrismaService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private scriptService: ScriptService
   ) {}
 
   ngOnInit(): void {

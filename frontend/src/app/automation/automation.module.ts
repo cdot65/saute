@@ -15,6 +15,7 @@ import { AdminReportComponent } from "./assessment/admin-report/admin-report.com
 import { AssuranceArpEntryComponent } from "./operations/assurance-arp-entry/assurance-arp-entry.component";
 import { AssuranceSnapshotsComponent } from "./operations/assurance-snapshots/assurance-snapshots.component";
 import { AutomationDocsModule } from "../shared/modules/automation-docs/automation-docs.module";
+import { AutomationInterfaceModule } from "../shared/modules/automation-interface/automation-interface.module";
 // routing
 import { AutomationRoutingModule } from "./automation-routing.module";
 import { CommonModule } from "@angular/common";
@@ -53,6 +54,7 @@ import { WidgetsModule } from "../shared/modules/widgets/widgets.module";
     FormModule,
     AutomationRoutingModule,
     AutomationDocsModule,
+    AutomationInterfaceModule,
     NotificationsModule,
     WidgetsModule,
   ],

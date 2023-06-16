@@ -5,8 +5,10 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnInit,
 } from "@angular/core";
 
+import { ScriptService } from "src/app/shared/services/script.service";
 import packageJson from "../../../../../../package.json";
 
 @Component({
@@ -16,11 +18,16 @@ import packageJson from "../../../../../../package.json";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutomationExecuteComponent
-  implements AfterContentInit, AfterViewInit
+  implements OnInit, AfterContentInit, AfterViewInit
 {
   activeTab: string = "execute";
+  scriptContent: string = "";
+  scriptName: string = "pan_to_prisma/app.py";
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private scriptService: ScriptService
+  ) {}
 
   @Input() fragment?: string;
 
@@ -39,11 +46,26 @@ export class AutomationExecuteComponent
     this._href = `${docsUrl}${value}`;
   }
 
+  ngOnInit(): void {
+    this.fetchScriptContent();
+  }
+
   ngAfterContentInit(): void {
     this.changeDetectorRef.detectChanges();
   }
 
   ngAfterViewInit(): void {
     this.changeDetectorRef.markForCheck();
+  }
+
+  fetchScriptContent(): void {
+    this.scriptService.fetchScriptByName(this.scriptName).subscribe({
+      next: (data) => {
+        if (data?.file_content) {
+          this.scriptContent = data.file_content;
+        }
+      },
+      error: (error) => console.error(error),
+    });
   }
 }
