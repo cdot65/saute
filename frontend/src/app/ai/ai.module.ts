@@ -17,7 +17,6 @@ import {
 } from "@coreui/angular";
 
 import { AiRoutingModule } from "./ai-routing.module";
-import { AutomationDocsModule } from "../shared/modules/automation-docs/automation-docs.module";
 import { ChangeAnalysisComponent } from "./change-analysis/change-analysis.component";
 import { ChatComponent } from "./chat/chat.component";
 import { CommonModule } from "@angular/common";
@@ -40,7 +39,6 @@ import { WidgetsModule } from "../shared/modules/widgets/widgets.module";
   imports: [
     CommonModule,
     AiRoutingModule,
-    AutomationDocsModule,
     GridModule,
     CardModule,
     FormsModule,

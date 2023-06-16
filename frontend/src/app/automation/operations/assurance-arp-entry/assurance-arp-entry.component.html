@@ -1,67 +1,94 @@
 <c-row>
-    <c-col xs="8">
-        <c-card class="mb-4">
-            <c-card-header ngPreserveWhitespaces>
-                <strong>Assurance ARP Entry</strong>
-            </c-card-header>
-            <c-card-body>
-                <p class="text-medium-emphasis small">
-                    This request will check for the existance of an IP address in the ARP
-                    table of a remote firewall. This Python script leverages the
-                    <a href="https://github.com/PaloAltoNetworks/pan-os-upgrade-assurance">pan-os-upgrade-assurance</a>
-                    package to perform the checks.
-                </p>
-                <app-automation-execute href="blob/main/backend/saute/scripts/panos_assurance/app.py">
-                    <form #customStylesForm="ngForm" (ngSubmit)="onSubmitForm(customStylesForm)"
-                        [ngClass]="{ 'was-validated': customStylesForm.valid }" cForm class="row g-3 needs-validation">
-                        <c-col md="8">
-                            <label cLabel for="validationServer04">Firewall Instance</label>
-                            <select cSelect id="validationServer04" [(ngModel)]="selectedFirewall"
-                                name="selectedFirewall" #selectedFirewallControl="ngModel" required>
-                                <option [ngValue]="null" disabled selected>
-                                    Select a Firewall
-                                </option>
-                                <option *ngFor="let firewall of firewalls" [ngValue]="firewall">
-                                    {{ firewall.hostname }}
-                                </option>
-                            </select>
-                            <c-form-feedback [valid]="
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header ngPreserveWhitespaces>
+        <strong>Assurance ARP Entry</strong>
+      </c-card-header>
+      <c-card-body>
+        <p class="text-medium-emphasis small">
+          This request will check for the existance of an IP address in the ARP
+          table of a remote firewall. This Python script leverages the
+          <a href="https://github.com/PaloAltoNetworks/pan-os-upgrade-assurance"
+            >pan-os-upgrade-assurance</a
+          >
+          package to perform the checks.
+        </p>
+        <app-automation-interface [scriptName]="'panos_assurance/app.py'">
+          <form
+            #customStylesForm="ngForm"
+            (ngSubmit)="onSubmitForm(customStylesForm)"
+            [ngClass]="{ 'was-validated': customStylesForm.valid }"
+            cForm
+            class="row g-3 needs-validation"
+          >
+            <c-col md="8">
+              <label cLabel for="validationServer04">Firewall Instance</label>
+              <select
+                cSelect
+                id="validationServer04"
+                [(ngModel)]="selectedFirewall"
+                name="selectedFirewall"
+                #selectedFirewallControl="ngModel"
+                required
+              >
+                <option [ngValue]="null" disabled selected>
+                  Select a Firewall
+                </option>
+                <option *ngFor="let firewall of firewalls" [ngValue]="firewall">
+                  {{ firewall.hostname }}
+                </option>
+              </select>
+              <c-form-feedback
+                [valid]="
                   selectedFirewallControl.valid &&
                   selectedFirewallControl.touched
                     ? true
                     : undefined
-                ">
-                                Looks good!</c-form-feedback>
-                        </c-col>
-                        <c-col md="8">
-                            <label cLabel for="validationServer05">IP Address</label>
-                            <div>
-                                <input type="ipaddress" cInput id="validationServer05" [(ngModel)]="ipaddress"
-                                    name="ipaddress" #ipaddressControl="ngModel" required />
-                                <c-form-feedback [valid]="
+                "
+              >
+                Looks good!</c-form-feedback
+              >
+            </c-col>
+            <c-col md="8">
+              <label cLabel for="validationServer05">IP Address</label>
+              <div>
+                <input
+                  type="ipaddress"
+                  cInput
+                  id="validationServer05"
+                  [(ngModel)]="ipaddress"
+                  name="ipaddress"
+                  #ipaddressControl="ngModel"
+                  required
+                />
+                <c-form-feedback
+                  [valid]="
                     ipaddressControl.valid && ipaddressControl.touched
                       ? true
                       : undefined
-                  ">
-                                    Looks good!</c-form-feedback>
-                                <c-form-feedback invalid>
-                                    Please provide a valid ipaddress.
-                                </c-form-feedback>
-                            </div>
-                        </c-col>
-                        <c-col xs="12">
-                            <button cButton class="me-1" color="primary" type="submit"
-                                [disabled]="!customStylesForm.valid">
-                                Submit form
-                            </button>
-                        </c-col>
-                    </form>
-                </app-automation-execute>
-            </c-card-body>
-        </c-card>
-    </c-col>
-    <c-col xs="4">
-        <app-automation-callout href="blob/main/backend/saute/scripts/panos_assurance/app.py" name="app.py">
-        </app-automation-callout>
-    </c-col>
+                  "
+                >
+                  Looks good!</c-form-feedback
+                >
+                <c-form-feedback invalid>
+                  Please provide a valid ipaddress.
+                </c-form-feedback>
+              </div>
+            </c-col>
+            <c-col xs="12">
+              <button
+                cButton
+                class="me-1"
+                color="primary"
+                type="submit"
+                [disabled]="!customStylesForm.valid"
+              >
+                Submit form
+              </button>
+            </c-col>
+          </form>
+        </app-automation-interface>
+      </c-card-body>
+    </c-card>
+  </c-col>
 </c-row>
