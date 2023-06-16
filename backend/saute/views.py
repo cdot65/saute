@@ -11,7 +11,7 @@ from rest_framework.generics import RetrieveAPIView
 
 
 # directory object imports
-from .models import Panorama, Prisma, Firewall, Jobs, Conversation, Message
+from .models import Panorama, Prisma, Firewall, Jobs, Conversation, Message, Script
 from .permissions import IsAuthorOrReadOnly
 from .serializers import (
     MessageSerializer,
@@ -19,6 +19,7 @@ from .serializers import (
     PrismaSerializer,
     FirewallSerializer,
     JobsSerializer,
+    ScriptSerializer,
     UserSerializer,
 )
 
@@ -156,6 +157,20 @@ class MessageViewSet(viewsets.ModelViewSet):
         message = conversation.messages.order_by("-index").first()
         serializer = self.get_serializer(message)
         return Response(serializer.data)
+
+
+class ScriptViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthorOrReadOnly,)
+    serializer_class = ScriptSerializer
+
+    def get_queryset(self):
+        queryset = Script.objects.all()
+
+        name = self.request.query_params.get("name", None)
+        if name is not None:
+            queryset = queryset.filter(name=name)
+
+        return queryset
 
 
 # ----------------------------------------------------------------------------

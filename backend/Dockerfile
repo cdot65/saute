@@ -13,5 +13,11 @@ WORKDIR /code
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
+# Add startup script
+COPY start.sh .
+
+# Make the start script executable
+RUN chmod +x start.sh
+
 # copy project
 COPY . .

@@ -10,9 +10,11 @@ import {
 
 import { AssessmentWidgetComponent } from "./widgets-assessment/widgets-assessment.component";
 import { ChartjsModule } from "@coreui/angular-chartjs";
+// local widgets
+import { CodeEditorModule } from "@ngstack/code-editor";
+import { CodeEditorWidgetComponent } from "./widgets-code-editor/widgets-code-editor.component";
 import { CommonModule } from "@angular/common";
 import { ConfigurationWidgetComponent } from "./widgets-configuration/widgets-configuration.component";
-// local widgets
 import { DeployWidgetComponent } from "./widgets-deploy/widgets-deploy.component";
 import { IconModule } from "@coreui/icons-angular";
 import { NgModule } from "@angular/core";
@@ -27,6 +29,7 @@ import { WidgetsRoutingModule } from "./widgets-routing.module";
     OperationsWidgetComponent,
     AssessmentWidgetComponent,
     PersonaWidgetComponent,
+    CodeEditorWidgetComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +43,7 @@ import { WidgetsRoutingModule } from "./widgets-routing.module";
     CardModule,
     ProgressModule,
     ChartjsModule,
+    CodeEditorModule.forRoot(),
   ],
   exports: [
     DeployWidgetComponent,
@@ -47,6 +51,7 @@ import { WidgetsRoutingModule } from "./widgets-routing.module";
     OperationsWidgetComponent,
     AssessmentWidgetComponent,
     PersonaWidgetComponent,
+    CodeEditorWidgetComponent,
   ],
 })
 export class WidgetsModule {}
