@@ -90,6 +90,12 @@ def parse_arguments():
         description="Parse arguments passed from Saute frontend."
     )
     parser.add_argument(
+        "--config-objects",
+        dest="config_objects",
+        default="all",
+        help="Comma-separated list of config objects to process (default: %(default)s). Options: address-objects, address-groups, security-rules, all",
+    )
+    parser.add_argument(
         "--pan-url",
         dest="pan_url",
         default=pan_config["pan_url"],
@@ -243,12 +249,24 @@ def create_prisma_address_objects(
     prisma_address_objects = []
     for address_object in address_objects:
         logging.debug(address_object)
+        # Initialize the object with only the fields that are always present
         prisma_address_data = {
             "folder": "Prisma Access",
             "name": f"{address_object.source}-{address_object.name}",
-            "ip_netmask": address_object.value,
-            "description": address_object.type,
         }
+
+        # Add description field if it exists in address_object
+        if hasattr(address_object, "description") and address_object.description:
+            prisma_address_data["description"] = address_object.description
+
+        # Assign different keys based on the type of the address_object
+        if address_object.type == "ip-netmask":
+            prisma_address_data["ip_netmask"] = address_object.value
+        elif address_object.type == "fqdn":
+            prisma_address_data["fqdn"] = address_object.value
+        elif address_object.type == "ip-range":
+            prisma_address_data["ip_range"] = address_object.value
+
         prisma_address = PrismaAddress(**prisma_address_data)
         prisma_address.create(session)
         prisma_address_objects.append(prisma_address_data)
@@ -334,39 +352,22 @@ def run_sync_to_prisma(
     client_secret: str,
     tsg_id: str,
     token_url: str,
+    config_objects: str,
 ) -> Dict[str, Any]:
+    # initialize result dictionary
+    result = {}
+
+    # process config objects to determine which parts of the config we will work on
+    config_objects_list = [item.strip() for item in config_objects.split(",")]
+    process_all = "all" in config_objects_list
+    process_address_objects = process_all or "address-objects" in config_objects_list
+    process_address_groups = process_all or "address-groups" in config_objects_list
+    process_security_rules = process_all or "security-rules" in config_objects_list
+
     # authenticate with Panorama
     logging.info("Authenticating with Panorama...")
     pan = setup_panorama_client(pan_url, api_token)
     logging.debug(pan)
-
-    # fetch security rules
-    try:
-        logging.info("Retrieving security rules...")
-        rules = get_security_rules(pan)
-        logging.debug(rules)
-    except Exception as e:
-        logging.error("Error retrieving security rules: %s", e)
-        return
-
-    # console logging when debugging
-    for rule_data in rules:
-        logging.debug(rule_data.json(indent=2))
-
-    # fetch address objects and groups
-    try:
-        logging.info("Retrieving address objects and groups...")
-        address_objects, address_groups = get_address_objects_and_groups(pan)
-    except Exception as e:
-        logging.error("Error retrieving address objects and groups: %s", e)
-        return
-
-    # console logging when debugging
-    for address_object in address_objects:
-        logging.debug(address_object.json(indent=2))
-
-    for address_group in address_groups:
-        logging.debug(address_group.json(indent=2))
 
     # authenticate with Prisma
     try:
@@ -387,39 +388,83 @@ def run_sync_to_prisma(
         logging.error(f"Error with Prisma authentication: {e}")
         return {"error": str(e)}
 
+    # fetch address objects and groups
+    if process_address_objects or process_address_groups:
+        try:
+            logging.info("Retrieving address objects and groups...")
+            address_objects, address_groups = get_address_objects_and_groups(pan)
+        except Exception as e:
+            logging.error("Error retrieving address objects and groups: %s", e)
+            return
+
+        # console logging when debugging
+        for address_object in address_objects:
+            logging.debug(address_object.json(indent=2))
+
+        for address_group in address_groups:
+            logging.debug(address_group.json(indent=2))
+
+        # Add to result dictionary
+        result["panorama_address_objects"] = [ao.dict() for ao in address_objects]
+        result["panorama_address_groups"] = [ag.dict() for ag in address_groups]
+
     # Create Prisma address objects
-    try:
-        logging.info("Creating Prisma address objects...")
-        prisma_address_objects = create_prisma_address_objects(address_objects, session)
-    except Exception as e:
-        logging.error(f"Error with Prisma API calls: {e}")
-        return {"error": str(e)}
+    if process_address_objects:
+        try:
+            logging.info("Creating Prisma address objects...")
+            prisma_address_objects = create_prisma_address_objects(
+                address_objects, session
+            )
+        except Exception as e:
+            logging.error(f"Error with Prisma API calls: {e}")
+            return {"error": str(e)}
+
+        # Add to result dictionary
+        result["prisma_address_objects"] = prisma_address_objects
 
     # Create Prisma address groups
-    try:
-        logging.info("Creating Prisma address groups...")
-        prisma_address_groups = create_prisma_address_groups(address_groups, session)
-    except Exception as e:
-        logging.error(f"Error with Prisma API calls: {e}")
-        return {"error": str(e)}
+    if process_address_groups:
+        try:
+            logging.info("Creating Prisma address groups...")
+            prisma_address_groups = create_prisma_address_groups(
+                address_groups, session
+            )
+        except Exception as e:
+            logging.error(f"Error with Prisma API calls: {e}")
+            return {"error": str(e)}
+
+        # Add to result dictionary
+        result["prisma_address_groups"] = prisma_address_groups
 
     # Create Prisma security rules
-    try:
-        logging.info("Creating Prisma security rules...")
-        prisma_security_rules = create_prisma_security_rules(rules, session)
-    except Exception as e:
-        logging.error(f"Error with Prisma API calls: {e}")
-        return {"error": str(e)}
+    if process_security_rules:
+        # fetch security rules
+        try:
+            logging.info("Retrieving security rules...")
+            rules = get_security_rules(pan)
+            logging.debug(rules)
+        except Exception as e:
+            logging.error("Error retrieving security rules: %s", e)
+            return
+
+        # console logging when debugging
+        for rule_data in rules:
+            logging.debug(rule_data.json(indent=2))
+
+        # Add to result dictionary
+        result["panorama_security_rules"] = [sr.dict() for sr in rules]
+        try:
+            logging.info("Creating Prisma security rules...")
+            prisma_security_rules = create_prisma_security_rules(rules, session)
+        except Exception as e:
+            logging.error(f"Error with Prisma API calls: {e}")
+            return {"error": str(e)}
+
+        # Add to result dictionary
+        result["prisma_security_rules"] = prisma_security_rules
 
     logging.info("Completed job successfully!")
-    return {
-        "panorama_address_objects": [ao.dict() for ao in address_objects],
-        "prisma_address_objects": prisma_address_objects,
-        "panorama_address_groups": [ag.dict() for ag in address_groups],
-        "prisma_address_groups": prisma_address_groups,
-        "panorama_security_rules": [sr.dict() for sr in rules],
-        "prisma_security_rules": prisma_security_rules,
-    }
+    return result
 
 
 # ----------------------------------------------------------------------------
@@ -434,5 +479,6 @@ if __name__ == "__main__":
         args.client_secret,
         args.tsg_id,
         args.token_url,
+        args.config_objects,
     )
     logging.debug(result)
