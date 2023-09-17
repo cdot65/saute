@@ -27,7 +27,7 @@ import { NgModule } from "@angular/core";
 import { PersonasComponent } from "./personas/personas.component";
 import { ProgressModule } from "@coreui/angular";
 import { ReactiveFormsModule } from "@angular/forms";
-import { WidgetsModule } from "../shared/modules/widgets/widgets.module";
+import { WidgetsModule } from "../../shared/modules/widgets/widgets.module";
 
 @NgModule({
   declarations: [

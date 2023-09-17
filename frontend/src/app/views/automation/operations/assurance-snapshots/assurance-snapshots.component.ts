@@ -1,11 +1,11 @@
 // Importing Angular, and services required for the component
 import { Component, OnInit } from "@angular/core";
 
-import { Firewall } from "../../../shared/interfaces/firewall.interface";
-import { FirewallService } from "../../../shared/services/firewall.service";
+import { Firewall } from "../../../../shared/interfaces/firewall.interface";
+import { FirewallService } from "../../../../shared/services/firewall.service";
 import { NgForm } from "@angular/forms";
-import { Toast } from "../../../shared/interfaces/toast.interface";
-import { ToastService } from "../../../shared/services/toast.service";
+import { Toast } from "../../../../shared/interfaces/toast.interface";
+import { ToastService } from "../../../../shared/services/toast.service";
 
 // The component decorator marks this TypeScript class as an Angular component
 @Component({

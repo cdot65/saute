@@ -19,7 +19,7 @@ import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { IconModule } from "@coreui/icons-angular";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { WidgetsModule } from "../shared/modules/widgets/widgets.module";
+import { WidgetsModule } from "../../shared/modules/widgets/widgets.module";
 
 @NgModule({
   imports: [

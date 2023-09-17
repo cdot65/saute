@@ -1,14 +1,17 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { ChatWithBot, ResponseModel } from "../../shared/models/gpt-response";
+import {
+  ChatWithBot,
+  ResponseModel,
+} from "../../../shared/models/gpt-response";
 import { ElementRef, ViewChild } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { cilArrowRight, cilChartPie } from "@coreui/icons";
 
-import { BotResponseService } from "../../shared/services/chat.service";
+import { BotResponseService } from "../../../shared/services/chat.service";
 import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { WidgetDataService } from "../../shared/services/widget-data.service";
+import { WidgetDataService } from "../../../shared/services/widget-data.service";
 import { environment } from "src/environments/environment";
 import { map } from "rxjs/operators";
 

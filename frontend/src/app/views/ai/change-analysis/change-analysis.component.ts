@@ -2,47 +2,39 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription, interval } from "rxjs";
 
-import { AiService } from "../../shared/services/ai.service";
-import { CHATGPT_TIPS_TEXT } from "../../shared/constants/chatgpt-tips";
-import { DISCLAIMER_TEXT } from "../../shared/constants/disclaimer";
+import { AiService } from "../../../shared/services/ai.service";
+import { CHANGE_ANALYSIS_TIPS } from "../../../shared/constants/change-analysis-tips";
+import { DISCLAIMER_TEXT } from "../../../shared/constants/disclaimer";
 import { DomSanitizer } from "@angular/platform-browser";
-import { JobsService } from "src/app/shared/services/jobs.service"; // Make sure to import JobsService
-import { ToastService } from "../../shared/services/toast.service";
+import { JobsService } from "src/app/shared/services/jobs.service";
+import { ToastService } from "../../../shared/services/toast.service";
+import { catchError } from "rxjs/operators";
+import { of } from "rxjs";
 import { switchMap } from "rxjs/operators";
 
 @Component({
-  selector: "app-create-script",
-  templateUrl: "./create-script.component.html",
-  styleUrls: ["./create-script.component.scss"],
+  selector: "app-change-analysis",
+  templateUrl: "./change-analysis.component.html",
+  styleUrls: ["./change-analysis.component.scss"],
 })
-export class CreateScriptComponent implements OnInit, OnDestroy {
-  scriptForm: FormGroup | any;
-  selectedLanguage: string = "Python";
-  normalizedLanguage: string = "python";
-  selectedTarget: string = "PAN-OS";
-  normalizedTarget: string = "pan_os";
+export class ChangeAnalysisComponent implements OnInit, OnDestroy {
+  comparisonForm: FormGroup | any;
+  expertiseLevel: string = "Select Expertise Level";
+  assuranceJobs: any[] = [];
+  beforeSnapshot: string = "";
+  afterSnapshot: string = "";
+  beforeSnapshotDate: string = 'Select "Before" Snapshot';
+  afterSnapshotDate: string = 'Select "After" Snapshot';
   jobDetails: any;
   jobPollingSubscription: Subscription | undefined;
   progressValue: number = 0;
   jsonData: string = "";
   jsonDataHighlighted: string = "";
-  scriptStatus: string = "Building Script...";
+  comparisonAnalysis: string = "Comparing Snapshots...";
   items = [1];
   isLoading: boolean = false;
   disclaimer = DISCLAIMER_TEXT.replace(/\n/g, "<br/>");
-  chatGptTips = CHATGPT_TIPS_TEXT.replace(/\n/g, "<br/>");
-
-  colors: { [key: string]: string } = {
-    Ansible: "#CD0001",
-    bash: "#262F33",
-    Powershell: "#002253",
-    Python: "#F2DD6C",
-    Terraform: "#753FB2",
-    "PAN-OS": "#FA592C",
-    Panorama: "#FA592C",
-    "Prisma Access": "#01B5DB",
-    "Prisma Cloud": "#01B5DB",
-  };
+  chatGptTips = CHANGE_ANALYSIS_TIPS.replace(/\n/g, "<br/>");
 
   constructor(
     private fb: FormBuilder,
@@ -54,11 +46,13 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.scriptForm = this.fb.group({
+    this.comparisonForm = this.fb.group({
       message: ["", Validators.required],
-      language: [this.selectedLanguage],
-      target: [this.selectedTarget],
+      beforeSnapshot: ["", Validators.required],
+      afterSnapshot: ["", Validators.required],
+      expertiseLevel: ["", Validators.required],
     });
+    this.fetchJobsData();
   }
 
   ngOnDestroy(): void {
@@ -67,38 +61,62 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
     }
   }
 
-  getColor(item: string) {
-    return this.colors[item] || "#ABCDEF"; // default color of black
+  fetchJobsData(): void {
+    this.jobsService
+      .fetchJobsData()
+      .pipe(
+        catchError((error) => {
+          console.error("Error fetching jobs:", error);
+          return of([]);
+        })
+      )
+      .subscribe((jobs: any[]) => {
+        this.assuranceJobs = jobs.filter(
+          (job) => job.job_type === "assurance_snapshot"
+        );
+        // console.log(this.assuranceJobs);
+      });
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toISOString().split(".")[0] + "Z";
+  }
+
+  selectBeforeSnapshot(job: any): void {
+    this.comparisonForm.get("beforeSnapshot").setValue(job.task_id);
+    this.beforeSnapshotDate = this.formatDate(job.created_at);
+    // console.log(this.comparisonForm.get("beforeSnapshot").value);
+  }
+
+  selectAfterSnapshot(job: any): void {
+    this.comparisonForm.get("afterSnapshot").setValue(job.task_id);
+    this.afterSnapshotDate = this.formatDate(job.created_at);
+    // console.log(this.comparisonForm.get("afterSnapshot").value);
+  }
+
+  selectExpertiseLevel(level: string): void {
+    this.comparisonForm.get("expertiseLevel").setValue(level);
+    this.expertiseLevel = level;
+    // console.log(this.comparisonForm.get("expertiseLevel").value);
   }
 
   onSubmit(): void {
-    if (this.scriptForm.valid) {
+    if (this.comparisonForm.valid) {
       this.isLoading = true;
 
-      // normalize language and target
-      const normalizedLanguage = this.selectedLanguage
-        .toLowerCase()
-        .replace(/[- ]/g, "_");
-      const normalizedTarget = this.selectedTarget
-        .toLowerCase()
-        .replace(/[- ]/g, "_");
+      const comparisonDetails = this.comparisonForm.value;
 
-      const scriptDetails = {
-        ...this.scriptForm.value,
-        language: normalizedLanguage,
-        target: normalizedTarget,
-      };
+      // console.log(comparisonDetails);
 
-      // console.log(scriptDetails);
-
-      this.AiService.sendScript(scriptDetails).subscribe({
+      this.AiService.sendChangeAnalysis(comparisonDetails).subscribe({
         next: (response) => {
           // console.log(response);
           const jobId = response.task_id; // capture the job ID from the response
           const taskUrl = `#/jobs/details/${jobId}`;
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
           const toast = {
-            title: "Script submitted successfully",
+            title: "Comparison request submitted successfully",
             message: `${response.message}. ${anchor}`,
             color: "secondary",
             autohide: true,
@@ -108,7 +126,6 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
           this.toastService.show(toast);
           this.progressValue = 10;
 
-          // Poll for job updates every 5 seconds
           // Poll for job updates every 5 seconds
           this.jobPollingSubscription = interval(5000)
             .pipe(switchMap(() => this.jobsService.getJobDetails(jobId)))
@@ -123,7 +140,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
                   this.jobPollingSubscription?.unsubscribe();
                   this.cdr.detectChanges();
                   this.jsonData = jobDetails.json_data;
-                  this.scriptStatus = "Generated Script";
+                  this.comparisonAnalysis = "Comparison Report";
                   this.progressValue = 100;
                   this.isLoading = false;
                 }
@@ -137,7 +154,7 @@ export class CreateScriptComponent implements OnInit, OnDestroy {
           console.error(error);
           const toast = {
             title: "Error",
-            message: "There was an error submitting the script",
+            message: "There was an error submitting the request",
             color: "danger",
             autohide: true,
             delay: 5000,

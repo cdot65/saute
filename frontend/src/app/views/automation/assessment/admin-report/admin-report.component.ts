@@ -1,16 +1,18 @@
 import { Component, OnInit } from "@angular/core";
-import { ToastService, Toast } from "../../../shared/services/toast.service";
-import { PanoramaService } from "../../../shared/services/panorama.service";
+import { Toast, ToastService } from "../../../../shared/services/toast.service";
+
 import { NgForm } from "@angular/forms";
+import { PanoramaService } from "../../../../shared/services/panorama.service";
 
 @Component({
-  selector: "app-get-software-information",
-  templateUrl: "./get-software-information.component.html",
-  styleUrls: ["./get-software-information.component.scss"],
+  selector: "app-admin-report",
+  templateUrl: "./admin-report.component.html",
+  styleUrls: ["./admin-report.component.scss"],
 })
-export class GetSoftwareInformationComponent implements OnInit {
+export class AdminReportComponent implements OnInit {
   panoramas: any[] = [];
   selectedPanorama: any = null;
+  email: string = "";
 
   constructor(
     private panoramaService: PanoramaService,
@@ -25,17 +27,18 @@ export class GetSoftwareInformationComponent implements OnInit {
 
   onSubmitForm(form: NgForm): void {
     if (form.valid) {
-      const softwareInformation = {
+      const jobDetails = {
         pan_url: this.selectedPanorama.hostname,
         api_token: this.selectedPanorama.api_token,
+        to_emails: this.email,
       };
 
-      console.log("softwareInformation:", softwareInformation);
+      // console.log("jobDetails:", jobDetails);
 
       this.panoramaService
-        .postSoftwareInformation(softwareInformation)
+        .executeAdminReport(jobDetails)
         .subscribe((response) => {
-          console.log(response);
+          // console.log(response);
           const taskUrl = `#/jobs/details/${response.task_id}`;
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
           const toast: Toast = {

@@ -3,7 +3,7 @@ import { Subscription, of, timer } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
 
 import { ActivatedRoute } from "@angular/router";
-import { JobsService } from "../../shared/services/jobs.service";
+import { JobsService } from "../../../shared/services/jobs.service";
 import { Params } from "@angular/router";
 import { Router } from "@angular/router";
 

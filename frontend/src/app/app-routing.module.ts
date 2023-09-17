@@ -25,7 +25,9 @@ const routes: Routes = [
       {
         path: "dashboard",
         loadChildren: () =>
-          import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
+          import("./views/dashboard/dashboard.module").then(
+            (m) => m.DashboardModule
+          ),
         canActivate: [AuthGuard],
       },
       {
@@ -83,7 +85,7 @@ const routes: Routes = [
       {
         path: "inventory/firewall",
         loadChildren: () =>
-          import("./inventory/firewall/firewall.module").then(
+          import("./views/inventory/firewall/firewall.module").then(
             (m) => m.FirewallModule
           ),
         canActivate: [AuthGuard],
@@ -91,7 +93,7 @@ const routes: Routes = [
       {
         path: "inventory/panorama",
         loadChildren: () =>
-          import("./inventory/panorama/panorama.module").then(
+          import("./views/inventory/panorama/panorama.module").then(
             (m) => m.PanoramaModule
           ),
         canActivate: [AuthGuard],
@@ -99,7 +101,7 @@ const routes: Routes = [
       {
         path: "inventory/prisma",
         loadChildren: () =>
-          import("./inventory/prisma/prisma.module").then(
+          import("./views/inventory/prisma/prisma.module").then(
             (m) => m.PrismaModule
           ),
         canActivate: [AuthGuard],
@@ -107,20 +109,21 @@ const routes: Routes = [
       {
         path: "jobs",
         loadChildren: () =>
-          import("./jobs/jobs.module").then((m) => m.JobsModule),
+          import("./views/jobs/jobs.module").then((m) => m.JobsModule),
         canActivate: [AuthGuard],
       },
       {
         path: "automation",
         loadChildren: () =>
-          import("./automation/automation.module").then(
+          import("./views/automation/automation.module").then(
             (m) => m.AutomationModule
           ),
         canActivate: [AuthGuard],
       },
       {
         path: "ai",
-        loadChildren: () => import("./ai/ai.module").then((m) => m.AiModule),
+        loadChildren: () =>
+          import("./views/ai/ai.module").then((m) => m.AiModule),
         canActivate: [AuthGuard],
       },
       {

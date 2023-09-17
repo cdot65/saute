@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Toast, ToastService } from "../../../shared/services/toast.service";
+import { Toast, ToastService } from "../../../../shared/services/toast.service";
 
 import { NgForm } from "@angular/forms";
-import { PanoramaService } from "../../../shared/services/panorama.service";
-import { PrismaService } from "../../../shared/services/prisma.service";
-import { ScriptService } from "src/app/shared/services/script.service";
+import { PanoramaService } from "../../../../shared/services/panorama.service";
+import { PrismaService } from "../../../../shared/services/prisma.service";
+import { ScriptService } from "../../../../shared/services/script.service";
 
 @Component({
   selector: "app-sync-to-prisma",

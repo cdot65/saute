@@ -1,42 +1,44 @@
 import { Component, OnInit } from "@angular/core";
-import { Toast, ToastService } from "../../../shared/services/toast.service";
+import { Toast, ToastService } from "../../../../shared/services/toast.service";
 
+import { FirewallService } from "../../../../shared/services/firewall.service";
 import { NgForm } from "@angular/forms";
-import { PanoramaService } from "../../../shared/services/panorama.service";
 
 @Component({
-  selector: "app-admin-report",
-  templateUrl: "./admin-report.component.html",
-  styleUrls: ["./admin-report.component.scss"],
+  selector: "app-assurance-arp-entry",
+  templateUrl: "./assurance-arp-entry.component.html",
+  styleUrls: ["./assurance-arp-entry.component.scss"],
 })
-export class AdminReportComponent implements OnInit {
-  panoramas: any[] = [];
-  selectedPanorama: any = null;
-  email: string = "";
+export class AssuranceArpEntryComponent implements OnInit {
+  firewalls: any[] = [];
+  selectedFirewall: any = null;
+  ipaddress: string = "";
 
   constructor(
-    private panoramaService: PanoramaService,
+    private firewallService: FirewallService,
     private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
-    this.panoramaService.fetchPanoramaData().subscribe((data: any[]) => {
-      this.panoramas = data;
+    this.firewallService.fetchFirewallData().subscribe((data: any[]) => {
+      this.firewalls = data;
     });
   }
 
   onSubmitForm(form: NgForm): void {
     if (form.valid) {
       const jobDetails = {
-        pan_url: this.selectedPanorama.hostname,
-        api_token: this.selectedPanorama.api_token,
-        to_emails: this.email,
+        hostname: this.selectedFirewall.hostname,
+        api_key: this.selectedFirewall.api_token,
+        operation_type: "readiness_check",
+        action: "arp_entry_exist",
+        config: { ip: this.ipaddress },
       };
 
       // console.log("jobDetails:", jobDetails);
 
-      this.panoramaService
-        .executeAdminReport(jobDetails)
+      this.firewallService
+        .assessmentArpEntry(jobDetails)
         .subscribe((response) => {
           // console.log(response);
           const taskUrl = `#/jobs/details/${response.task_id}`;

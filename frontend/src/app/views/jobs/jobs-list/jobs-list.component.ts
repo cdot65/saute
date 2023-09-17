@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
-import { JobsService } from "../../shared/services/jobs.service";
+import { JobsService } from "../../../shared/services/jobs.service";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 import { catchError } from "rxjs/operators";
