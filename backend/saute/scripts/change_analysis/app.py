@@ -145,7 +145,7 @@ def run_change_analysis(
     # setup OpenAI API key
     openai_config = {
         "temperature": env.float("OPENAI_TEMPERATURE", 0.6),
-        "max_tokens": env.int("OPENAI_MAX_TOKENS", 4096),
+        "max_tokens": env.int("OPENAI_MAX_TOKENS", 8192),
     }
 
     openai.api_key = env("OPENAI_API_KEY")
