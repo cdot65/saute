@@ -193,9 +193,15 @@ def get_address_objects_and_groups(
     address_groups = []
 
     for each in pan_address_objects:
+        if not each.description:
+            each.description = ""
         address_objects.append(
             AddressObjectData(
-                source="Shared", name=each.name, value=each.value, type=each.type
+                source="Shared",
+                name=each.name,
+                value=each.value,
+                type=each.type,
+                description=each.description,
             )
         )
 
@@ -217,9 +223,15 @@ def get_address_objects_and_groups(
     for dg in device_groups:
         dg_address_objects = PanoramaAddressObject.refreshall(dg)
         for each in dg_address_objects:
+            if not each.description:
+                each.description = ""
             address_objects.append(
                 AddressObjectData(
-                    source=dg.name, name=each.name, value=each.value, type=each.type
+                    source=dg.name,
+                    name=each.name,
+                    value=each.value,
+                    type=each.type,
+                    description=each.description,
                 )
             )
 
