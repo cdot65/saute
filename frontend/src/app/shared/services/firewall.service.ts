@@ -33,6 +33,9 @@ export class FirewallService {
    */
   fetchFirewallData(): Observable<Firewall[]> {
     return this.http.get<Firewall[]>(`${this.API_URL}/api/v1/firewalls/`).pipe(
+      map((firewalls: Firewall[]) => {
+        return firewalls.sort((a, b) => a.hostname.localeCompare(b.hostname));
+      }),
       catchError((error) => {
         console.error("Error fetching Firewall data:", error);
         return of([]);
