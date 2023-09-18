@@ -1,6 +1,8 @@
 # django imports
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
+from django.db.models.functions import Lower, Replace
+from django.db.models import Value as V
 
 # django rest framework imports
 from rest_framework import viewsets, status, permissions
@@ -8,16 +10,27 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import RetrieveAPIView
+from rest_framework.views import APIView
 
 
 # directory object imports
-from .models import Panorama, Prisma, Firewall, Jobs, Conversation, Message, Script
+from .models import (
+    Panorama,
+    Prisma,
+    Firewall,
+    FirewallPlatform,
+    Jobs,
+    Conversation,
+    Message,
+    Script,
+)
 from .permissions import IsAuthorOrReadOnly
 from .serializers import (
     MessageSerializer,
     PanoramaSerializer,
     PrismaSerializer,
     FirewallSerializer,
+    FirewallPlatformSerializer,
     JobsSerializer,
     ScriptSerializer,
     UserSerializer,
@@ -83,12 +96,22 @@ class FirewallViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             try:
+                platform_name = request.data.get("platform")
+                if platform_name:
+                    platform = FirewallPlatform.objects.get(name=platform_name)
+                    serializer.validated_data["platform"] = platform
                 serializer.save(author=self.request.user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except Exception as e:
                 return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FirewallPlatformViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthorOrReadOnly,)
+    queryset = FirewallPlatform.objects.all()
+    serializer_class = FirewallPlatformSerializer
 
 
 class JobsViewSet(viewsets.ModelViewSet):
@@ -173,6 +196,36 @@ class ScriptViewSet(viewsets.ModelViewSet):
         return queryset
 
 
+class FirewallExistsView(APIView):
+    """
+    A view that returns the existence of a firewall item by name as a boolean.
+    """
+
+    def get(self, request, format=None):
+        raw_firewall_hostname = request.GET.get("hostname", None)
+        if raw_firewall_hostname is not None:
+            formatted_firewall_hostname = (
+                raw_firewall_hostname.lower().replace(" ", "_").replace("-", "_")
+            )
+            exists = (
+                Firewall.objects.annotate(
+                    formatted_hostname=Replace(
+                        Replace(Lower("hostname"), V(" "), V("_")), V("-"), V("_")
+                    )
+                )
+                .filter(formatted_hostname=formatted_firewall_hostname)
+                .exists()
+            )
+            return Response(
+                {"exists": exists, "formatted_value": formatted_firewall_hostname}
+            )
+        else:
+            return Response(
+                {"error": "No firewall hostname provided."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
 # ----------------------------------------------------------------------------
 # Define API endpoints for executing tasks
 # ----------------------------------------------------------------------------
@@ -183,10 +236,10 @@ class ScriptViewSet(viewsets.ModelViewSet):
 @permission_classes([IsAuthenticated])
 def execute_get_system_info(request):
     pan_url = request.data.get("pan_url")
-    api_token = request.data.get("api_token")
+    api_key = request.data.get("api_key")
     author_id = request.user.id
 
-    task = get_system_info_task.delay(pan_url, api_token, author_id)
+    task = get_system_info_task.delay(pan_url, api_key, author_id)
 
     task_id = task.id
 
@@ -200,12 +253,12 @@ def execute_get_system_info(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def execute_upload_cert_chain(request):
-    api_token = request.data.get("api_token")
+    api_key = request.data.get("api_key")
     author_id = request.user.id
     pan_url = request.data.get("pan_url")
     url = request.data.get("url")
 
-    task = upload_cert_chain_task.delay(api_token, author_id, pan_url, url)
+    task = upload_cert_chain_task.delay(api_key, author_id, pan_url, url)
 
     task_id = task.id
 
@@ -220,7 +273,7 @@ def execute_upload_cert_chain(request):
 @permission_classes([IsAuthenticated])
 def execute_sync_to_prisma(request):
     pan_url = request.data.get("pan_url")
-    api_token = request.data.get("api_token")
+    api_key = request.data.get("api_key")
     client_id = request.data.get("client_id")
     client_secret = request.data.get("client_secret")
     tsg_id = request.data.get("tsg_id")
@@ -229,7 +282,7 @@ def execute_sync_to_prisma(request):
 
     task = sync_to_prisma_task.delay(
         pan_url,
-        api_token,
+        api_key,
         client_id,
         client_secret,
         tsg_id,
@@ -306,13 +359,13 @@ def execute_assurance_snapshot(request):
 @permission_classes([IsAuthenticated])
 def execute_admin_report(request):
     pan_url = request.data.get("pan_url")
-    api_token = request.data.get("api_token")
+    api_key = request.data.get("api_key")
     to_emails = request.data.get("to_emails")
     author_id = request.user.id
 
     task = admin_report_task.delay(
         pan_url,
-        api_token,
+        api_key,
         to_emails,
         author_id,
     )

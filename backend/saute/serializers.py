@@ -2,7 +2,15 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import os
-from .models import Panorama, Prisma, Firewall, Jobs, Message, Script
+from .models import (
+    Panorama,
+    Prisma,
+    Firewall,
+    FirewallPlatform,
+    Jobs,
+    Message,
+    Script,
+)
 
 
 class PanoramaSerializer(serializers.ModelSerializer):
@@ -20,7 +28,7 @@ class PanoramaSerializer(serializers.ModelSerializer):
             "hostname",
             "ipv4_address",
             "ipv6_address",
-            "api_token",
+            "api_key",
             "author",
             "created_at",
         )
@@ -41,6 +49,7 @@ class PrismaSerializer(serializers.ModelSerializer):
 
 
 class FirewallSerializer(serializers.ModelSerializer):
+    platform = serializers.CharField(source="platform.name", read_only=True)
     ipv6_address = serializers.IPAddressField(
         protocol="IPv6",
         allow_blank=True,
@@ -48,16 +57,34 @@ class FirewallSerializer(serializers.ModelSerializer):
         allow_null=True,
     )
 
+    def create(self, validated_data):
+        return Firewall.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
     class Meta:
         model = Firewall
         fields = (
-            "id",
+            "api_key",
+            "author",
+            "created_at",
             "hostname",
             "ipv4_address",
             "ipv6_address",
-            "api_token",
-            "author",
-            "created_at",
+            "notes",
+            "platform",
+            "uuid",
+        )
+
+
+class FirewallPlatformSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FirewallPlatform
+        fields = (
+            "id",
+            "name",
+            "vendor",
         )
 
 

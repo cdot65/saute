@@ -4,7 +4,9 @@ from .views import (
     MessageViewSet,
     PanoramaViewSet,
     PrismaViewSet,
+    FirewallPlatformViewSet,
     FirewallViewSet,
+    FirewallExistsView,
     JobsViewSet,
     ScriptViewSet,
     UserViewSet,
@@ -23,7 +25,8 @@ from .views import (
 router = SimpleRouter()
 router.register("panorama", PanoramaViewSet, basename="panorama")
 router.register("prisma", PrismaViewSet, basename="prisma")
-router.register("firewall", FirewallViewSet, basename="firewall")
+router.register("firewall/types", FirewallPlatformViewSet, basename="firewalltypes")
+router.register("firewalls", FirewallViewSet, basename="firewalls")
 router.register("jobs", JobsViewSet, basename="jobs")
 router.register("users", UserViewSet, basename="users")
 router.register("scripts", ScriptViewSet, basename="scripts")
@@ -63,6 +66,7 @@ urlpatterns += [
         execute_upload_cert_chain,
         name="execute_upload_cert_chain",
     ),
+    path("firewall/exists", FirewallExistsView.as_view(), name="firewall_exists"),
     path(
         "operations/assurance-arp-entry",
         execute_assurance_arp_entry,
