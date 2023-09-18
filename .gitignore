@@ -61,6 +61,7 @@ frontend/dist/**
 
 ./chatgpt
 backend/media/profile_images/**
+backend/saute/migrations/**
 .vscode/settings.json
 backend/packages/*.whl
 k8s/backend-secrets.yml
