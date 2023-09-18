@@ -30,7 +30,7 @@ env.read_env()
 
 pan_config = {
     "pan_url": env("PANURL", "panorama.redtail.com"),
-    "api_token": env("PANTOKEN", "supersecret"),
+    "api_key": env("PANTOKEN", "supersecret"),
 }
 
 
@@ -88,8 +88,8 @@ def parse_arguments():
     )
     parser.add_argument(
         "--pan-token",
-        dest="api_token",
-        default=pan_config["api_token"],
+        dest="api_key",
+        default=pan_config["api_key"],
         help="Panorama API token (default: %(default)s)",
     )
     parser.add_argument(
@@ -110,10 +110,10 @@ def parse_arguments():
 # ----------------------------------------------------------------------------
 # Function to create and return an instance of Panorama
 # ----------------------------------------------------------------------------
-def setup_panorama_client(pan_url: str, api_token: str) -> Panorama:
+def setup_panorama_client(pan_url: str, api_key: str) -> Panorama:
     logging.debug(f"pan_url: {pan_url}")
-    logging.debug(f"api_token: {api_token}")
-    return Panorama(hostname=pan_url, api_key=api_token)
+    logging.debug(f"api_key: {api_key}")
+    return Panorama(hostname=pan_url, api_key=api_key)
 
 
 # ----------------------------------------------------------------------------
@@ -179,13 +179,13 @@ def send_email(html_content: str, to_emails: str, sendgrid_api_key: str):
 # ----------------------------------------------------------------------------
 def run_admin_report(
     pan_url: str,
-    api_token: str,
+    api_key: str,
     to_emails: str,
     sendgrid_api_key: str,
 ) -> Dict[str, Any]:
     # authenticate with Panorama
     logging.info("Authenticating with Panorama...")
-    pan = setup_panorama_client(pan_url, api_token)
+    pan = setup_panorama_client(pan_url, api_key)
     logging.debug(pan)
 
     # fetch administrators
@@ -216,7 +216,7 @@ if __name__ == "__main__":
     args = parse_arguments()
     result = run_admin_report(
         args.pan_url,
-        args.api_token,
+        args.api_key,
         args.to_emails,
         args.sendgrid_api_key,
     )

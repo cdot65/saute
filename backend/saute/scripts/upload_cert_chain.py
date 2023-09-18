@@ -36,7 +36,7 @@ def parse_arguments():
     )
     parser.add_argument(
         "--api-token",
-        dest="api_token",
+        dest="api_key",
         default=PANTOKEN,
         help="Panorama API token (default: %(default)s)",
     )
@@ -70,19 +70,19 @@ def fetch_cert_chain(host: str) -> Dict[str, Any]:
 # ----------------------------------------------------------------------------
 # Function to create and return an instance of Panorama
 # ----------------------------------------------------------------------------
-def setup_panorama_client(pan_url: str, api_token: str) -> panorama.Panorama:
-    return panorama.Panorama(hostname=pan_url, api_key=api_token)
+def setup_panorama_client(pan_url: str, api_key: str) -> panorama.Panorama:
+    return panorama.Panorama(hostname=pan_url, api_key=api_key)
 
 
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_upload_cert_chain(pan_url: str, api_token: str, host: str) -> Dict[str, Any]:
+def run_upload_cert_chain(pan_url: str, api_key: str, host: str) -> Dict[str, Any]:
     # Fetch the certificate chain
     cert_chain_files = fetch_cert_chain(host)
 
     # # Setup Panorama client
-    # pan = setup_panorama_client(pan_url, api_token)
+    # pan = setup_panorama_client(pan_url, api_key)
 
     # # Upload the certificates
     # for cert_file in cert_chain_files:
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     args = parse_arguments()
     result = run_upload_cert_chain(
         args.pan_url,
-        args.api_token,
+        args.api_key,
         args.host,
     )
     logging.info(result)

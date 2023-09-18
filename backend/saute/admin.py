@@ -1,7 +1,13 @@
 from django.contrib import admin
 
 
-from .models import Panorama, Prisma
+from .models import (
+    Firewall,
+    FirewallPlatform,
+    Jobs,
+    Panorama,
+    Prisma,
+)
 
 
 class PanoramaAdmin(admin.ModelAdmin):
@@ -9,7 +15,7 @@ class PanoramaAdmin(admin.ModelAdmin):
         "hostname",
         "ipv4_address",
         "ipv6_address",
-        "api_token",
+        "api_key",
     )
 
 

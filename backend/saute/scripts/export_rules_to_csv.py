@@ -42,7 +42,7 @@ def parse_arguments():
     )
     parser.add_argument(
         "--pan-pass",
-        dest="api_token",
+        dest="api_key",
         default=PANTOKEN,
         help="Panorama password (default: %(default)s)",
     )
@@ -111,8 +111,8 @@ logging.basicConfig(
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_export_rules_to_csv(pan_url: str, api_token: str) -> None:
-    pan = panorama.Panorama(hostname=pan_url, api_key=api_token)
+def run_export_rules_to_csv(pan_url: str, api_key: str) -> None:
+    pan = panorama.Panorama(hostname=pan_url, api_key=api_key)
 
     try:
         # Get security rules and associated Security Profile Groups
@@ -140,4 +140,4 @@ def run_export_rules_to_csv(pan_url: str, api_token: str) -> None:
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    run_export_rules_to_csv(args.pan_url, args.api_token)
+    run_export_rules_to_csv(args.pan_url, args.api_key)

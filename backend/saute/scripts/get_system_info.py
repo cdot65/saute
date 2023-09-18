@@ -45,7 +45,7 @@ def parse_arguments():
     )
     parser.add_argument(
         "--pan-pass",
-        dest="api_token",
+        dest="api_key",
         default=PANTOKEN,
         help="Panorama password (default: %(default)s)",
     )
@@ -55,8 +55,8 @@ def parse_arguments():
 # ----------------------------------------------------------------------------
 # Function to create and return an instance of Panorama
 # ----------------------------------------------------------------------------
-def setup_panorama_client(pan_url: str, api_token: str) -> panorama.Panorama:
-    return panorama.Panorama(hostname=pan_url, api_key=api_token)
+def setup_panorama_client(pan_url: str, api_key: str) -> panorama.Panorama:
+    return panorama.Panorama(hostname=pan_url, api_key=api_key)
 
 
 # ----------------------------------------------------------------------------
@@ -76,8 +76,8 @@ def fetch_system_information(pan: panorama.Panorama) -> Dict[str, Any]:
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_get_system_info(pan_url: str, api_token: str) -> Dict[str, Any]:
-    pan = setup_panorama_client(pan_url, api_token)
+def run_get_system_info(pan_url: str, api_key: str) -> Dict[str, Any]:
+    pan = setup_panorama_client(pan_url, api_key)
 
     try:
         system_info = fetch_system_information(pan)
@@ -94,5 +94,5 @@ def run_get_system_info(pan_url: str, api_token: str) -> Dict[str, Any]:
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    result = run_get_system_info(args.pan_url, args.api_token)
+    result = run_get_system_info(args.pan_url, args.api_key)
     logging.info(result)

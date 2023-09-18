@@ -51,7 +51,7 @@ User = get_user_model()
 # Export Security Rules to CSV file
 # ----------------------------------------------------------------------------
 @shared_task(bind=True)
-def execute_export_rules_to_csv(self, pan_url, api_token, author_id):
+def execute_export_rules_to_csv(self, pan_url, api_key, author_id):
     # Retrieve the user object by id
     author = User.objects.get(id=author_id)
 
@@ -64,7 +64,7 @@ def execute_export_rules_to_csv(self, pan_url, api_token, author_id):
     )
 
     try:
-        output_filepath = run_export_rules_to_csv(pan_url, api_token)
+        output_filepath = run_export_rules_to_csv(pan_url, api_key)
         job.result = f"Job ID: {job.pk}\nExported to {output_filepath}"
     except Exception as e:
         job.result = f"Job ID: {job.pk}\nError: {e}"
@@ -77,7 +77,7 @@ def execute_export_rules_to_csv(self, pan_url, api_token, author_id):
 # Get Panorama System Info
 # ----------------------------------------------------------------------------
 @shared_task(bind=True)
-def execute_get_system_info(self, pan_url, api_token, author_id):
+def execute_get_system_info(self, pan_url, api_key, author_id):
     # Retrieve the user object by id
     author = User.objects.get(id=author_id)
 
@@ -90,7 +90,7 @@ def execute_get_system_info(self, pan_url, api_token, author_id):
     )
 
     try:
-        system_info = run_get_system_info(pan_url, api_token)
+        system_info = run_get_system_info(pan_url, api_key)
         job.json_data = system_info
     except Exception as e:
         job.result = f"Job ID: {job.pk}\nError: {e}"
@@ -103,7 +103,7 @@ def execute_get_system_info(self, pan_url, api_token, author_id):
 # Retrieve and upload Certificate Chain
 # ----------------------------------------------------------------------------
 @shared_task(bind=True)
-def execute_upload_cert_chain(self, api_token, author_id, pan_url, url):
+def execute_upload_cert_chain(self, api_key, author_id, pan_url, url):
     # Retrieve the user object by id
     author = User.objects.get(id=author_id)
 
@@ -116,7 +116,7 @@ def execute_upload_cert_chain(self, api_token, author_id, pan_url, url):
     )
 
     try:
-        json_object = run_upload_cert_chain(pan_url, api_token, url)
+        json_object = run_upload_cert_chain(pan_url, api_key, url)
         job.json_data = json_object
     except Exception as e:
         job.result = f"Job ID: {job.pk}\nError: {e}"
@@ -132,7 +132,7 @@ def execute_upload_cert_chain(self, api_token, author_id, pan_url, url):
 def execute_sync_to_prisma(
     self,
     pan_url,
-    api_token,
+    api_key,
     client_id,
     client_secret,
     tsg_id,
@@ -152,7 +152,7 @@ def execute_sync_to_prisma(
 
     try:
         json_report = run_sync_to_prisma(
-            pan_url, api_token, client_id, client_secret, tsg_id, token_url
+            pan_url, api_key, client_id, client_secret, tsg_id, token_url
         )
         job.json_data = json_report
     except Exception as e:
@@ -169,7 +169,7 @@ def execute_sync_to_prisma(
 def execute_admin_report(
     self,
     pan_url,
-    api_token,
+    api_key,
     to_emails,
     author_id,
 ):
@@ -186,7 +186,7 @@ def execute_admin_report(
     logging.info(f"Job ID: {job.pk}")
 
     try:
-        json_report = run_admin_report(pan_url, api_token, to_emails, sendgrid_api_key)
+        json_report = run_admin_report(pan_url, api_key, to_emails, sendgrid_api_key)
         logging.info(json_report)
         job.json_data = json_report
         logging.info(job)
