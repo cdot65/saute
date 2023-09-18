@@ -29,7 +29,7 @@ export class AdminReportComponent implements OnInit {
     if (form.valid) {
       const jobDetails = {
         pan_url: this.selectedPanorama.hostname,
-        api_token: this.selectedPanorama.api_token,
+        api_key: this.selectedPanorama.api_key,
         to_emails: this.email,
       };
 

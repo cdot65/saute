@@ -34,7 +34,7 @@ export class PanoramaDetailsComponent implements OnInit {
       hostname: new FormControl(""),
       ipv4_address: new FormControl(""),
       ipv6_address: new FormControl(""),
-      api_token: new FormControl(""),
+      api_key: new FormControl(""),
     });
   }
 
@@ -46,7 +46,7 @@ export class PanoramaDetailsComponent implements OnInit {
           hostname: data.hostname,
           ipv4_address: data.ipv4_address,
           ipv6_address: data.ipv6_address || "",
-          api_token: data.api_token,
+          api_key: data.api_key,
         });
       });
   }

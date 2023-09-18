@@ -1,45 +1,81 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <strong>Edit Panorama Entry</strong>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="entryForm" (ngSubmit)="updateEntry(entryForm.value)"
-                        class="row g-3 needs-validation">
-                        <div class="col-md-6">
-                            <label for="hostname">Hostname</label>
-                            <input cFormControl id="hostname" required type="text" formControlName="hostname" />
-                            <c-form-feedback [valid]="false">Please provide a hostname.</c-form-feedback>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="ipv4_address">IPv4 Address</label>
-                            <input cFormControl id="ipv4_address" required type="text" formControlName="ipv4_address" />
-                            <c-form-feedback [valid]="false">Please provide an IPv4 address.</c-form-feedback>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="ipv6_address">IPv6 Address</label>
-                            <!-- Removed the "required" attribute to make this field optional -->
-                            <input cFormControl id="ipv6_address" type="text" formControlName="ipv6_address" />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="api_token">API Token</label>
-                            <input cFormControl id="api_token" required type="text" formControlName="api_token" />
-                            <c-form-feedback [valid]="false">Please provide an API token.</c-form-feedback>
-                        </div>
-                        <div class="col-12">
-                            <button cButton class="me-1" color="primary" type="submit">
-                                Save
-                            </button>
-                            <button (click)="onCancel()" cButton color="secondary" type="button">
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mb-4">
+        <div class="card-header">
+          <strong>Edit Panorama Entry</strong>
         </div>
+        <div class="card-body">
+          <form
+            [formGroup]="entryForm"
+            (ngSubmit)="updateEntry(entryForm.value)"
+            class="row g-3 needs-validation"
+          >
+            <div class="col-md-6">
+              <label for="hostname">Hostname</label>
+              <input
+                cFormControl
+                id="hostname"
+                required
+                type="text"
+                formControlName="hostname"
+              />
+              <c-form-feedback [valid]="false"
+                >Please provide a hostname.</c-form-feedback
+              >
+            </div>
+            <div class="col-md-6">
+              <label for="ipv4_address">IPv4 Address</label>
+              <input
+                cFormControl
+                id="ipv4_address"
+                required
+                type="text"
+                formControlName="ipv4_address"
+              />
+              <c-form-feedback [valid]="false"
+                >Please provide an IPv4 address.</c-form-feedback
+              >
+            </div>
+            <div class="col-md-6">
+              <label for="ipv6_address">IPv6 Address</label>
+              <!-- Removed the "required" attribute to make this field optional -->
+              <input
+                cFormControl
+                id="ipv6_address"
+                type="text"
+                formControlName="ipv6_address"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="api_key">API Token</label>
+              <input
+                cFormControl
+                id="api_key"
+                required
+                type="text"
+                formControlName="api_key"
+              />
+              <c-form-feedback [valid]="false"
+                >Please provide an API token.</c-form-feedback
+              >
+            </div>
+            <div class="col-12">
+              <button cButton class="me-1" color="primary" type="submit">
+                Save
+              </button>
+              <button
+                (click)="onCancel()"
+                cButton
+                color="secondary"
+                type="button"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-
+  </div>
 </div>

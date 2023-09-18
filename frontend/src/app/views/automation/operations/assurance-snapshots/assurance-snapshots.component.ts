@@ -107,7 +107,7 @@ export class AssuranceSnapshotsComponent implements OnInit {
 
     const jobDetails = {
       hostname: this.selectedFirewall.hostname,
-      api_key: this.selectedFirewall.api_token,
+      api_key: this.selectedFirewall.api_key,
       operation_type: "state_snapshot",
       action: selectedCheckboxes,
     };

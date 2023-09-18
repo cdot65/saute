@@ -37,7 +37,7 @@ export class SyncToPrismaComponent implements OnInit {
     if (form.valid) {
       const syncInformation = {
         pan_url: this.selectedPanorama.hostname,
-        api_token: this.selectedPanorama.api_token,
+        api_key: this.selectedPanorama.api_key,
         client_id: this.selectedPrismaTenant.client_id,
         client_secret: this.selectedPrismaTenant.client_secret,
         tsg_id: this.selectedPrismaTenant.tsg_id,

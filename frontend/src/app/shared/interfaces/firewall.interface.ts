@@ -1,5 +1,32 @@
+/**
+ * Represents an individual firewall with properties and platform as FirewallPlatform
+ */
 export interface Firewall {
+  api_key: string;
   hostname: string;
-  api_token: string;
-  [prop: string]: any;
+  ipv4_address: string;
+  ipv6_address: string;
+  notes: string;
+  platform: FirewallPlatform;
+  uuid: string;
+}
+
+/**
+ * Represents a Firewall platform
+ */
+export interface FirewallPlatform {
+  name: string;
+}
+
+/**
+ * Represents a form object for creating or updating a firewall
+ */
+export interface FirewallForm {
+  api_key: string;
+  hostname: string;
+  ipv4_address: string;
+  ipv6_address: string;
+  notes: string;
+  platform: FirewallPlatform;
+  uuid: string;
 }

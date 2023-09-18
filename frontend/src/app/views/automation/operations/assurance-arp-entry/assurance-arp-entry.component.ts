@@ -29,7 +29,7 @@ export class AssuranceArpEntryComponent implements OnInit {
     if (form.valid) {
       const jobDetails = {
         hostname: this.selectedFirewall.hostname,
-        api_key: this.selectedFirewall.api_token,
+        api_key: this.selectedFirewall.api_key,
         operation_type: "readiness_check",
         action: "arp_entry_exist",
         config: { ip: this.ipaddress },

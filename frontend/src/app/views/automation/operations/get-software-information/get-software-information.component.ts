@@ -28,7 +28,7 @@ export class GetSoftwareInformationComponent implements OnInit {
     if (form.valid) {
       const softwareInformation = {
         pan_url: this.selectedPanorama.hostname,
-        api_token: this.selectedPanorama.api_token,
+        api_key: this.selectedPanorama.api_key,
       };
 
       console.log("softwareInformation:", softwareInformation);

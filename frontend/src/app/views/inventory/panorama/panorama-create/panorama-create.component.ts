@@ -17,7 +17,7 @@ export class PanoramaCreateComponent implements OnInit {
     hostname: "",
     ipv4_address: "",
     ipv6_address: "",
-    api_token: "",
+    api_key: "",
     author: "",
   };
 
