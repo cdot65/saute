@@ -29,7 +29,7 @@ export class PanoramaService {
    */
   panoramaInventory(): Observable<Panorama[]> {
     return this.http
-      .get<Panorama[]>(`${this.API_URL}/api/v1/panorama/inventory`)
+      .get<Panorama[]>(`${this.API_URL}/api/v1/panorama/inventory/`)
       .pipe(
         map((panoramas: Panorama[]) => {
           return panoramas.sort((a, b) => a.hostname.localeCompare(b.hostname));

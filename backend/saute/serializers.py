@@ -24,6 +24,7 @@ class PanoramaPlatformSerializer(serializers.ModelSerializer):
 
 
 class PanoramaSerializer(serializers.ModelSerializer):
+    platform = serializers.CharField(source="platform.name", read_only=True)
     ipv6_address = serializers.IPAddressField(
         protocol="IPv6",
         allow_blank=True,
@@ -31,16 +32,24 @@ class PanoramaSerializer(serializers.ModelSerializer):
         allow_null=True,
     )
 
+    def create(self, validated_data):
+        return Panorama.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
     class Meta:
-        model = Panorama
+        model = Firewall
         fields = (
-            "id",
-            "hostname",
-            "ipv4_address",
-            "ipv6_address",
             "api_key",
             "author",
             "created_at",
+            "hostname",
+            "ipv4_address",
+            "ipv6_address",
+            "notes",
+            "platform",
+            "uuid",
         )
 
 

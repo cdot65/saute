@@ -31,7 +31,7 @@ export class PanoramaListComponent implements OnInit {
   // Fetch data from the API
   panoramaInventory() {
     this.http
-      .get<any[]>(`${this.API_URL}/api/v1/panorama/inventory`)
+      .get<any[]>(`${this.API_URL}/api/v1/panorama/inventory/`)
       .pipe(
         catchError((error) => {
           console.error("Error fetching Panorama data:", error);

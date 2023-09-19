@@ -13,6 +13,8 @@ python manage.py createsuperuser --noinput --email "saute@test.com"
 echo "Populate database with initial data"
 python manage.py loaddata fixtures/firewall_platforms.json
 python manage.py loaddata fixtures/firewalls.json
+python manage.py loaddata fixtures/panorama_platforms.json
+python manage.py loaddata fixtures/panoramas.json
 
 # Load scripts
 echo "Load scripts"
