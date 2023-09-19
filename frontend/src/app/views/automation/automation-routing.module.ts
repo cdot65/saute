@@ -1,10 +1,11 @@
-import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { GetSoftwareInformationComponent } from "./operations/get-software-information/get-software-information.component";
-import { SyncToPrismaComponent } from "./configuration/sync-to-prisma/sync-to-prisma.component";
+
 import { AdminReportComponent } from "./assessment/admin-report/admin-report.component";
 import { AssuranceArpEntryComponent } from "./operations/assurance-arp-entry/assurance-arp-entry.component";
 import { AssuranceSnapshotsComponent } from "./operations/assurance-snapshots/assurance-snapshots.component";
+import { GetSoftwareInformationComponent } from "./operations/get-software-information/get-software-information.component";
+import { NgModule } from "@angular/core";
+import { SyncToPrismaComponent } from "./configuration/sync-to-prisma/sync-to-prisma.component";
 
 const routes: Routes = [
   {

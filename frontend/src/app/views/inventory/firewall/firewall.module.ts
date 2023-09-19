@@ -1,7 +1,3 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -12,11 +8,14 @@ import {
   ListGroupModule,
   SharedModule,
 } from "@coreui/angular";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { FirewallRoutingModule } from "./firewall-routing.module";
+import { CommonModule } from "@angular/common";
 import { FirewallCreateComponent } from "./firewall-create/firewall-create.component";
-import { FirewallListComponent } from "./firewall-list/firewall-list.component";
 import { FirewallDetailsComponent } from "./firewall-details/firewall-details.component";
+import { FirewallListComponent } from "./firewall-list/firewall-list.component";
+import { FirewallRoutingModule } from "./firewall-routing.module";
+import { NgModule } from "@angular/core";
 
 @NgModule({
   declarations: [

@@ -1,9 +1,9 @@
+import { ClassToggleService, HeaderComponent } from "@coreui/angular";
 import { Component, Input } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
+
 import { AuthService } from "../../../auth.service";
 import { UserProfileService } from "../../../shared/services/user-profile.service";
-
-import { ClassToggleService, HeaderComponent } from "@coreui/angular";
 
 @Component({
   selector: "app-default-header",

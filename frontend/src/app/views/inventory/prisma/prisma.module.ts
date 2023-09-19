@@ -1,6 +1,3 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -11,11 +8,14 @@ import {
   ListGroupModule,
   SharedModule,
 } from "@coreui/angular";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { PrismaRoutingModule } from "./prisma-routing.module";
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 import { PrismaCreateComponent } from "./prisma-create/prisma-create.component";
-import { PrismaListComponent } from "./prisma-list/prisma-list.component";
 import { PrismaDetailsComponent } from "./prisma-details/prisma-details.component";
+import { PrismaListComponent } from "./prisma-list/prisma-list.component";
+import { PrismaRoutingModule } from "./prisma-routing.module";
 
 @NgModule({
   declarations: [

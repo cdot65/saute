@@ -1,7 +1,8 @@
-import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { JobsListComponent } from "./jobs-list/jobs-list.component";
+
 import { JobsDetailsComponent } from "./jobs-details/jobs-details.component";
+import { JobsListComponent } from "./jobs-list/jobs-list.component";
+import { NgModule } from "@angular/core";
 
 const routes: Routes = [
   {

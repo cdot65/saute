@@ -1,8 +1,9 @@
-import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+
+import { NgModule } from "@angular/core";
 import { PrismaCreateComponent } from "./prisma-create/prisma-create.component";
-import { PrismaListComponent } from "./prisma-list/prisma-list.component";
 import { PrismaDetailsComponent } from "./prisma-details/prisma-details.component";
+import { PrismaListComponent } from "./prisma-list/prisma-list.component";
 
 const routes: Routes = [
   {

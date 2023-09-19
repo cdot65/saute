@@ -1,6 +1,3 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -11,10 +8,13 @@ import {
   ListGroupModule,
   SharedModule,
 } from "@coreui/angular";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { JobsRoutingModule } from "./jobs-routing.module";
-import { JobsListComponent } from "./jobs-list/jobs-list.component";
+import { CommonModule } from "@angular/common";
 import { JobsDetailsComponent } from "./jobs-details/jobs-details.component";
+import { JobsListComponent } from "./jobs-list/jobs-list.component";
+import { JobsRoutingModule } from "./jobs-routing.module";
+import { NgModule } from "@angular/core";
 
 @NgModule({
   declarations: [JobsListComponent, JobsDetailsComponent],
