@@ -17,16 +17,3 @@ export interface Firewall {
 export interface FirewallPlatform {
   name: string;
 }
-
-/**
- * Represents a form object for creating or updating a firewall
- */
-export interface FirewallForm {
-  api_key: string;
-  hostname: string;
-  ipv4_address: string;
-  ipv6_address: string;
-  notes: string;
-  platform: FirewallPlatform;
-  uuid: string;
-}

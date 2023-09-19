@@ -1,8 +1,4 @@
-import {
-  Firewall,
-  FirewallForm,
-  FirewallPlatform,
-} from "../interfaces/firewall.interface";
+import { Firewall, FirewallPlatform } from "../interfaces/firewall.interface";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 
