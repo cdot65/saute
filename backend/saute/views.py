@@ -55,12 +55,6 @@ from .tasks import (
 # ----------------------------------------------------------------------------
 # Define ViewSets for API endpoints
 # ----------------------------------------------------------------------------
-class PanoramaPlatformViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthorOrReadOnly,)
-    queryset = PanoramaPlatform.objects.all()
-    serializer_class = PanoramaPlatformSerializer
-
-
 class PanoramaViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Panorama.objects.all()
@@ -70,12 +64,22 @@ class PanoramaViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             try:
-                serializer.save(author=self.request.user)  # Change this line
+                platform_name = request.data.get("platform")
+                if platform_name:
+                    platform = PanoramaPlatform.objects.get(name=platform_name)
+                    serializer.validated_data["platform"] = platform
+                serializer.save(author=self.request.user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except Exception as e:
                 return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PanoramaPlatformViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthorOrReadOnly,)
+    queryset = PanoramaPlatform.objects.all()
+    serializer_class = PanoramaPlatformSerializer
 
 
 class PrismaViewSet(viewsets.ModelViewSet):

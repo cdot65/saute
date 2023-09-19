@@ -39,7 +39,7 @@ class PanoramaSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
     class Meta:
-        model = Firewall
+        model = Panorama
         fields = (
             "api_key",
             "author",
