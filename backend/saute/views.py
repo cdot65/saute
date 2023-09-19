@@ -16,6 +16,7 @@ from rest_framework.views import APIView
 # directory object imports
 from .models import (
     Panorama,
+    PanoramaPlatform,
     Prisma,
     Firewall,
     FirewallPlatform,
@@ -28,6 +29,7 @@ from .permissions import IsAuthorOrReadOnly
 from .serializers import (
     MessageSerializer,
     PanoramaSerializer,
+    PanoramaPlatformSerializer,
     PrismaSerializer,
     FirewallSerializer,
     FirewallPlatformSerializer,
@@ -53,6 +55,12 @@ from .tasks import (
 # ----------------------------------------------------------------------------
 # Define ViewSets for API endpoints
 # ----------------------------------------------------------------------------
+class PanoramaPlatformViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthorOrReadOnly,)
+    queryset = PanoramaPlatform.objects.all()
+    serializer_class = PanoramaPlatformSerializer
+
+
 class PanoramaViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Panorama.objects.all()
@@ -222,6 +230,36 @@ class FirewallExistsView(APIView):
         else:
             return Response(
                 {"error": "No firewall hostname provided."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
+class PanoramaExistsView(APIView):
+    """
+    A view that returns the existence of a panorama item by name as a boolean.
+    """
+
+    def get(self, request, format=None):
+        raw_panorama_hostname = request.GET.get("hostname", None)
+        if raw_panorama_hostname is not None:
+            formatted_panorama_hostname = (
+                raw_panorama_hostname.lower().replace(" ", "_").replace("-", "_")
+            )
+            exists = (
+                Panorama.objects.annotate(
+                    formatted_hostname=Replace(
+                        Replace(Lower("hostname"), V(" "), V("_")), V("-"), V("_")
+                    )
+                )
+                .filter(formatted_hostname=formatted_panorama_hostname)
+                .exists()
+            )
+            return Response(
+                {"exists": exists, "formatted_value": formatted_panorama_hostname}
+            )
+        else:
+            return Response(
+                {"error": "No panorama hostname provided."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

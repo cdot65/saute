@@ -25,7 +25,7 @@ export class SyncToPrismaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.panoramaService.fetchPanoramaData().subscribe((data: any[]) => {
+    this.panoramaService.panoramaInventory().subscribe((data: any[]) => {
       this.panoramas = data;
     });
     this.prismaService.fetchPrismaData().subscribe((data: any[]) => {

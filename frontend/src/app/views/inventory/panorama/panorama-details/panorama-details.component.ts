@@ -25,7 +25,7 @@ export class PanoramaDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = +params["id"];
-      this.fetchPanoramaData();
+      this.panoramaInventory();
     });
   }
 
@@ -38,9 +38,9 @@ export class PanoramaDetailsComponent implements OnInit {
     });
   }
 
-  fetchPanoramaData(): void {
+  panoramaInventory(): void {
     this.http
-      .get<any>(`${this.API_URL}/api/v1/panorama/${this.id}/`)
+      .get<any>(`${this.API_URL}/api/v1/panorama/inventory/${this.id}/`)
       .subscribe((data) => {
         this.entryForm.setValue({
           hostname: data.hostname,
@@ -53,7 +53,7 @@ export class PanoramaDetailsComponent implements OnInit {
 
   updateEntry(updatedEntry: any): void {
     if (this.entryForm.valid) {
-      const apiUrl = `${this.API_URL}/api/v1/panorama/${this.id}/`;
+      const apiUrl = `${this.API_URL}/api/v1/panorama/inventory/${this.id}/`;
       if (!updatedEntry.ipv6_address) {
         updatedEntry.ipv6_address = null;
       }

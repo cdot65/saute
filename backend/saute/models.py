@@ -8,6 +8,25 @@ from django.core.validators import (
 )
 
 
+class PanoramaPlatform(models.Model):
+    """
+    Represents a specific type of cookware.
+
+    Each instance of the PanoramaPlatform class holds information about a distinct type of cookware.
+
+    Fields:
+    - name: The unique name of the PanoramaPlatform.
+    """
+
+    name = models.CharField(max_length=32, unique=True)
+
+    def __str__(self):
+        """
+        This function returns the name of the PanoramaPlatform as a string representation.
+        """
+        return self.name
+
+
 class Panorama(models.Model):
     hostname = models.CharField(max_length=100)
     ipv4_address = models.GenericIPAddressField()

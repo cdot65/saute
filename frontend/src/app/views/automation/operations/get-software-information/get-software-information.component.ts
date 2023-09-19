@@ -19,7 +19,7 @@ export class GetSoftwareInformationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.panoramaService.fetchPanoramaData().subscribe((data: any[]) => {
+    this.panoramaService.panoramaInventory().subscribe((data: any[]) => {
       this.panoramas = data;
     });
   }

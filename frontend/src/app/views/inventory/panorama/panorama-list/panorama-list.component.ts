@@ -25,13 +25,13 @@ export class PanoramaListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchPanoramaData();
+    this.panoramaInventory();
   }
 
   // Fetch data from the API
-  fetchPanoramaData() {
+  panoramaInventory() {
     this.http
-      .get<any[]>(`${this.API_URL}/api/v1/panorama/`)
+      .get<any[]>(`${this.API_URL}/api/v1/panorama/inventory`)
       .pipe(
         catchError((error) => {
           console.error("Error fetching Panorama data:", error);
@@ -66,11 +66,13 @@ export class PanoramaListComponent implements OnInit {
       `Token ${authToken}`
     );
     this.http
-      .delete(`${this.API_URL}/api/v1/panorama/${entryId}/`, { headers })
+      .delete(`${this.API_URL}/api/v1/panorama/inventory/${entryId}/`, {
+        headers,
+      })
       .subscribe(
         (response) => {
           // console.log("Panorama instance deleted:", response);
-          this.fetchPanoramaData();
+          this.panoramaInventory();
         },
         (error) => {
           console.error("Error deleting Panorama instance:", error);

@@ -4,6 +4,7 @@ from django.conf import settings
 import os
 from .models import (
     Panorama,
+    PanoramaPlatform,
     Prisma,
     Firewall,
     FirewallPlatform,
@@ -11,6 +12,15 @@ from .models import (
     Message,
     Script,
 )
+
+
+class PanoramaPlatformSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PanoramaPlatform
+        fields = (
+            "id",
+            "name",
+        )
 
 
 class PanoramaSerializer(serializers.ModelSerializer):
