@@ -31,38 +31,6 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: "theme",
-        loadChildren: () =>
-          import("./views/theme/theme.module").then((m) => m.ThemeModule),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "buttons",
-        loadChildren: () =>
-          import("./views/buttons/buttons.module").then((m) => m.ButtonsModule),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "forms",
-        loadChildren: () =>
-          import("./views/forms/forms.module").then((m) => m.CoreUIFormsModule),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "charts",
-        loadChildren: () =>
-          import("./views/charts/charts.module").then((m) => m.ChartsModule),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "notifications",
-        loadChildren: () =>
-          import("./views/notifications/notifications.module").then(
-            (m) => m.NotificationsModule
-          ),
-        canActivate: [AuthGuard],
-      },
-      {
         path: "widgets",
         loadChildren: () =>
           import("./shared/modules/widgets/widgets.module").then(
