@@ -61,8 +61,10 @@ frontend/dist/**
 
 ./chatgpt
 backend/media/profile_images/**
+backend/saute/migrations/**
 .vscode/settings.json
 backend/packages/*.whl
 k8s/backend-secrets.yml
 k8s/ghcr-secrets.yaml
 k8s/slackbot-pan-pal.secrets.sh
+**.ai

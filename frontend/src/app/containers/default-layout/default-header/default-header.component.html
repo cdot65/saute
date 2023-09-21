@@ -1,6 +1,11 @@
 <ng-container>
   <c-container [fluid]="true">
-    <button toggle="visible" cHeaderToggler [cSidebarToggle]="sidebarId" class="ps-1">
+    <button
+      toggle="visible"
+      cHeaderToggler
+      [cSidebarToggle]="sidebarId"
+      class="ps-1"
+    >
       <svg cIcon name="cilMenu" size="lg"></svg>
     </button>
     <c-header-nav class="d-none d-lg-flex me-auto">
@@ -39,7 +44,6 @@
     <c-header-nav class="ms-3">
       <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
     </c-header-nav>
-
   </c-container>
   <c-header-divider></c-header-divider>
   <c-container [fluid]="true">
@@ -51,13 +55,18 @@
 <ng-template #userDropdown>
   <c-dropdown alignment="end" variant="nav-item">
     <button cButton color="" [caret]="false" cDropdownToggle class="py-0">
-      <c-avatar cTextColor="primary" shape="rounded-1" size="md" [src]="profileImageUrl || './assets/img/avatars/8.jpg'"
-        status="success">
+      <c-avatar
+        cTextColor="primary"
+        shape="rounded-1"
+        size="md"
+        [src]="profileImageUrl || './assets/img/avatars/8.jpg'"
+        status="success"
+      >
       </c-avatar>
     </button>
     <ul cDropdownMenu class="pt-0 pr-5 w-auto">
       <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Settings</h6>
+        <h6 cDropdownHeader class="bg-dark fw-semibold py-2">Settings</h6>
       </li>
       <li>
         <a routerLink="./" cDropdownItem>

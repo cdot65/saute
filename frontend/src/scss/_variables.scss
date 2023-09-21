@@ -65,14 +65,14 @@ $black: #000015;
 
 $primary-dark: #2E2719;
 // $primary: #19222E;
-$primary: #19222E;
+$primary: #948dd2;
 $primary-50: #19222E80;
 $primary-25: #19222E48;
 
-$secondary-dark: #212233;
-$secondary: #4E617A;
-$secondary-50: #4E617A;
-$secondary-25: #36547A;
+$secondary-dark: #595959;
+$secondary: #595959;
+$secondary-50: #595959;
+$secondary-25: #595959;
 
 $success-dark: #1b9e3e;
 $success: #2eb85c;
@@ -311,7 +311,7 @@ $danger-25: #f9d4d4;
 //
 // Settings for the `<body>` element.
 
-// $body-bg:                   $white;
+$body-bg:                   #181924;
 // $body-color:                $high-emphasis-dark;
 // $body-text-align:           null;
 
@@ -320,7 +320,7 @@ $danger-25: #f9d4d4;
 //
 // Style anchor elements.
 
-// $link-color:                              $primary;
+$link-color:                              #948dd2;
 // $link-decoration:                         underline;
 // $link-shade-percentage:                   20%;
 // $link-hover-color:                        shift-color($link-color, $link-shade-percentage);
@@ -1094,15 +1094,15 @@ $box-shadow: 0 .5rem 1rem rgba($black, .15);
 // $card-title-spacer-y:               $spacer / 2;
 // $card-border-width:                 $border-width;
 // $card-border-radius:                $border-radius;
-// $card-border-color:                 rgba($black, .125);
+$card-border-color:                 #282933;
 // $card-inner-border-radius:          subtract($card-border-radius, $card-border-width);
 // $card-cap-padding-y:                $card-spacer-y / 2;
 // $card-cap-padding-x:                $card-spacer-x;
-// $card-cap-bg:                       rgba($black, .03);
-// $card-cap-color:                    unset;
+$card-cap-bg:                       rgb(40, 41, 51);
+$card-cap-color:                    rgba(255, 255, 255, 0.87);
 // $card-height:                       null;
-// $card-color:                        unset;
-// $card-bg:                           $white;
+$card-color:                        rgba(255, 255, 255, 0.87);
+$card-bg:                           rgba(255, 255, 255, 0.1) !important;
 
 // $card-img-overlay-padding:          $spacer;
 
@@ -1198,23 +1198,6 @@ $box-shadow: 0 .5rem 1rem rgba($black, .15);
 // scss-docs-end popover-variables
 
 
-// Toasts
-// scss-docs-start toast-variables
-$toast-max-width: 350px;
-$toast-padding-x: .75rem;
-$toast-padding-y: .5rem;
-$toast-font-size: .875rem;
-$toast-color: rgba($white, .85);
-$toast-background-color: rgba($primary, .85);
-$toast-border-width: 1px;
-$toast-border-color: rgba(0, 0, 0, .1);
-$toast-border-radius: $border-radius;
-$toast-box-shadow: $box-shadow;
-$toast-spacing: $container-padding-x;
-
-$toast-header-color: $gray-600;
-$toast-header-background-color: rgba($white, .85);
-$toast-header-border-color: rgba(0, 0, 0, .05);
 // scss-docs-end toast-variables
 
 
@@ -1403,13 +1386,13 @@ $toast-header-border-color: rgba(0, 0, 0, .05);
 // $header-padding-y:              $spacer / 2;
 // $header-padding-x:              $spacer / 2;
 // $header-brand-font-size:        $font-size-lg;
-// $header-color:                  $medium-emphasis-dark;
-// $header-bg:                     $white;
-// $header-border-color:           $border-color;
+$header-color:                  rgba(255, 255, 255, .75);
+$header-bg:                     #2a2b36;
+$header-border-color:           $primary;
 // $header-border-width:           1px;
-// $header-hover-color:            $high-emphasis-dark;
-// $header-active-color:           $high-emphasis-dark;
-// $header-disabled-color:         $disabled-dark;
+$header-hover-color:            rgba(255, 255, 255, .75);
+$header-active-color:           #fff;
+$header-disabled-color:         rgba(255, 255, 255, .25);
 
 // Compute the header-brand padding-y so the header-brand will have the same height as header-text and nav-link
 // $nav-link-height:               $font-size-base * $line-height-base + $nav-link-padding-y * 2;
@@ -1434,7 +1417,7 @@ $toast-header-border-color: rgba(0, 0, 0, .05);
 // $header-nav-link-padding-x:     .5rem;
 
 // $header-divider-border-width:   1px;
-// $header-divider-border-color:   $header-border-color;
+$header-divider-border-color:   rgba(255, 255, 255, 0.1);
 // scss-docs-end header-variables
 
 // Subheader
@@ -1619,10 +1602,10 @@ $toast-header-border-color: rgba(0, 0, 0, .05);
 // $footer-min-height:    3rem;
 // $footer-padding-y:     $spacer / 2;
 // $footer-padding-x:     $spacer;
-// $footer-bg:            $gray-100;
+$footer-bg:            rgb(42, 43, 54);
 // $footer-color:         $body-color;
 // $footer-border-width:  1px;
-// $footer-border-color:  $border-color;
+$footer-border-color:  $primary;
 // scss-docs-end footer-variables
 
 // Spinners

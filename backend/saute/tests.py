@@ -20,7 +20,7 @@ class SauteModelTest(APITestCase):
             hostname="panorama1",
             ipv4_address="1.1.1.1",
             ipv6_address="::1",
-            api_token="1234567890",
+            api_key="1234567890",
             author=cls.user,
         )
         cls.prisma = Prisma.objects.create(
@@ -46,7 +46,7 @@ class SauteModelTest(APITestCase):
         self.assertEqual(self.panorama.hostname, "panorama1")
         self.assertEqual(self.panorama.ipv4_address, "1.1.1.1")
         self.assertEqual(self.panorama.ipv6_address, "::1")
-        self.assertEqual(self.panorama.api_token, "1234567890")
+        self.assertEqual(self.panorama.api_key, "1234567890")
 
     def test_prisma(self):
         self.assertEqual(self.prisma.__str__(), "prisma1")
@@ -67,7 +67,7 @@ class SauteModelTest(APITestCase):
         self.assertEqual(response.data[0]["hostname"], "panorama1")
         self.assertEqual(response.data[0]["ipv4_address"], "1.1.1.1")
         self.assertEqual(response.data[0]["ipv6_address"], "::1")
-        self.assertEqual(response.data[0]["api_token"], "1234567890")
+        self.assertEqual(response.data[0]["api_key"], "1234567890")
         self.assertEqual(Panorama.objects.count(), 1)
         self.assertContains(response, self.panorama)
 
@@ -85,7 +85,7 @@ class SauteModelTest(APITestCase):
             "hostname": "panorama2",
             "ipv4_address": "2.2.2.2",
             "ipv6_address": "::2",
-            "api_token": "0987654321",
+            "api_key": "0987654321",
             "author": self.user.id,
         }
         response = self.client.post(reverse("panorama-list"), data, format="json")
@@ -243,7 +243,7 @@ class UserAPITokenTestCase(APITestCase):
             username="testuser", password="testpassword", email="test@example.com"
         )
 
-    def test_retrieve_api_token(self):
+    def test_retrieve_api_key(self):
         self.client.login(username="testuser", password="testpassword")
         response = self.client.post(
             "/api/v1/dj-rest-auth/login/",

@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { environment } from "../environments/environment";
-import { Router } from "@angular/router";
+
 import { CookieService } from "ngx-cookie-service";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: "root",

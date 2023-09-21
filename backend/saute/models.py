@@ -1,16 +1,54 @@
+import uuid
 from django.conf import settings
 from django.db import models
-from django.core.validators import FileExtensionValidator
+from django.core.validators import (
+    FileExtensionValidator,
+    MaxValueValidator,
+    RegexValidator,
+)
+
+
+class PanoramaPlatform(models.Model):
+    """
+    Represents a specific type of Panorama.
+
+    Each instance of the PanoramaPlatform class holds information about a distinct platform of Panorama.
+
+    Fields:
+    - name: The unique name of the PanoramaPlatform.
+    """
+
+    name = models.CharField(max_length=32, unique=True)
+
+    def __str__(self):
+        """
+        This function returns the name of the PanoramaPlatform as a string representation.
+        """
+        return self.name
 
 
 class Panorama(models.Model):
-    hostname = models.CharField(max_length=100)
-    ipv4_address = models.GenericIPAddressField()
-    ipv6_address = models.GenericIPAddressField(protocol="IPv6", blank=True, null=True)
-    api_token = models.CharField(max_length=255)
+    """
+    Panorama appliance.
+
+    Each instance of the Panorama class holds information about a distinct Panorama appliance.
+
+    Fields:
+    - hostname: The unique name of the Panorama appliance.
+    """
+
+    api_key = models.CharField(max_length=255)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    hostname = models.CharField(max_length=100)
+    notes = models.TextField(blank=True, null=True)
+    ipv4_address = models.GenericIPAddressField()
+    ipv6_address = models.GenericIPAddressField(protocol="IPv6", blank=True, null=True)
+    platform = models.ForeignKey(
+        PanoramaPlatform, blank=True, null=True, on_delete=models.CASCADE
+    )
     updated_at = models.DateTimeField(auto_now=True)
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return self.hostname
@@ -41,14 +79,48 @@ class Jobs(models.Model):
         return self.task_id
 
 
+class FirewallPlatform(models.Model):
+    """
+    Represents a specific type of firewall.
+
+    Each instance of the FirewallPlatform class holds information about a distinct platform of firewall.
+
+    Fields:
+    - hostname: The unique name of the FirewallPlatform.
+    """
+
+    name = models.CharField(max_length=32, unique=True)
+    vendor = models.CharField(max_length=32)
+
+    def __str__(self):
+        """
+        This function returns the name of the FirewallPlatform as a string representation.
+        """
+        return self.name
+
+
 class Firewall(models.Model):
-    hostname = models.CharField(max_length=100)
-    ipv4_address = models.GenericIPAddressField()
-    ipv6_address = models.GenericIPAddressField(protocol="IPv6", blank=True, null=True)
-    api_token = models.CharField(max_length=255)
+    """
+    Firewall appliance.
+
+    Each instance of the Firewall class holds information about a distinct firewall appliance.
+
+    Fields:
+    - hostname: The unique name of the firewall appliance.
+    """
+
+    api_key = models.CharField(max_length=255)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    hostname = models.CharField(max_length=100)
+    notes = models.TextField(blank=True, null=True)
+    ipv4_address = models.GenericIPAddressField()
+    ipv6_address = models.GenericIPAddressField(protocol="IPv6", blank=True, null=True)
+    platform = models.ForeignKey(
+        FirewallPlatform, blank=True, null=True, on_delete=models.CASCADE
+    )
     updated_at = models.DateTimeField(auto_now=True)
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return self.hostname

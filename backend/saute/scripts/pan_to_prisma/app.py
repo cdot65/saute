@@ -36,7 +36,7 @@ env.read_env()
 
 pan_config = {
     "pan_url": env("PANURL", "panorama.lab.com"),
-    "api_token": env("PANTOKEN", "supersecret"),
+    "api_key": env("PANTOKEN", "supersecret"),
 }
 
 prisma_config = {
@@ -103,8 +103,8 @@ def parse_arguments():
     )
     parser.add_argument(
         "--pan-token",
-        dest="api_token",
-        default=pan_config["api_token"],
+        dest="api_key",
+        default=pan_config["api_key"],
         help="Panorama API token (default: %(default)s)",
     )
     parser.add_argument(
@@ -137,10 +137,10 @@ def parse_arguments():
 # ----------------------------------------------------------------------------
 # Function to create and return an instance of Panorama
 # ----------------------------------------------------------------------------
-def setup_panorama_client(pan_url: str, api_token: str) -> Panorama:
+def setup_panorama_client(pan_url: str, api_key: str) -> Panorama:
     logging.debug(f"pan_url: {pan_url}")
-    logging.debug(f"api_token: {api_token}")
-    return Panorama(hostname=pan_url, api_key=api_token)
+    logging.debug(f"api_key: {api_key}")
+    return Panorama(hostname=pan_url, api_key=api_key)
 
 
 # ----------------------------------------------------------------------------
@@ -193,9 +193,15 @@ def get_address_objects_and_groups(
     address_groups = []
 
     for each in pan_address_objects:
+        if not each.description:
+            each.description = ""
         address_objects.append(
             AddressObjectData(
-                source="Shared", name=each.name, value=each.value, type=each.type
+                source="Shared",
+                name=each.name,
+                value=each.value,
+                type=each.type,
+                description=each.description,
             )
         )
 
@@ -217,9 +223,15 @@ def get_address_objects_and_groups(
     for dg in device_groups:
         dg_address_objects = PanoramaAddressObject.refreshall(dg)
         for each in dg_address_objects:
+            if not each.description:
+                each.description = ""
             address_objects.append(
                 AddressObjectData(
-                    source=dg.name, name=each.name, value=each.value, type=each.type
+                    source=dg.name,
+                    name=each.name,
+                    value=each.value,
+                    type=each.type,
+                    description=each.description,
                 )
             )
 
@@ -347,7 +359,7 @@ def create_prisma_security_rules(
 # ----------------------------------------------------------------------------
 def run_sync_to_prisma(
     pan_url: str,
-    api_token: str,
+    api_key: str,
     client_id: str,
     client_secret: str,
     tsg_id: str,
@@ -366,7 +378,7 @@ def run_sync_to_prisma(
 
     # authenticate with Panorama
     logging.info("Authenticating with Panorama...")
-    pan = setup_panorama_client(pan_url, api_token)
+    pan = setup_panorama_client(pan_url, api_key)
     logging.debug(pan)
 
     # authenticate with Prisma
@@ -474,7 +486,7 @@ if __name__ == "__main__":
     args = parse_arguments()
     result = run_sync_to_prisma(
         args.pan_url,
-        args.api_token,
+        args.api_key,
         args.client_id,
         args.client_secret,
         args.tsg_id,

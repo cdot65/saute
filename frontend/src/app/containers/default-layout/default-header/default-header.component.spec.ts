@@ -1,5 +1,3 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-
 import {
   AvatarModule,
   BadgeModule,
@@ -10,10 +8,12 @@ import {
   NavModule,
   SidebarModule,
 } from "@coreui/angular";
-import { IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "../../../shared/icons/icon-subset";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+
 import { DefaultHeaderComponent } from "./default-header.component";
+import { IconSetService } from "@coreui/icons-angular";
 import { RouterTestingModule } from "@angular/router/testing";
+import { iconSubset } from "../../../shared/icons/icon-subset";
 
 describe("DefaultHeaderComponent", () => {
   let component: DefaultHeaderComponent;

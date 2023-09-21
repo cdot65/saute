@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { Injectable } from "@angular/core";
 import { SafeHtml } from "@angular/platform-browser";
 
 export interface Toast {
