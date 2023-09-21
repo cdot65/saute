@@ -67,3 +67,4 @@ backend/packages/*.whl
 k8s/backend-secrets.yml
 k8s/ghcr-secrets.yaml
 k8s/slackbot-pan-pal.secrets.sh
+**.ai

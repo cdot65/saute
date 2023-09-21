@@ -1,5 +1,9 @@
 .sidebar {
-    --#{$prefix}sidebar-bg: #19222e;
+    --#{$prefix}sidebar-bg: #2a2b36;
+}
+
+.bg-dark {
+    background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .nav-pills-container {
@@ -26,7 +30,7 @@
         transition: all .3s;
         border-radius: 30px;
         padding: 12px 28px;
-        background: none;
+        background: #fff;
         border: 0;
         height: 100%;
 
@@ -37,23 +41,23 @@
         }
 
         &:hover {
-            background-color: #c8c8c833;
+            background-color: #c8c8c8bf;
         }
     }
 
     .nav-link.active,
     .show>.nav-link {
-        color: #fff;
-        background-color: #4E617A;
-        box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #36547A;
+        color: #ffffff;
+        background-color: $primary;
+        box-shadow: 0 4px 10px #93939324, 0 7px 10px -5px #93939324;
     }
 }
 
 .nav-pills.nav-pills-info .nav-item .nav-link.active,
 .nav-pills.nav-pills-info .nav-item .nav-link.active:focus,
 .nav-pills.nav-pills-info .nav-item .nav-link.active:hover {
-    background-color: #00bcd4;
-    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #00bcd466;
+    background-color: #262626;
+    box-shadow: 0 4px 10px #93939324, 0 7px 10px -5px #F2745766;
     color: #fff;
 }
 
@@ -61,7 +65,7 @@
 .nav-pills.nav-pills-rose .nav-item .nav-link.active:focus,
 .nav-pills.nav-pills-rose .nav-item .nav-link.active:hover {
     background-color: #e91e63;
-    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #e91e6366;
+    box-shadow: 0 4px 10px #93939324, 0 7px 10px -5px #F2745766;
     color: #fff;
 }
 
@@ -69,7 +73,7 @@
 .nav-pills.nav-pills-success .nav-item .nav-link.active:focus,
 .nav-pills.nav-pills-success .nav-item .nav-link.active:hover {
     background-color: #4caf50;
-    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #4caf5066;
+    box-shadow: 0 4px 10px #93939324, 0 7px 10px -5px #4caf5066;
     color: #fff;
 }
 
@@ -77,7 +81,7 @@
 .nav-pills.nav-pills-warning .nav-item .nav-link.active:focus,
 .nav-pills.nav-pills-warning .nav-item .nav-link.active:hover {
     background-color: #36547A;
-    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #36547A66;
+    box-shadow: 0 4px 10px #93939324, 0 7px 10px -5px #36547A66;
     color: #fff;
 }
 
@@ -85,7 +89,7 @@
 .nav-pills.nav-pills-danger .nav-item .nav-link.active:focus,
 .nav-pills.nav-pills-danger .nav-item .nav-link.active:hover {
     background-color: #f44336;
-    box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #f4433666;
+    box-shadow: 0 4px 10px #93939324, 0 7px 10px -5px #f4433666;
     color: #fff;
 }
 
@@ -123,14 +127,21 @@
 
 .btn-primary {
     opacity: 1;
-    background-color: #{$secondary};
+    background-color: #{$primary};
 }
 
 .align-right {
     text-align: right;
 }
 
-.toast-link {
-    color: white;
-    text-decoration: underline;
+.align-center {
+    text-align: center;
+}
+
+.deployEntry-link {
+    text-decoration: none;
+}
+
+.white-text {
+    color: #fff;
 }
