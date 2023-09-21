@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
   templateUrl: "./widgets-deploy.component.html",
   styleUrls: ["./widgets-deploy.component.scss"],
 })
-export class DeployWidgetComponent {
+export class AutomationDeployComponent {
   deployData = [
     {
       imagePath: "../../../../../assets/img/brand/terraform-panos-aws.svg",

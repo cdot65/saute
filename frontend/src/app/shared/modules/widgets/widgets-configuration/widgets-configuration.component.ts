@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
   templateUrl: "./widgets-configuration.component.html",
   styleUrls: ["./widgets-configuration.component.scss"],
 })
-export class ConfigurationWidgetComponent {
+export class AutomationConfigurationComponent {
   configurationData = [
     {
       icon: "cibTerraform",

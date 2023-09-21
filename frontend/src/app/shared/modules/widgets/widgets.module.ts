@@ -8,26 +8,25 @@ import {
   WidgetModule,
 } from "@coreui/angular";
 
-import { AssessmentWidgetComponent } from "./widgets-assessment/widgets-assessment.component";
+import { AutomationAssessmentComponent } from "./widgets-assessment/widgets-assessment.component";
+import { AutomationConfigurationComponent } from "./widgets-configuration/widgets-configuration.component";
+import { AutomationDeployComponent } from "./widgets-deploy/widgets-deploy.component";
+import { AutomationOperationsComponent } from "./widgets-operations/widgets-operations.component";
 import { ChartjsModule } from "@coreui/angular-chartjs";
-// local widgets
 import { CodeEditorModule } from "@ngstack/code-editor";
 import { CodeEditorWidgetComponent } from "./widgets-code-editor/widgets-code-editor.component";
 import { CommonModule } from "@angular/common";
-import { ConfigurationWidgetComponent } from "./widgets-configuration/widgets-configuration.component";
-import { DeployWidgetComponent } from "./widgets-deploy/widgets-deploy.component";
 import { IconModule } from "@coreui/icons-angular";
 import { NgModule } from "@angular/core";
-import { OperationsWidgetComponent } from "./widgets-operations/widgets-operations.component";
 import { PersonaWidgetComponent } from "./widgets-persona/widgets-persona.component";
 import { WidgetsRoutingModule } from "./widgets-routing.module";
 
 @NgModule({
   declarations: [
-    DeployWidgetComponent,
-    ConfigurationWidgetComponent,
-    OperationsWidgetComponent,
-    AssessmentWidgetComponent,
+    AutomationDeployComponent,
+    AutomationConfigurationComponent,
+    AutomationOperationsComponent,
+    AutomationAssessmentComponent,
     PersonaWidgetComponent,
     CodeEditorWidgetComponent,
   ],
@@ -46,10 +45,10 @@ import { WidgetsRoutingModule } from "./widgets-routing.module";
     CodeEditorModule.forRoot(),
   ],
   exports: [
-    DeployWidgetComponent,
-    ConfigurationWidgetComponent,
-    OperationsWidgetComponent,
-    AssessmentWidgetComponent,
+    AutomationDeployComponent,
+    AutomationConfigurationComponent,
+    AutomationOperationsComponent,
+    AutomationAssessmentComponent,
     PersonaWidgetComponent,
     CodeEditorWidgetComponent,
   ],

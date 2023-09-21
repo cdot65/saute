@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
   templateUrl: "./widgets-operations.component.html",
   styleUrls: ["./widgets-operations.component.scss"],
 })
-export class OperationsWidgetComponent {
+export class AutomationOperationsComponent {
   operationsData = [
     {
       icon: "cibPython",
