@@ -6,8 +6,8 @@ import { WidgetDataService } from "../../../services/widget-data.service";
 
 @Component({
   selector: "app-persona-widget",
-  templateUrl: "./widgets-persona.component.html",
-  styleUrls: ["./widgets-persona.component.scss"],
+  templateUrl: "./persona.component.html",
+  styleUrls: ["./persona.component.scss"],
 })
 export class PersonaWidgetComponent {
   personaPersonas = [HERBERT, JAMIE];
