@@ -8,11 +8,11 @@
 // Color system
 
 $white: #fff;
-// $gray-base: #3c4b64;
-// $gray-100:  #ebedef;
-// $gray-200:  #d8dbe0;
-// $gray-300:  #c4c9d0;
-// $gray-400:  #b1b7c1;
+$gray-base: #4f5d73;
+$gray-100:  #ebedef;
+$gray-200:  #d8dbe0;
+$gray-300:  #c4c9d0;
+$gray-400:  #b1b7c1;
 $gray-500:  #9da5b1;
 $gray-600: #8a93a2;
 $gray-700:  #768192;
@@ -402,7 +402,7 @@ $container-padding-x: math.div($grid-gutter-width, 2);
 //   5: 5px
 // );
 
-// $border-color:                $gray-200;
+$border-color:                $gray-900;
 
 $border-radius: .25rem;
 // $border-radius-sm:            .2rem;
@@ -565,26 +565,26 @@ $box-shadow: 0 .5rem 1rem rgba($black, .15);
 
 // $table-cell-vertical-align:   top;
 
-// $table-color:                 $body-color;
-// $table-bg:                    transparent;
+$table-color:                 $white;
+$table-bg:                    transparent;
 
 // $table-th-font-weight:        600;
 
-// $table-striped-color:         $table-color;
-// $table-striped-bg-factor:     .05;
-// $table-striped-bg:            rgba($black, $table-striped-bg-factor);
+$table-striped-color:         #dddddd;
+$table-striped-bg-factor:     .20;
+$table-striped-bg:            rgba($black, $table-striped-bg-factor);
 
-// $table-active-color:          $table-color;
-// $table-active-bg-factor:      .1;
-// $table-active-bg:             rgba($black, $table-active-bg-factor);
+$table-active-color:          $table-color;
+$table-active-bg-factor:      .1;
+$table-active-bg:             rgba($black, $table-active-bg-factor);
 
-// $table-hover-color:           $table-color;
-// $table-hover-bg-factor:       .075;
-// $table-hover-bg:              rgba($black, $table-hover-bg-factor);
+$table-hover-color:           $table-color;
+$table-hover-bg-factor:       .1;
+$table-hover-bg:              rgba($black, $table-hover-bg-factor);
 
-// $table-border-factor:         .1;
-// $table-border-width:          $border-width;
-// $table-border-color:          $border-color;
+$table-border-factor:         .1;
+$table-border-width:          1px;
+$table-border-color:          $border-color;
 
 // $table-striped-order:         odd;
 
@@ -721,8 +721,8 @@ $box-shadow: 0 .5rem 1rem rgba($black, .15);
 // $input-disabled-bg:                     $gray-200;
 // $input-disabled-border-color:           $gray-400;
 
-// $input-color:                           $body-color;
-// $input-border-color:                    $gray-400;
+$input-color:                           $gray-100;
+$input-border-color:                    $gray-900;
 // $input-border-width:                    $input-btn-border-width;
 // $input-box-shadow:                      $box-shadow-inset;
 
