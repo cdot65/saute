@@ -1,4 +1,5 @@
 import {
+  AccordionModule,
   ButtonGroupModule,
   ButtonModule,
   CardModule,
@@ -6,12 +7,16 @@ import {
   FormModule,
   GridModule,
   ListGroupModule,
+  ModalModule,
+  ProgressModule,
   SharedModule,
+  SpinnerModule,
 } from "@coreui/angular";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 // local components
 import { AdminReportComponent } from "./assessment/admin-report/admin-report.component";
+import { AssuranceArpComponent } from "./operations/assurance-arp/assurance-arp.component";
 import { AssuranceArpEntryComponent } from "./operations/assurance-arp-entry/assurance-arp-entry.component";
 import { AssuranceSnapshotsComponent } from "./operations/assurance-snapshots/assurance-snapshots.component";
 import { AutomationInterfaceModule } from "../../shared/modules/automation-interface/automation-interface.module";
@@ -37,6 +42,7 @@ import { WidgetsModule } from "../../shared/modules/widgets/widgets.module";
     SyncToPrismaComponent,
     AdminReportComponent,
     AssuranceArpEntryComponent,
+    AssuranceArpComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +61,10 @@ import { WidgetsModule } from "../../shared/modules/widgets/widgets.module";
     AutomationInterfaceModule,
     NotificationsModule,
     WidgetsModule,
+    AccordionModule,
+    ModalModule,
+    SpinnerModule,
+    ProgressModule,
   ],
 })
 export class AutomationModule {}

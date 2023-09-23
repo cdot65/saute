@@ -14,7 +14,7 @@ from .views import (
     UserViewSet,
     UserProfileView,
     execute_admin_report,
-    execute_assurance_arp_entry,
+    execute_assurance_arp,
     execute_assurance_snapshot,
     execute_change_analysis,
     execute_chat,
@@ -72,9 +72,9 @@ urlpatterns += [
     path("firewall/exists", FirewallExistsView.as_view(), name="firewall_exists"),
     path("panorama/exists", PanoramaExistsView.as_view(), name="panorama_exists"),
     path(
-        "operations/assurance-arp-entry",
-        execute_assurance_arp_entry,
-        name="execute_assurance_arp_entry",
+        "automation/assurance-arp",
+        execute_assurance_arp,
+        name="execute_assurance_arp",
     ),
     path(
         "operations/assurance-snapshot",
