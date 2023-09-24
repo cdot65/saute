@@ -2,7 +2,6 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { AdminReportComponent } from "./assessment/admin-report/admin-report.component";
 import { AssuranceArpComponent } from "./operations/assurance-arp/assurance-arp.component";
-import { AssuranceArpEntryComponent } from "./operations/assurance-arp-entry/assurance-arp-entry.component";
 import { AssuranceSnapshotsComponent } from "./operations/assurance-snapshots/assurance-snapshots.component";
 import { GetSoftwareInformationComponent } from "./operations/get-software-information/get-software-information.component";
 import { NgModule } from "@angular/core";
@@ -20,10 +19,6 @@ const routes: Routes = [
   {
     path: "operations/assurance-arp",
     component: AssuranceArpComponent,
-  },
-  {
-    path: "operations/assurance-arp-entry",
-    component: AssuranceArpEntryComponent,
   },
   {
     path: "operations/assurance-snapshots",
