@@ -88,7 +88,7 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
         const buttonGroup = this.snapshotForm.get("buttonSnapshotGroup");
         if (value) {
           // If "All" is checked, check all other boxes and disable them
-          buttonGroup.get("all").enable(); // Keep the "All" checkbox enabled
+          buttonGroup.get("all").enable({ emitEvent: false }); // Disable event emission
           buttonGroup.patchValue(
             {
               arp_table: true,
@@ -103,7 +103,7 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
           ); // Adding { emitEvent: false } prevents new events from being emitted
         } else {
           // If "All" is unchecked, uncheck all other boxes and enable them
-          buttonGroup.enable();
+          buttonGroup.enable({ emitEvent: false }); // Disable event emission
           buttonGroup.patchValue(
             {
               arp_table: false,
