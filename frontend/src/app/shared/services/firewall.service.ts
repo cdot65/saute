@@ -164,36 +164,4 @@ export class FirewallService {
         })
       );
   }
-
-  assessmentArpEntry(jobDetails: any): Observable<any> {
-    const headers = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http
-      .post<any>(
-        `${this.API_URL}/api/v1/operations/assurance-arp-entry`,
-        jobDetails,
-        { headers: headers }
-      )
-      .pipe(
-        catchError((error) => {
-          console.error("Error executing request:", error);
-          return of(null);
-        })
-      );
-  }
-
-  assessmentSnapshot(jobDetails: any): Observable<any> {
-    const headers = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http
-      .post<any>(
-        `${this.API_URL}/api/v1/operations/assurance-snapshot`,
-        jobDetails,
-        { headers: headers }
-      )
-      .pipe(
-        catchError((error) => {
-          console.error("Error executing request:", error);
-          return of(null);
-        })
-      );
-  }
 }

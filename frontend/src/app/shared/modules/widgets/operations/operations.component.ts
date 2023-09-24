@@ -23,9 +23,9 @@ export class AutomationOperationsComponent {
     },
     {
       imagePath: "../../../../../assets/img/brand/python-panos.svg",
-      title: "Assurance Snapshots",
-      description: "Perform snapshots of various firewall tables.",
-      buttonLink: "/automation/operations/assurance-snapshots",
+      title: "Firewall State Snapshots",
+      description: "Snapshot operational data from a firewall.",
+      buttonLink: "/automation/operations/assurance-snapshot",
       hashtags: ["#panos", "#assurance", "#python"],
     },
     {
