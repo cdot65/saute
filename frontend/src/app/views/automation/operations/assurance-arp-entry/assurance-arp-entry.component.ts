@@ -27,8 +27,18 @@ export class AssuranceArpEntryComponent implements OnInit {
 
   onSubmitForm(form: NgForm): void {
     if (form.valid) {
+      let hostname: string;
+
+      if (this.selectedFirewall.ipv4_address) {
+        hostname = this.selectedFirewall.ipv4_address;
+      } else if (this.selectedFirewall.ipv6_address) {
+        hostname = this.selectedFirewall.ipv6_address;
+      } else {
+        hostname = this.selectedFirewall.hostname;
+      }
+
       const jobDetails = {
-        hostname: this.selectedFirewall.hostname,
+        hostname: hostname,
         api_key: this.selectedFirewall.api_key,
         operation_type: "readiness_check",
         action: "arp_entry_exist",

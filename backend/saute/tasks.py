@@ -202,7 +202,7 @@ def execute_admin_report(
 # Assurance: Check for ARP entry
 # ----------------------------------------------------------------------------
 @shared_task(bind=True)
-def execute_assurance_arp_entry(
+def execute_assurance_arp(
     self,
     hostname,
     api_key,

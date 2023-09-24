@@ -44,7 +44,7 @@ from .tasks import (
     execute_upload_cert_chain as upload_cert_chain_task,
     execute_sync_to_prisma as sync_to_prisma_task,
     execute_admin_report as admin_report_task,
-    execute_assurance_arp_entry as assurance_arp_entry_task,
+    execute_assurance_arp as assurance_arp_entry_task,
     execute_assurance_snapshot as assurance_snapshot_task,
     execute_create_script as create_script_task,
     execute_change_analysis as change_analysis_task,
@@ -340,17 +340,27 @@ def execute_sync_to_prisma(request):
     )
 
 
-# Assurance ARP Entry
+# Assurance ARP Execution
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
-def execute_assurance_arp_entry(request):
+def execute_assurance_arp(request):
+    # Use hostname from request to get api_key and IPv4 address
     hostname = request.data.get("hostname")
-    api_key = request.data.get("api_key")
-    operation_type = request.data.get("operation_type")
-    action = request.data.get("action")
+    try:
+        firewall_instance = Firewall.objects.get(hostname=hostname)
+        api_key = firewall_instance.api_key
+        hostname = firewall_instance.ipv4_address
+    except Firewall.DoesNotExist:
+        return Response(
+            {"message": "Firewall with the given hostname does not exist."},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+    operation_type = "readiness_check"
+    action = "arp_entry_exist"
     config = request.data.get("config")
     author_id = request.user.id
 
+    # Execute task
     task = assurance_arp_entry_task.delay(
         hostname,
         api_key,

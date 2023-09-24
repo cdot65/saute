@@ -11,7 +11,7 @@ export class AutomationDeployComponent {
       imagePath: "../../../../../assets/img/brand/terraform-panos-aws.svg",
       title: "Deploy VM-Series to AWS",
       description: "Deploy VM-Series on Amazon Web Services",
-      buttonLink: "/deploy",
+      buttonLink: "/upload",
       hashtags: ["#aws", "#terraform", "#vm-series"],
     },
     {

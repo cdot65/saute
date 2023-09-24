@@ -105,8 +105,18 @@ export class AssuranceSnapshotsComponent implements OnInit {
 
     const selectedCheckboxes = this.getSelectedCheckboxes().join(",");
 
+    let hostname: string;
+
+    if (this.selectedFirewall.ipv4_address) {
+      hostname = this.selectedFirewall.ipv4_address;
+    } else if (this.selectedFirewall.ipv6_address) {
+      hostname = this.selectedFirewall.ipv6_address;
+    } else {
+      hostname = this.selectedFirewall.hostname;
+    }
+
     const jobDetails = {
-      hostname: this.selectedFirewall.hostname,
+      hostname: hostname,
       api_key: this.selectedFirewall.api_key,
       operation_type: "state_snapshot",
       action: selectedCheckboxes,

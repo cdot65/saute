@@ -18,7 +18,7 @@ export class AutomationOperationsComponent {
       imagePath: "../../../../../assets/img/brand/python-panos.svg",
       title: "Assurance ARP entry",
       description: "Validate if ARP entry is found on firewall.",
-      buttonLink: "/automation/operations/assurance-arp-entry",
+      buttonLink: "/automation/operations/assurance-arp",
       hashtags: ["#panos", "#assurance", "#python"],
     },
     {
