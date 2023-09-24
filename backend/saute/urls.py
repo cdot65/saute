@@ -77,7 +77,7 @@ urlpatterns += [
         name="execute_assurance_arp",
     ),
     path(
-        "operations/assurance-snapshot",
+        "automation/assurance-snapshot",
         execute_assurance_snapshot,
         name="execute_assurance_snapshot",
     ),

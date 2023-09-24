@@ -382,13 +382,33 @@ def execute_assurance_arp(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def execute_assurance_snapshot(request):
+    # Use hostname from request to get api_key and IPv4 address
     hostname = request.data.get("hostname")
-    api_key = request.data.get("api_key")
-    operation_type = request.data.get("operation_type")
-    action = request.data.get("action")
+    try:
+        firewall_instance = Firewall.objects.get(hostname=hostname)
+        api_key = firewall_instance.api_key
+        hostname = firewall_instance.ipv4_address
+    except Firewall.DoesNotExist:
+        return Response(
+            {"message": "Firewall with the given hostname does not exist."},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+    operation_type = "state_snapshot"
     config = request.data.get("config")
     author_id = request.user.id
 
+    # Fetch the 'types' from the request payload
+    types = request.data.get("types", {})
+
+    # Check if the "all" key is true
+    if types.get("all", False):
+        # If "all" is true, include all keys except "all" itself
+        action = ",".join([key for key in types.keys() if key != "all"])
+    else:
+        # If "all" is not true, filter out keys with true values
+        action = ",".join([key for key, value in types.items() if value])
+
+    # Execute task
     task = assurance_snapshot_task.delay(
         hostname,
         api_key,

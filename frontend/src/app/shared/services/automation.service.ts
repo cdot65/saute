@@ -36,12 +36,30 @@ export class AutomationService {
       );
   }
 
-  createArpAssuranceTask(arpAssuranceDetails: any): Observable<any> {
+  createArpAssuranceTask(arpAssurancePayload: any): Observable<any> {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
     return this.http
       .post<any>(
         `${this.API_URL}/api/v1/automation/assurance-arp`,
-        arpAssuranceDetails,
+        arpAssurancePayload,
+        {
+          headers: headers,
+        }
+      )
+      .pipe(
+        catchError((error) => {
+          console.error("Error sending script:", error);
+          return of(null);
+        })
+      );
+  }
+
+  createSnapshotAssuranceTask(snapshotAssurancePayload: any): Observable<any> {
+    const headers = new HttpHeaders({ "Content-Type": "application/json" });
+    return this.http
+      .post<any>(
+        `${this.API_URL}/api/v1/automation/assurance-snapshot`,
+        snapshotAssurancePayload,
         {
           headers: headers,
         }
