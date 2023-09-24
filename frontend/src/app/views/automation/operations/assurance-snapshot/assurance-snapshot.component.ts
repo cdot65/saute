@@ -1,10 +1,29 @@
+/**
+ * @file assurance-snapshot.component.ts
+ *
+ * This file imports the necessary Angular modules, services, and constants
+ * required for the AssuranceSnapshotComponent.
+ *
+ * - `ChangeDetectorRef`: Utility for triggering Angular's change detection
+ * - `Component`: Angular's core decorator to define a component
+ * - `OnDestroy`: Lifecycle hook that gets called when this component is destroyed
+ * - `OnInit`: Lifecycle hook that gets called after data-bound properties are initialized
+ * - `FormBuilder`: Angular's utility for building reactive forms
+ * - `FormGroup`: Interface that represents a group of form controls
+ * - `Validators`: Angular's utility for form validations
+ * - `Subscription`: Represents a disposable resource for an Observable execution
+ * - `interval`: Observable that emits numbers in sequence on a specified interval
+ * - `AutomationService`: Custom service for automation tasks
+ * - `FirewallService`: Custom service for firewall-related operations
+ * - `JobsService`: Custom service for job-related operations
+ * - `SNAPSHOT_ASSURANCE_SCRIPT`: Constant that holds the help script for snapshot assurance
+ * - `ToastService`: Custom service for showing toast notifications
+ * - `catchError`: RxJS operator for error handling
+ * - `of`: RxJS operator to convert arguments to an observable sequence
+ * - `switchMap`: RxJS operator to map each value to an observable and flatten it
+ */
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription, interval } from "rxjs";
 
 import { AutomationService } from "../../../../shared/services/automation.service";
@@ -16,14 +35,33 @@ import { catchError } from "rxjs/operators";
 import { of } from "rxjs";
 import { switchMap } from "rxjs/operators";
 
+/**
+ * `AssuranceSnapshotComponent` serves as the main interface for the SNAPSHOT Assurance feature.
+ * It allows users to select a firewall and execute assurance tasks.
+ * The component also provides capabilities for downloading reports in PDF format.
+ */
 @Component({
   selector: "app-assurance-snapshot",
   templateUrl: "./assurance-snapshot.component.html",
   styleUrls: ["./assurance-snapshot.component.scss"],
 })
+
 /**
- * AssuranceSnapshotComponent is an Angular component for executing an SNAPSHOT Assurance
- * Task.
+ * AssuranceSnapshotComponent is an Angular component for executing a SNAPSHOT Assurance Task.
+ *
+ * @property {string} buttonTextFirewall - Button text for the firewall selection.
+ * @property {any[]} firewalls - Array containing firewall data.
+ * @property {string} help - Help text generated from a constant, formatted for HTML display.
+ * @property {boolean} isLoading - Indicator for whether a loading operation is in progress.
+ * @property {boolean} isReportVisible - Indicator for whether the report section is visible.
+ * @property {any} jobDetails - Object containing details of the job being processed.
+ * @property {Subscription | undefined} jobPollingSubscription - Subscription object for job status polling.
+ * @property {string} jobUrl - URL to access the details of the job.
+ * @property {string} jsonData - JSON data returned from the job.
+ * @property {string} jsonDataHighlighted - JSON data that is highlighted.
+ * @property {any} parsedJsonData - Parsed JSON data for manipulation.
+ * @property {number} progressValue - Numeric value indicating the progress of a task.
+ * @property {FormGroup | any} snapshotForm - FormGroup instance for handling the snapshot form.
  */
 export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
   buttonTextFirewall: string = "Select Firewall";
@@ -44,14 +82,14 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
   snapshotForm: FormGroup | any;
 
   /**
+   * Constructs an instance of the AssuranceSnapshotComponent.
    *
-   * @param fb
-   * @param AutomationService
-   * @param toastService
-   * @param sanitizer
-   * @param cdr
-   * @param firewallService
-   * @param jobsService
+   * @param {FormBuilder} fb - Angular form builder for creating form controls and groups.
+   * @param {AutomationService} AutomationService - Service for handling automation-related API calls.
+   * @param {ToastService} toastService - Service for displaying toast notifications.
+   * @param {ChangeDetectorRef} cdr - Angular service for triggering change detection.
+   * @param {FirewallService} firewallService - Service for handling firewall-related API calls.
+   * @param {JobsService} jobsService - Service for handling job-related API calls.
    */
   constructor(
     private fb: FormBuilder,
@@ -63,10 +101,23 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
   ) {}
 
   /**
-   * Lifecycle hook that is called after data-bound properties of a directive are initialized.
+   * Angular's OnInit lifecycle hook.
+   * Initializes the form, subscribes to form changes, and fetches initial firewall data.
+   * Calls `initializeForm()` to set up the form controls and their default values.
+   * Calls `subscribeToFormChanges()` to manage the form's "All" checkbox behavior.
+   * Calls `fetchFirewallData()` to retrieve the list of available firewalls from the backend.
    */
   ngOnInit(): void {
-    // Initialize the form group
+    this.initializeForm();
+    this.subscribeToFormChanges();
+    this.fetchFirewallData();
+  }
+
+  /**
+   * Initializes the snapshotForm with default values and validators.
+   * Sets up the structure of the form including the buttonSnapshotGroup for various snapshot types.
+   */
+  private initializeForm(): void {
     this.snapshotForm = this.fb.group({
       hostname: ["", Validators.required],
       buttonSnapshotGroup: this.fb.group({
@@ -80,8 +131,13 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
         session_stats: [false],
       }),
     });
+  }
 
-    // Listen for changes on the "All" checkbox
+  /**
+   * Subscribes to changes on the "All" checkbox within buttonSnapshotGroup.
+   * Automatically selects or deselects all other checkboxes based on the state of "All" checkbox.
+   */
+  private subscribeToFormChanges(): void {
     this.snapshotForm
       .get("buttonSnapshotGroup.all")
       .valueChanges.subscribe((value: any) => {
@@ -118,12 +174,11 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
           ); // Adding { emitEvent: false } prevents new events from being emitted
         }
       });
-
-    this.fetchFirewallData();
   }
 
   /**
    * Lifecycle hook that is called when the component is destroyed.
+   * Unsubscribes from jobPollingSubscription to prevent memory leaks.
    */
   ngOnDestroy(): void {
     if (this.jobPollingSubscription) {
@@ -132,7 +187,8 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Fetches all hostname data from the backend API.
+   * Fetches the list of available firewalls from the backend API.
+   * If an error occurs during the fetch, logs the error and defaults the firewalls array to an empty list.
    */
   fetchFirewallData(): void {
     this.firewallService
@@ -145,22 +201,31 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
       )
       .subscribe((firewalls: any[]) => {
         this.firewalls = firewalls;
-        // console.log(this.firewalls);
       });
   }
 
   /**
-   * Update form value and button text after a hostname is selected from the dropdown.
+   * Updates the selected firewall in the snapshotForm and sets the button text.
    *
-   * @param {string} name - The name of the firewall.
-   * @returns {Observable<boolean>} - An observable stream indicating the existence of the firewall.
+   * This method is triggered when a user selects a firewall from the dropdown list.
+   * It updates the 'hostname' field in the snapshotForm to the selected firewall's hostname.
+   * Additionally, it updates the display text of the firewall selection button to the hostname of the selected firewall.
+   *
+   * @param {any} selectedFirewall - The selected firewall object containing its properties, including its hostname.
    */
   selectFirewall(selectedFirewall: any): void {
     this.snapshotForm.get("hostname").setValue(selectedFirewall.hostname);
     this.buttonTextFirewall = selectedFirewall.hostname;
-    // console.log(this.snapshotForm.get("hostname").value);
   }
 
+  /**
+   * Checks the validity of the snapshotForm.
+   *
+   * This method verifies that a firewall is selected (`hostname` is not empty)
+   * and at least one option within `buttonSnapshotGroup` is selected (checked).
+   *
+   * @returns {boolean} - Returns true if the form is valid, otherwise false.
+   */
   isFormValid(): boolean {
     const formValues = this.snapshotForm.value;
     const isFirewallSelected = !!formValues.hostname;
@@ -171,12 +236,29 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
     return isFirewallSelected && isAnyOptionSelected;
   }
 
+  /**
+   * Returns an array of a given object's own enumerable property names.
+   *
+   * This method is particularly useful for Angular templates where you may need to loop through
+   * the keys of an object using the *ngFor directive.
+   *
+   * @param {any} obj - The object whose enumerable own property names are to be returned.
+   * @returns {string[]} An array of strings that represent all the enumerable properties of the given object.
+   */
   objectKeys(obj: any): string[] {
     return Object.keys(obj);
   }
 
   /**
-   * Execute
+   * Handles the form submission to create a Snapshot Assurance task.
+   *
+   * 1. Validates the snapshotForm.
+   * 2. Prepares the payload with hostname and snapshot types.
+   * 3. Calls the createSnapshotAssuranceTask API through the AutomationService.
+   * 4. Upon successful API response, triggers a toast notification and initiates job polling.
+   * 5. Polls for job updates at 5-second intervals and updates the UI accordingly.
+   * 6. Stops polling when the job is completed and displays the job details.
+   * 7. Handles errors gracefully and displays appropriate toast notifications.
    */
   onSubmit(): void {
     if (this.snapshotForm.valid) {
@@ -190,11 +272,9 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
         types: formValues.buttonSnapshotGroup,
       };
 
-      console.log(payload);
-
+      // Call the API
       this.AutomationService.createSnapshotAssuranceTask(payload).subscribe({
         next: (response) => {
-          // console.log(response);
           const jobId = response.task_id; // capture the job ID from the response
           const taskUrl = `#/jobs/details/${jobId}`;
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
