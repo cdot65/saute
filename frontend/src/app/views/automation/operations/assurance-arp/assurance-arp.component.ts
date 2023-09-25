@@ -62,7 +62,7 @@ export class AssuranceArpComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.arpAssuranceForm = this.fb.group({
-      message: ["", Validators.required],
+      ipAddress: ["", Validators.required],
       hostname: ["", Validators.required],
     });
     this.fetchFirewallData();
@@ -108,6 +108,33 @@ export class AssuranceArpComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Checks the validity of the arpAssuranceForm.
+   *
+   * This method verifies that a firewall is selected (`hostname` is not empty)
+   * and at least one option within `buttonSnapshotGroup` is selected (checked).
+   *
+   * @returns {boolean} - Returns true if the form is valid, otherwise false.
+   */
+  isFormValid(): boolean {
+    const formValues = this.arpAssuranceForm.value;
+    const isFirewallSelected = !!formValues.hostname;
+
+    // Regular expression to validate an IPv4 address
+    const ipv4Pattern =
+      /^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$/;
+
+    // Regular expression to validate an IPv6 address
+    const ipv6Pattern =
+      /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|::1|::|:)$/;
+
+    const isValidIpAddress =
+      ipv4Pattern.test(formValues.ipAddress) ||
+      ipv6Pattern.test(formValues.ipAddress);
+
+    return isFirewallSelected && isValidIpAddress;
+  }
+
+  /**
    * Execute
    */
   onSubmit(): void {
@@ -116,15 +143,13 @@ export class AssuranceArpComponent implements OnInit, OnDestroy {
 
       const formValues = this.arpAssuranceForm.value;
 
-      Object.assign(formValues, {
-        operation_type: "readiness_check",
-        action: "arp_entry_exist",
-        config: { ip: this.arpAssuranceForm.value.message },
-      });
+      // Prepare the payload
+      const payload = {
+        hostname: formValues.hostname,
+        config: { ip: this.arpAssuranceForm.value.ipAddress },
+      };
 
-      console.log(formValues);
-
-      this.AutomationService.createArpAssuranceTask(formValues).subscribe({
+      this.AutomationService.createArpAssuranceTask(payload).subscribe({
         next: (response) => {
           // console.log(response);
           const jobId = response.task_id; // capture the job ID from the response
@@ -132,7 +157,7 @@ export class AssuranceArpComponent implements OnInit, OnDestroy {
           const anchor = `<a href="${taskUrl}" target="_blank" class="toast-link">Job Details</a>`;
           const toast = {
             title: "ARP Assurance task submitted successfully",
-            message: `${response.message}. ${anchor}`,
+            message: `${response.ipAddress}. ${anchor}`,
             color: "secondary",
             autohide: true,
             delay: 2500,
