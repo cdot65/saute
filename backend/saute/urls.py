@@ -22,6 +22,7 @@ from .views import (
     execute_get_system_info,
     execute_upload_cert_chain,
     execute_sync_to_prisma,
+    execute_assurance_readiness,
 )
 
 router = SimpleRouter()
@@ -75,6 +76,11 @@ urlpatterns += [
         "automation/assurance-arp",
         execute_assurance_arp,
         name="execute_assurance_arp",
+    ),
+    path(
+        "automation/assurance-readiness",
+        execute_assurance_readiness,
+        name="execute_assurance_readiness",
     ),
     path(
         "automation/assurance-snapshot",

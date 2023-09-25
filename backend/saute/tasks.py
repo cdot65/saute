@@ -246,6 +246,53 @@ def execute_assurance_arp(
 
 
 # ----------------------------------------------------------------------------
+# Assurance: Readiness Check
+# ----------------------------------------------------------------------------
+@shared_task(bind=True)
+def execute_assurance_readiness(
+    self,
+    hostname,
+    api_key,
+    operation_type,
+    action,
+    config,
+    author_id,
+):
+    # Retrieve the user object by id
+    author = User.objects.get(id=author_id)
+
+    # Create a new entry in our Jobs database table
+    job = Jobs.objects.create(
+        job_type="assurance_readiness",
+        json_data=None,
+        author=author,
+        task_id=self.request.id,
+    )
+    logging.debug(f"Job ID: {job.pk}")
+
+    # Execute the assurance check
+    try:
+        json_report = run_assurance(
+            hostname,
+            api_key,
+            operation_type,
+            action,
+            config,
+        )
+
+        # logging.debug(json_report)
+        job.json_data = json_report
+        logging.debug(job)
+
+    except Exception as e:
+        logging.error(e)
+        job.result = f"Job ID: {job.pk}\nError: {e}"
+
+    # Save the updated job information
+    job.save()
+
+
+# ----------------------------------------------------------------------------
 # Assurance: Snapshot
 # ----------------------------------------------------------------------------
 @shared_task(bind=True)

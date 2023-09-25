@@ -45,6 +45,7 @@ from .tasks import (
     execute_sync_to_prisma as sync_to_prisma_task,
     execute_admin_report as admin_report_task,
     execute_assurance_arp as assurance_arp_entry_task,
+    execute_assurance_readiness as assurance_readiness_task,
     execute_assurance_snapshot as assurance_snapshot_task,
     execute_create_script as create_script_task,
     execute_change_analysis as change_analysis_task,
@@ -378,6 +379,54 @@ def execute_assurance_arp(request):
     )
 
 
+# Assurance Readiness
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def execute_assurance_readiness(request):
+    # Use hostname from request to get api_key and IPv4 address
+    hostname = request.data.get("hostname")
+    try:
+        firewall_instance = Firewall.objects.get(hostname=hostname)
+        api_key = firewall_instance.api_key
+        hostname = firewall_instance.ipv4_address
+    except Firewall.DoesNotExist:
+        return Response(
+            {"message": "Firewall with the given hostname does not exist."},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+    operation_type = "readiness_check"
+    config = request.data.get("config")
+    author_id = request.user.id
+
+    # Fetch the 'types' from the request payload
+    types = request.data.get("types", {})
+
+    # Check if the "all" key is true
+    if types.get("all", False):
+        # If "all" is true, include all keys except "all" itself
+        action = ",".join([key for key in types.keys() if key != "all"])
+    else:
+        # If "all" is not true, filter out keys with true values
+        action = ",".join([key for key, value in types.items() if value])
+
+    # Execute task
+    task = assurance_readiness_task.delay(
+        hostname,
+        api_key,
+        operation_type,
+        action,
+        config,
+        author_id,
+    )
+
+    task_id = task.id
+
+    return Response(
+        {"message": "Task has been executed", "task_id": task_id},
+        status=status.HTTP_200_OK,
+    )
+
+
 # Assurance Snapshot
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
@@ -394,6 +443,7 @@ def execute_assurance_snapshot(request):
             status=status.HTTP_404_NOT_FOUND,
         )
     operation_type = "state_snapshot"
+    # `config` is not within the body of this operation but is included for consistency
     config = request.data.get("config")
     author_id = request.user.id
 

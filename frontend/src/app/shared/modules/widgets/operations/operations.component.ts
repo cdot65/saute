@@ -9,13 +9,6 @@ export class AutomationOperationsComponent {
   operationsData = [
     {
       imagePath: "../../../../../assets/img/brand/python-panos.svg",
-      title: "Get software details",
-      description: "Python script to retrieve software information.",
-      buttonLink: "/automation/operations/get-software-information",
-      hashtags: ["#panos", "#python"],
-    },
-    {
-      imagePath: "../../../../../assets/img/brand/python-panos.svg",
       title: "Assurance ARP entry",
       description: "Validate if ARP entry is found on firewall.",
       buttonLink: "/automation/operations/assurance-arp",
@@ -30,9 +23,10 @@ export class AutomationOperationsComponent {
     },
     {
       imagePath: "../../../../../assets/img/brand/python-panos.svg",
-      title: "Assurance Snapshots",
-      description: "Perform snapshots of various firewall tables.",
-      buttonLink: "/automation/operations/assurance-snapshots",
+      title: "Upgrade Readiness Check",
+      description:
+        "Perform a series of checks to see if a PAN-OS firewall is ready to begin the upgrade process.",
+      buttonLink: "/automation/operations/assurance-snapshot",
       hashtags: ["#panos", "#assurance", "#python"],
     },
   ];
