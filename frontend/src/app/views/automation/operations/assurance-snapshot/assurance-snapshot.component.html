@@ -83,6 +83,15 @@
                                     <pre [innerHTML]="help"></pre>
                                   </c-modal-body>
                                 </c-modal>
+                                <button
+                                  cButton
+                                  class="me-1"
+                                  color="primary"
+                                  type="submit"
+                                  [disabled]="!isFormValid()"
+                                >
+                                  Execute Snapshot
+                                </button>
                               </div>
                             </c-button-toolbar>
 
@@ -364,17 +373,6 @@
                                   Session Stats</label
                                 >
                               </c-button-group>
-                            </div>
-                            <div class="mt-1 d-flex justify-content-center">
-                              <button
-                                cButton
-                                class="me-1"
-                                color="primary"
-                                type="submit"
-                                [disabled]="!isFormValid()"
-                              >
-                                Execute Snapshot
-                              </button>
                             </div>
                           </c-col>
                         </c-row>

@@ -177,20 +177,10 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Lifecycle hook that is called when the component is destroyed.
-   * Unsubscribes from jobPollingSubscription to prevent memory leaks.
-   */
-  ngOnDestroy(): void {
-    if (this.jobPollingSubscription) {
-      this.jobPollingSubscription.unsubscribe();
-    }
-  }
-
-  /**
    * Fetches the list of available firewalls from the backend API.
    * If an error occurs during the fetch, logs the error and defaults the firewalls array to an empty list.
    */
-  fetchFirewallData(): void {
+  private fetchFirewallData(): void {
     this.firewallService
       .fetchFirewallData()
       .pipe(
@@ -202,6 +192,16 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
       .subscribe((firewalls: any[]) => {
         this.firewalls = firewalls;
       });
+  }
+
+  /**
+   * Lifecycle hook that is called when the component is destroyed.
+   * Unsubscribes from jobPollingSubscription to prevent memory leaks.
+   */
+  ngOnDestroy(): void {
+    if (this.jobPollingSubscription) {
+      this.jobPollingSubscription.unsubscribe();
+    }
   }
 
   /**
