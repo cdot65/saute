@@ -16,105 +16,108 @@
         <ng-template cTemplateId="accordionBody">
           <div class="message">
             <div class="message message-details flex-wrap pb-3">
-              <form
-                [formGroup]="arpAssuranceForm"
-                (ngSubmit)="onSubmit()"
-                cForm
+              <c-row
+                class="justify-content-center align-items-center"
+                style="height: 100%"
               >
-                <c-row
-                  class="justify-content-center align-items-center"
-                  style="height: 100%"
-                >
-                  <c-col class="ms-auto" sm="12">
-                    <div class="message">
-                      <div class="message message-details flex-wrap pb-3">
-                        <form
-                          [formGroup]="arpAssuranceForm"
-                          (ngSubmit)="onSubmit()"
-                          cForm
+                <c-col class="ms-auto" sm="12">
+                  <div class="message">
+                    <div class="message message-details flex-wrap pb-3">
+                      <form
+                        [formGroup]="arpAssuranceForm"
+                        (ngSubmit)="onSubmit()"
+                        cForm
+                      >
+                        <c-row
+                          class="justify-content-center align-items-center"
+                          style="height: 100%"
                         >
-                          <c-row
-                            class="justify-content-center align-items-center"
-                            style="height: 100%"
-                          >
-                            <c-col class="ms-auto" sm="12">
-                              <c-button-toolbar role="toolbar">
-                                <div class="dropdown-group">
-                                  <c-dropdown class="ms-1">
-                                    <button
-                                      [routerLink]="[]"
-                                      cButton
-                                      cDropdownToggle
-                                      color="light"
-                                    >
-                                      <b>{{ buttonTextFirewall }}</b>
-                                    </button>
-                                    <div cDropdownMenu>
-                                      <button
-                                        *ngFor="let each of firewalls"
-                                        (click)="selectFirewall(each)"
-                                        class="dropdown-item"
-                                      >
-                                        {{ each.hostname }}
-                                      </button>
-                                    </div>
-                                  </c-dropdown>
-                                </div>
-                                <div class="button-group">
+                          <c-col class="ms-auto" sm="12">
+                            <c-button-toolbar role="toolbar">
+                              <div class="dropdown-group">
+                                <c-dropdown class="ms-1">
                                   <button
-                                    [cModalToggle]="examples.id"
+                                    type="button"
+                                    [routerLink]="[]"
                                     cButton
-                                    style="margin-left: 10px"
+                                    cDropdownToggle
+                                    color="light"
                                   >
-                                    View Script
+                                    <b>{{ buttonTextFirewall }}</b>
                                   </button>
-                                  <c-modal
-                                    #examples
-                                    [scrollable]="true"
-                                    alignment="center"
-                                    id="examples"
-                                    size="xl"
-                                    class="bg-dark"
-                                  >
-                                    <c-modal-header>
-                                      <h5 cModalTitle>
-                                        ARP Assurance Python Script
-                                      </h5>
-                                    </c-modal-header>
-                                    <c-modal-body>
-                                      <pre [innerHTML]="help"></pre>
-                                    </c-modal-body>
-                                  </c-modal>
-                                </div>
-                              </c-button-toolbar>
-                              <div class="mb-3 mt-4">
-                                <textarea
-                                  formControlName="message"
-                                  cFormControl
-                                  id="message"
-                                  name="body"
-                                  placeholder="Type the IP addresses that you would like to have validated, multiple entries must be separated with commas."
-                                  rows="6"
-                                ></textarea>
+                                  <div cDropdownMenu>
+                                    <button
+                                      type="button"
+                                      *ngFor="let each of firewalls"
+                                      (click)="selectFirewall(each)"
+                                      class="dropdown-item"
+                                    >
+                                      {{ each.hostname }}
+                                    </button>
+                                  </div>
+                                </c-dropdown>
                               </div>
-                              <div class="mt-1 d-flex justify-content-center">
+                              <div class="input-group">
+                                <c-input-group>
+                                  <span
+                                    cInputGroupText
+                                    id="inputGroup-sizing-default"
+                                    >IP address</span
+                                  >
+                                  <input
+                                    formControlName="ipAddress"
+                                    aria-describedby="inputGroup-sizing-default"
+                                    aria-label="Sizing example input"
+                                    cFormControl
+                                    id="ipAddress"
+                                    name="body"
+                                    placeholder="192.168.1.2"
+                                  />
+                                </c-input-group>
+                              </div>
+                              <div class="button-group">
+                                <button
+                                  [cModalToggle]="examples.id"
+                                  cButton
+                                  style="margin-left: 10px"
+                                >
+                                  View Script
+                                </button>
+                                <c-modal
+                                  #examples
+                                  [scrollable]="true"
+                                  alignment="center"
+                                  id="examples"
+                                  size="xl"
+                                  class="bg-dark"
+                                >
+                                  <c-modal-header>
+                                    <h5 cModalTitle>
+                                      ARP Assurance Python Script
+                                    </h5>
+                                  </c-modal-header>
+                                  <c-modal-body>
+                                    <pre [innerHTML]="help"></pre>
+                                  </c-modal-body>
+                                </c-modal>
                                 <button
                                   cButton
                                   class="me-1"
                                   color="primary"
                                   type="submit"
+                                  [disabled]="!isFormValid()"
                                 >
                                   Execute Report
                                 </button>
                               </div>
-                            </c-col>
-                          </c-row>
-                        </form>
-                      </div>
+                            </c-button-toolbar>
+                          </c-col>
+                        </c-row>
+                      </form>
                     </div>
-                  </c-col>
-                </c-row>
-              </form>
+                  </div>
+                </c-col>
+              </c-row>
             </div>
           </div>
 
@@ -148,7 +151,7 @@
           "
         >
           <p>
-            Yes, {{ arpAssuranceForm.value.message }}
+            Yes, {{ arpAssuranceForm.value.ipAddress }}
             <strong>does</strong> reside within
             {{ arpAssuranceForm.value.hostname }}'s ARP table
           </p>
@@ -161,7 +164,7 @@
           "
         >
           <p>
-            No, {{ arpAssuranceForm.value.message }}
+            No, {{ arpAssuranceForm.value.ipAddress }}
             <strong>does NOT</strong> reside within
             {{ arpAssuranceForm.value.hostname }}'s ARP table
           </p>
