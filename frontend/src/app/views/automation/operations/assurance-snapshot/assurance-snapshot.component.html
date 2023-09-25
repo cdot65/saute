@@ -60,30 +60,6 @@
                               </div>
                               <div class="button-group">
                                 <button
-                                  [cModalToggle]="examples.id"
-                                  cButton
-                                  style="margin-left: 10px"
-                                >
-                                  View Script
-                                </button>
-                                <c-modal
-                                  #examples
-                                  [scrollable]="true"
-                                  alignment="center"
-                                  id="examples"
-                                  size="xl"
-                                  class="bg-dark"
-                                >
-                                  <c-modal-header>
-                                    <h5 cModalTitle>
-                                      Snapshot Assurance Python Script
-                                    </h5>
-                                  </c-modal-header>
-                                  <c-modal-body>
-                                    <pre [innerHTML]="help"></pre>
-                                  </c-modal-body>
-                                </c-modal>
-                                <button
                                   cButton
                                   class="me-1"
                                   color="primary"
@@ -596,6 +572,31 @@
             </tbody>
           </table>
         </div>
+      </c-accordion-item>
+
+      <!-- Accordion Item to view the script -->
+      <c-accordion-item #item2="cAccordionItem">
+        <ng-template cTemplateId="accordionHeader">
+          <strong>View script</strong>
+        </ng-template>
+        <button [cModalToggle]="examples.id" cButton style="margin-left: 10px">
+          Click to view Python script
+        </button>
+        <c-modal
+          #examples
+          [scrollable]="true"
+          alignment="center"
+          id="examples"
+          size="xl"
+          class="bg-dark"
+        >
+          <c-modal-header>
+            <h5 cModalTitle>Snapshot Assurance Python Script</h5>
+          </c-modal-header>
+          <c-modal-body>
+            <pre [innerHTML]="help"></pre>
+          </c-modal-body>
+        </c-modal>
       </c-accordion-item>
     </c-accordion>
   </c-card-body>

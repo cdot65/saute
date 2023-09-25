@@ -7,7 +7,11 @@
       This Python script will investigate a firewall's ARP table to see if a
       match is found for the IP address provided.
     </p>
-    <c-accordion [alwaysOpen]="true" class="shadow accordion-custom rounded-2">
+    <c-accordion
+      [flush]="true"
+      [alwaysOpen]="true"
+      class="shadow accordion-custom rounded-2"
+    >
       <!-- Primary input -->
       <c-accordion-item #item0="cAccordionItem" [visible]="true">
         <ng-template cTemplateId="accordionHeader">
@@ -76,30 +80,6 @@
                                 </c-input-group>
                               </div>
                               <div class="button-group">
-                                <button
-                                  [cModalToggle]="examples.id"
-                                  cButton
-                                  style="margin-left: 10px"
-                                >
-                                  View Script
-                                </button>
-                                <c-modal
-                                  #examples
-                                  [scrollable]="true"
-                                  alignment="center"
-                                  id="examples"
-                                  size="xl"
-                                  class="bg-dark"
-                                >
-                                  <c-modal-header>
-                                    <h5 cModalTitle>
-                                      ARP Assurance Python Script
-                                    </h5>
-                                  </c-modal-header>
-                                  <c-modal-body>
-                                    <pre [innerHTML]="help"></pre>
-                                  </c-modal-body>
-                                </c-modal>
                                 <button
                                   cButton
                                   class="me-1"
@@ -172,6 +152,31 @@
         <div *ngIf="parsedJsonData && !parsedJsonData.arp_entry_exist">
           <p>Error parsing result</p>
         </div>
+      </c-accordion-item>
+
+      <!-- Accordion Item to view the script -->
+      <c-accordion-item #item2="cAccordionItem">
+        <ng-template cTemplateId="accordionHeader">
+          <strong>View script</strong>
+        </ng-template>
+        <button [cModalToggle]="examples.id" cButton style="margin-left: 10px">
+          Click to view Python script
+        </button>
+        <c-modal
+          #examples
+          [scrollable]="true"
+          alignment="center"
+          id="examples"
+          size="xl"
+          class="bg-dark"
+        >
+          <c-modal-header>
+            <h5 cModalTitle>Snapshot Assurance Python Script</h5>
+          </c-modal-header>
+          <c-modal-body>
+            <pre [innerHTML]="help"></pre>
+          </c-modal-body>
+        </c-modal>
       </c-accordion-item>
     </c-accordion>
   </c-card-body>
