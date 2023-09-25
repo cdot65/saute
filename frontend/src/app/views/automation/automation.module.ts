@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 // local components
 import { AdminReportComponent } from "./assessment/admin-report/admin-report.component";
 import { AssuranceArpComponent } from "./operations/assurance-arp/assurance-arp.component";
+import { AssuranceReadinessComponent } from "./operations/assurance-readiness/assurance-readiness.component";
 import { AssuranceSnapshotComponent } from "./operations/assurance-snapshot/assurance-snapshot.component";
 import { AutomationInterfaceModule } from "../../shared/modules/automation-interface/automation-interface.module";
 // routing
@@ -40,6 +41,7 @@ import { WidgetsModule } from "../../shared/modules/widgets/widgets.module";
     SyncToPrismaComponent,
     AdminReportComponent,
     AssuranceArpComponent,
+    AssuranceReadinessComponent,
     AssuranceSnapshotComponent,
   ],
   imports: [

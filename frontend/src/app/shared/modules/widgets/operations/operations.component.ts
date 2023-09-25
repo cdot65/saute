@@ -26,7 +26,7 @@ export class AutomationOperationsComponent {
       title: "Upgrade Readiness Check",
       description:
         "Perform a series of checks to see if a PAN-OS firewall is ready to begin the upgrade process.",
-      buttonLink: "/automation/operations/assurance-snapshot",
+      buttonLink: "/automation/operations/assurance-readiness",
       hashtags: ["#panos", "#assurance", "#python"],
     },
   ];

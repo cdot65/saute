@@ -1,0 +1,178 @@
+<c-card class="mb-4">
+  <c-card-header>
+    <strong>Readiness Assurance</strong>
+  </c-card-header>
+  <c-card-body>
+    <p>
+      This Python script will investigate a firewall's ARP table to see if a
+      match is found for the IP address provided.
+    </p>
+    <c-accordion [alwaysOpen]="true" class="shadow accordion-custom rounded-2">
+      <!-- Primary input -->
+      <c-accordion-item #item0="cAccordionItem" [visible]="true">
+        <ng-template cTemplateId="accordionHeader">
+          <strong>Request Parameters</strong>
+        </ng-template>
+        <ng-template cTemplateId="accordionBody">
+          <div class="message">
+            <div class="message message-details flex-wrap pb-3">
+              <c-row
+                class="justify-content-center align-items-center"
+                style="height: 100%"
+              >
+                <c-col class="ms-auto" sm="12">
+                  <div class="message">
+                    <div class="message message-details flex-wrap pb-3">
+                      <form
+                        [formGroup]="arpAssuranceForm"
+                        (ngSubmit)="onSubmit()"
+                        cForm
+                      >
+                        <c-row
+                          class="justify-content-center align-items-center"
+                          style="height: 100%"
+                        >
+                          <c-col class="ms-auto" sm="12">
+                            <c-button-toolbar role="toolbar">
+                              <div class="dropdown-group">
+                                <c-dropdown class="ms-1">
+                                  <button
+                                    type="button"
+                                    [routerLink]="[]"
+                                    cButton
+                                    cDropdownToggle
+                                    color="light"
+                                  >
+                                    <b>{{ buttonTextFirewall }}</b>
+                                  </button>
+                                  <div cDropdownMenu>
+                                    <button
+                                      type="button"
+                                      *ngFor="let each of firewalls"
+                                      (click)="selectFirewall(each)"
+                                      class="dropdown-item"
+                                    >
+                                      {{ each.hostname }}
+                                    </button>
+                                  </div>
+                                </c-dropdown>
+                              </div>
+                              <div class="input-group">
+                                <c-input-group>
+                                  <span
+                                    cInputGroupText
+                                    id="inputGroup-sizing-default"
+                                    >IP address</span
+                                  >
+                                  <input
+                                    formControlName="ipAddress"
+                                    aria-describedby="inputGroup-sizing-default"
+                                    aria-label="Sizing example input"
+                                    cFormControl
+                                    id="ipAddress"
+                                    name="body"
+                                    placeholder="192.168.1.2"
+                                  />
+                                </c-input-group>
+                              </div>
+                              <div class="button-group">
+                                <button
+                                  [cModalToggle]="examples.id"
+                                  cButton
+                                  style="margin-left: 10px"
+                                >
+                                  View Script
+                                </button>
+                                <c-modal
+                                  #examples
+                                  [scrollable]="true"
+                                  alignment="center"
+                                  id="examples"
+                                  size="xl"
+                                  class="bg-dark"
+                                >
+                                  <c-modal-header>
+                                    <h5 cModalTitle>
+                                      ARP Assurance Python Script
+                                    </h5>
+                                  </c-modal-header>
+                                  <c-modal-body>
+                                    <pre [innerHTML]="help"></pre>
+                                  </c-modal-body>
+                                </c-modal>
+                                <button
+                                  cButton
+                                  class="me-1"
+                                  color="primary"
+                                  type="submit"
+                                  [disabled]="!isFormValid()"
+                                >
+                                  Execute Report
+                                </button>
+                              </div>
+                            </c-button-toolbar>
+                          </c-col>
+                        </c-row>
+                      </form>
+                    </div>
+                  </div>
+                </c-col>
+              </c-row>
+            </div>
+          </div>
+
+          <div *ngIf="isLoading">
+            <button cButton class="m-1 w-100" disabled>
+              <c-spinner aria-hidden="true" size="sm"></c-spinner>
+              Sending to PAN-OS API, this will take a couple of seconds...
+            </button>
+            <c-progress class="mb-3" *ngIf="progressValue < 100">
+              <c-progress-bar
+                [animated]="true"
+                color="info"
+                [value]="progressValue"
+                variant="striped"
+              ></c-progress-bar>
+            </c-progress>
+          </div>
+        </ng-template>
+      </c-accordion-item>
+
+      <!-- New Accordion Item for the Job Details -->
+      <c-accordion-item #item1="cAccordionItem" [visible]="isReportVisible">
+        <ng-template cTemplateId="accordionHeader">
+          <strong>Report</strong>
+        </ng-template>
+        <div
+          *ngIf="
+            parsedJsonData &&
+            parsedJsonData.arp_entry_exist &&
+            parsedJsonData.arp_entry_exist.state === true
+          "
+        >
+          <p>
+            Yes, {{ arpAssuranceForm.value.ipAddress }}
+            <strong>does</strong> reside within
+            {{ arpAssuranceForm.value.hostname }}'s ARP table
+          </p>
+        </div>
+        <div
+          *ngIf="
+            parsedJsonData &&
+            parsedJsonData.arp_entry_exist &&
+            parsedJsonData.arp_entry_exist.state !== true
+          "
+        >
+          <p>
+            No, {{ arpAssuranceForm.value.ipAddress }}
+            <strong>does NOT</strong> reside within
+            {{ arpAssuranceForm.value.hostname }}'s ARP table
+          </p>
+        </div>
+        <div *ngIf="parsedJsonData && !parsedJsonData.arp_entry_exist">
+          <p>Error parsing result</p>
+        </div>
+      </c-accordion-item>
+    </c-accordion>
+  </c-card-body>
+</c-card>
