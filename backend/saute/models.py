@@ -3,8 +3,6 @@ from django.conf import settings
 from django.db import models
 from django.core.validators import (
     FileExtensionValidator,
-    MaxValueValidator,
-    RegexValidator,
 )
 
 
@@ -37,7 +35,7 @@ class Panorama(models.Model):
     - hostname: The unique name of the Panorama appliance.
     """
 
-    api_key = models.CharField(max_length=255)
+    api_key = models.CharField(max_length=1024)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     hostname = models.CharField(max_length=100)
@@ -109,7 +107,7 @@ class Firewall(models.Model):
     - hostname: The unique name of the firewall appliance.
     """
 
-    api_key = models.CharField(max_length=255)
+    api_key = models.CharField(max_length=1024)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     hostname = models.CharField(max_length=100)
