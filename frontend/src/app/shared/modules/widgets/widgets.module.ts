@@ -1,11 +1,11 @@
 import {
-  ButtonModule,
-  CardModule,
-  DropdownModule,
-  GridModule,
-  ProgressModule,
-  SharedModule,
-  WidgetModule,
+    ButtonModule,
+    CardModule,
+    DropdownModule,
+    GridModule,
+    ProgressModule,
+    SharedModule,
+    WidgetModule,
 } from "@coreui/angular";
 
 import { AutomationAssessmentComponent } from "./assessment/assessment.component";
@@ -22,35 +22,35 @@ import { PersonaWidgetComponent } from "./persona/persona.component";
 import { WidgetsRoutingModule } from "./widgets-routing.module";
 
 @NgModule({
-  declarations: [
-    AutomationDeployComponent,
-    AutomationConfigurationComponent,
-    AutomationOperationsComponent,
-    AutomationAssessmentComponent,
-    PersonaWidgetComponent,
-    CodeEditorWidgetComponent,
-  ],
-  imports: [
-    CommonModule,
-    WidgetsRoutingModule,
-    GridModule,
-    WidgetModule,
-    IconModule,
-    DropdownModule,
-    SharedModule,
-    ButtonModule,
-    CardModule,
-    ProgressModule,
-    ChartjsModule,
-    CodeEditorModule.forRoot(),
-  ],
-  exports: [
-    AutomationDeployComponent,
-    AutomationConfigurationComponent,
-    AutomationOperationsComponent,
-    AutomationAssessmentComponent,
-    PersonaWidgetComponent,
-    CodeEditorWidgetComponent,
-  ],
+    declarations: [
+        AutomationDeployComponent,
+        AutomationConfigurationComponent,
+        AutomationOperationsComponent,
+        AutomationAssessmentComponent,
+        PersonaWidgetComponent,
+        CodeEditorWidgetComponent,
+    ],
+    imports: [
+        CommonModule,
+        WidgetsRoutingModule,
+        GridModule,
+        WidgetModule,
+        IconModule,
+        DropdownModule,
+        SharedModule,
+        ButtonModule,
+        CardModule,
+        ProgressModule,
+        ChartjsModule,
+        CodeEditorModule.forRoot(),
+    ],
+    exports: [
+        AutomationDeployComponent,
+        AutomationConfigurationComponent,
+        AutomationOperationsComponent,
+        AutomationAssessmentComponent,
+        PersonaWidgetComponent,
+        CodeEditorWidgetComponent,
+    ],
 })
 export class WidgetsModule {}

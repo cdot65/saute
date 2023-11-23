@@ -5,18 +5,18 @@ import { JobsListComponent } from "./jobs-list/jobs-list.component";
 import { NgModule } from "@angular/core";
 
 const routes: Routes = [
-  {
-    path: "",
-    component: JobsListComponent,
-  },
-  {
-    path: "details/:id",
-    component: JobsDetailsComponent,
-  },
+    {
+        path: "",
+        component: JobsListComponent,
+    },
+    {
+        path: "details/:id",
+        component: JobsDetailsComponent,
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class JobsRoutingModule {}

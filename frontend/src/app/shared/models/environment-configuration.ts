@@ -1,5 +1,5 @@
 export interface EnvironmentConfiguration {
-  env_name: string;
-  production: boolean;
-  apiKey: string;
+    env_name: string;
+    production: boolean;
+    apiKey: string;
 }

@@ -2,16 +2,16 @@ import { BehaviorSubject } from "rxjs";
 import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: "root",
+    providedIn: "root",
 })
 export class WidgetDataService {
-  private dataSource = new BehaviorSubject<any[]>([]);
+    private dataSource = new BehaviorSubject<any[]>([]);
 
-  currentData = this.dataSource.asObservable();
+    currentData = this.dataSource.asObservable();
 
-  constructor() {}
+    constructor() {}
 
-  changeData(data: any[]) {
-    this.dataSource.next(data);
-  }
+    changeData(data: any[]) {
+        this.dataSource.next(data);
+    }
 }

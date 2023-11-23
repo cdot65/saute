@@ -1,12 +1,12 @@
 import {
-  ButtonGroupModule,
-  ButtonModule,
-  CardModule,
-  DropdownModule,
-  FormModule,
-  GridModule,
-  ListGroupModule,
-  SharedModule,
+    ButtonGroupModule,
+    ButtonModule,
+    CardModule,
+    DropdownModule,
+    FormModule,
+    GridModule,
+    ListGroupModule,
+    SharedModule,
 } from "@coreui/angular";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -18,24 +18,24 @@ import { FirewallRoutingModule } from "./firewall-routing.module";
 import { NgModule } from "@angular/core";
 
 @NgModule({
-  declarations: [
-    FirewallCreateComponent,
-    FirewallListComponent,
-    FirewallDetailsComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    GridModule,
-    ButtonGroupModule,
-    ButtonModule,
-    CardModule,
-    DropdownModule,
-    ListGroupModule,
-    SharedModule,
-    FormModule,
-    FirewallRoutingModule,
-  ],
+    declarations: [
+        FirewallCreateComponent,
+        FirewallListComponent,
+        FirewallDetailsComponent,
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        GridModule,
+        ButtonGroupModule,
+        ButtonModule,
+        CardModule,
+        DropdownModule,
+        ListGroupModule,
+        SharedModule,
+        FormModule,
+        FirewallRoutingModule,
+    ],
 })
 export class FirewallModule {}
