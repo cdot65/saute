@@ -12,19 +12,5 @@
       "created_at": "2023-09-14T10:00:00Z",
       "updated_at": "2023-09-14T10:00:00Z"
     }
-  },
-  {
-    "model": "saute.panorama",
-    "fields": {
-      "api_key": "1234567890",
-      "author": "1",
-      "hostname": "LAB-PAN-001",
-      "notes": "Lab Panorama virtual appliance",
-      "ipv4_address": "192.168.255.199",
-      "ipv6_address": "2001:db8::1",
-      "platform": 5,
-      "created_at": "2023-09-14T10:00:00Z",
-      "updated_at": "2023-09-14T10:00:00Z"
-    }
   }
 ]
