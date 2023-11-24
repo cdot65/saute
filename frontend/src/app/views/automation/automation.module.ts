@@ -23,7 +23,6 @@ import { AutomationInterfaceModule } from "../../shared/modules/automation-inter
 // routing
 import { AutomationRoutingModule } from "./automation-routing.module";
 import { CommonModule } from "@angular/common";
-import { GetSoftwareInformationComponent } from "./operations/get-software-information/get-software-information.component";
 import { NgModule } from "@angular/core";
 import { NotificationsModule } from "../../views/notifications/notifications.module";
 import { SyncToPrismaComponent } from "./configuration/sync-to-prisma/sync-to-prisma.component";
@@ -34,7 +33,6 @@ import { WidgetsModule } from "../../shared/modules/widgets/widgets.module";
 
 @NgModule({
     declarations: [
-        GetSoftwareInformationComponent,
         VmseriesToAzureComponent,
         VmseriesToAwsComponent,
         VmseriesToVcenterComponent,
