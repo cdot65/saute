@@ -76,7 +76,7 @@ export class AutomationConfigurationComponent {
             title: "Sync Panorama with Prisma Access",
             description:
                 "Use Python to sync Panorama configuration to Prisma Access.",
-            buttonLink: "/deploy",
+            buttonLink: "/automation/configuration/pan-to-prisma",
             hashtags: ["#panos", "#prisma", "#python"],
         },
     ];

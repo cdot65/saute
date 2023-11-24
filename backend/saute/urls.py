@@ -61,7 +61,7 @@ urlpatterns += [
         name="execute_admin_report",
     ),
     path(
-        "configuration/sync-to-prisma",
+        "configuration/pan-to-prisma",
         execute_sync_to_prisma,
         name="execute_sync_to_prisma",
     ),

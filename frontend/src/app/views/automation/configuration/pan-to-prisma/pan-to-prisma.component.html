@@ -1,0 +1,136 @@
+<c-card class="mb-4">
+    <c-card-header>
+        <strong>Sync Panorama to Prisma Access</strong>
+    </c-card-header>
+    <c-card-body>
+        <p>
+            This operation syncs a Panorama appliance configuration to a Prisma
+            tenant. Please note that the conversion is limited to the
+            capabilities of each solution
+        </p>
+        <!-- Primary input -->
+        <div class="message message-details flex-wrap pb-3">
+            <form [formGroup]="panToPrismaForm" (ngSubmit)="onSubmit()" cForm>
+                <c-button-toolbar role="toolbar">
+                    <div class="dropdown-group">
+                        <c-dropdown class="ms-1">
+                            <button
+                                type="button"
+                                [routerLink]="[]"
+                                cButton
+                                cDropdownToggle
+                                color="light"
+                            >
+                                <b>{{ buttonTextPanorama }}</b>
+                            </button>
+                            <div cDropdownMenu>
+                                <button
+                                    type="button"
+                                    *ngFor="let each of panoramas"
+                                    (click)="selectPanorama(each)"
+                                    class="dropdown-item"
+                                >
+                                    {{ each.hostname }}
+                                </button>
+                            </div>
+                        </c-dropdown>
+                    </div>
+                    <div class="dropdown-group">
+                        <c-dropdown class="ms-1">
+                            <button
+                                type="button"
+                                [routerLink]="[]"
+                                cButton
+                                cDropdownToggle
+                                color="light"
+                            >
+                                <b>{{ buttonTextPrisma }}</b>
+                            </button>
+                            <div cDropdownMenu>
+                                <button
+                                    type="button"
+                                    *ngFor="let each of prismaTenants"
+                                    (click)="selectPrismaTenant(each)"
+                                    class="dropdown-item"
+                                >
+                                    {{ each.tenant_name }}
+                                </button>
+                            </div>
+                        </c-dropdown>
+                    </div>
+                    <div class="button-group">
+                        <button
+                            [cModalToggle]="examples.id"
+                            cButton
+                            style="margin-left: 10px"
+                        >
+                            View Script
+                        </button>
+                        <c-modal
+                            #examples
+                            [scrollable]="true"
+                            alignment="center"
+                            id="examples"
+                            size="xl"
+                            class="bg-dark"
+                        >
+                            <c-modal-header>
+                                <h5 cModalTitle>Panorama to Prisma Script</h5>
+                            </c-modal-header>
+                            <c-modal-body>
+                                <pre [innerHTML]="help"></pre>
+                            </c-modal-body>
+                        </c-modal>
+                        <button
+                            cButton
+                            class="me-1"
+                            color="primary"
+                            type="submit"
+                            [disabled]="!isFormValid()"
+                        >
+                            Execute Sync
+                        </button>
+                    </div>
+                </c-button-toolbar>
+            </form>
+        </div>
+
+        <div *ngIf="isLoading">
+            <button cButton class="m-1 w-100" disabled>
+                <c-spinner aria-hidden="true" size="sm"></c-spinner>
+                Sending to PAN-OS API, this will take a couple of seconds...
+            </button>
+            <c-progress class="mb-3" *ngIf="progressValue < 100">
+                <c-progress-bar
+                    [animated]="true"
+                    color="info"
+                    [value]="progressValue"
+                    variant="striped"
+                ></c-progress-bar>
+            </c-progress>
+        </div>
+
+        <c-accordion
+            [alwaysOpen]="true"
+            class="shadow accordion-custom rounded-2"
+        >
+            <!-- Accordion Item for the Job Details -->
+            <c-accordion-item
+                #item1="cAccordionItem"
+                [visible]="isReportVisible"
+            >
+                <ng-template cTemplateId="accordionHeader">
+                    <strong>Result</strong>
+                </ng-template>
+                <div *ngIf="parsedJsonData">
+                    <p>
+                        {{ parsedJsonData }}
+                    </p>
+                </div>
+                <!-- <div *ngIf="parsedJsonData && !parsedJsonData.arp_entry_exist">
+                    <p>Error parsing result</p>
+                </div> -->
+            </c-accordion-item>
+        </c-accordion>
+    </c-card-body>
+</c-card>

@@ -25,11 +25,11 @@ export class PrismaListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.fetchPrismaData();
+        this.prismaInventory();
     }
 
     // Fetch data from the API
-    fetchPrismaData() {
+    prismaInventory() {
         this.http
             .get<any[]>(`${this.API_URL}/api/v1/prisma/`)
             .pipe(
@@ -70,7 +70,7 @@ export class PrismaListComponent implements OnInit {
             .subscribe(
                 (response) => {
                     // console.log("Prisma instance deleted:", response);
-                    this.fetchPrismaData();
+                    this.prismaInventory();
                 },
                 (error) => {
                     console.error("Error deleting Prisma instance:", error);

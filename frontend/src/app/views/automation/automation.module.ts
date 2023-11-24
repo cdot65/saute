@@ -25,7 +25,7 @@ import { AutomationRoutingModule } from "./automation-routing.module";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { NotificationsModule } from "../../views/notifications/notifications.module";
-import { SyncToPrismaComponent } from "./configuration/sync-to-prisma/sync-to-prisma.component";
+import { PanToPrismaComponent } from "./configuration/pan-to-prisma/pan-to-prisma.component";
 import { VmseriesToAwsComponent } from "./deploy/vmseries-to-aws/vmseries-to-aws.component";
 import { VmseriesToAzureComponent } from "./deploy/vmseries-to-azure/vmseries-to-azure.component";
 import { VmseriesToVcenterComponent } from "./deploy/vmseries-to-vcenter/vmseries-to-vcenter.component";
@@ -36,7 +36,7 @@ import { WidgetsModule } from "../../shared/modules/widgets/widgets.module";
         VmseriesToAzureComponent,
         VmseriesToAwsComponent,
         VmseriesToVcenterComponent,
-        SyncToPrismaComponent,
+        PanToPrismaComponent,
         AdminReportComponent,
         AssuranceArpComponent,
         AssuranceReadinessComponent,

@@ -25,7 +25,7 @@ export class PrismaDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.route.params.subscribe((params) => {
             this.id = +params["id"];
-            this.fetchPrismaData();
+            this.prismaInventory();
         });
     }
 
@@ -38,7 +38,7 @@ export class PrismaDetailsComponent implements OnInit {
         });
     }
 
-    fetchPrismaData(): void {
+    prismaInventory(): void {
         this.http
             .get<any>(`${this.API_URL}/api/v1/prisma/${this.id}/`)
             .subscribe((data) => {

@@ -5,7 +5,7 @@ import { AssuranceArpComponent } from "./operations/assurance-arp/assurance-arp.
 import { AssuranceReadinessComponent } from "./operations/assurance-readiness/assurance-readiness.component";
 import { AssuranceSnapshotComponent } from "./operations/assurance-snapshot/assurance-snapshot.component";
 import { NgModule } from "@angular/core";
-import { SyncToPrismaComponent } from "./configuration/sync-to-prisma/sync-to-prisma.component";
+import { PanToPrismaComponent } from "./configuration/pan-to-prisma/pan-to-prisma.component";
 
 const routes: Routes = [
     {
@@ -13,8 +13,8 @@ const routes: Routes = [
         component: AdminReportComponent,
     },
     {
-        path: "configuration/sync-to-prisma",
-        component: SyncToPrismaComponent,
+        path: "configuration/pan-to-prisma",
+        component: PanToPrismaComponent,
     },
     {
         path: "operations/assurance-arp",
