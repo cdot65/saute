@@ -7,552 +7,378 @@
             Select which data this Python script should snapshot from a
             firewall.
         </p>
-        <p>
-            <b>Note:</b> This script's execution time will vary based on the
-            options selected, but it should never take more than a few seconds
-            to complete.
-        </p>
+        <!-- Primary input -->
+        <div class="message message-details flex-wrap pb-3">
+            <form [formGroup]="snapshotForm" (ngSubmit)="onSubmit()" cForm>
+                <c-button-toolbar role="toolbar">
+                    <div class="dropdown-group">
+                        <c-dropdown class="ms-1">
+                            <button
+                                type="button"
+                                [routerLink]="[]"
+                                cButton
+                                cDropdownToggle
+                                color="light"
+                            >
+                                <b>{{ buttonTextFirewall }}</b>
+                            </button>
+                            <div cDropdownMenu>
+                                <button
+                                    type="button"
+                                    *ngFor="let each of firewalls"
+                                    (click)="selectFirewall(each)"
+                                    class="dropdown-item"
+                                >
+                                    {{ each.hostname }}
+                                </button>
+                            </div>
+                        </c-dropdown>
+                    </div>
+                    <div class="button-group">
+                        <button
+                            [cModalToggle]="examples.id"
+                            cButton
+                            style="margin-left: 10px"
+                        >
+                            View Script
+                        </button>
+                        <c-modal
+                            #examples
+                            [scrollable]="true"
+                            alignment="center"
+                            id="examples"
+                            size="xl"
+                            class="bg-dark"
+                        >
+                            <c-modal-header>
+                                <h5 cModalTitle>
+                                    Snapshot Assurance Python Script
+                                </h5>
+                            </c-modal-header>
+                            <c-modal-body>
+                                <pre [innerHTML]="help"></pre>
+                            </c-modal-body>
+                        </c-modal>
+                        <button
+                            cButton
+                            class="me-1"
+                            color="primary"
+                            type="submit"
+                            [disabled]="!isFormValid()"
+                        >
+                            Execute Snapshot
+                        </button>
+                    </div>
+                </c-button-toolbar>
+
+                <div
+                    formGroupName="buttonSnapshotGroup"
+                    class="mb-3 mt-4 d-flex justify-content-between"
+                >
+                    <!-- All options -->
+                    <c-button-group class="full-width-btn-group">
+                        <input
+                            class="btn-check"
+                            formControlName="all"
+                            id="all"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                                    ? 'danger'
+                                    : 'secondary'
+                            "
+                            for="all"
+                            variant="outline"
+                            [ngStyle]="{
+                                color: snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >All</label
+                        >
+
+                        <!-- ARP Table -->
+                        <input
+                            class="btn-check"
+                            formControlName="arp_table"
+                            id="arp_table"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('arp_table').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('arp_table').value
+                                    ? 'success'
+                                    : 'secondary'
+                            "
+                            for="arp_table"
+                            variant="outline"
+                            [ngStyle]="{
+                                color: snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >ARP Table</label
+                        >
+
+                        <!-- Content Version -->
+                        <input
+                            class="btn-check"
+                            formControlName="content_version"
+                            id="content_version"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('content_version').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('content_version').value
+                                    ? 'info'
+                                    : 'secondary'
+                            "
+                            variant="outline"
+                            for="content_version"
+                            [ngStyle]="{
+                                color: snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >Content Version</label
+                        >
+
+                        <!-- IPsec VPN Tunnels -->
+                        <input
+                            class="btn-check"
+                            formControlName="ip_sec_tunnels"
+                            id="ip_sec_tunnels"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('ip_sec_tunnels').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('ip_sec_tunnels').value
+                                    ? 'info'
+                                    : 'secondary'
+                            "
+                            variant="outline"
+                            for="ip_sec_tunnels"
+                            [ngStyle]="{
+                                color: snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >IPsec VPN Tunnels</label
+                        >
+
+                        <!-- License -->
+                        <input
+                            class="btn-check"
+                            formControlName="license"
+                            id="license"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('license').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('license').value
+                                    ? 'info'
+                                    : 'secondary'
+                            "
+                            variant="outline"
+                            for="license"
+                            [ngStyle]="{
+                                color: snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >License</label
+                        >
+
+                        <!-- NICS -->
+                        <input
+                            class="btn-check"
+                            formControlName="nics"
+                            id="nics"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('nics').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('nics').value
+                                    ? 'info'
+                                    : 'secondary'
+                            "
+                            variant="outline"
+                            for="nics"
+                            [ngStyle]="{
+                                color: snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >Network Interfaces</label
+                        >
+
+                        <!-- Route Table -->
+                        <input
+                            class="btn-check"
+                            formControlName="routes"
+                            id="routes"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('routes').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('routes').value
+                                    ? 'info'
+                                    : 'secondary'
+                            "
+                            variant="outline"
+                            for="routes"
+                            [ngStyle]="{
+                                color: snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >Route Table</label
+                        >
+
+                        <!-- Session Stats -->
+                        <input
+                            class="btn-check"
+                            formControlName="session_stats"
+                            id="session_stats"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('session_stats').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('session_stats').value
+                                    ? 'info'
+                                    : 'secondary'
+                            "
+                            variant="outline"
+                            for="session_stats"
+                            [ngStyle]="{
+                                color: snapshotForm
+                                    .get('buttonSnapshotGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                        >
+                            Session Stats</label
+                        >
+                    </c-button-group>
+                </div>
+            </form>
+        </div>
+
+        <div *ngIf="isLoading">
+            <button type="button" cButton class="m-1 w-100" disabled>
+                <c-spinner aria-hidden="true" size="sm"></c-spinner>
+                Sending to PAN-OS API, this will take a couple of seconds...
+            </button>
+            <c-progress class="mb-3" *ngIf="progressValue < 100">
+                <c-progress-bar
+                    [animated]="true"
+                    color="info"
+                    [value]="progressValue"
+                    variant="striped"
+                ></c-progress-bar>
+            </c-progress>
+        </div>
+
         <c-accordion
             [alwaysOpen]="true"
             class="shadow accordion-custom rounded-2"
         >
-            <!-- Primary input -->
-            <c-accordion-item #item0="cAccordionItem" [visible]="true">
-                <ng-template cTemplateId="accordionHeader">
-                    <strong>Request Parameters</strong>
-                </ng-template>
-                <ng-template cTemplateId="accordionBody">
-                    <div class="message">
-                        <div class="message message-details flex-wrap pb-3">
-                            <c-row
-                                class="justify-content-center align-items-center"
-                                style="height: 100%"
-                            >
-                                <c-col class="ms-auto" sm="12">
-                                    <div class="message">
-                                        <div
-                                            class="message message-details flex-wrap pb-3"
-                                        >
-                                            <form
-                                                [formGroup]="snapshotForm"
-                                                (ngSubmit)="onSubmit()"
-                                                cForm
-                                            >
-                                                <c-row
-                                                    class="justify-content-center align-items-center"
-                                                    style="height: 100%"
-                                                >
-                                                    <c-col
-                                                        class="ms-auto"
-                                                        sm="12"
-                                                    >
-                                                        <c-button-toolbar
-                                                            role="toolbar"
-                                                        >
-                                                            <div
-                                                                class="dropdown-group"
-                                                            >
-                                                                <c-dropdown
-                                                                    class="ms-1"
-                                                                >
-                                                                    <button
-                                                                        type="button"
-                                                                        [routerLink]="[]"
-                                                                        cButton
-                                                                        cDropdownToggle
-                                                                        color="light"
-                                                                    >
-                                                                        <b>{{
-                                                                            buttonTextFirewall
-                                                                        }}</b>
-                                                                    </button>
-                                                                    <div
-                                                                        cDropdownMenu
-                                                                    >
-                                                                        <button
-                                                                            type="button"
-                                                                            *ngFor="
-                                                                                let each of firewalls
-                                                                            "
-                                                                            (click)="
-                                                                                selectFirewall(
-                                                                                    each
-                                                                                )
-                                                                            "
-                                                                            class="dropdown-item"
-                                                                        >
-                                                                            {{
-                                                                                each.hostname
-                                                                            }}
-                                                                        </button>
-                                                                    </div>
-                                                                </c-dropdown>
-                                                            </div>
-                                                            <div
-                                                                class="button-group"
-                                                            >
-                                                                <button
-                                                                    cButton
-                                                                    class="me-1"
-                                                                    color="primary"
-                                                                    type="submit"
-                                                                    [disabled]="
-                                                                        !isFormValid()
-                                                                    "
-                                                                >
-                                                                    Execute
-                                                                    Snapshot
-                                                                </button>
-                                                            </div>
-                                                        </c-button-toolbar>
-
-                                                        <div
-                                                            formGroupName="buttonSnapshotGroup"
-                                                            class="mb-3 mt-4 d-flex justify-content-between"
-                                                        >
-                                                            <!-- All options -->
-                                                            <c-button-group
-                                                                class="full-width-btn-group"
-                                                            >
-                                                                <input
-                                                                    class="btn-check"
-                                                                    formControlName="all"
-                                                                    id="all"
-                                                                    type="checkbox"
-                                                                />
-                                                                <label
-                                                                    [class.active]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                    "
-                                                                    cButton
-                                                                    cFormCheckLabel
-                                                                    [attr.color]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                            ? 'danger'
-                                                                            : 'secondary'
-                                                                    "
-                                                                    for="all"
-                                                                    variant="outline"
-                                                                    [ngStyle]="{
-                                                                        color: snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                            ? ''
-                                                                            : '#fff'
-                                                                    }"
-                                                                    >All</label
-                                                                >
-
-                                                                <!-- ARP Table -->
-                                                                <input
-                                                                    class="btn-check"
-                                                                    formControlName="arp_table"
-                                                                    id="arp_table"
-                                                                    type="checkbox"
-                                                                />
-                                                                <label
-                                                                    [class.active]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'arp_table'
-                                                                            )
-                                                                            .value
-                                                                    "
-                                                                    cButton
-                                                                    cFormCheckLabel
-                                                                    [attr.color]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'arp_table'
-                                                                            )
-                                                                            .value
-                                                                            ? 'success'
-                                                                            : 'secondary'
-                                                                    "
-                                                                    for="arp_table"
-                                                                    variant="outline"
-                                                                    [ngStyle]="{
-                                                                        color: snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                            ? ''
-                                                                            : '#fff'
-                                                                    }"
-                                                                    >ARP
-                                                                    Table</label
-                                                                >
-
-                                                                <!-- Content Version -->
-                                                                <input
-                                                                    class="btn-check"
-                                                                    formControlName="content_version"
-                                                                    id="content_version"
-                                                                    type="checkbox"
-                                                                />
-                                                                <label
-                                                                    [class.active]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'content_version'
-                                                                            )
-                                                                            .value
-                                                                    "
-                                                                    cButton
-                                                                    cFormCheckLabel
-                                                                    [attr.color]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'content_version'
-                                                                            )
-                                                                            .value
-                                                                            ? 'info'
-                                                                            : 'secondary'
-                                                                    "
-                                                                    variant="outline"
-                                                                    for="content_version"
-                                                                    [ngStyle]="{
-                                                                        color: snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                            ? ''
-                                                                            : '#fff'
-                                                                    }"
-                                                                    >Content
-                                                                    Version</label
-                                                                >
-
-                                                                <!-- IPsec VPN Tunnels -->
-                                                                <input
-                                                                    class="btn-check"
-                                                                    formControlName="ip_sec_tunnels"
-                                                                    id="ip_sec_tunnels"
-                                                                    type="checkbox"
-                                                                />
-                                                                <label
-                                                                    [class.active]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'ip_sec_tunnels'
-                                                                            )
-                                                                            .value
-                                                                    "
-                                                                    cButton
-                                                                    cFormCheckLabel
-                                                                    [attr.color]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'ip_sec_tunnels'
-                                                                            )
-                                                                            .value
-                                                                            ? 'info'
-                                                                            : 'secondary'
-                                                                    "
-                                                                    variant="outline"
-                                                                    for="ip_sec_tunnels"
-                                                                    [ngStyle]="{
-                                                                        color: snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                            ? ''
-                                                                            : '#fff'
-                                                                    }"
-                                                                    >IPsec VPN
-                                                                    Tunnels</label
-                                                                >
-
-                                                                <!-- License -->
-                                                                <input
-                                                                    class="btn-check"
-                                                                    formControlName="license"
-                                                                    id="license"
-                                                                    type="checkbox"
-                                                                />
-                                                                <label
-                                                                    [class.active]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'license'
-                                                                            )
-                                                                            .value
-                                                                    "
-                                                                    cButton
-                                                                    cFormCheckLabel
-                                                                    [attr.color]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'license'
-                                                                            )
-                                                                            .value
-                                                                            ? 'info'
-                                                                            : 'secondary'
-                                                                    "
-                                                                    variant="outline"
-                                                                    for="license"
-                                                                    [ngStyle]="{
-                                                                        color: snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                            ? ''
-                                                                            : '#fff'
-                                                                    }"
-                                                                    >License</label
-                                                                >
-
-                                                                <!-- NICS -->
-                                                                <input
-                                                                    class="btn-check"
-                                                                    formControlName="nics"
-                                                                    id="nics"
-                                                                    type="checkbox"
-                                                                />
-                                                                <label
-                                                                    [class.active]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'nics'
-                                                                            )
-                                                                            .value
-                                                                    "
-                                                                    cButton
-                                                                    cFormCheckLabel
-                                                                    [attr.color]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'nics'
-                                                                            )
-                                                                            .value
-                                                                            ? 'info'
-                                                                            : 'secondary'
-                                                                    "
-                                                                    variant="outline"
-                                                                    for="nics"
-                                                                    [ngStyle]="{
-                                                                        color: snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                            ? ''
-                                                                            : '#fff'
-                                                                    }"
-                                                                    >Network
-                                                                    Interfaces</label
-                                                                >
-
-                                                                <!-- Route Table -->
-                                                                <input
-                                                                    class="btn-check"
-                                                                    formControlName="routes"
-                                                                    id="routes"
-                                                                    type="checkbox"
-                                                                />
-                                                                <label
-                                                                    [class.active]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'routes'
-                                                                            )
-                                                                            .value
-                                                                    "
-                                                                    cButton
-                                                                    cFormCheckLabel
-                                                                    [attr.color]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'routes'
-                                                                            )
-                                                                            .value
-                                                                            ? 'info'
-                                                                            : 'secondary'
-                                                                    "
-                                                                    variant="outline"
-                                                                    for="routes"
-                                                                    [ngStyle]="{
-                                                                        color: snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                            ? ''
-                                                                            : '#fff'
-                                                                    }"
-                                                                    >Route
-                                                                    Table</label
-                                                                >
-
-                                                                <!-- Session Stats -->
-                                                                <input
-                                                                    class="btn-check"
-                                                                    formControlName="session_stats"
-                                                                    id="session_stats"
-                                                                    type="checkbox"
-                                                                />
-                                                                <label
-                                                                    [class.active]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'session_stats'
-                                                                            )
-                                                                            .value
-                                                                    "
-                                                                    cButton
-                                                                    cFormCheckLabel
-                                                                    [attr.color]="
-                                                                        snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'session_stats'
-                                                                            )
-                                                                            .value
-                                                                            ? 'info'
-                                                                            : 'secondary'
-                                                                    "
-                                                                    variant="outline"
-                                                                    for="session_stats"
-                                                                    [ngStyle]="{
-                                                                        color: snapshotForm
-                                                                            .get(
-                                                                                'buttonSnapshotGroup'
-                                                                            )
-                                                                            .get(
-                                                                                'all'
-                                                                            )
-                                                                            .value
-                                                                            ? ''
-                                                                            : '#fff'
-                                                                    }"
-                                                                >
-                                                                    Session
-                                                                    Stats</label
-                                                                >
-                                                            </c-button-group>
-                                                        </div>
-                                                    </c-col>
-                                                </c-row>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </c-col>
-                            </c-row>
-                        </div>
-                    </div>
-
-                    <div *ngIf="isLoading">
-                        <button
-                            type="button"
-                            cButton
-                            class="m-1 w-100"
-                            disabled
-                        >
-                            <c-spinner aria-hidden="true" size="sm"></c-spinner>
-                            Sending to PAN-OS API, this will take a couple of
-                            seconds...
-                        </button>
-                        <c-progress class="mb-3" *ngIf="progressValue < 100">
-                            <c-progress-bar
-                                [animated]="true"
-                                color="info"
-                                [value]="progressValue"
-                                variant="striped"
-                            ></c-progress-bar>
-                        </c-progress>
-                    </div>
-                </ng-template>
-            </c-accordion-item>
-
             <!-- New Accordion Item for the Job Details -->
             <c-accordion-item
                 #item1="cAccordionItem"
                 [visible]="isReportVisible"
             >
                 <ng-template cTemplateId="accordionHeader">
-                    <strong>Report</strong>
+                    <strong>Result</strong>
                 </ng-template>
                 <div *ngIf="parsedJsonData && parsedJsonData.arp_table">
                     <h5>ARP Table</h5>
@@ -647,7 +473,7 @@
                                 <th scope="col">Expired</th>
                                 <th scope="col">Expires</th>
                                 <th scope="col">Feature</th>
-                                <th scope="col">Authcode</th>
+                                <!-- <th scope="col">Authcode</th> -->
                                 <th scope="col">Description</th>
                             </tr>
                         </thead>
@@ -677,9 +503,9 @@
                                 <td>
                                     {{ parsedJsonData.license[key].feature }}
                                 </td>
-                                <td>
+                                <!-- <td>
                                     {{ parsedJsonData.license[key].authcode }}
-                                </td>
+                                </td> -->
                                 <td>
                                     {{
                                         parsedJsonData.license[key].description
@@ -783,6 +609,7 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Check if parsedJsonData.session_stats exists -->
                 <div *ngIf="parsedJsonData && parsedJsonData.session_stats">
                     <h5>Session Stats</h5>
                     <!-- Session Stats Table -->
@@ -814,35 +641,6 @@
                         </tbody>
                     </table>
                 </div>
-            </c-accordion-item>
-
-            <!-- Accordion Item to view the script -->
-            <c-accordion-item #item2="cAccordionItem">
-                <ng-template cTemplateId="accordionHeader">
-                    <strong>View script</strong>
-                </ng-template>
-                <button
-                    [cModalToggle]="examples.id"
-                    cButton
-                    style="margin-left: 10px"
-                >
-                    Click to view Python script
-                </button>
-                <c-modal
-                    #examples
-                    [scrollable]="true"
-                    alignment="center"
-                    id="examples"
-                    size="xl"
-                    class="bg-dark"
-                >
-                    <c-modal-header>
-                        <h5 cModalTitle>Snapshot Assurance Python Script</h5>
-                    </c-modal-header>
-                    <c-modal-body>
-                        <pre [innerHTML]="help"></pre>
-                    </c-modal-body>
-                </c-modal>
             </c-accordion-item>
         </c-accordion>
     </c-card-body>
