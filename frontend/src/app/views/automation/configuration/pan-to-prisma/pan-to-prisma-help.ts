@@ -358,7 +358,7 @@ def create_prisma_security_rules(
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_sync_to_prisma(
+def run_pan_to_prisma(
     pan_url: str,
     api_key: str,
     client_id: str,
@@ -485,7 +485,7 @@ def run_sync_to_prisma(
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    result = run_sync_to_prisma(
+    result = run_pan_to_prisma(
         args.pan_url,
         args.api_key,
         args.client_id,

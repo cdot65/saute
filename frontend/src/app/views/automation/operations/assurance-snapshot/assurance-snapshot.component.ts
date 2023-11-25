@@ -1,27 +1,3 @@
-/**
- * @file assurance-snapshot.component.ts
- *
- * This file imports the necessary Angular modules, services, and constants
- * required for the AssuranceSnapshotComponent.
- *
- * - `ChangeDetectorRef`: Utility for triggering Angular's change detection
- * - `Component`: Angular's core decorator to define a component
- * - `OnDestroy`: Lifecycle hook that gets called when this component is destroyed
- * - `OnInit`: Lifecycle hook that gets called after data-bound properties are initialized
- * - `FormBuilder`: Angular's utility for building reactive forms
- * - `FormGroup`: Interface that represents a group of form controls
- * - `Validators`: Angular's utility for form validations
- * - `Subscription`: Represents a disposable resource for an Observable execution
- * - `interval`: Observable that emits numbers in sequence on a specified interval
- * - `AutomationService`: Custom service for automation tasks
- * - `FirewallService`: Custom service for firewall-related operations
- * - `JobsService`: Custom service for job-related operations
- * - `SNAPSHOT_ASSURANCE_SCRIPT`: Constant that holds the help script for snapshot assurance
- * - `ToastService`: Custom service for showing toast notifications
- * - `catchError`: RxJS operator for error handling
- * - `of`: RxJS operator to convert arguments to an observable sequence
- * - `switchMap`: RxJS operator to map each value to an observable and flatten it
- */
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription, interval } from "rxjs";
@@ -48,20 +24,6 @@ import { switchMap } from "rxjs/operators";
 
 /**
  * AssuranceSnapshotComponent is an Angular component for executing a SNAPSHOT Assurance Task.
- *
- * @property {string} buttonTextFirewall - Button text for the firewall selection.
- * @property {any[]} firewalls - Array containing firewall data.
- * @property {string} help - Help text generated from a constant, formatted for HTML display.
- * @property {boolean} isLoading - Indicator for whether a loading operation is in progress.
- * @property {boolean} isReportVisible - Indicator for whether the report section is visible.
- * @property {any} jobDetails - Object containing details of the job being processed.
- * @property {Subscription | undefined} jobPollingSubscription - Subscription object for job status polling.
- * @property {string} jobUrl - URL to access the details of the job.
- * @property {string} jsonData - JSON data returned from the job.
- * @property {string} jsonDataHighlighted - JSON data that is highlighted.
- * @property {any} parsedJsonData - Parsed JSON data for manipulation.
- * @property {number} progressValue - Numeric value indicating the progress of a task.
- * @property {FormGroup | any} snapshotForm - FormGroup instance for handling the snapshot form.
  */
 export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
     buttonTextFirewall: string = "Select Firewall";
@@ -83,13 +45,6 @@ export class AssuranceSnapshotComponent implements OnInit, OnDestroy {
 
     /**
      * Constructs an instance of the AssuranceSnapshotComponent.
-     *
-     * @param {FormBuilder} fb - Angular form builder for creating form controls and groups.
-     * @param {AutomationService} AutomationService - Service for handling automation-related API calls.
-     * @param {ToastService} toastService - Service for displaying toast notifications.
-     * @param {ChangeDetectorRef} cdr - Angular service for triggering change detection.
-     * @param {FirewallService} firewallService - Service for handling firewall-related API calls.
-     * @param {JobsService} jobsService - Service for handling job-related API calls.
      */
     constructor(
         private fb: FormBuilder,

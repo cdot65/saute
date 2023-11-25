@@ -11,6 +11,7 @@
         <!-- Primary input -->
         <div class="message message-details flex-wrap pb-3">
             <form [formGroup]="panToPrismaForm" (ngSubmit)="onSubmit()" cForm>
+                <!-- Panorama and Prisma dropdown buttons -->
                 <c-button-toolbar role="toolbar">
                     <div class="dropdown-group">
                         <c-dropdown class="ms-1">
@@ -92,6 +93,150 @@
                         </button>
                     </div>
                 </c-button-toolbar>
+
+                <!-- Configuration Selection -->
+                <div
+                    formGroupName="buttonConfigurationGroup"
+                    class="mb-3 mt-4 d-flex justify-content-between"
+                >
+                    <!-- All options -->
+                    <c-button-group class="full-width-btn-group">
+                        <input
+                            class="btn-check"
+                            formControlName="all"
+                            id="all"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('all').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('all').value
+                                    ? 'danger'
+                                    : 'secondary'
+                            "
+                            for="all"
+                            variant="outline"
+                            [ngStyle]="{
+                                color: panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >All</label
+                        >
+
+                        <!-- Address Objects -->
+                        <input
+                            class="btn-check"
+                            formControlName="address_objects"
+                            id="address_objects"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('address_objects').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('address_objects').value
+                                    ? 'success'
+                                    : 'secondary'
+                            "
+                            for="address_objects"
+                            variant="outline"
+                            [ngStyle]="{
+                                color: panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >Address Objects</label
+                        >
+
+                        <!-- Security Policies -->
+                        <input
+                            class="btn-check"
+                            formControlName="security_policies"
+                            id="security_policies"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('security_policies').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('security_policies').value
+                                    ? 'info'
+                                    : 'secondary'
+                            "
+                            variant="outline"
+                            for="security_policies"
+                            [ngStyle]="{
+                                color: panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >Security Policies</label
+                        >
+
+                        <!-- Security Zones -->
+                        <input
+                            class="btn-check"
+                            formControlName="security_zones"
+                            id="security_zones"
+                            type="checkbox"
+                        />
+                        <label
+                            [class.active]="
+                                panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('security_zones').value
+                            "
+                            cButton
+                            cFormCheckLabel
+                            [attr.color]="
+                                panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('security_zones').value
+                                    ? 'info'
+                                    : 'secondary'
+                            "
+                            variant="outline"
+                            for="security_zones"
+                            [ngStyle]="{
+                                color: panToPrismaForm
+                                    .get('buttonConfigurationGroup')
+                                    .get('all').value
+                                    ? ''
+                                    : '#fff'
+                            }"
+                            >Security Zones</label
+                        >
+                    </c-button-group>
+                </div>
             </form>
         </div>
 
@@ -127,9 +272,6 @@
                         {{ parsedJsonData }}
                     </p>
                 </div>
-                <!-- <div *ngIf="parsedJsonData && !parsedJsonData.arp_entry_exist">
-                    <p>Error parsing result</p>
-                </div> -->
             </c-accordion-item>
         </c-accordion>
     </c-card-body>

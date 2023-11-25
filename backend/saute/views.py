@@ -42,7 +42,6 @@ from .serializers import (
 from .tasks import (
     execute_get_system_info as get_system_info_task,
     execute_upload_cert_chain as upload_cert_chain_task,
-    execute_sync_to_prisma as sync_to_prisma_task,
     execute_admin_report as admin_report_task,
     execute_assurance_arp as assurance_arp_entry_task,
     execute_assurance_readiness as assurance_readiness_task,
@@ -50,6 +49,7 @@ from .tasks import (
     execute_create_script as create_script_task,
     execute_change_analysis as change_analysis_task,
     execute_chat as send_message_task,
+    execute_pan_to_prisma as pan_to_prisma_task,
 )
 
 
@@ -314,22 +314,24 @@ def execute_upload_cert_chain(request):
 # Sync Panorama to Prsima
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
-def execute_sync_to_prisma(request):
+def execute_pan_to_prisma(request):
     pan_url = request.data.get("pan_url")
     api_key = request.data.get("api_key")
     client_id = request.data.get("client_id")
     client_secret = request.data.get("client_secret")
     tsg_id = request.data.get("tsg_id")
     token_url = request.data.get("token_url")
+    config_objects = request.data.get("config_objects")
     author_id = request.user.id
 
-    task = sync_to_prisma_task.delay(
+    task = pan_to_prisma_task.delay(
         pan_url,
         api_key,
         client_id,
         client_secret,
         tsg_id,
         token_url,
+        config_objects,
         author_id,
     )
 

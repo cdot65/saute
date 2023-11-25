@@ -21,7 +21,7 @@ from .views import (
     execute_create_script,
     execute_get_system_info,
     execute_upload_cert_chain,
-    execute_sync_to_prisma,
+    execute_pan_to_prisma,
     execute_assurance_readiness,
 )
 
@@ -62,8 +62,8 @@ urlpatterns += [
     ),
     path(
         "configuration/pan-to-prisma",
-        execute_sync_to_prisma,
-        name="execute_sync_to_prisma",
+        execute_pan_to_prisma,
+        name="execute_pan_to_prisma",
     ),
     path(
         "configuration/upload-cert-chain",

@@ -30,9 +30,11 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
 
     // List of all and the selected Panorama appliance
     panoramas: any[] = [];
+    selectedPanorama: any = null;
 
     // List of all and the selected Prisma tenant
     prismaTenants: any[] = [];
+    selectedPrismaTenant: any = null;
 
     // Help script, with newlines and spaces replaced with HTML tags
     help = SYNC_TO_PRISMA_SCRIPT.replace(/\n/g, "<br/>").replace(
@@ -60,23 +62,15 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
 
     /**
      * Constructs an instance of the PanToPrismaComponent.
-     *
-     * @param {FormBuilder} fb - Angular form builder for creating form controls and groups
-     * @param {PanoramaService} panoramaService - Panorama API Service
-     * @param {PrismaService} prismaService - Prisma API Service
-     * @param {PanToPrismaService} panToPrismaService - Executes sync task on backend.
-     * @param {ToastService} toastService - Service for displaying toast notifications.
-     * @param {ChangeDetectorRef} cdr - Angular service for triggering change detection.
-     * @param {JobsService} jobsService - Service for handling job-related API calls.
      */
     constructor(
+        private cdr: ChangeDetectorRef,
         private fb: FormBuilder,
+        private jobsService: JobsService,
         private panoramaService: PanoramaService,
         private panToPrismaService: PanToPrismaService,
         private prismaService: PrismaService,
-        private toastService: ToastService,
-        private cdr: ChangeDetectorRef,
-        private jobsService: JobsService
+        private toastService: ToastService
     ) {}
 
     /**
@@ -86,6 +80,7 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
         this.initializeForm();
         this.panoramaInventory();
         this.prismaInventory();
+        this.subscribeToFormChanges();
     }
 
     /**
@@ -95,7 +90,46 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
         this.panToPrismaForm = this.fb.group({
             panorama: [null, Validators.required],
             prisma: [null, Validators.required],
+            buttonConfigurationGroup: this.fb.group({
+                all: [false],
+                address_objects: [false],
+                security_policies: [false],
+                security_zones: [false],
+            }),
         });
+    }
+
+    /**
+     * Subscribes to changes on the "All" checkbox within buttonConfigurationGroup.
+     * Automatically selects or deselects all other checkboxes based on the state of "All" checkbox.
+     */
+    private subscribeToFormChanges(): void {
+        this.panToPrismaForm
+            .get("buttonConfigurationGroup.all")
+            .valueChanges.subscribe((value: any) => {
+                const buttonGroup = this.panToPrismaForm.get(
+                    "buttonConfigurationGroup"
+                );
+                if (value) {
+                    buttonGroup.patchValue(
+                        {
+                            address_objects: true,
+                            security_policies: true,
+                            security_zones: true,
+                        },
+                        { emitEvent: false }
+                    );
+                } else {
+                    buttonGroup.patchValue(
+                        {
+                            address_objects: false,
+                            security_policies: false,
+                            security_zones: false,
+                        },
+                        { emitEvent: false }
+                    );
+                }
+            });
     }
 
     /**
@@ -174,6 +208,7 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
      * @param {any} selectedPanorama - The selected Panorama object containing its properties, including its hostname.
      */
     selectPanorama(selectedPanorama: any): void {
+        this.selectedPanorama = selectedPanorama;
         this.panToPrismaForm
             .get("panorama")
             .setValue(selectedPanorama.hostname);
@@ -190,6 +225,7 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
      * @param {any} selectedPrismaTenant - The selected Panorama object containing its properties, including its hostname.
      */
     selectPrismaTenant(selectedPrismaTenant: any): void {
+        this.selectedPrismaTenant = selectedPrismaTenant;
         this.panToPrismaForm
             .get("prisma")
             .setValue(selectedPrismaTenant.tenant_name);
@@ -213,30 +249,38 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
 
     /**
      * Handles the form submission for Panorama to Prisma sync task.
-     *
-     * This method performs the following operations:
-     * - Validates the form input.
-     * - Constructs the payload required for creating an ARP Assurance task.
-     * - Calls the `createArpAssuranceTask` service method to initiate the task.
-     * - Displays a toast notification to indicate task submission status.
-     * - Initiates polling to monitor the job status.
-     * - Updates the job details and progress bar as the job progresses.
-     * - Stops polling when the job is completed and displays the job details.
-     *
-     * @returns {void} Nothing
      */
     onSubmit(): void {
         if (this.panToPrismaForm.valid) {
             // set isLoading to true to display the progress bar
             this.isLoading = true;
 
-            // grab the values of the form
-            const formValues = this.panToPrismaForm.value;
+            // Extract selected configuration options
+            const configOptions = this.panToPrismaForm.get(
+                "buttonConfigurationGroup"
+            ).value;
+            const selectedConfigs = [];
+            for (const [key, value] of Object.entries(configOptions)) {
+                if (value && key !== "all") {
+                    selectedConfigs.push(key);
+                }
+            }
+
+            // If 'all' is selected, you might want to handle it differently
+            const configObjectsValue = configOptions.all
+                ? "all"
+                : selectedConfigs.join(",");
 
             // prepare the payload for the API call
             const payload = {
-                panorama: formValues.panorama,
-                prisma: formValues.prisma,
+                pan_url: this.selectedPanorama.ipv4_address,
+                api_key: this.selectedPanorama.api_key,
+                client_id: this.selectedPrismaTenant.client_id,
+                client_secret: this.selectedPrismaTenant.client_secret,
+                tsg_id: this.selectedPrismaTenant.tsg_id,
+                token_url:
+                    "https://auth.apps.paloaltonetworks.com/am/oauth2/access_token",
+                config_objects: configObjectsValue,
             };
 
             // call the API to create the task

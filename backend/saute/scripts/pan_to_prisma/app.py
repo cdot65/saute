@@ -357,7 +357,7 @@ def create_prisma_security_rules(
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_sync_to_prisma(
+def run_pan_to_prisma(
     pan_url: str,
     api_key: str,
     client_id: str,
@@ -366,15 +366,20 @@ def run_sync_to_prisma(
     token_url: str,
     config_objects: str,
 ) -> Dict[str, Any]:
+    # Log input parameters
+    logging.debug(
+        f"Input params - pan_url: {pan_url}, api_key: {api_key}, client_id: {client_id}, client_secret: {client_secret}, tsg_id: {tsg_id}, token_url: {token_url}, config_objects: {config_objects}"
+    )
+
     # initialize result dictionary
     result = {}
 
     # process config objects to determine which parts of the config we will work on
     config_objects_list = [item.strip() for item in config_objects.split(",")]
     process_all = "all" in config_objects_list
-    process_address_objects = process_all or "address-objects" in config_objects_list
-    process_address_groups = process_all or "address-groups" in config_objects_list
-    process_security_rules = process_all or "security-rules" in config_objects_list
+    process_address_objects = process_all or "address_objects" in config_objects_list
+    process_address_groups = process_all or "address_groups" in config_objects_list
+    process_security_rules = process_all or "security_rules" in config_objects_list
 
     # authenticate with Panorama
     logging.info("Authenticating with Panorama...")
@@ -484,7 +489,7 @@ def run_sync_to_prisma(
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    result = run_sync_to_prisma(
+    result = run_pan_to_prisma(
         args.pan_url,
         args.api_key,
         args.client_id,
