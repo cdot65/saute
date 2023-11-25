@@ -93,7 +93,7 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
             buttonConfigurationGroup: this.fb.group({
                 all: [false],
                 address_objects: [false],
-                security_policies: [false],
+                security_rules: [false],
                 security_zones: [false],
             }),
         });
@@ -114,7 +114,7 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
                     buttonGroup.patchValue(
                         {
                             address_objects: true,
-                            security_policies: true,
+                            security_rules: true,
                             security_zones: true,
                         },
                         { emitEvent: false }
@@ -123,7 +123,7 @@ export class PanToPrismaComponent implements OnInit, OnDestroy {
                     buttonGroup.patchValue(
                         {
                             address_objects: false,
-                            security_policies: false,
+                            security_rules: false,
                             security_zones: false,
                         },
                         { emitEvent: false }
