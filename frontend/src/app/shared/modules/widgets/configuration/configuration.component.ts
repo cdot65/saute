@@ -40,30 +40,6 @@ export class AutomationConfigurationComponent {
         },
         {
             imagePath: "../../../../../assets/img/brand/python-prisma.svg",
-            title: "New Address Object on Prisma Access",
-            description:
-                "Use Python to create a new address object on Prisma Access.",
-            buttonLink: "/deploy",
-            hashtags: ["#prisma", "#python"],
-        },
-        {
-            imagePath: "../../../../../assets/img/brand/python-prisma.svg",
-            title: "New Address Group on Prisma Access",
-            description:
-                "Use Python to create a new address group object on Prisma Access.",
-            buttonLink: "/deploy",
-            hashtags: ["#prisma", "#python"],
-        },
-        {
-            imagePath: "../../../../../assets/img/brand/python-prisma.svg",
-            title: "New Security Rule on Prisma Access",
-            description:
-                "Use Python to create a new security rule on Prisma Access.",
-            buttonLink: "/deploy",
-            hashtags: ["#prisma", "#python"],
-        },
-        {
-            imagePath: "../../../../../assets/img/brand/python-prisma.svg",
             title: "New Remote Network on Prisma Access",
             description:
                 "Use Python to create a new remote network configuration on Prisma Access.",

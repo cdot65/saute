@@ -18,15 +18,24 @@ export class AutomationAssessmentComponent {
         {
             imagePath: "../../../../../assets/img/brand/python-panos.svg",
             title: "Admin Report",
-            description: "Email a list of Panorama Administrators",
+            description:
+                "Send an email report that represents a list of configured Panorama Administrators",
             buttonLink: "/automation/assessment/admin-report",
             hashtags: ["#panorama", "#python", "#email"],
         },
         {
             imagePath: "../../../../../assets/img/brand/python-panos.svg",
-            title: "New Address Group",
+            title: "BPA Report (PAN-OS)",
             description:
-                "Create a new address group object on Panorama appliances.",
+                "Create a new Best Practices Analysis for a PAN-OS firewall.",
+            buttonLink: "/deploy",
+            hashtags: ["#panos", "#python"],
+        },
+        {
+            imagePath: "../../../../../assets/img/brand/python-panos.svg",
+            title: "BPA Report (Panorama)",
+            description:
+                "Create a new Best Practices Analysis for a Panorama appliance.",
             buttonLink: "/deploy",
             hashtags: ["#panos", "#python"],
         },
