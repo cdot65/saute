@@ -40,7 +40,7 @@ services:
         build:
             context: ./backend
             dockerfile: Dockerfile
-        command: celery -A django_project worker -l info
+        command: celery -A django_project worker -l debug
         deploy:
             replicas: 2
         volumes:

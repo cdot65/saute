@@ -147,25 +147,26 @@ def setup_panorama_client(pan_url: str, api_key: str) -> Panorama:
 # Function to fetch security rules
 # ----------------------------------------------------------------------------
 def get_security_rules(
-    pan: Panorama, device_group: Optional[DeviceGroup] = None
+    pan: Panorama,
+    device_group: Optional[DeviceGroup] = None,
+    position: str = "pre",
 ) -> List[SecurityRuleData]:
-    if device_group:
-        # Fetch rules for a specific device group
-        pre_rulebase = PreRulebase()
-        post_rulebase = PostRulebase()
-        device_group.add(pre_rulebase)
-        device_group.add(post_rulebase)
+    if position == "pre":
+        logging.debug("Fetching pre-rules...")
+        rulebase = PreRulebase()
+    elif position == "post":
+        logging.debug("Fetching post-rules...")
+        rulebase = PostRulebase()
     else:
-        # Fetch rules from Panorama shared context
-        pre_rulebase = PreRulebase()
-        post_rulebase = PostRulebase()
-        pan.add(pre_rulebase)
-        pan.add(post_rulebase)
+        logging.error("Invalid position: %s", position)
+        return
 
-    pre_rules = SecurityRule.refreshall(pre_rulebase)
-    post_rules = SecurityRule.refreshall(post_rulebase)
+    if device_group:
+        device_group.add(rulebase)
+    else:
+        pan.add(rulebase)
 
-    rules = pre_rules + post_rules
+    rules = SecurityRule.refreshall(rulebase)
 
     rules_data = []
     for rule in rules:
@@ -378,20 +379,22 @@ def create_prisma_security_rules(
                 logging.debug("rule: %s", rule)
                 try:
                     prisma_security_rule_data = {
-                        "name": rule.rule_name,
+                        "name": rule["rule_name"],
                         "folder": "Prisma Access",
                         "position": "post",
-                        "action": rule.actions,
+                        "action": rule["actions"],
                         "from": ["any"],
                         "to": ["any"],
                         "source": ["any"],
                         "destination": ["any"],
                         "source_user": ["any"],
                         "category": ["any"],
-                        "application": rule.applications,
+                        "application": rule["applications"],
                         "service": ["any"],
                         "log_setting": "Cortex Data Lake",
-                        "description": rule.description if rule.description else "n/a",
+                        "description": rule["description"]
+                        if rule["description"]
+                        else "n/a",
                     }
                     prisma_security_rule = PrismaSecurityRule(
                         **prisma_security_rule_data
@@ -520,8 +523,16 @@ def run_pan_to_prisma(
                 logging.info(f"Processing device group: {dg_name}")
 
                 # Fetch security rules for each device group
-                dg_pre_rules = get_security_rules(pan, device_group=dg)
-                dg_post_rules = get_security_rules(pan, device_group=dg)
+                dg_pre_rules = get_security_rules(
+                    pan,
+                    device_group=dg,
+                    position="pre",
+                )
+                dg_post_rules = get_security_rules(
+                    pan,
+                    device_group=dg,
+                    position="post",
+                )
 
                 security_policy[dg_name] = {
                     "pre_rules": [rule.dict() for rule in dg_pre_rules],
@@ -529,8 +540,14 @@ def run_pan_to_prisma(
                 }
 
             # Add shared rules
-            shared_pre_rules = get_security_rules(pan)
-            shared_post_rules = get_security_rules(pan)
+            shared_pre_rules = get_security_rules(
+                pan,
+                position="pre",
+            )
+            shared_post_rules = get_security_rules(
+                pan,
+                position="post",
+            )
             security_policy["shared"]["pre_rules"] = [
                 rule.dict() for rule in shared_pre_rules
             ]
