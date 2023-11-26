@@ -1,32 +1,32 @@
 export interface ResponseModel {
-  id: string;
-  object: string;
-  created: number;
-  model: string;
-  choices: Choice[];
-  usage: Usage;
+    id: string;
+    object: string;
+    created: number;
+    model: string;
+    choices: Choice[];
+    usage: Usage;
 }
 
 export interface Choice {
-  index: number;
-  message: Message;
-  finish_reason: string;
+    index: number;
+    message: Message;
+    finish_reason: string;
 }
 
 export interface Message {
-  role: string;
-  content: string;
+    role: string;
+    content: string;
 }
 
 export interface Usage {
-  prompt_tokens: number;
-  completion_tokens: number;
-  total_tokens: number;
+    prompt_tokens: number;
+    completion_tokens: number;
+    total_tokens: number;
 }
 
 export interface ChatWithBot {
-  model: string;
-  person: string;
-  response: string;
-  cssClass: string;
+    model: string;
+    person: string;
+    response: string;
+    cssClass: string;
 }

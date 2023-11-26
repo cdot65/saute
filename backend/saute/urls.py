@@ -21,7 +21,8 @@ from .views import (
     execute_create_script,
     execute_get_system_info,
     execute_upload_cert_chain,
-    execute_sync_to_prisma,
+    execute_pan_to_prisma,
+    execute_assurance_readiness,
 )
 
 router = SimpleRouter()
@@ -60,9 +61,9 @@ urlpatterns += [
         name="execute_admin_report",
     ),
     path(
-        "configuration/sync-to-prisma",
-        execute_sync_to_prisma,
-        name="execute_sync_to_prisma",
+        "configuration/pan-to-prisma",
+        execute_pan_to_prisma,
+        name="execute_pan_to_prisma",
     ),
     path(
         "configuration/upload-cert-chain",
@@ -77,7 +78,12 @@ urlpatterns += [
         name="execute_assurance_arp",
     ),
     path(
-        "operations/assurance-snapshot",
+        "automation/assurance-readiness",
+        execute_assurance_readiness,
+        name="execute_assurance_readiness",
+    ),
+    path(
+        "automation/assurance-snapshot",
         execute_assurance_snapshot,
         name="execute_assurance_snapshot",
     ),

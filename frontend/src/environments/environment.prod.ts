@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
-  apiUrl: "http://localhost:8000",
-  tokenUrl: "/api/v1/dj-rest-auth/login/",
+    production: true,
+    apiUrl: "http://localhost:8000",
+    tokenUrl: "/api/v1/dj-rest-auth/login/",
 };

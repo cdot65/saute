@@ -1,12 +1,12 @@
 import {
-  ButtonGroupModule,
-  ButtonModule,
-  CardModule,
-  DropdownModule,
-  FormModule,
-  GridModule,
-  ListGroupModule,
-  SharedModule,
+    ButtonGroupModule,
+    ButtonModule,
+    CardModule,
+    DropdownModule,
+    FormModule,
+    GridModule,
+    ListGroupModule,
+    SharedModule,
 } from "@coreui/angular";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -17,20 +17,20 @@ import { JobsRoutingModule } from "./jobs-routing.module";
 import { NgModule } from "@angular/core";
 
 @NgModule({
-  declarations: [JobsListComponent, JobsDetailsComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    GridModule,
-    ButtonGroupModule,
-    ButtonModule,
-    CardModule,
-    DropdownModule,
-    ListGroupModule,
-    SharedModule,
-    FormModule,
-    JobsRoutingModule,
-  ],
+    declarations: [JobsListComponent, JobsDetailsComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        GridModule,
+        ButtonGroupModule,
+        ButtonModule,
+        CardModule,
+        DropdownModule,
+        ListGroupModule,
+        SharedModule,
+        FormModule,
+        JobsRoutingModule,
+    ],
 })
 export class JobsModule {}

@@ -3,8 +3,6 @@ from django.conf import settings
 from django.db import models
 from django.core.validators import (
     FileExtensionValidator,
-    MaxValueValidator,
-    RegexValidator,
 )
 
 
@@ -37,10 +35,10 @@ class Panorama(models.Model):
     - hostname: The unique name of the Panorama appliance.
     """
 
-    api_key = models.CharField(max_length=255)
+    api_key = models.CharField(max_length=1024)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    hostname = models.CharField(max_length=100)
+    hostname = models.CharField(max_length=100, unique=True)
     notes = models.TextField(blank=True, null=True)
     ipv4_address = models.GenericIPAddressField()
     ipv6_address = models.GenericIPAddressField(protocol="IPv6", blank=True, null=True)
@@ -55,10 +53,10 @@ class Panorama(models.Model):
 
 
 class Prisma(models.Model):
-    tenant_name = models.CharField(max_length=100)
+    tenant_name = models.CharField(max_length=100, unique=True)
     client_id = models.CharField(max_length=100)
     client_secret = models.CharField(max_length=100)
-    tsg_id = models.CharField(max_length=100)
+    tsg_id = models.CharField(max_length=100, unique=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -109,10 +107,10 @@ class Firewall(models.Model):
     - hostname: The unique name of the firewall appliance.
     """
 
-    api_key = models.CharField(max_length=255)
+    api_key = models.CharField(max_length=1024)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    hostname = models.CharField(max_length=100)
+    hostname = models.CharField(max_length=100, unique=True)
     notes = models.TextField(blank=True, null=True)
     ipv4_address = models.GenericIPAddressField()
     ipv6_address = models.GenericIPAddressField(protocol="IPv6", blank=True, null=True)

@@ -11,7 +11,7 @@ WORKDIR /code
 
 # install dependencies
 COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Add startup script
 COPY start.sh .

@@ -1,47 +1,47 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { RouterTestingModule } from "@angular/router/testing";
-
 import {
-  BadgeModule,
-  ButtonModule,
-  CardModule,
-  GridModule,
-  UtilitiesModule,
+    BadgeModule,
+    ButtonModule,
+    CardModule,
+    GridModule,
+    UtilitiesModule,
 } from "@coreui/angular";
-import { IconSetService } from "@coreui/icons-angular";
-import { iconSubset } from "../../../shared/icons/icon-subset";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+
 import { BadgesComponent } from "./badges.component";
+import { IconSetService } from "@coreui/icons-angular";
+import { RouterTestingModule } from "@angular/router/testing";
+import { iconSubset } from "../../../shared/icons/icon-subset";
 
 describe("BadgesComponent", () => {
-  let component: BadgesComponent;
-  let fixture: ComponentFixture<BadgesComponent>;
-  let iconSetService: IconSetService;
+    let component: BadgesComponent;
+    let fixture: ComponentFixture<BadgesComponent>;
+    let iconSetService: IconSetService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [BadgesComponent],
-      imports: [
-        BadgeModule,
-        CardModule,
-        GridModule,
-        UtilitiesModule,
-        ButtonModule,
-        RouterTestingModule,
-      ],
-      providers: [IconSetService],
-    }).compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [BadgesComponent],
+            imports: [
+                BadgeModule,
+                CardModule,
+                GridModule,
+                UtilitiesModule,
+                ButtonModule,
+                RouterTestingModule,
+            ],
+            providers: [IconSetService],
+        }).compileComponents();
+    });
 
-  beforeEach(() => {
-    iconSetService = TestBed.inject(IconSetService);
-    iconSetService.icons = { ...iconSubset };
+    beforeEach(() => {
+        iconSetService = TestBed.inject(IconSetService);
+        iconSetService.icons = { ...iconSubset };
 
-    fixture = TestBed.createComponent(BadgesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(BadgesComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it("should create", () => {
-    expect(component).toBeTruthy();
-  });
+    it("should create", () => {
+        expect(component).toBeTruthy();
+    });
 });

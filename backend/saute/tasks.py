@@ -2,6 +2,7 @@ import sys
 import os
 import django
 import logging
+import traceback
 
 from celery import shared_task
 from django.contrib.auth import get_user_model
@@ -18,8 +19,8 @@ from saute.scripts import (
     run_create_script,
     run_export_rules_to_csv,
     run_get_system_info,
+    run_pan_to_prisma,
     run_send_message,
-    run_sync_to_prisma,
     run_upload_cert_chain,
 )
 
@@ -129,7 +130,7 @@ def execute_upload_cert_chain(self, api_key, author_id, pan_url, url):
 # Sync Panorama to Prisma
 # ----------------------------------------------------------------------------
 @shared_task(bind=True)
-def execute_sync_to_prisma(
+def execute_pan_to_prisma(
     self,
     pan_url,
     api_key,
@@ -137,26 +138,47 @@ def execute_sync_to_prisma(
     client_secret,
     tsg_id,
     token_url,
+    config_objects,
     author_id,
 ):
+    logging.debug("Hey, we made it to the task!")
     # Retrieve the user object by id
     author = User.objects.get(id=author_id)
+    logging.debug(f"Here is the author {author}")
 
     # Create a new Jobs entry
     job = Jobs.objects.create(
-        job_type="sync_to_prisma",
+        job_type="pan_to_prisma",
         json_data=None,
         author=author,
         task_id=self.request.id,
     )
+    logging.debug(f"Job ID: {job.pk}")
+
+    logging.debug("About to run the script")
+    logging.debug(
+        f"pan_url: {pan_url}, api_key: {api_key}, client_id: {client_id}, client_secret: {client_secret}, tsg_id: {tsg_id}, token_url: {token_url}, config_objects: {config_objects}"
+    )
 
     try:
-        json_report = run_sync_to_prisma(
-            pan_url, api_key, client_id, client_secret, tsg_id, token_url
+        logging.debug("About to run the script")
+        json_report = run_pan_to_prisma(
+            pan_url,
+            api_key,
+            client_id,
+            client_secret,
+            tsg_id,
+            token_url,
+            config_objects,
         )
+        if json_report is None:
+            logging.error("json_report is None")
+        logging.debug(json_report)
         job.json_data = json_report
     except Exception as e:
         job.result = f"Job ID: {job.pk}\nError: {e}"
+        logging.error(f"Exception Type: {type(e).__name__}")
+        logging.error(f"Traceback: {traceback.format_exc()}")
 
     # Save the updated job information
     job.save()
@@ -217,6 +239,53 @@ def execute_assurance_arp(
     # Create a new entry in our Jobs database table
     job = Jobs.objects.create(
         job_type="assurance_arp_entry",
+        json_data=None,
+        author=author,
+        task_id=self.request.id,
+    )
+    logging.debug(f"Job ID: {job.pk}")
+
+    # Execute the assurance check
+    try:
+        json_report = run_assurance(
+            hostname,
+            api_key,
+            operation_type,
+            action,
+            config,
+        )
+
+        # logging.debug(json_report)
+        job.json_data = json_report
+        logging.debug(job)
+
+    except Exception as e:
+        logging.error(e)
+        job.result = f"Job ID: {job.pk}\nError: {e}"
+
+    # Save the updated job information
+    job.save()
+
+
+# ----------------------------------------------------------------------------
+# Assurance: Readiness Check
+# ----------------------------------------------------------------------------
+@shared_task(bind=True)
+def execute_assurance_readiness(
+    self,
+    hostname,
+    api_key,
+    operation_type,
+    action,
+    config,
+    author_id,
+):
+    # Retrieve the user object by id
+    author = User.objects.get(id=author_id)
+
+    # Create a new entry in our Jobs database table
+    job = Jobs.objects.create(
+        job_type="assurance_readiness",
         json_data=None,
         author=author,
         task_id=self.request.id,

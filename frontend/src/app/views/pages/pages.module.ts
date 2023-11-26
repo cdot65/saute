@@ -1,42 +1,41 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import {
+    ButtonModule,
+    CardModule,
+    FormModule,
+    GridModule,
+} from "@coreui/angular";
 
-import { PagesRoutingModule } from "./pages-routing.module";
+import { AuthService } from "../../auth.service";
+import { CommonModule } from "@angular/common";
+import { CookieService } from "ngx-cookie-service";
+import { FormsModule } from "@angular/forms";
+import { IconModule } from "@coreui/icons-angular";
 import { LoginComponent } from "./login/login.component";
-import { RegisterComponent } from "./register/register.component";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { NgModule } from "@angular/core";
 import { Page404Component } from "./page404/page404.component";
 import { Page500Component } from "./page500/page500.component";
-import {
-  ButtonModule,
-  CardModule,
-  FormModule,
-  GridModule,
-} from "@coreui/angular";
-import { IconModule } from "@coreui/icons-angular";
-
-import { FormsModule } from "@angular/forms";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { AuthService } from "../../auth.service";
-import { CookieService } from "ngx-cookie-service";
+import { PagesRoutingModule } from "./pages-routing.module";
+import { RegisterComponent } from "./register/register.component";
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    Page404Component,
-    Page500Component,
-  ],
-  imports: [
-    CommonModule,
-    PagesRoutingModule,
-    CardModule,
-    ButtonModule,
-    GridModule,
-    IconModule,
-    FormModule,
-    FormsModule,
-    MatSnackBarModule,
-  ],
-  providers: [AuthService, CookieService],
+    declarations: [
+        LoginComponent,
+        RegisterComponent,
+        Page404Component,
+        Page500Component,
+    ],
+    imports: [
+        CommonModule,
+        PagesRoutingModule,
+        CardModule,
+        ButtonModule,
+        GridModule,
+        IconModule,
+        FormModule,
+        FormsModule,
+        MatSnackBarModule,
+    ],
+    providers: [AuthService, CookieService],
 })
 export class PagesModule {}

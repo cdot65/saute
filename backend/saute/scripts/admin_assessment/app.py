@@ -29,7 +29,7 @@ env = Env()
 env.read_env()
 
 pan_config = {
-    "pan_url": env("PANURL", "panorama.redtail.com"),
+    "pan_url": env("PANURL", "panorama.cdot.io"),
     "api_key": env("PANTOKEN", "supersecret"),
 }
 

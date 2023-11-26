@@ -6,22 +6,22 @@ import { PanoramaDetailsComponent } from "./panorama-details/panorama-details.co
 import { PanoramaListComponent } from "./panorama-list/panorama-list.component";
 
 const routes: Routes = [
-  {
-    path: "",
-    component: PanoramaListComponent,
-  },
-  {
-    path: "create",
-    component: PanoramaCreateComponent,
-  },
-  {
-    path: "details/:id",
-    component: PanoramaDetailsComponent,
-  },
+    {
+        path: "",
+        component: PanoramaListComponent,
+    },
+    {
+        path: "create",
+        component: PanoramaCreateComponent,
+    },
+    {
+        path: "details/:id",
+        component: PanoramaDetailsComponent,
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class PanoramaRoutingModule {}

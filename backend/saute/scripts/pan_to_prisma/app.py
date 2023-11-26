@@ -146,17 +146,27 @@ def setup_panorama_client(pan_url: str, api_key: str) -> Panorama:
 # ----------------------------------------------------------------------------
 # Function to fetch security rules
 # ----------------------------------------------------------------------------
-def get_security_rules(pan: Panorama) -> List[SecurityRuleData]:
-    pre_rulebase = PreRulebase()
-    post_rulebase = PostRulebase()
+def get_security_rules(
+    pan: Panorama,
+    device_group: Optional[DeviceGroup] = None,
+    position: str = "pre",
+) -> List[SecurityRuleData]:
+    if position == "pre":
+        logging.debug("Fetching pre-rules...")
+        rulebase = PreRulebase()
+    elif position == "post":
+        logging.debug("Fetching post-rules...")
+        rulebase = PostRulebase()
+    else:
+        logging.error("Invalid position: %s", position)
+        return
 
-    pan.add(pre_rulebase)
-    pan.add(post_rulebase)
+    if device_group:
+        device_group.add(rulebase)
+    else:
+        pan.add(rulebase)
 
-    pre_rules = SecurityRule.refreshall(pre_rulebase)
-    post_rules = SecurityRule.refreshall(post_rulebase)
-
-    rules = pre_rules + post_rules
+    rules = SecurityRule.refreshall(rulebase)
 
     rules_data = []
     for rule in rules:
@@ -318,46 +328,91 @@ def create_prisma_address_groups(
 # Function to create Prisma security rules
 # ----------------------------------------------------------------------------
 def create_prisma_security_rules(
-    security_rules: List[SecurityRuleData], session: PanApiSession
+    security_rules: Dict[str, Any], session: PanApiSession
 ) -> List[Dict[str, str]]:
     prisma_security_rules = []
-    for security_rule in security_rules:
-        logging.debug("security_rule: %s", security_rule)
 
-        try:
-            prisma_security_rule_data = {
-                "name": security_rule.rule_name,
-                "folder": "Prisma Access",
-                "position": "pre",
-                "action": security_rule.actions,
-                "from": ["any"],
-                "to": ["any"],
-                "source": ["any"],
-                "destination": ["any"],
-                "source_user": ["any"],
-                "category": ["any"],
-                "application": security_rule.applications,
-                "service": ["any"],
-                "log_setting": "Cortex Data Lake",
-                "description": security_rule.description
-                if security_rule.description
-                else "n/a",
-            }
-            prisma_security_rule = PrismaSecurityRule(**prisma_security_rule_data)
-            logging.debug("prisma_security_rule: %s", prisma_security_rule)
-            prisma_security_rule.create(session)
-        except Exception as e:
-            logging.error("Error creating security rule: %s", e)
-            return
+    for device_group, rulebases in security_rules.items():
+        logging.debug("device_group: %s", device_group)
+        logging.debug("rulebases: %s", rulebases)
 
-        prisma_security_rules.append(prisma_security_rule_data)
+        if len(rulebases["pre_rules"]) > 0:
+            logging.debug("pre_rules: %s", rulebases["pre_rules"])
+            for rule in rulebases["pre_rules"]:
+                logging.debug("rule: %s", rule)
+                try:
+                    # import ipdb
+
+                    # ipdb.set_trace()
+
+                    prisma_security_rule_data = {
+                        "name": rule["rule_name"],
+                        "folder": "Prisma Access",
+                        "position": "pre",
+                        "action": rule["actions"],
+                        "from": ["any"],
+                        "to": ["any"],
+                        "source": ["any"],
+                        "destination": ["any"],
+                        "source_user": ["any"],
+                        "category": ["any"],
+                        "application": rule["applications"],
+                        "service": ["any"],
+                        "log_setting": "Cortex Data Lake",
+                        "description": rule["description"]
+                        if rule["description"]
+                        else "n/a",
+                    }
+                    prisma_security_rule = PrismaSecurityRule(
+                        **prisma_security_rule_data
+                    )
+                    logging.debug("prisma_security_rule: %s", prisma_security_rule)
+                    prisma_security_rule.create(session)
+                except Exception as e:
+                    logging.error("Error creating security rule: %s", e)
+
+                prisma_security_rules.append(prisma_security_rule_data)
+
+        if len(rulebases["post_rules"]) > 0:
+            logging.debug("post_rules: %s", rulebases["post_rules"])
+            for rule in rulebases["post_rules"]:
+                logging.debug("rule: %s", rule)
+                try:
+                    prisma_security_rule_data = {
+                        "name": rule["rule_name"],
+                        "folder": "Prisma Access",
+                        "position": "post",
+                        "action": rule["actions"],
+                        "from": ["any"],
+                        "to": ["any"],
+                        "source": ["any"],
+                        "destination": ["any"],
+                        "source_user": ["any"],
+                        "category": ["any"],
+                        "application": rule["applications"],
+                        "service": ["any"],
+                        "log_setting": "Cortex Data Lake",
+                        "description": rule["description"]
+                        if rule["description"]
+                        else "n/a",
+                    }
+                    prisma_security_rule = PrismaSecurityRule(
+                        **prisma_security_rule_data
+                    )
+                    logging.debug("prisma_security_rule: %s", prisma_security_rule)
+                    prisma_security_rule.create(session)
+                except Exception as e:
+                    logging.error("Error creating security rule: %s", e)
+                    return
+
+                prisma_security_rules.append(prisma_security_rule_data)
     return prisma_security_rules
 
 
 # ----------------------------------------------------------------------------
 # Main execution of our script
 # ----------------------------------------------------------------------------
-def run_sync_to_prisma(
+def run_pan_to_prisma(
     pan_url: str,
     api_key: str,
     client_id: str,
@@ -372,14 +427,13 @@ def run_sync_to_prisma(
     # process config objects to determine which parts of the config we will work on
     config_objects_list = [item.strip() for item in config_objects.split(",")]
     process_all = "all" in config_objects_list
-    process_address_objects = process_all or "address-objects" in config_objects_list
-    process_address_groups = process_all or "address-groups" in config_objects_list
-    process_security_rules = process_all or "security-rules" in config_objects_list
+    process_address_objects = process_all or "address_objects" in config_objects_list
+    process_address_groups = process_all or "address_groups" in config_objects_list
+    process_security_rules = process_all or "security_rules" in config_objects_list
 
     # authenticate with Panorama
     logging.info("Authenticating with Panorama...")
     pan = setup_panorama_client(pan_url, api_key)
-    logging.debug(pan)
 
     # authenticate with Prisma
     try:
@@ -453,21 +507,65 @@ def run_sync_to_prisma(
         # fetch security rules
         try:
             logging.info("Retrieving security rules...")
-            rules = get_security_rules(pan)
-            logging.debug(rules)
+
+            # Fetch and process device groups
+            device_groups = DeviceGroup.refreshall(pan)
+            security_policy = {"shared": {"pre_rules": [], "post_rules": []}}
+
+            for dg in device_groups:
+                dg_name = dg.name
+
+                # Skip the specified DeviceGroup
+                if dg_name == "Service_Conn_Device_Group":
+                    logging.info(f"Skipping DeviceGroup: {dg_name}")
+                    continue
+
+                logging.info(f"Processing device group: {dg_name}")
+
+                # Fetch security rules for each device group
+                dg_pre_rules = get_security_rules(
+                    pan,
+                    device_group=dg,
+                    position="pre",
+                )
+                dg_post_rules = get_security_rules(
+                    pan,
+                    device_group=dg,
+                    position="post",
+                )
+
+                security_policy[dg_name] = {
+                    "pre_rules": [rule.dict() for rule in dg_pre_rules],
+                    "post_rules": [rule.dict() for rule in dg_post_rules],
+                }
+
+            # Add shared rules
+            shared_pre_rules = get_security_rules(
+                pan,
+                position="pre",
+            )
+            shared_post_rules = get_security_rules(
+                pan,
+                position="post",
+            )
+            security_policy["shared"]["pre_rules"] = [
+                rule.dict() for rule in shared_pre_rules
+            ]
+            security_policy["shared"]["post_rules"] = [
+                rule.dict() for rule in shared_post_rules
+            ]
+            logging.debug(security_policy)
         except Exception as e:
             logging.error("Error retrieving security rules: %s", e)
             return
 
-        # console logging when debugging
-        for rule_data in rules:
-            logging.debug(rule_data.json(indent=2))
-
         # Add to result dictionary
-        result["panorama_security_rules"] = [sr.dict() for sr in rules]
+        result["panorama_security_rules"] = security_policy
         try:
             logging.info("Creating Prisma security rules...")
-            prisma_security_rules = create_prisma_security_rules(rules, session)
+            prisma_security_rules = create_prisma_security_rules(
+                security_policy, session
+            )
         except Exception as e:
             logging.error(f"Error with Prisma API calls: {e}")
             return {"error": str(e)}
@@ -484,7 +582,7 @@ def run_sync_to_prisma(
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
     args = parse_arguments()
-    result = run_sync_to_prisma(
+    result = run_pan_to_prisma(
         args.pan_url,
         args.api_key,
         args.client_id,
